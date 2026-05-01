@@ -31,6 +31,7 @@ export default function EndOfDay() {
   const [earliestDate, setEarliestDate] = useState('')
   const [metrics, setMetrics] = useState<EndOfDayMetrics>(EMPTY)
   const [processingDetail, setProcessingDetail] = useState<any>(null)
+  const [isLive, setIsLive] = useState(false)
   const [noData, setNoData] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -64,6 +65,7 @@ export default function EndOfDay() {
 
         setMetrics(res.metrics)
         setProcessingDetail(res.processingDetail)
+        setIsLive(!!res.live)
         setLastUpdated(new Date())
       })
       .catch((e) => setError(e.message))
@@ -93,6 +95,12 @@ export default function EndOfDay() {
         <div className="flex items-center justify-between flex-wrap gap-2">
           <DatePicker value={date} onChange={setDate} min={earliestDate} />
           <div className="flex items-center gap-3 text-xs text-gray-400">
+            {isLive && (
+              <span className="flex items-center gap-1 text-red-500 font-semibold">
+                <span className="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                LIVE
+              </span>
+            )}
             {lastUpdated && <span>Updated {lastUpdated.toLocaleTimeString()}</span>}
             <span className="flex items-center gap-1">
               <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
