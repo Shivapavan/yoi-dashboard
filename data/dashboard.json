@@ -1,16 +1,16 @@
 {
-  "lastUpdated": "2026-05-01 09:29 CDT",
+  "lastUpdated": "2026-05-01 10:37 CDT",
   "businessDay": "2026-05-01",
   "businessDayWindow": "05/01 04:00AM – 05/02 03:59AM CDT",
   "eod": {
-    "grossSales": 0,
-    "netSales": 0,
-    "taxes": 0,
+    "grossSales": 25.94,
+    "netSales": 23.96,
+    "taxes": 1.98,
     "voids": 0,
     "cashPayments": 0,
-    "creditCardPayments": 0,
+    "creditCardPayments": 25.94,
     "discounts": 0,
-    "openTickets": 0
+    "openTickets": 25.94
   },
   "processingDetail": {
     "windowLabel": "2026-05-01 12:00AM – 11:59PM CDT",
@@ -6508,30 +6508,55 @@
       "stOnline": 0,
       "uberEats": 0,
       "openTickets": 1724.36,
-      "cardBreakdown": {
-        "visa": 1062.36,
-        "mastercard": 201.65,
-        "amex": 152.49,
-        "discover": 89.24,
-        "debit": 0,
-        "ebt": 0,
-        "returns": 0,
-        "total": 1505.74
-      }
+      "cardBreakdown": [
+        {
+          "label": "Total Sales",
+          "amount": 1505.74,
+          "bold": true
+        },
+        {
+          "label": "Visa",
+          "amount": 1062.36
+        },
+        {
+          "label": "Mastercard",
+          "amount": 201.65
+        },
+        {
+          "label": "Amex",
+          "amount": 152.49
+        },
+        {
+          "label": "Discover",
+          "amount": 89.24
+        },
+        {
+          "label": "Debit",
+          "amount": 0
+        },
+        {
+          "label": "EBT",
+          "amount": 0
+        },
+        {
+          "label": "Returns",
+          "amount": 0
+        }
+      ]
     },
     {
       "date": "2026-05-01",
-      "grossSales": 0,
-      "netSales": 0,
-      "taxes": 0,
+      "grossSales": 25.94,
+      "netSales": 23.96,
+      "taxes": 1.98,
       "discounts": 0,
       "voids": 0,
       "cashPayments": 0,
-      "creditCard": 0,
+      "creditCard": 25.94,
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 25.94
     }
   ],
   "itemsByDay": [
@@ -68374,6 +68399,26 @@
           "revenue": 2.99
         }
       ]
+    },
+    {
+      "date": "2026-05-01",
+      "items": [
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Mysore Bonda (4 Pcs)",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Coffee",
+          "qty": 2,
+          "revenue": 6.98
+        }
+      ]
     }
   ],
   "disputes": [
@@ -68398,5 +68443,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-01 09:29 CDT"
+  "disputesScannedAt": "2026-05-01 10:37 CDT"
 }
