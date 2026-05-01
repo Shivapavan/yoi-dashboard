@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --yoi-purple: #5B21B6;
+  --yoi-purple-light: #EDE9FE;
+  --yoi-gold: #B8860B;
+  --yoi-gold-light: #FEF3C7;
+  --yoi-bg: #F5F5F5;
+}
+
+body {
+  background-color: var(--yoi-bg);
+  font-family: system-ui, -apple-system, sans-serif;
+}
