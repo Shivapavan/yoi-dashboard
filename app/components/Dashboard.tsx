@@ -11,9 +11,10 @@ export default function Dashboard() {
   return (
     <div>
       <TabNav active={tab} onChange={setTab} />
-      {tab === 'end-of-day' && <EndOfDay />}
-      {tab === 'sales-trend' && <SalesTrend />}
-      {tab === 'top-items' && <TopItems />}
+      {/* Keep all tabs mounted — hiding with CSS preserves state across tab switches */}
+      <div className={tab === 'end-of-day' ? '' : 'hidden'}><EndOfDay /></div>
+      <div className={tab === 'sales-trend' ? '' : 'hidden'}><SalesTrend /></div>
+      <div className={tab === 'top-items' ? '' : 'hidden'}><TopItems /></div>
     </div>
   )
 }

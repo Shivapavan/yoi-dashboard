@@ -115,13 +115,17 @@ export async function fetchLiveDisputes(knownDisputes: any[]) {
     const end = new Date(now); end.setDate(end.getDate() + 1); end.setHours(4, 59, 59, 999)
 
     const verified = await Promise.all(knownDisputes.map(async (d: any) => {
-      const res = await fetch(
-        `${BASE}/api/v2/internet-payments/transactions?limit=5&offset=0&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}&searchTerm=${d.txnId}&sortBy=date&sortDir=DESC`,
-        { method: 'POST', headers: headers(), body: JSON.stringify({ locationIds: [LOCATION_ID] }), cache: 'no-store' }
-      )
-      const data = await res.json()
-      const txn = data.transactions?.[0]
-      return txn?.eventStatus === 'NOTIFICATION_OF_DISPUTE' ? d : null
+      try {
+        const res = await fetch(
+          `${BASE}/api/v2/internet-payments/transactions?limit=5&offset=0&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}&searchTerm=${d.txnId}&sortBy=date&sortDir=DESC`,
+          { method: 'POST', headers: headers(), body: JSON.stringify({ locationIds: [LOCATION_ID] }), cache: 'no-store' }
+        )
+        if (!res.ok) return d  // API/auth error → keep dispute
+        const data = await res.json()
+        const txns = data.transactions || []
+        if (txns.length === 0) return d  // No results (token expired?) → keep dispute
+        return txns[0]?.eventStatus === 'NOTIFICATION_OF_DISPUTE' ? d : null
+      } catch { return d }  // Network error → keep dispute
     }))
     return verified.filter(Boolean)
   } catch { return knownDisputes }
