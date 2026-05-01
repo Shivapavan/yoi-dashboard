@@ -1,40 +1,40 @@
 {
-  "lastUpdated": "2026-05-01 08:24 CDT",
+  "lastUpdated": "2026-05-01 09:29 CDT",
   "businessDay": "2026-05-01",
-  "businessDayWindow": "04/29 04:00AM – 04/30 03:59AM CDT",
+  "businessDayWindow": "05/01 04:00AM – 05/02 03:59AM CDT",
   "eod": {
-    "grossSales": 1724.14,
-    "netSales": 1593.77,
-    "taxes": 130.37,
+    "grossSales": 0,
+    "netSales": 0,
+    "taxes": 0,
     "voids": 0,
     "cashPayments": 0,
-    "creditCardPayments": 1399.1,
+    "creditCardPayments": 0,
     "discounts": 0,
-    "openTickets": 1686.61
+    "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "04/29 12:00AM – 11:59PM CDT",
+    "windowLabel": "2026-05-01 12:00AM – 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 1399.1,
+        "amount": 1505.74,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 0
+        "amount": 1062.36
       },
       {
         "label": "Mastercard",
-        "amount": 0
+        "amount": 201.65
       },
       {
         "label": "Amex",
-        "amount": 0
+        "amount": 152.49
       },
       {
         "label": "Discover",
-        "amount": 0
+        "amount": 89.24
       },
       {
         "label": "Debit",
@@ -68398,5 +68398,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-01 09:00 CDT"
+  "disputesScannedAt": "2026-05-01 09:29 CDT"
 }
