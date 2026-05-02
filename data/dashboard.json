@@ -1,40 +1,40 @@
 {
-  "lastUpdated": "2026-05-01 10:37 CDT",
-  "businessDay": "2026-05-01",
-  "businessDayWindow": "05/01 04:00AM – 05/02 03:59AM CDT",
+  "lastUpdated": "2026-05-02 10:19 CDT",
+  "businessDay": "2026-05-02",
+  "businessDayWindow": "05/02 04:00AM – 05/03 03:59AM CDT",
   "eod": {
-    "grossSales": 25.94,
-    "netSales": 23.96,
-    "taxes": 1.98,
+    "grossSales": 52.93,
+    "netSales": 48.9,
+    "taxes": 4.03,
     "voids": 0,
     "cashPayments": 0,
-    "creditCardPayments": 25.94,
+    "creditCardPayments": 52.93,
     "discounts": 0,
-    "openTickets": 25.94
+    "openTickets": 82.13
   },
   "processingDetail": {
-    "windowLabel": "2026-05-01 12:00AM – 11:59PM CDT",
+    "windowLabel": "05/01 12:00AM – 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 1505.74,
+        "amount": 4228.83,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 1062.36
+        "amount": 2510.42
       },
       {
         "label": "Mastercard",
-        "amount": 201.65
+        "amount": 876.12
       },
       {
         "label": "Amex",
-        "amount": 152.49
+        "amount": 375
       },
       {
         "label": "Discover",
-        "amount": 89.24
+        "amount": 467.29
       },
       {
         "label": "Debit",
@@ -46,7 +46,7 @@
       },
       {
         "label": "Returns",
-        "amount": 0
+        "amount": -12.42
       }
     ]
   },
@@ -6556,7 +6556,30 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 25.94
+      "openTickets": 25.94,
+      "cardBreakdown": {
+        "visa": 2510.42,
+        "mastercard": 876.12,
+        "amex": 375,
+        "discover": 467.29,
+        "debit": 0,
+        "ebt": 0,
+        "returns": -12.42
+      }
+    },
+    {
+      "date": "2026-05-02",
+      "grossSales": 52.93,
+      "netSales": 48.9,
+      "taxes": 4.03,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 52.93,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "openTickets": 82.13
     }
   ],
   "itemsByDay": [
@@ -68419,6 +68442,46 @@
           "revenue": 6.98
         }
       ]
+    },
+    {
+      "date": "2026-05-02",
+      "items": [
+        {
+          "name": "Breakfast  Combo",
+          "qty": 5,
+          "revenue": 44.95
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Coffee",
+          "qty": 2,
+          "revenue": 6.98
+        },
+        {
+          "name": "Open Food",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Black Forest Cake",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 2,
+          "revenue": 3.98
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -68443,5 +68506,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-01 10:37 CDT"
+  "disputesScannedAt": "2026-05-02 10:19 CDT"
 }
