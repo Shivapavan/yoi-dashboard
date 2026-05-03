@@ -1,40 +1,40 @@
 {
-  "lastUpdated": "2026-05-02 10:19 CDT",
-  "businessDay": "2026-05-02",
-  "businessDayWindow": "05/02 04:00AM – 05/03 03:59AM CDT",
+  "lastUpdated": "2026-05-03 10:14 CDT",
+  "businessDay": "2026-05-03",
+  "businessDayWindow": "05/03 04:00AM – 05/04 03:59AM CDT",
   "eod": {
-    "grossSales": 52.93,
-    "netSales": 48.9,
-    "taxes": 4.03,
+    "grossSales": 30.25,
+    "netSales": 27.95,
+    "taxes": 2.3,
     "voids": 0,
     "cashPayments": 0,
-    "creditCardPayments": 52.93,
+    "creditCardPayments": 30.25,
     "discounts": 0,
-    "openTickets": 82.13
+    "openTickets": 140.56
   },
   "processingDetail": {
-    "windowLabel": "05/01 12:00AM – 11:59PM CDT",
+    "windowLabel": "2026-05-03 12:00AM – 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 4228.83,
+        "amount": 3950.5,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 2510.42
+        "amount": 2876.7
       },
       {
         "label": "Mastercard",
-        "amount": 876.12
+        "amount": 528.29
       },
       {
         "label": "Amex",
-        "amount": 375
+        "amount": 286.63
       },
       {
         "label": "Discover",
-        "amount": 467.29
+        "amount": 258.88
       },
       {
         "label": "Debit",
@@ -46,7 +46,7 @@
       },
       {
         "label": "Returns",
-        "amount": -12.42
+        "amount": 0
       }
     ]
   },
@@ -6579,7 +6579,56 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 82.13
+      "openTickets": 82.13,
+      "cardBreakdown": [
+        {
+          "label": "Total Sales",
+          "amount": 3950.5,
+          "bold": true
+        },
+        {
+          "label": "Visa",
+          "amount": 2876.7
+        },
+        {
+          "label": "Mastercard",
+          "amount": 528.29
+        },
+        {
+          "label": "Amex",
+          "amount": 286.63
+        },
+        {
+          "label": "Discover",
+          "amount": 258.88
+        },
+        {
+          "label": "Debit",
+          "amount": 0
+        },
+        {
+          "label": "EBT",
+          "amount": 0
+        },
+        {
+          "label": "Returns",
+          "amount": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-05-03",
+      "grossSales": 30.25,
+      "netSales": 27.95,
+      "taxes": 2.3,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 30.25,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "openTickets": 140.56
     }
   ],
   "itemsByDay": [
@@ -68482,6 +68531,66 @@
           "revenue": 0.99
         }
       ]
+    },
+    {
+      "date": "2026-05-03",
+      "items": [
+        {
+          "name": "Benne Masala Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Breakfast  Combo",
+          "qty": 2,
+          "revenue": 17.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Mysore Masala Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Poori With Curry (2 Pcs)",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Set Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Plain Dosa",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "Fresh Watermelon Juice",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Idly",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 2,
+          "revenue": 3.98
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 2,
+          "revenue": 1.98
+        }
+      ]
     }
   ],
   "disputes": [
@@ -68506,5 +68615,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-02 10:19 CDT"
+  "disputesScannedAt": "2026-05-03 10:14 CDT"
 }
