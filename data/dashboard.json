@@ -1,40 +1,40 @@
 {
-  "lastUpdated": "2026-05-03 10:14 CDT",
-  "businessDay": "2026-05-03",
+  "lastUpdated": "2026-05-04 10:19 CDT",
+  "businessDay": "2026-05-04",
   "businessDayWindow": "05/03 04:00AM – 05/04 03:59AM CDT",
   "eod": {
-    "grossSales": 30.25,
-    "netSales": 27.95,
-    "taxes": 2.3,
+    "grossSales": 0,
+    "netSales": 0,
+    "taxes": 0,
     "voids": 0,
     "cashPayments": 0,
-    "creditCardPayments": 30.25,
+    "creditCardPayments": 0,
     "discounts": 0,
-    "openTickets": 140.56
+    "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-05-03 12:00AM – 11:59PM CDT",
+    "windowLabel": "2026-05-04 12:00AM – 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 3950.5,
+        "amount": 2686.59,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 2876.7
+        "amount": 1527.15
       },
       {
         "label": "Mastercard",
-        "amount": 528.29
+        "amount": 464.57
       },
       {
         "label": "Amex",
-        "amount": 286.63
+        "amount": 294.65
       },
       {
         "label": "Discover",
-        "amount": 258.88
+        "amount": 400.22
       },
       {
         "label": "Debit",
@@ -6628,7 +6628,31 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 140.56
+      "openTickets": 140.56,
+      "cardBreakdown": {
+        "visa": 1527.15,
+        "mastercard": 464.57,
+        "amex": 294.65,
+        "discover": 400.22,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0,
+        "total": 2686.59
+      }
+    },
+    {
+      "date": "2026-05-04",
+      "grossSales": 0,
+      "netSales": 0,
+      "taxes": 0,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
     }
   ],
   "itemsByDay": [
@@ -68615,5 +68639,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-03 10:14 CDT"
+  "disputesScannedAt": "2026-05-04 10:19 CDT"
 }

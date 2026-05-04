@@ -12,19 +12,19 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const TOKEN = process.argv[2];
 if (!TOKEN) { console.error('Usage: node daily-refresh.mjs <JWT_TOKEN>'); process.exit(1); }
 
-const TODAY = '2026-05-01';  // YYYY-MM-DD
-const YESTERDAY = '2026-04-30';
+const TODAY = '2026-05-04';  // YYYY-MM-DD
+const YESTERDAY = '2026-05-03';
 const MERCHANT_ID = '0022712560';
 const LOCATION_ID = '43141083';
 const HEADERS = { 'x-access-token': TOKEN, 'accept': 'application/json' };
 
 // Business day window: 4AM CDT (9AM UTC) to 3:59AM CDT next day (8:59AM UTC)
 const BIZ_START = `${TODAY}T09:00:00.000Z`;
-const BIZ_END   = '2026-05-02T08:59:59.999Z';
+const BIZ_END   = '2026-05-05T08:59:59.999Z';
 
 // Calendar day for batch detail: midnight CDT (05:00 UTC) to 11:59PM CDT (next day 04:59 UTC)
 const CAL_START = `${TODAY}T05:00:00.000Z`;
-const CAL_END   = '2026-05-02T04:59:59.999Z';
+const CAL_END   = '2026-05-05T04:59:59.999Z';
 
 const BASE = 'https://lighthouse-api.harbortouch.com/api/v1';
 
@@ -55,7 +55,7 @@ async function fetchMetric(metric) {
 }
 
 async function fetchTopItems() {
-  const url = `${BASE}/reports/echo-pro/xls/sales-summary-by-item-open-and-closed-tickets?start=${encodeURIComponent(TODAY + 'T09:00:00-00:00')}&end=${encodeURIComponent('2026-05-02T08:59:00-00:00')}&locations[]=${LOCATION_ID}&token=${TOKEN}`;
+  const url = `${BASE}/reports/echo-pro/xls/sales-summary-by-item-open-and-closed-tickets?start=${encodeURIComponent(TODAY + 'T09:00:00-00:00')}&end=${encodeURIComponent('2026-05-05T08:59:00-00:00')}&locations[]=${LOCATION_ID}&token=${TOKEN}`;
   console.log('  Fetching top items XLS...');
   const res = await fetch(url, { headers: HEADERS });
   if (!res.ok) {
