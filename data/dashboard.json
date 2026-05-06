@@ -1,40 +1,40 @@
 {
-  "lastUpdated": "2026-05-05 10:12 CDT",
-  "businessDay": "2026-05-05",
-  "businessDayWindow": "05/03 04:00AM – 05/04 03:59AM CDT",
+  "lastUpdated": "2026-05-06 10:14 CDT",
+  "businessDay": "2026-05-06",
+  "businessDayWindow": "05/06 04:00AM \u2013 05/07 03:59AM CDT",
   "eod": {
-    "grossSales": 0,
-    "netSales": 0,
-    "taxes": 0,
-    "voids": 0,
-    "cashPayments": 0,
-    "creditCardPayments": 0,
-    "discounts": 0,
-    "openTickets": 0
+    "grossSales": 0.0,
+    "netSales": 0.0,
+    "taxes": 0.0,
+    "voids": 0.0,
+    "cashPayments": 0.0,
+    "creditCardPayments": 0.0,
+    "discounts": 0.0,
+    "openTickets": 0.0
   },
   "processingDetail": {
-    "windowLabel": "2026-05-05 12:00AM – 11:59PM CDT",
+    "windowLabel": "05/05 12:00AM \u2013 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 1305.65,
+        "amount": 1230.54,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 690.3
+        "amount": 870.68
       },
       {
         "label": "Mastercard",
-        "amount": 122.69
+        "amount": 147.18
       },
       {
         "label": "Amex",
-        "amount": 370.21
+        "amount": 136.57
       },
       {
         "label": "Discover",
-        "amount": 122.45
+        "amount": 76.11
       },
       {
         "label": "Debit",
@@ -977,20 +977,6 @@
     },
     {
       "date": "2025-03-08",
-      "grossSales": 0,
-      "netSales": 0,
-      "taxes": 0,
-      "discounts": 0,
-      "voids": 0,
-      "cashPayments": 0,
-      "creditCard": 0,
-      "doordash": 0,
-      "stOnline": 0,
-      "uberEats": 0,
-      "openTickets": 0
-    },
-    {
-      "date": "2025-03-09",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -6676,7 +6662,31 @@
       "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": {
+        "visa": 870.68,
+        "mastercard": 147.18,
+        "amex": 136.57,
+        "discover": 76.11,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0,
+        "total": 1230.54
+      }
+    },
+    {
+      "date": "2026-05-06",
+      "grossSales": 0.0,
+      "netSales": 0.0,
+      "taxes": 0.0,
+      "discounts": 0.0,
+      "voids": 0.0,
+      "cashPayments": 0.0,
+      "creditCard": 0.0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "openTickets": 0.0
     }
   ],
   "itemsByDay": [
@@ -68663,5 +68673,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-05 10:12 CDT"
+  "disputesScannedAt": "2026-05-06 10:14 CDT"
 }
