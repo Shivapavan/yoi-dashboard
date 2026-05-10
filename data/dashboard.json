@@ -1,52 +1,52 @@
 {
-  "lastUpdated": "2026-05-09 10:06 CDT",
-  "businessDay": "2026-05-09",
-  "businessDayWindow": "05/07 04:00AM \u2013 05/08 03:59AM CDT",
+  "lastUpdated": "2026-05-10 10:15 CDT",
+  "businessDay": "2026-05-10",
+  "businessDayWindow": "05/10 04:00AM \u2013 05/11 03:59AM CDT",
   "eod": {
-    "grossSales": 16.39,
-    "netSales": 15.14,
-    "taxes": 1.25,
+    "grossSales": 30.93,
+    "netSales": 28.58,
+    "taxes": 2.35,
+    "discounts": 0,
     "voids": 0,
     "cashPayments": 0,
-    "creditCardPayments": 16.39,
-    "discounts": 0,
-    "openTickets": 50.73
+    "creditCardPayments": 30.93,
+    "openTickets": 30.93
   },
   "processingDetail": {
     "windowLabel": "2026-05-09 12:00AM \u2013 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 3545.79,
+        "amount": 7057.79,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 2137.98
+        "amount": 4520.68
       },
       {
         "label": "Mastercard",
-        "amount": 691.82
+        "amount": 1375.74
       },
       {
         "label": "Amex",
-        "amount": 237.09
+        "amount": 497.73
       },
       {
         "label": "Discover",
-        "amount": 488.62
+        "amount": 690.67
       },
       {
         "label": "Debit",
-        "amount": 0
+        "amount": 0.0
       },
       {
         "label": "EBT",
-        "amount": 0
+        "amount": 0.0
       },
       {
         "label": "Returns",
-        "amount": -9.72
+        "amount": -27.03
       }
     ]
   },
@@ -6748,7 +6748,56 @@
       "openTickets": 50.73,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": [
+        {
+          "label": "Total Sales",
+          "amount": 7057.79,
+          "bold": true
+        },
+        {
+          "label": "Visa",
+          "amount": 4520.68
+        },
+        {
+          "label": "Mastercard",
+          "amount": 1375.74
+        },
+        {
+          "label": "Amex",
+          "amount": 497.73
+        },
+        {
+          "label": "Discover",
+          "amount": 690.67
+        },
+        {
+          "label": "Debit",
+          "amount": 0.0
+        },
+        {
+          "label": "EBT",
+          "amount": 0.0
+        },
+        {
+          "label": "Returns",
+          "amount": -27.03
+        }
+      ]
+    },
+    {
+      "date": "2026-05-10",
+      "grossSales": 30.93,
+      "netSales": 28.58,
+      "taxes": 2.35,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 30.93,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "openTickets": 30.93
     }
   ],
   "itemsByDay": [
@@ -68751,6 +68800,36 @@
           "revenue": 0.17
         }
       ]
+    },
+    {
+      "date": "2026-05-10",
+      "items": [
+        {
+          "name": "Medu Vada(3 Pcs)",
+          "qty": 2,
+          "revenue": 14.98
+        },
+        {
+          "name": "Mysore Bonda (4 Pcs)",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 2,
+          "revenue": 3.98
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 2,
+          "revenue": 0.64
+        }
+      ]
     }
   ],
   "disputes": [
@@ -68775,5 +68854,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-09 10:06 CDT"
+  "disputesScannedAt": "2026-05-10 10:15 CDT"
 }
