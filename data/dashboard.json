@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-05-11 10:07 CDT",
-  "businessDay": "2026-05-11",
-  "businessDayWindow": "05/10 04:00AM – 05/11 03:59AM CDT",
+  "lastUpdated": "2026-05-12 10:10 CDT",
+  "businessDay": "2026-05-12",
+  "businessDayWindow": "05/12 04:00AM – 05/13 03:59AM CDT",
   "eod": {
     "grossSales": 0,
     "netSales": 0,
@@ -13,28 +13,28 @@
     "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-05-11 12:00AM – 11:59PM CDT",
+    "windowLabel": "2026-05-12 12:00AM – 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 4464.55,
+        "amount": 1846.15,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 2509.6
+        "amount": 1151.49
       },
       {
         "label": "Mastercard",
-        "amount": 1057.58
+        "amount": 282.49
       },
       {
         "label": "Amex",
-        "amount": 745.98
+        "amount": 204.54
       },
       {
         "label": "Discover",
-        "amount": 158.96
+        "amount": 207.63
       },
       {
         "label": "Debit",
@@ -46,7 +46,7 @@
       },
       {
         "label": "Returns",
-        "amount": -7.57
+        "amount": 0
       }
     ]
   },
@@ -6821,7 +6821,56 @@
       "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": [
+        {
+          "label": "Total Sales",
+          "amount": 1846.15,
+          "bold": true
+        },
+        {
+          "label": "Visa",
+          "amount": 1151.49
+        },
+        {
+          "label": "Mastercard",
+          "amount": 282.49
+        },
+        {
+          "label": "Amex",
+          "amount": 204.54
+        },
+        {
+          "label": "Discover",
+          "amount": 207.63
+        },
+        {
+          "label": "Debit",
+          "amount": 0
+        },
+        {
+          "label": "EBT",
+          "amount": 0
+        },
+        {
+          "label": "Returns",
+          "amount": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-05-12",
+      "grossSales": 0,
+      "netSales": 0,
+      "taxes": 0,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "openTickets": 0
     }
   ],
   "itemsByDay": [
@@ -68878,5 +68927,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-11 10:07 CDT"
+  "disputesScannedAt": "2026-05-12 10:10 CDT"
 }
