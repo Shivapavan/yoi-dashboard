@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-05-13 10:16 AM CDT",
-  "businessDay": "2026-05-13",
-  "businessDayWindow": "05/13 04:00AM – 05/14 03:59AM CDT",
+  "lastUpdated": "2026-05-14 10:17 AM CDT",
+  "businessDay": "2026-05-14",
+  "businessDayWindow": "05/14 04:00AM – 05/15 03:59AM CDT",
   "eod": {
     "grossSales": 0,
     "netSales": 0,
@@ -13,28 +13,28 @@
     "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-05-12 12:00AM – 11:59PM CDT",
+    "windowLabel": "2026-05-13 12:00AM – 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 1116.32,
+        "amount": 1297.44,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 625.12
+        "amount": 650.84
       },
       {
         "label": "Mastercard",
-        "amount": 295.46
+        "amount": 546.75
       },
       {
         "label": "Amex",
-        "amount": 50.78
+        "amount": 44.56
       },
       {
         "label": "Discover",
-        "amount": 144.96
+        "amount": 55.29
       },
       {
         "label": "Debit",
@@ -6884,6 +6884,30 @@
     },
     {
       "date": "2026-05-13",
+      "grossSales": 1420.47,
+      "netSales": 1312.22,
+      "taxes": 108.25,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 90.45,
+      "creditCard": 1243.13,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "openTickets": 1404.96,
+      "cardBreakdown": {
+        "visa": 650.84,
+        "mastercard": 546.75,
+        "amex": 44.56,
+        "discover": 55.29,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0,
+        "total": 1297.44
+      }
+    },
+    {
+      "date": "2026-05-14",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -6891,10 +6915,10 @@
       "voids": 0,
       "cashPayments": 0,
       "creditCard": 0,
+      "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0,
-      "openTickets": 0
+      "uberEats": 0
     }
   ],
   "itemsByDay": [
@@ -68927,6 +68951,115 @@
           "revenue": 0.64
         }
       ]
+    },
+    {
+      "date": "2026-05-13",
+      "items": [
+        {
+          "name": "Fried Rice",
+          "qty": 4,
+          "revenue": 69.45
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 3,
+          "revenue": 50.97
+        },
+        {
+          "name": "Chicken 555(Semi Wet)",
+          "qty": 3,
+          "revenue": 47.97
+        },
+        {
+          "name": "Pompret Fry",
+          "qty": 2,
+          "revenue": 35.98
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Chicken Lollipops",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Crispy Corn Masala",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Karvepaku Chicken",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Tandoori Chicken (Full)",
+          "qty": 1,
+          "revenue": 28.99
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 8,
+          "revenue": 28.72
+        },
+        {
+          "name": "Benne Masala Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Chole Bhature",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Butter naan",
+          "qty": 8,
+          "revenue": 23.92
+        },
+        {
+          "name": "Pani Puri (6 Pcs)",
+          "qty": 3,
+          "revenue": 20.97
+        },
+        {
+          "name": "Ghee Roast Non-Veg Curry",
+          "qty": 1,
+          "revenue": 20.48
+        },
+        {
+          "name": "Ghee Roast Goat Fry",
+          "qty": 1,
+          "revenue": 18.99
+        },
+        {
+          "name": "Mutton Sukka Varuval",
+          "qty": 1,
+          "revenue": 18.99
+        }
+      ]
+    },
+    {
+      "date": "2026-05-14",
+      "items": []
     }
   ],
   "disputes": [
@@ -68951,5 +69084,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-13 10:16 AM CDT"
+  "disputesScannedAt": "2026-05-14 10:17 AM CDT"
 }
