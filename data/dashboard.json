@@ -1,40 +1,40 @@
 {
-  "lastUpdated": "2026-05-15 10:13 AM CDT",
-  "businessDay": "2026-05-15",
+  "lastUpdated": "2026-05-16 10:04 CDT",
+  "businessDay": "2026-05-16",
   "businessDayWindow": "05/15 04:00AM – 05/16 03:59AM CDT",
   "eod": {
-    "grossSales": 0,
-    "netSales": 0,
-    "taxes": 0,
+    "grossSales": 32.41,
+    "netSales": 29.95,
+    "taxes": 2.46,
     "voids": 0,
     "cashPayments": 0,
-    "creditCardPayments": 0,
+    "creditCardPayments": 32.41,
     "discounts": 0,
-    "openTickets": 0
+    "openTickets": 55.12
   },
   "processingDetail": {
-    "windowLabel": "2026-05-14 12:00AM – 11:59PM CDT",
+    "windowLabel": "2026-05-16 12:00AM – 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 1354.99,
+        "amount": 2732.82,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 686.7
+        "amount": 1541.19
       },
       {
         "label": "Mastercard",
-        "amount": 472.24
+        "amount": 906.31
       },
       {
         "label": "Amex",
-        "amount": 107.59
+        "amount": 217.09
       },
       {
         "label": "Discover",
-        "amount": 88.46
+        "amount": 68.23
       },
       {
         "label": "Debit",
@@ -6965,6 +6965,30 @@
       "cashPayments": 0,
       "creditCard": 0,
       "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "visa": 1541.19,
+        "mastercard": 906.31,
+        "amex": 217.09,
+        "discover": 68.23,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0,
+        "total": 2732.82
+      }
+    },
+    {
+      "date": "2026-05-16",
+      "grossSales": 32.41,
+      "netSales": 29.95,
+      "taxes": 2.46,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 32.41,
+      "openTickets": 55.12,
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0
@@ -69489,6 +69513,41 @@
     {
       "date": "2026-05-15",
       "items": []
+    },
+    {
+      "date": "2026-05-16",
+      "items": [
+        {
+          "name": "Breakfast  Combo",
+          "qty": 2,
+          "revenue": 17.98
+        },
+        {
+          "name": "Rayalaseema Karam Dosa",
+          "qty": 1,
+          "revenue": 11.99
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Medu Vada(3 Pcs)",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 1,
+          "revenue": 1.99
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -69513,5 +69572,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-15 10:13 AM CDT"
+  "disputesScannedAt": "2026-05-16 10:04 CDT"
 }
