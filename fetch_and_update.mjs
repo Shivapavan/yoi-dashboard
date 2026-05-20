@@ -8,12 +8,12 @@ const XLSX = require('xlsx');
 const TOKEN = process.argv[2];
 if (!TOKEN) { console.error('Usage: node fetch_and_update.mjs <token>'); process.exit(1); }
 
-const TODAY     = '2026-05-19';
-const YESTERDAY = '2026-05-18';
+const TODAY     = '2026-05-20';
+const YESTERDAY = '2026-05-19';
 
 // Today's business day window (4AM CDT = 9AM UTC)
 const TODAY_START = `${TODAY}T09:00:00.000Z`;
-const TODAY_END   = `2026-05-20T08:59:59.999Z`;
+const TODAY_END   = `2026-05-21T08:59:59.999Z`;
 
 // Yesterday's business day window
 const YEST_START  = `${YESTERDAY}T09:00:00.000Z`;
@@ -21,7 +21,7 @@ const YEST_END    = `${TODAY}T08:59:59.999Z`;
 
 // Batch detail: today's batch (covers yesterday's settled transactions)
 const BATCH_START = `${TODAY}T05:00:00.000Z`;
-const BATCH_END   = `2026-05-20T04:59:59.999Z`;
+const BATCH_END   = `2026-05-21T04:59:59.999Z`;
 
 const MERCHANT_ID = '0022712560';
 const LOCATION_ID = '43141083';
@@ -145,6 +145,18 @@ console.error('Fetching yesterday\'s metrics...');
 const yesterdayMetrics = await fetchMetrics(YEST_START, YEST_END);
 console.error('Yesterday:', JSON.stringify(yesterdayMetrics));
 
+console.error('Fetching today\'s items XLS...');
+let todayItems = [];
+try {
+  todayItems = await fetchItemsXls(
+    `${TODAY}T09:00:00-00:00`,
+    `2026-05-21T08:59:00-00:00`
+  );
+  console.error(`Got ${todayItems.length} items for today. Top 3:`, todayItems.slice(0,3).map(i => `${i.name}($${i.revenue})`).join(', '));
+} catch (err) {
+  console.error('Warning: today items XLS failed:', err.message);
+}
+
 console.error('Fetching yesterday\'s items XLS...');
 let yesterdayItems = [];
 try {
@@ -174,7 +186,7 @@ const now = nowCDT();
 
 dash.lastUpdated = now;
 dash.businessDay = TODAY;
-dash.businessDayWindow = `${TODAY} 04:00AM – 2026-05-20 03:59AM CDT`;
+dash.businessDayWindow = `${TODAY} 04:00AM – 2026-05-21 03:59AM CDT`;
 dash.disputesScannedAt = now;
 
 // Update main EOD block with today's live data
@@ -236,6 +248,17 @@ if (yesterdayItems.length > 0) {
   }
 }
 
+// Upsert today's items
+if (todayItems.length > 0) {
+  const entry = { date: TODAY, items: todayItems };
+  const iIdx = dash.itemsByDay.findIndex(e => e.date === TODAY);
+  if (iIdx >= 0) dash.itemsByDay[iIdx] = entry;
+  else {
+    dash.itemsByDay.push(entry);
+    dash.itemsByDay.sort((a, b) => a.date.localeCompare(b.date));
+  }
+}
+
 fs.writeFileSync(dashPath, JSON.stringify(dash, null, 2));
 console.error('dashboard.json updated.');
 console.log(JSON.stringify({
@@ -243,6 +266,7 @@ console.log(JSON.stringify({
   today: TODAY,
   todayGrossSales: todayMetrics.grossSales,
   yesterdayGrossSales: yesterdayMetrics.grossSales,
-  itemsCount: yesterdayItems.length,
+  todayItemsCount: todayItems.length,
+  yesterdayItemsCount: yesterdayItems.length,
   cardBreakdownTotal: cardBreakdown?.rows[0]?.amount ?? null,
 }));
