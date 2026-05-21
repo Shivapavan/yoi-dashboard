@@ -8,12 +8,13 @@ const XLSX = require('xlsx');
 const TOKEN = process.argv[2];
 if (!TOKEN) { console.error('Usage: node fetch_and_update.mjs <token>'); process.exit(1); }
 
-const TODAY     = '2026-05-20';
-const YESTERDAY = '2026-05-19';
+const TODAY     = '2026-05-21';
+const YESTERDAY = '2026-05-20';
+const TOMORROW  = '2026-05-22';
 
 // Today's business day window (4AM CDT = 9AM UTC)
 const TODAY_START = `${TODAY}T09:00:00.000Z`;
-const TODAY_END   = `2026-05-21T08:59:59.999Z`;
+const TODAY_END   = `${TOMORROW}T08:59:59.999Z`;
 
 // Yesterday's business day window
 const YEST_START  = `${YESTERDAY}T09:00:00.000Z`;
@@ -21,7 +22,7 @@ const YEST_END    = `${TODAY}T08:59:59.999Z`;
 
 // Batch detail: today's batch (covers yesterday's settled transactions)
 const BATCH_START = `${TODAY}T05:00:00.000Z`;
-const BATCH_END   = `2026-05-21T04:59:59.999Z`;
+const BATCH_END   = `${TOMORROW}T04:59:59.999Z`;
 
 const MERCHANT_ID = '0022712560';
 const LOCATION_ID = '43141083';
@@ -150,7 +151,7 @@ let todayItems = [];
 try {
   todayItems = await fetchItemsXls(
     `${TODAY}T09:00:00-00:00`,
-    `2026-05-21T08:59:00-00:00`
+    `${TOMORROW}T08:59:00-00:00`
   );
   console.error(`Got ${todayItems.length} items for today. Top 3:`, todayItems.slice(0,3).map(i => `${i.name}($${i.revenue})`).join(', '));
 } catch (err) {
@@ -164,6 +165,7 @@ try {
     `${YESTERDAY}T09:00:00-00:00`,
     `${TODAY}T08:59:00-00:00`
   );
+
   console.error(`Got ${yesterdayItems.length} items for yesterday. Top 3:`, yesterdayItems.slice(0,3).map(i => `${i.name}($${i.revenue})`).join(', '));
 } catch (err) {
   console.error('Warning: yesterday items XLS failed:', err.message);
@@ -186,7 +188,7 @@ const now = nowCDT();
 
 dash.lastUpdated = now;
 dash.businessDay = TODAY;
-dash.businessDayWindow = `${TODAY} 04:00AM – 2026-05-21 03:59AM CDT`;
+dash.businessDayWindow = `${TODAY} 04:00AM – ${TOMORROW} 03:59AM CDT`;
 dash.disputesScannedAt = now;
 
 // Update main EOD block with today's live data
