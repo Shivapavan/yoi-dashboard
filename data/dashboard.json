@@ -1,40 +1,40 @@
 {
-  "lastUpdated": "2026-05-24 10:02 CDT",
-  "businessDay": "2026-05-24",
+  "lastUpdated": "2026-05-25 10:06 CDT",
+  "businessDay": "2026-05-25",
   "businessDayWindow": "2026-05-21 04:00AM – 2026-05-22 03:59AM CDT",
   "eod": {
-    "grossSales": 12.96,
-    "netSales": 11.97,
-    "taxes": 0.99,
+    "grossSales": 0,
+    "netSales": 0,
+    "taxes": 0,
     "voids": 0,
     "cashPayments": 0,
-    "creditCardPayments": 42.17,
+    "creditCardPayments": 0,
     "discounts": 0,
-    "openTickets": 42.17
+    "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-05-24 12:00AM – 11:59PM CDT",
+    "windowLabel": "2026-05-25 12:00AM – 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 3259.36,
+        "amount": 2079.55,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 2188.99
+        "amount": 1338.17
       },
       {
         "label": "Mastercard",
-        "amount": 597.55
+        "amount": 528.7
       },
       {
         "label": "Amex",
-        "amount": 217.65
+        "amount": 55.1
       },
       {
         "label": "Discover",
-        "amount": 259.16
+        "amount": 157.58
       },
       {
         "label": "Debit",
@@ -46,7 +46,7 @@
       },
       {
         "label": "Returns",
-        "amount": -3.99
+        "amount": 0
       }
     ]
   },
@@ -7237,14 +7237,38 @@
     },
     {
       "date": "2026-05-24",
-      "grossSales": 12.96,
-      "netSales": 11.97,
-      "taxes": 0.99,
+      "grossSales": 2338.42,
+      "netSales": 2160.52,
+      "taxes": 177.9,
+      "discounts": 10.07,
+      "voids": 0,
+      "cashPayments": 120.3,
+      "creditCard": 2022.14,
+      "openTickets": 2338.42,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "visa": 1338.17,
+        "mastercard": 528.7,
+        "amex": 55.1,
+        "discover": 157.58,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0,
+        "total": 2079.55
+      }
+    },
+    {
+      "date": "2026-05-25",
+      "grossSales": 0,
+      "netSales": 0,
+      "taxes": 0,
       "discounts": 0,
       "voids": 0,
       "cashPayments": 0,
-      "creditCard": 42.17,
-      "openTickets": 42.17,
+      "creditCard": 0,
+      "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0
@@ -73919,9 +73943,354 @@
       "date": "2026-05-24",
       "items": [
         {
+          "name": "Open Food",
+          "qty": 9,
+          "revenue": 160.93
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 9,
+          "revenue": 147.87
+        },
+        {
+          "name": "Hyderabad Chicken  Biryani",
+          "qty": 5,
+          "revenue": 81.95
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 4,
+          "revenue": 69.96
+        },
+        {
+          "name": "Yum Dhakshin Non Veg Thali",
+          "qty": 3,
+          "revenue": 65.97
+        },
+        {
+          "name": "Lemon Soda (Sweet & Salt)",
+          "qty": 7,
+          "revenue": 48.93
+        },
+        {
+          "name": "Hyderabadi Chicken 65 (Wet)",
+          "qty": 3,
+          "revenue": 44.97
+        },
+        {
+          "name": "Thalapakattu Mutton Biryani",
+          "qty": 2,
+          "revenue": 40.98
+        },
+        {
+          "name": "Yum Dhakshin Veg Thali",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 2,
+          "revenue": 35.98
+        },
+        {
+          "name": "Ghee Roast Non-Veg Curry",
+          "qty": 2,
+          "revenue": 35.98
+        },
+        {
+          "name": "Boiled Peanut Masala",
+          "qty": 3,
+          "revenue": 35.97
+        },
+        {
+          "name": "Ambur Chicken Biryani",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Chicken Lollipops",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 9,
+          "revenue": 32.21
+        },
+        {
+          "name": "Butter naan",
+          "qty": 10,
+          "revenue": 29.9
+        },
+        {
+          "name": "Chole Bhature",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "YOI Special Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Black Forest Cake",
+          "qty": 7,
+          "revenue": 27.93
+        },
+        {
+          "name": "Glenlevit(45ml)",
+          "qty": 3,
+          "revenue": 26.97
+        },
+        {
+          "name": "Pani Puri (6 Pcs)",
+          "qty": 3,
+          "revenue": 20.97
+        },
+        {
+          "name": "Papdi Chat",
+          "qty": 3,
+          "revenue": 20.97
+        },
+        {
+          "name": "Ghee Roast Goat Fry",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Ghee Roast Goat Fry Pulav",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Ghee Podi Idly",
+          "qty": 2,
+          "revenue": 19.98
+        },
+        {
+          "name": "Mutton Kheema Biryani",
+          "qty": 1,
+          "revenue": 18.99
+        },
+        {
+          "name": "Parata With Paya",
+          "qty": 1,
+          "revenue": 18.99
+        },
+        {
+          "name": "Idly Sambar",
+          "qty": 2,
+          "revenue": 18.98
+        },
+        {
+          "name": "Fish Biryani(SeaBass)",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Ghee Roast Prawn Fry",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Chilli Paneer",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Hariyali Chicken (Half)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Hariyali Chicken Tikka Kebab",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Malai Chicken Kebab",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Paneer Tikka kebab",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Pompret Fry",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Tawa Fish  ( Tilapia)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Schewazan Fried Rice",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Andhra Non-Veg Curry",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Chicken Majestic",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Crispy Corn Masala",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Egg Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Fried Rice",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Ghee Roast Garlic Paneer",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Gobi Manchurian (Dry/Wet)",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Guntur Chicken Appetizer",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Jalapeno Chicken",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Malai Kofta",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Noodles",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Pachi Mirchi Panner Pulav",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Paneer Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Thalapakatu Jack Fruit Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Fresh Sugar Cane Juice",
+          "qty": 2,
+          "revenue": 15.98
+        },
+        {
+          "name": "Chilli Chicken (Dry/Semi Wet)",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Dal Makkini",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Egg Pulav",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Madhurai Chicken Pakoda",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Parata With Curry",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Vijayawada Veg Biryani",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
           "name": "Benne Karam Dosa",
           "qty": 1,
           "revenue": 13.99
+        },
+        {
+          "name": "Benne Masala Dosa",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Chilli Egg",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Ghee Podi Chitti Punugulu",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Mango Lassi",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Samosa Chat",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Virgin Mojito",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Egg Dosa",
+          "qty": 1,
+          "revenue": 12.99
         },
         {
           "name": "Kadapa Karam Dosa",
@@ -73929,19 +74298,194 @@
           "revenue": 12.99
         },
         {
+          "name": "Plain Benne Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Set Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Jack Daniels On Rocks",
+          "qty": 2,
+          "revenue": 11.98
+        },
+        {
+          "name": "Mysorepak",
+          "qty": 2,
+          "revenue": 11.98
+        },
+        {
+          "name": "Old Monk",
+          "qty": 2,
+          "revenue": 11.98
+        },
+        {
+          "name": "Pista (Pistachio) Ice Cream",
+          "qty": 2,
+          "revenue": 11.98
+        },
+        {
+          "name": "Filter Coffee",
+          "qty": 3,
+          "revenue": 11.97
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 1,
+          "revenue": 10.99
+        },
+        {
+          "name": "Medu Vada(3 Pcs)",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "Plain Dosa",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "French Fries",
+          "qty": 2,
+          "revenue": 9.98
+        },
+        {
+          "name": "Blue Berry Mojito",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
           "name": "Breakfast  Combo",
           "qty": 1,
           "revenue": 8.99
         },
         {
-          "name": "Masala Chai",
+          "name": "Onion Pakora",
           "qty": 1,
-          "revenue": 1.99
+          "revenue": 8.99
+        },
+        {
+          "name": "Idly",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Mothichoor Laddu(4 Pcs)",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Mysore Bonda (4 Pcs)",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Icecream Togo",
+          "qty": 2,
+          "revenue": 7.8
+        },
+        {
+          "name": "Chikoo Milkshake",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Cut Mirchi Bajji",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Dahi Puri",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Strawberry Velvet Icecream",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Stuffed Mirchi Bajji (3 pcs)",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Veg Crispy Pakora",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Chicken Nuggets",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Gajar Halwa",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Rose Milk",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 2,
+          "revenue": 3.98
         },
         {
           "name": "Masala Chai Small",
+          "qty": 4,
+          "revenue": 3.96
+        },
+        {
+          "name": "SoftDrinks( Thumsup,Fanta,Limca)",
           "qty": 1,
-          "revenue": 0.99
+          "revenue": 3.69
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 1,
+          "revenue": 3.49
+        },
+        {
+          "name": "Bullet naan",
+          "qty": 1,
+          "revenue": 3.49
+        },
+        {
+          "name": "Coca-Cola",
+          "qty": 1,
+          "revenue": 2.99
+        },
+        {
+          "name": "Coke (Normal,Diet,Zero)",
+          "qty": 1,
+          "revenue": 2.99
+        },
+        {
+          "name": "Water Bottle",
+          "qty": 3,
+          "revenue": 2.97
+        },
+        {
+          "name": "Plain Naan",
+          "qty": 1,
+          "revenue": 2.49
+        },
+        {
+          "name": "Irani Chai",
+          "qty": 1,
+          "revenue": 2.25
+        },
+        {
+          "name": "Irani Chai Small",
+          "qty": 1,
+          "revenue": 1.25
         }
       ]
     }
@@ -73968,5 +74512,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-05-24 10:02 CDT"
+  "disputesScannedAt": "2026-05-25 10:06 CDT"
 }
