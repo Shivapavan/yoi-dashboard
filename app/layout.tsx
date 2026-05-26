@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/next'
+import VisitorBeacon from './components/VisitorBeacon'
+import TokenAlert from './components/TokenAlert'
 
 export const metadata: Metadata = {
   title: 'Yum of India — Daily Dashboard',
@@ -9,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body><TokenAlert />{children}<Analytics /><VisitorBeacon /></body>
     </html>
   )
 }

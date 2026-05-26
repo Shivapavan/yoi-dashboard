@@ -10,9 +10,12 @@ type SortBy = 'revenue' | 'quantity'
 interface Item { name: string; count: number; revenue: number }
 
 export default function TopItems() {
-  const today = new Date().toISOString().split('T')[0]
+  // Business day starts at 4 AM CDT — shift back 4 h so midnight–3:59 AM stays on previous day
+  const today = new Date(Date.now() - 4 * 60 * 60 * 1000)
+    .toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })
   const [date, setDate] = useState(today)
   const [items, setItems] = useState<Item[]>([])
+  const [orderTypes, setOrderTypes] = useState<{type:string;amount:number}[]>([])
   const [sortBy, setSortBy] = useState<SortBy>('revenue')
   const [recommendedDate, setRecommendedDate] = useState('')
   const [noData, setNoData] = useState(false)
@@ -33,14 +36,15 @@ export default function TopItems() {
         if (res.error) throw new Error(res.error)
         setRecommendedDate(res.recommendedDate)
 
-        // First load: auto-switch to last date with data
-        if (autoRedirect && res.items.length === 0 && res.recommendedDate && res.recommendedDate !== d) {
+        // Only auto-redirect if NOT today's live date (restaurant may not have opened yet)
+        if (autoRedirect && !res.live && res.items.length === 0 && res.recommendedDate && res.recommendedDate !== d) {
           setDate(res.recommendedDate)
           return
         }
 
-        if (res.items.length === 0) setNoData(true)
+        if (!res.live && res.items.length === 0) setNoData(true)
         setItems(res.items)
+        setOrderTypes(res.orderTypes ?? [])
         setLastUpdated(new Date())
       })
       .catch((e) => setError(e.message))
@@ -102,6 +106,22 @@ export default function TopItems() {
 
       {!noData && items.length > 0 && (
         <>
+          {/* Order type summary */}
+          {orderTypes.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {orderTypes.map((ot) => (
+                <div key={ot.type} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium shadow-sm ${
+                  ot.type === 'Dine In' ? 'bg-blue-50 text-blue-700 border border-blue-200' :
+                  ot.type === 'To Go'   ? 'bg-green-50 text-green-700 border border-green-200' :
+                                          'bg-gray-50 text-gray-700 border border-gray-200'
+                }`}>
+                  <span>{ot.type === 'Dine In' ? '🍽' : ot.type === 'To Go' ? '🥡' : '📦'}</span>
+                  <span>{ot.type}</span>
+                  <span className="font-bold">${ot.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                </div>
+              ))}
+            </div>
+          )}
           {/* Sort toggle */}
           <div className="flex gap-2 mb-4">
             <button

@@ -1,9 +1,11 @@
 'use client'
 
-interface Props { value: string; onChange: (d: string) => void; min?: string }
+interface Props { value: string; onChange: (d: string) => void; min?: string; max?: string }
 
-export default function DatePicker({ value, onChange, min }: Props) {
-  const today = new Date().toISOString().split('T')[0]
+export default function DatePicker({ value, onChange, min, max }: Props) {
+  // Use caller-supplied max (CDT business day) — falls back to UTC date if not provided
+  const today = max || new Date(Date.now() - 4 * 60 * 60 * 1000)
+    .toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })
   return (
     <div className="flex items-center gap-3">
       <span className="text-sm text-gray-600">📅 Date:</span>

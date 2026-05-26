@@ -1,7 +1,7 @@
 {
   "lastUpdated": "2026-05-01 08:24 CDT",
   "businessDay": "2026-05-01",
-  "businessDayWindow": "04/29 04:00AM – 04/30 03:59AM CDT",
+  "businessDayWindow": "04/29 04:00AM \u2013 04/30 03:59AM CDT",
   "eod": {
     "grossSales": 1724.14,
     "netSales": 1593.77,
@@ -13,7 +13,7 @@
     "openTickets": 1686.61
   },
   "processingDetail": {
-    "windowLabel": "04/29 12:00AM – 11:59PM CDT",
+    "windowLabel": "04/29 12:00AM \u2013 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
@@ -68385,7 +68385,7 @@
       "last4": "7124",
       "customer": "CARDHOLDER/VISA",
       "server": "Randy",
-      "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6414194860"
+      "link": "https://lh.shift4.com/transactions/master-transactions?end=2026-05-01&eventStatus=%5B%22NOTIFICATION_OF_DISPUTE%22%5D&start=2026-01-01"
     },
     {
       "date": "Mar 29, 2026",
@@ -68395,7 +68395,7 @@
       "last4": "2469",
       "customer": "CARDHOLDER/VISA",
       "server": "Ram",
-      "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
+      "link": "https://lh.shift4.com/transactions/master-transactions?end=2026-05-01&eventStatus=%5B%22NOTIFICATION_OF_DISPUTE%22%5D&start=2026-01-01"
     }
   ],
   "disputesScannedAt": "2026-05-01 09:00 CDT"
