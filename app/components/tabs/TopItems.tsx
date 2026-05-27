@@ -91,12 +91,12 @@ export default function TopItems() {
       {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded p-3 mb-4 text-sm">{error}</div>}
 
       {noData && (
-        <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded p-3 mb-4 text-sm flex items-center gap-2">
+        <div className="bg-amber-50 border border-amber-200 text-amber-800 rounded p-3 mb-4 text-sm flex items-center gap-2">
           <span>⚠️</span>
           <span>
             No items data for {date} — not yet scraped.
             {recommendedDate && (
-              <button onClick={() => setDate(recommendedDate)} className="ml-2 underline font-medium hover:text-yellow-900">
+              <button onClick={() => setDate(recommendedDate)} className="ml-2 underline font-medium hover:text-amber-900">
                 Go to {recommendedDate} (last available)
               </button>
             )}
@@ -111,8 +111,8 @@ export default function TopItems() {
             <div className="flex flex-wrap gap-2 mb-4">
               {orderTypes.map((ot) => (
                 <div key={ot.type} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium shadow-sm ${
-                  ot.type === 'Dine In' ? 'bg-blue-50 text-blue-700 border border-blue-200' :
-                  ot.type === 'To Go'   ? 'bg-green-50 text-green-700 border border-green-200' :
+                  ot.type === 'Dine In' ? 'bg-yoi-purple-light text-yoi-purple border border-purple-200' :
+                  ot.type === 'To Go'   ? 'bg-success-light text-success-text border border-green-200' :
                                           'bg-gray-50 text-gray-700 border border-gray-200'
                 }`}>
                   <span>{ot.type === 'Dine In' ? '🍽' : ot.type === 'To Go' ? '🥡' : '📦'}</span>
@@ -126,9 +126,9 @@ export default function TopItems() {
           <div className="flex gap-2 mb-4">
             <button
               onClick={() => setSortBy('revenue')}
-              className={`px-4 py-1.5 rounded text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 sortBy === 'revenue'
-                  ? 'bg-purple-700 text-white'
+                  ? 'bg-yoi-purple text-white'
                   : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
               }`}
             >
@@ -136,9 +136,9 @@ export default function TopItems() {
             </button>
             <button
               onClick={() => setSortBy('quantity')}
-              className={`px-4 py-1.5 rounded text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 sortBy === 'quantity'
-                  ? 'bg-purple-700 text-white'
+                  ? 'bg-yoi-purple text-white'
                   : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
               }`}
             >
@@ -152,17 +152,21 @@ export default function TopItems() {
                 <tr className="border-b border-gray-200 text-xs uppercase text-gray-500 font-semibold">
                   <th className="text-left px-6 py-3">#</th>
                   <th className="text-left px-6 py-3">Item</th>
-                  <th
-                    className={`px-6 py-3 text-right cursor-pointer select-none hover:text-purple-600 ${sortBy === 'quantity' ? 'text-purple-700 font-bold' : ''}`}
-                    onClick={() => setSortBy('quantity')}
-                  >
-                    Qty {sortBy === 'quantity' ? '↓' : ''}
+                  <th className="px-6 py-3 text-right" aria-sort={sortBy === 'quantity' ? 'descending' : 'none'}>
+                    <button
+                      onClick={() => setSortBy('quantity')}
+                      className={`uppercase select-none hover:text-yoi-purple transition-colors ${sortBy === 'quantity' ? 'text-yoi-purple font-bold' : ''}`}
+                    >
+                      Qty {sortBy === 'quantity' ? '↓' : ''}
+                    </button>
                   </th>
-                  <th
-                    className={`px-6 py-3 text-right cursor-pointer select-none hover:text-purple-600 ${sortBy === 'revenue' ? 'text-purple-700 font-bold' : ''}`}
-                    onClick={() => setSortBy('revenue')}
-                  >
-                    Revenue {sortBy === 'revenue' ? '↓' : ''}
+                  <th className="px-6 py-3 text-right" aria-sort={sortBy === 'revenue' ? 'descending' : 'none'}>
+                    <button
+                      onClick={() => setSortBy('revenue')}
+                      className={`uppercase select-none hover:text-yoi-purple transition-colors ${sortBy === 'revenue' ? 'text-yoi-purple font-bold' : ''}`}
+                    >
+                      Revenue {sortBy === 'revenue' ? '↓' : ''}
+                    </button>
                   </th>
                 </tr>
               </thead>
@@ -171,10 +175,10 @@ export default function TopItems() {
                   <tr key={item.name} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                     <td className="px-6 py-3 text-gray-400 font-mono text-xs">{i + 1}</td>
                     <td className="px-6 py-3 font-medium text-gray-800">{item.name}</td>
-                    <td className={`px-6 py-3 text-right ${sortBy === 'quantity' ? 'font-bold text-purple-700' : 'text-gray-600'}`}>
+                    <td className={`px-6 py-3 text-right ${sortBy === 'quantity' ? 'font-bold text-yoi-purple' : 'text-gray-600'}`}>
                       {item.count}
                     </td>
-                    <td className={`px-6 py-3 text-right ${sortBy === 'revenue' ? 'font-bold text-purple-700' : 'text-gray-700'}`}>
+                    <td className={`px-6 py-3 text-right ${sortBy === 'revenue' ? 'font-bold text-yoi-purple' : 'text-gray-700'}`}>
                       ${item.revenue.toFixed(2)}
                     </td>
                   </tr>

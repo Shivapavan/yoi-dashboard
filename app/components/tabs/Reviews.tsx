@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { SkeletonCards, SkeletonTable } from '../Skeleton'
 
 interface Review {
   id: string
@@ -125,10 +126,10 @@ export default function Reviews() {
       </div>
 
       {loading && (
-        <div className="text-center py-16 text-gray-400">
-          <div className="inline-block w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin mb-3" />
-          <p className="text-sm">Loading reviews…</p>
-        </div>
+        <>
+          <SkeletonCards count={3} />
+          <SkeletonTable rows={4} />
+        </>
       )}
 
       {!loading && data?.error && (

@@ -18,9 +18,27 @@ body {
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 
+/* Visible keyboard focus on all interactive elements (mouse clicks unaffected). */
+:where(a, button, input, select, textarea, [role="button"], [tabindex]):focus-visible {
+  outline: 2px solid var(--yoi-purple);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* Shimmer effect for the dashboard title — slow purple→gold→purple sweep */
 @keyframes shimmer {
   0%   { background-position: 0% center; }
   100% { background-position: 200% center; }
 }
 .animate-shimmer { animation: shimmer 6s linear infinite; }
+
+/* Respect users who prefer reduced motion — kill the perpetual/loops. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-shimmer { animation: none !important; }
+}

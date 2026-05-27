@@ -8,12 +8,13 @@ export default function DatePicker({ value, onChange, min, max }: Props) {
     .toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm text-gray-600">📅 Date:</span>
+      <label className="text-sm text-gray-600 font-medium">Date</label>
       <input type="date" value={value} min={min} max={today}
         onChange={(e) => onChange(e.target.value)}
-        className="border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+        aria-label="Select date"
+        className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yoi-purple" />
       <button onClick={() => onChange(today)}
-        className="bg-gray-900 text-white text-sm font-semibold px-4 py-1.5 rounded hover:bg-gray-700 transition-colors">
+        className="bg-yoi-purple text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-yoi-purple-dark transition-colors">
         Today
       </button>
       {value === today && <span className="text-sm font-semibold text-gray-700 ml-auto">Today&apos;s data</span>}

@@ -23,7 +23,7 @@ export default function MetricCard({
   const showDelta = typeof deltaPct === 'number' && isFinite(deltaPct)
   const isUp = (deltaPct ?? 0) >= 0
   const isGood = inverse ? !isUp : isUp
-  const deltaColor = isGood ? 'text-green-600' : 'text-red-600'
+  const deltaColor = isGood ? 'text-success' : 'text-danger'
   const arrow = isUp ? '▲' : '▼'
 
   return (
@@ -39,8 +39,8 @@ export default function MetricCard({
           <button
             type="button"
             onClick={() => setShowTooltip(v => !v)}
-            className="w-4 h-4 rounded-full border border-gray-300 text-gray-400 text-[10px] leading-none flex items-center justify-center hover:bg-gray-100 hover:text-gray-600 transition-colors"
-            aria-label="Show formula"
+            className="w-6 h-6 -mr-1 rounded-full border border-gray-300 text-gray-500 text-[11px] leading-none flex items-center justify-center hover:bg-gray-100 hover:text-gray-700 transition-colors"
+            aria-label={`Show how ${label} is calculated`}
           >
             ?
           </button>
@@ -54,7 +54,7 @@ export default function MetricCard({
         </div>
       )}
       {breakdown && <p className="text-xs text-gray-500 mt-1.5 font-mono">{breakdown}</p>}
-      {note && <p className="text-xs text-gray-400 mt-1">{note}</p>}
+      {note && <p className="text-xs text-gray-500 mt-1">{note}</p>}
 
       {formula && showTooltip && (
         <div className="absolute z-20 left-3 right-3 top-full mt-1 bg-gray-900 text-white text-xs rounded-lg p-3 shadow-lg leading-relaxed pointer-events-none">

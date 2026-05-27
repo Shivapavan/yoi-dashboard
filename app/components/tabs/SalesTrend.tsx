@@ -302,7 +302,7 @@ export default function SalesTrend() {
           {view === 'daily' && (
             <div className="flex items-center gap-2">
               <button onClick={() => setDailyMonth(addMonths(dailyMonth, -1))}
-                className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm">‹</button>
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm">‹</button>
               <select
                 value={dailyMonth}
                 onChange={(e) => setDailyMonth(e.target.value)}
@@ -313,7 +313,7 @@ export default function SalesTrend() {
                 ))}
               </select>
               <button onClick={() => setDailyMonth(addMonths(dailyMonth, 1))} disabled={dailyMonth >= thisMonthStr()}
-                className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm disabled:opacity-30 disabled:cursor-not-allowed">›</button>
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm disabled:opacity-30 disabled:cursor-not-allowed">›</button>
             </div>
           )}
         </div>
@@ -368,7 +368,7 @@ export default function SalesTrend() {
       {/* ── Summary cards ────────────────────────────────────────────────── */}
       {(trend.length > 0 || activityData) && (
         <>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+          <div className={`grid grid-cols-2 gap-3 mb-4 ${view === 'daily' && cateringCash ? 'sm:grid-cols-3 lg:grid-cols-5' : 'sm:grid-cols-4'}`}>
             <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-purple-600">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Gross</div>
               <div className="text-xl font-bold text-gray-900">{fmt(totalGross)}</div>
@@ -377,25 +377,25 @@ export default function SalesTrend() {
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Net</div>
               <div className="text-xl font-bold text-gray-900">{fmt(totalNet)}</div>
             </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-blue-500">
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-indigo-500">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Avg / Day</div>
               <div className="text-xl font-bold text-gray-900">{avgGross > 0 ? fmt(avgGross) : '—'}</div>
             </div>
             <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-green-500">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Best Day</div>
               <div className="text-xl font-bold text-gray-900">{best?.grossSales > 0 ? fmt(best.grossSales) : '—'}</div>
-              {bestLabel && <div className="text-xs text-gray-400 mt-0.5">{bestLabel}</div>}
+              {bestLabel && <div className="text-xs text-gray-500 mt-0.5">{bestLabel}</div>}
             </div>
-          </div>
-          {/* CAT CAH — catering cash total for the same month, from Google Sheets Summary tab */}
-          {view === 'daily' && cateringCash && (
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-orange-500 mb-4">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                {dailyPeriodLabel ? fmtMonth(dailyPeriodLabel) : ''} CAT CAH
+            {/* CAT CAH — catering cash total for the same month, from Google Sheets Summary tab */}
+            {view === 'daily' && cateringCash && (
+              <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-orange-500">
+                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                  {dailyPeriodLabel ? fmtMonth(dailyPeriodLabel) : ''} CAT CAH
+                </div>
+                <div className="text-xl font-bold text-gray-900">{fmt(cateringCash.total)}</div>
               </div>
-              <div className="text-xl font-bold text-gray-900">{fmt(cateringCash.total)}</div>
-            </div>
-          )}
+            )}
+          </div>
         </>
       )}
 
@@ -496,7 +496,7 @@ export default function SalesTrend() {
                   const idx = ddPayouts.findIndex(p => p.weekStart === ddWeek)
                   if (idx < ddPayouts.length - 1) setDdWeek(ddPayouts[idx + 1].weekStart)
                 }} disabled={ddPayouts.findIndex(p => p.weekStart === ddWeek) >= ddPayouts.length - 1}
-                  className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm disabled:opacity-30">‹</button>
+                  className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm disabled:opacity-30">‹</button>
                 <select
                   value={ddWeek}
                   onChange={e => setDdWeek(e.target.value)}
@@ -512,7 +512,7 @@ export default function SalesTrend() {
                   const idx = ddPayouts.findIndex(p => p.weekStart === ddWeek)
                   if (idx > 0) setDdWeek(ddPayouts[idx - 1].weekStart)
                 }} disabled={ddPayouts.findIndex(p => p.weekStart === ddWeek) <= 0}
-                  className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm disabled:opacity-30">›</button>
+                  className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm disabled:opacity-30">›</button>
               </div>
             </div>
             {selected && (
@@ -524,7 +524,7 @@ export default function SalesTrend() {
                   <div className="text-2xl font-bold text-gray-900">{fmt(selected.amount)}</div>
                 </div>
                 <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                  selected.type === 'finalized' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+                  selected.type === 'finalized' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
                 }`}>
                   {selected.type === 'finalized' ? '✓ Finalized' : '⏳ Projected'}
                 </span>

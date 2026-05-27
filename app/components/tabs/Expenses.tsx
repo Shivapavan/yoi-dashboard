@@ -264,7 +264,7 @@ export default function Expenses() {
                       <td className="px-5 py-2.5 text-right">
                         <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${
                           bill.status === 'paid'    ? 'bg-green-100 text-green-700' :
-                          bill.status === 'partial' ? 'bg-yellow-100 text-yellow-700' :
+                          bill.status === 'partial' ? 'bg-amber-100 text-amber-700' :
                                                       'bg-red-100 text-red-700'
                         }`}>
                           {bill.status.charAt(0).toUpperCase() + bill.status.slice(1)}

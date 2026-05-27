@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import MetricCard from '../MetricCard'
 import DatePicker from '../DatePicker'
 import CardProcessingDetail from '../CardProcessingDetail'
+import { SectionCard, CollapsibleSection, Chevron } from '../SectionCard'
 import { EndOfDayMetrics } from '@/types/shift4'
 import type { DailyCateringOrder } from '@/lib/google'
 
@@ -38,9 +39,9 @@ const PLATFORM_META: Record<string, { name: string; logo: string; border: string
   other: {
     name: 'Online',
     logo: '',
-    border: 'border-blue-400',
-    bg: 'bg-blue-50',
-    iconBg: 'bg-blue-100',
+    border: 'border-purple-300',
+    bg: 'bg-purple-50',
+    iconBg: 'bg-purple-100',
   },
 }
 
@@ -54,9 +55,9 @@ function fmtTime(utc: string | null): string {
 
 const REFRESH_MS = 5 * 60 * 1000
 
+const GROSS_FORMULA = 'Net Sales + Taxes + Surcharges. The total billed amount on closed tickets. "Surcharges" are usually cash-rounding adjustments or card-processing fees — small amounts that aren\'t items, discounts, or tax.'
+
 const CARDS = [
-  { key: 'grossSales',         label: 'Gross Sales',          color: '#3B82F6', inverse: false,
-    formula: 'Net Sales + Taxes + Surcharges. The total billed amount on closed tickets. "Surcharges" are usually cash-rounding adjustments or card-processing fees — small amounts that aren\'t items, discounts, or tax.' },
   { key: 'netSales',           label: 'Net Sales',            color: '#22C55E', inverse: false,
     formula: 'Sum of menu items sold (after discounts, before tax). Your actual food/beverage revenue.' },
   { key: 'taxes',              label: 'Taxes',                color: '#F59E0B', inverse: false,
@@ -220,6 +221,15 @@ export default function EndOfDay() {
     }
   }, [date, today])
 
+  // ── Hero (Gross Sales) — the single number the owner checks first ──
+  const grossSurcharge = Math.max(0, metrics.grossSales - metrics.netSales - metrics.taxes)
+  const grossBreakdown = grossSurcharge > 0.01
+    ? `${fmt(metrics.netSales)} Net + ${fmt(metrics.taxes)} Tax + ${fmt(grossSurcharge)} Surcharge`
+    : `${fmt(metrics.netSales)} Net + ${fmt(metrics.taxes)} Tax`
+  const grossDelta = (averages && averages.grossSales > 0.01)
+    ? ((metrics.grossSales - averages.grossSales) / averages.grossSales) * 100
+    : null
+
   return (
     <div>
       <div className="bg-white rounded-lg p-4 mb-6 shadow-sm">
@@ -249,7 +259,7 @@ export default function EndOfDay() {
       )}
 
       {noData && (
-        <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded p-3 mb-4 text-sm flex items-center gap-2">
+        <div className="bg-amber-50 border border-amber-200 text-amber-800 rounded p-3 mb-4 text-sm flex items-center gap-2">
           <span>⚠️</span>
           <span>
             No data for {date}.
@@ -259,7 +269,7 @@ export default function EndOfDay() {
             {recommendedDate && (
               <button
                 onClick={() => setDate(recommendedDate)}
-                className="ml-2 underline font-medium hover:text-yellow-900"
+                className="ml-2 underline font-medium hover:text-amber-900"
               >
                 Go to {recommendedDate} (last available)
               </button>
@@ -267,6 +277,30 @@ export default function EndOfDay() {
           </span>
         </div>
       )}
+
+      {/* Hero — Gross Sales gets the eye first */}
+      <div
+        className={`relative bg-white rounded-2xl shadow-sm border-l-4 border-yoi-purple p-6 mb-4 transition-opacity ${loading ? 'opacity-50' : ''}`}
+        title={GROSS_FORMULA}
+      >
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+              Gross Sales — {date === today ? 'Today' : date}
+            </p>
+            <p className="text-4xl sm:text-5xl font-extrabold text-gray-900 mt-1 leading-none">{fmt(metrics.grossSales)}</p>
+            {metrics.grossSales > 0 && <p className="text-xs text-gray-500 mt-2 font-mono">= {grossBreakdown}</p>}
+          </div>
+          {grossDelta !== null && (
+            <div className="text-right flex-shrink-0">
+              <div className={`inline-flex items-center gap-1 text-base font-bold ${grossDelta >= 0 ? 'text-success' : 'text-danger'}`}>
+                {grossDelta >= 0 ? '▲' : '▼'} {Math.abs(grossDelta).toFixed(1)}%
+              </div>
+              <p className="text-xs text-gray-500 mt-0.5">vs 14-day avg</p>
+            </div>
+          )}
+        </div>
+      </div>
 
       <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-opacity ${loading ? 'opacity-50' : ''}`}>
         {CARDS.map(({ key, label, color, formula, inverse }) => {
@@ -278,12 +312,7 @@ export default function EndOfDay() {
 
           // Build a numerical breakdown for cards that have a meaningful one
           let breakdown: string | undefined
-          if (key === 'grossSales') {
-            const surcharge = Math.max(0, metrics.grossSales - metrics.netSales - metrics.taxes)
-            breakdown = surcharge > 0.01
-              ? `= ${fmt(metrics.netSales)} (Net) + ${fmt(metrics.taxes)} (Tax) + ${fmt(surcharge)} (Surcharge)`
-              : `= ${fmt(metrics.netSales)} (Net) + ${fmt(metrics.taxes)} (Tax)`
-          } else if (key === 'netSales') {
+          if (key === 'netSales') {
             breakdown = metrics.discounts > 0
               ? `= Items rung up − ${fmt(metrics.discounts)} (Discounts)`
               : undefined
@@ -338,28 +367,21 @@ export default function EndOfDay() {
 
       {/* Open Tickets detail (today only) */}
       {date === today && openTicketsList.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm mt-4 overflow-hidden">
-          <button
-            onClick={() => setExpanded(expanded === 'openTickets' ? null : 'openTickets')}
-            className="w-full flex items-center justify-between px-6 py-4 border-l-4 border-cyan-600 border-b border-gray-100 hover:bg-gray-50 transition-colors"
-          >
-            <div className="text-left">
-              <span className="font-semibold text-gray-800">Open Tickets Detail</span>
-              <p className="text-xs text-gray-400 mt-0.5">
-                Tickets that haven't been settled yet — verify they're real and not stale
-              </p>
-            </div>
-            <div className="flex items-center gap-3 text-sm">
+        <CollapsibleSection
+          title="Open Tickets Detail"
+          subtitle="Tickets that haven't been settled yet — verify they're real and not stale"
+          accent="border-l-cyan-600"
+          open={expanded === 'openTickets'}
+          onToggle={() => setExpanded(expanded === 'openTickets' ? null : 'openTickets')}
+          summary={
+            <>
               {openTicketsLoading
                 ? <span className="text-xs text-gray-400 animate-pulse">Loading…</span>
-                : <span className="text-gray-500">{openTicketsList.length} ticket{openTicketsList.length !== 1 ? 's' : ''}</span>
-              }
+                : <span className="text-gray-500">{openTicketsList.length} ticket{openTicketsList.length !== 1 ? 's' : ''}</span>}
               <span className="font-bold text-cyan-700">{fmt(openTicketsList.reduce((s, t) => s + t.grandTotal, 0))}</span>
-              <span className="text-gray-400 text-xs">{expanded === 'openTickets' ? '▲' : '▼'}</span>
-            </div>
-          </button>
-          {expanded === 'openTickets' && (
-            <>
+            </>
+          }
+        >
               {openTicketsList.length === 0 && !openTicketsLoading && (
                 <p className="px-6 py-4 text-sm text-gray-400">No open tickets returned by Lighthouse.</p>
               )}
@@ -404,12 +426,10 @@ export default function EndOfDay() {
                   </tfoot>
                 </table>
               )}
-              <p className="px-6 py-2 text-xs text-gray-400 border-t border-gray-100 bg-gray-50">
-                Tickets older than 6 hours appear in red — likely forgotten/stale.
-              </p>
-            </>
-          )}
-        </div>
+          <p className="px-6 py-2 text-xs text-gray-500 border-t border-gray-100 bg-gray-50">
+            Tickets older than 6 hours appear in red — likely forgotten/stale.
+          </p>
+        </CollapsibleSection>
       )}
 
       {/* Void breakdown */}
@@ -425,11 +445,12 @@ export default function EndOfDay() {
           .sort((a,b) => b.total - a.total)
         const grandTotal = voidDetails.reduce((s,v)=>s+v.amount,0)
         return (
-          <div className="bg-white rounded-lg shadow-sm mt-6 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 border-l-4 border-l-red-500 flex items-center justify-between">
-              <h3 className="font-semibold text-gray-800">Void Detail</h3>
-              <span className="text-xs text-gray-400">{voidDetails.length} voids · {fmt(grandTotal)}</span>
-            </div>
+          <SectionCard
+            title="Void Detail"
+            accent="border-l-danger"
+            className="mt-6"
+            summary={<span className="text-xs text-gray-500">{voidDetails.length} voids · {fmt(grandTotal)}</span>}
+          >
             {byEmployee.map(({ emp, rows, total }) => (
               <div key={emp} className="border-b border-gray-100 last:border-0">
                 {/* Summary row */}
@@ -442,8 +463,8 @@ export default function EndOfDay() {
                     <span className="text-xs text-gray-400">{rows.length} void{rows.length !== 1 ? 's' : ''}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="font-bold text-red-600">{fmt(total)}</span>
-                    <span className="text-gray-400 text-xs">{expanded === `void-${emp}` ? '▲' : '▼'}</span>
+                    <span className="font-bold text-danger">{fmt(total)}</span>
+                    <Chevron open={expanded === `void-${emp}`} />
                   </div>
                 </button>
                 {/* Detail rows */}
@@ -473,7 +494,7 @@ export default function EndOfDay() {
                 )}
               </div>
             ))}
-          </div>
+          </SectionCard>
         )
       })()}
 
@@ -483,48 +504,41 @@ export default function EndOfDay() {
         const cashExpected = cashDetails.find(r => r.label === 'Cash Expected')?.amount ?? 0
         const isOpen = expanded === 'cash-summary'
         return (
-          <div className="bg-white rounded-lg shadow-sm mt-4 overflow-hidden">
-            <button
-              onClick={() => setExpanded(isOpen ? null : 'cash-summary')}
-              className="w-full flex items-center justify-between px-6 py-4 border-b border-gray-100 border-l-4 border-l-green-500 hover:bg-gray-50 transition-colors"
-            >
-              <h3 className="font-semibold text-gray-800">Cash Summary</h3>
-              <div className="flex items-center gap-4 text-sm">
+          <CollapsibleSection
+            title="Cash Summary"
+            accent="border-l-success"
+            open={isOpen}
+            onToggle={() => setExpanded(isOpen ? null : 'cash-summary')}
+            summary={
+              <>
                 <span className="text-gray-500">Starting: <span className="font-semibold text-gray-800">{fmt(startingCash)}</span></span>
                 <span className="text-gray-500">Expected: <span className="font-semibold text-green-700">{fmt(cashExpected)}</span></span>
-                <span className="text-gray-400 text-xs">{isOpen ? '▲' : '▼'}</span>
-              </div>
-            </button>
-            {isOpen && (
-              <table className="w-full text-sm">
-                <tbody>
-                  {cashDetails.map((r, i) => (
-                    <tr key={i} className={`border-b border-gray-50 last:border-0 ${r.label === 'Cash Expected' || r.label === 'Final Deposit' ? 'bg-gray-50 font-semibold' : ''}`}>
-                      <td className="px-6 py-2.5 text-gray-700">{r.label}</td>
-                      <td className={`px-6 py-2.5 text-right ${r.amount < 0 ? 'text-red-600' : 'text-gray-900'}`}>{r.amount !== 0 ? fmt(r.amount) : '—'}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+              </>
+            }
+          >
+            <table className="w-full text-sm">
+              <tbody>
+                {cashDetails.map((r, i) => (
+                  <tr key={i} className={`border-b border-gray-50 last:border-0 ${r.label === 'Cash Expected' || r.label === 'Final Deposit' ? 'bg-gray-50 font-semibold' : ''}`}>
+                    <td className="px-6 py-2.5 text-gray-700">{r.label}</td>
+                    <td className={`px-6 py-2.5 text-right ${r.amount < 0 ? 'text-red-600' : 'text-gray-900'}`}>{r.amount !== 0 ? fmt(r.amount) : '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </CollapsibleSection>
         )
       })()}
 
       {/* ── Order Type Breakdown ──────────────────────────────────────────── */}
       {orderTypes.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm mt-4 overflow-hidden">
-          <button
-            className="w-full flex items-center justify-between px-6 py-4 border-l-4 border-teal-600 border-b border-gray-100"
-            onClick={() => setExpanded(expanded === 'orderTypes' ? null : 'orderTypes')}
-          >
-            <span className="font-semibold text-gray-800">Sales by Order Type</span>
-            <div className="flex items-center gap-4 text-sm">
-              <span className="text-gray-500">{orderTypes.length} types</span>
-              <span className="text-gray-400 text-xs">{expanded === 'orderTypes' ? '▲' : '▼'}</span>
-            </div>
-          </button>
-          {expanded === 'orderTypes' && (
+        <CollapsibleSection
+          title="Sales by Order Type"
+          accent="border-l-teal-600"
+          open={expanded === 'orderTypes'}
+          onToggle={() => setExpanded(expanded === 'orderTypes' ? null : 'orderTypes')}
+          summary={<span className="text-gray-500">{orderTypes.length} types</span>}
+        >
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100">
@@ -543,8 +557,7 @@ export default function EndOfDay() {
                 ))}
               </tbody>
             </table>
-          )}
-        </div>
+        </CollapsibleSection>
       )}
 
       {/* ── Online Delivery Orders ────────────────────────────────────────── */}
@@ -627,7 +640,7 @@ export default function EndOfDay() {
                     {/* Total + expand */}
                     <div className="flex items-center gap-3 flex-shrink-0">
                       <span className="text-sm font-bold text-gray-900">{fmt(order.grandTotal)}</span>
-                      <span className="text-gray-400 text-xs">{isOpen ? '▲' : '▼'}</span>
+                      <Chevron open={isOpen} />
                     </div>
                   </button>
 
@@ -734,7 +747,7 @@ export default function EndOfDay() {
         {cateringOrders.map((order, idx) => {
           const palettes = [
             { border: 'border-l-purple-600', titleBg: 'bg-purple-50',  titleBorder: 'border-purple-100',  titleText: 'text-purple-900',  totalText: 'text-purple-700' },
-            { border: 'border-l-blue-600',   titleBg: 'bg-blue-50',    titleBorder: 'border-blue-100',    titleText: 'text-blue-900',    totalText: 'text-blue-700'   },
+            { border: 'border-l-indigo-600', titleBg: 'bg-indigo-50',  titleBorder: 'border-indigo-100',  titleText: 'text-indigo-900',  totalText: 'text-indigo-700' },
             { border: 'border-l-emerald-600',titleBg: 'bg-emerald-50', titleBorder: 'border-emerald-100', titleText: 'text-emerald-900', totalText: 'text-emerald-700'},
             { border: 'border-l-amber-600',  titleBg: 'bg-amber-50',   titleBorder: 'border-amber-100',   titleText: 'text-amber-900',   totalText: 'text-amber-700'  },
             { border: 'border-l-rose-600',   titleBg: 'bg-rose-50',    titleBorder: 'border-rose-100',    titleText: 'text-rose-900',    totalText: 'text-rose-700'   },

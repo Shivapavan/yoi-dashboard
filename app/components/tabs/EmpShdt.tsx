@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useState, useCallback } from 'react'
+import { SkeletonCards, SkeletonTable } from '../Skeleton'
 
 interface Shift {
   date: string; start: string; end: string; hours: number
@@ -88,7 +89,6 @@ export default function EmpShdt() {
 
   const today    = centralToday()
   const todayMon = weekMonday(today)
-  const weekEnd  = addDays(weekStart, 6)
   const options  = weekOptions()
 
   return (
@@ -96,8 +96,8 @@ export default function EmpShdt() {
       {/* Toolbar */}
       <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
         <div className="flex items-center gap-3">
-          <button onClick={() => setWeekStart(addDays(weekStart, -7))}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold">‹</button>
+          <button onClick={() => setWeekStart(addDays(weekStart, -7))} aria-label="Previous week"
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold">‹</button>
           <select
             value={weekStart}
             onChange={(e) => setWeekStart(e.target.value)}
@@ -107,8 +107,8 @@ export default function EmpShdt() {
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
           </select>
-          <button onClick={() => setWeekStart(addDays(weekStart, 7))} disabled={weekStart >= todayMon}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold disabled:opacity-30 disabled:cursor-not-allowed">›</button>
+          <button onClick={() => setWeekStart(addDays(weekStart, 7))} disabled={weekStart >= todayMon} aria-label="Next week"
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold disabled:opacity-30 disabled:cursor-not-allowed">›</button>
         </div>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {updated && <span>Updated {updated.toLocaleTimeString()}</span>}
@@ -119,10 +119,10 @@ export default function EmpShdt() {
       {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded p-3 mb-4 text-sm">{error}</div>}
 
       {loading && (
-        <div className="text-center py-16 text-gray-400">
-          <div className="inline-block w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin mb-3" />
-          <p className="text-sm">Loading employee shifts…</p>
-        </div>
+        <>
+          <SkeletonCards count={4} />
+          <SkeletonTable rows={6} />
+        </>
       )}
 
       {!loading && data && (
@@ -141,7 +141,7 @@ export default function EmpShdt() {
               </div>
               <div className="text-[10px] text-gray-400 mt-0.5">@ ${DEFAULT_HOURLY_RATE}/hr (Janu: $10.50/hr)</div>
             </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-blue-500">
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-indigo-500">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Employees</div>
               <div className="text-xl font-bold text-gray-900">{data.employees.length}</div>
             </div>
@@ -171,18 +171,27 @@ export default function EmpShdt() {
                   {data.employees.map((emp) => (
                     <React.Fragment key={emp.employee}>
                       <tr
-                        className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer"
-                        onClick={() => setExpanded(expanded === emp.employee ? null : emp.employee)}>
+                        role="button"
+                        tabIndex={0}
+                        aria-expanded={expanded === emp.employee}
+                        className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer focus-visible:bg-purple-50"
+                        onClick={() => setExpanded(expanded === emp.employee ? null : emp.employee)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            setExpanded(expanded === emp.employee ? null : emp.employee)
+                          }
+                        }}>
                         <td className="px-5 py-3 font-semibold text-gray-800">{emp.employee}</td>
                         <td className="px-4 py-3 text-center text-gray-500">{emp.shifts.length}</td>
-                        <td className="px-5 py-3 text-right font-bold text-purple-700">{hm(emp.totalHours)}</td>
+                        <td className="px-5 py-3 text-right font-bold text-yoi-purple">{hm(emp.totalHours)}</td>
                         <td className="px-5 py-3 text-right font-bold text-yellow-700">
                           {pay(emp.totalHours, emp.employee)}
                           {rateFor(emp.employee) !== DEFAULT_HOURLY_RATE && (
-                            <div className="text-[10px] text-gray-400 font-normal">@ ${rateFor(emp.employee)}/hr</div>
+                            <div className="text-[10px] text-gray-500 font-normal">@ ${rateFor(emp.employee)}/hr</div>
                           )}
                         </td>
-                        <td className="px-5 py-3 text-right text-gray-400 text-xs">
+                        <td className="px-5 py-3 text-right text-gray-500 text-xs whitespace-nowrap">
                           {expanded === emp.employee ? '▲ Hide' : '▼ Details'}
                         </td>
                       </tr>

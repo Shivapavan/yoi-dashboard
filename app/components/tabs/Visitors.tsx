@@ -81,7 +81,7 @@ export default function Visitors() {
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Visits</div>
               <div className="text-2xl font-bold text-gray-900">{stats.total.toLocaleString()}</div>
             </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-blue-500">
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-indigo-500">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Today</div>
               <div className="text-2xl font-bold text-gray-900">{stats.today.toLocaleString()}</div>
             </div>

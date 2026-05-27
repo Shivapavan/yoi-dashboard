@@ -6,6 +6,11 @@ import { fetchCateringMonthTotal } from '@/lib/google'
 
 function round2(v: number) { return Math.round(v * 100) / 100 }
 
+// A real open day always grosses well above this. A stored value below it means
+// the scraper failed or only captured a partial day — so we re-pull it from the
+// live API. (Observed partial scrapes: $16–$52 on otherwise $1k+ days.)
+const MIN_VALID_DAY_GROSS = 100
+
 function weekMonday(dateStr: string): string {
   const d = new Date(dateStr + 'T12:00:00')
   const day = d.getDay()
@@ -69,13 +74,14 @@ export async function GET(req: NextRequest) {
     // Lighthouse's metric API works for any date, so we cover the whole month —
     // not just last 7 days — so views of the current month show all days,
     // even if the scraper hasn't run for some of them.
-    const dailyLiveTargets = dailySlots.filter(s => s.grossSales === 0 && s.date <= today)
+    const dailyLiveTargets = dailySlots.filter(s => s.grossSales < MIN_VALID_DAY_GROSS && s.date <= today)
     if (dailyLiveTargets.length > 0) {
       await Promise.all(dailyLiveTargets.map(async (slot) => {
         try {
           const live = await fetchLiveDayMetrics(slot.date)
-          if (live.grossSales > 0) { slot.grossSales = round2(live.grossSales); slot.netSales = round2(live.netSales) }
-        } catch { /* keep at 0 */ }
+          // Only overwrite when the live total is higher — never lower a good stored value.
+          if (live.grossSales > slot.grossSales) { slot.grossSales = round2(live.grossSales); slot.netSales = round2(live.netSales) }
+        } catch { /* keep stored value */ }
       }))
     }
 
@@ -121,16 +127,16 @@ export async function GET(req: NextRequest) {
 
     // Inject live metrics for any zero-slots within the past 7 days (catches unscraped recent dates)
     const sevenDaysAgo = addDays(today, -7)
-    const weekLiveTargets = slots.filter(s => s.grossSales === 0 && s.date <= today && s.date > sevenDaysAgo)
+    const weekLiveTargets = slots.filter(s => s.grossSales < MIN_VALID_DAY_GROSS && s.date <= today && s.date > sevenDaysAgo)
     if (weekLiveTargets.length > 0) {
       await Promise.all(weekLiveTargets.map(async (slot) => {
         try {
           const live = await fetchLiveDayMetrics(slot.date)
-          if (live.grossSales > 0) {
+          if (live.grossSales > slot.grossSales) {
             slot.grossSales = round2(live.grossSales)
             slot.netSales   = round2(live.netSales)
           }
-        } catch { /* keep at 0 */ }
+        } catch { /* keep stored value */ }
       }))
     }
 
@@ -175,16 +181,16 @@ export async function GET(req: NextRequest) {
     }
 
     // Cover the entire selected month from live API for any zero-slots
-    const monthLiveTargets = slots.filter(s => s.grossSales === 0 && s.date <= today)
+    const monthLiveTargets = slots.filter(s => s.grossSales < MIN_VALID_DAY_GROSS && s.date <= today)
     if (monthLiveTargets.length > 0) {
       await Promise.all(monthLiveTargets.map(async (slot) => {
         try {
           const live = await fetchLiveDayMetrics(slot.date)
-          if (live.grossSales > 0) {
+          if (live.grossSales > slot.grossSales) {
             slot.grossSales = round2(live.grossSales)
             slot.netSales   = round2(live.netSales)
           }
-        } catch { /* keep at 0 */ }
+        } catch { /* keep stored value */ }
       }))
     }
 
