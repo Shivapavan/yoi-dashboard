@@ -9,8 +9,8 @@ export default function Home() {
       <div className="min-h-screen bg-gray-100">
         <Header />
         <main className="max-w-6xl mx-auto px-6 py-6">
-          <DisputeAlert />
           <Dashboard />
+          <DisputeAlert />
         </main>
       </div>
     </IdleGuard>
