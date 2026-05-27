@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
     const dailySlots = Array.from({ length: daysInMonth }, (_, i) => {
       const dateStr = `${prevMonthStr}-${String(i + 1).padStart(2, '0')}`
       const h = historyMap.get(dateStr)
-      return { date: dateStr, label: dateStr, grossSales: h?.grossSales ?? 0, netSales: h?.netSales ?? 0 }
+      return { date: dateStr, label: dateStr, grossSales: h?.grossSales ?? 0, netSales: h?.netSales ?? 0, cashPayments: h?.cashPayments ?? 0 }
     })
 
     // Inject live metrics for any zero-slots within the selected period (up to today).
@@ -80,7 +80,7 @@ export async function GET(req: NextRequest) {
         try {
           const live = await fetchLiveDayMetrics(slot.date)
           // Only overwrite when the live total is higher — never lower a good stored value.
-          if (live.grossSales > slot.grossSales) { slot.grossSales = round2(live.grossSales); slot.netSales = round2(live.netSales) }
+          if (live.grossSales > slot.grossSales) { slot.grossSales = round2(live.grossSales); slot.netSales = round2(live.netSales); slot.cashPayments = round2(live.cashPayments) }
         } catch { /* keep stored value */ }
       }))
     }
@@ -115,6 +115,7 @@ export async function GET(req: NextRequest) {
       label: DAY_NAMES[i],
       grossSales: 0,
       netSales: 0,
+      cashPayments: 0,
     }))
 
     for (const h of history) {
@@ -122,6 +123,7 @@ export async function GET(req: NextRequest) {
       if (idx >= 0) {
         slots[idx].grossSales = round2(h.grossSales)
         slots[idx].netSales = round2(h.netSales)
+        slots[idx].cashPayments = round2(h.cashPayments ?? 0)
       }
     }
 
@@ -135,6 +137,7 @@ export async function GET(req: NextRequest) {
           if (live.grossSales > slot.grossSales) {
             slot.grossSales = round2(live.grossSales)
             slot.netSales   = round2(live.netSales)
+            slot.cashPayments = round2(live.cashPayments)
           }
         } catch { /* keep stored value */ }
       }))
@@ -167,6 +170,7 @@ export async function GET(req: NextRequest) {
         label: String(day),
         grossSales: 0,
         netSales: 0,
+        cashPayments: 0,
       }
     })
 
@@ -176,6 +180,7 @@ export async function GET(req: NextRequest) {
         if (idx >= 0 && idx < slots.length) {
           slots[idx].grossSales = round2(h.grossSales)
           slots[idx].netSales = round2(h.netSales)
+          slots[idx].cashPayments = round2(h.cashPayments ?? 0)
         }
       }
     }
@@ -189,6 +194,7 @@ export async function GET(req: NextRequest) {
           if (live.grossSales > slot.grossSales) {
             slot.grossSales = round2(live.grossSales)
             slot.netSales   = round2(live.netSales)
+            slot.cashPayments = round2(live.cashPayments)
           }
         } catch { /* keep stored value */ }
       }))

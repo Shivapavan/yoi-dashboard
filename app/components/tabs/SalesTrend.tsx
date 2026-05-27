@@ -224,6 +224,7 @@ export default function SalesTrend() {
   const activeDays = trend.filter((d) => d.grossSales > 0)
   const totalGross = activeDays.reduce((s, d) => s + (d.grossSales || 0), 0)
   const totalNet   = activeDays.reduce((s, d) => s + (d.netSales   || 0), 0)
+  const totalCash  = trend.reduce((s, d) => s + (d.cashPayments || 0), 0)
 
   // Days elapsed in the period (for avg when trend has no scraped data but activityData does)
   const daysElapsed = (() => {
@@ -368,7 +369,7 @@ export default function SalesTrend() {
       {/* ── Summary cards ────────────────────────────────────────────────── */}
       {(trend.length > 0 || activityData) && (
         <>
-          <div className={`grid grid-cols-2 gap-3 mb-4 ${view === 'daily' && cateringCash ? 'sm:grid-cols-3 lg:grid-cols-5' : 'sm:grid-cols-4'}`}>
+          <div className={`grid grid-cols-2 gap-3 mb-4 ${view === 'daily' && cateringCash ? 'sm:grid-cols-3 lg:grid-cols-6' : 'sm:grid-cols-3 lg:grid-cols-5'}`}>
             <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-purple-600">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Gross</div>
               <div className="text-xl font-bold text-gray-900">{fmt(totalGross)}</div>
@@ -385,6 +386,10 @@ export default function SalesTrend() {
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Best Day</div>
               <div className="text-xl font-bold text-gray-900">{best?.grossSales > 0 ? fmt(best.grossSales) : '—'}</div>
               {bestLabel && <div className="text-xs text-gray-500 mt-0.5">{bestLabel}</div>}
+            </div>
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-teal-500">
+              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Cash Received</div>
+              <div className="text-xl font-bold text-gray-900">{fmt(totalCash)}</div>
             </div>
             {/* CAT CAH — catering cash total for the same month, from Google Sheets Summary tab */}
             {view === 'daily' && cateringCash && (
