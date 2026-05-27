@@ -8,9 +8,9 @@ const XLSX = require('xlsx');
 const TOKEN = process.argv[2];
 if (!TOKEN) { console.error('Usage: node fetch_and_update.mjs <token>'); process.exit(1); }
 
-const TODAY     = '2026-05-21';
-const YESTERDAY = '2026-05-20';
-const TOMORROW  = '2026-05-22';
+const TODAY     = '2026-05-27';
+const YESTERDAY = '2026-05-26';
+const TOMORROW  = '2026-05-28';
 
 // Today's business day window (4AM CDT = 9AM UTC)
 const TODAY_START = `${TODAY}T09:00:00.000Z`;
