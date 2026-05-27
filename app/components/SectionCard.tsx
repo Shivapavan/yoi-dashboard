@@ -23,7 +23,7 @@ export function Chevron({ open }: { open: boolean }) {
 interface SectionCardProps {
   title?: string
   subtitle?: string
-  /** Tailwind left-border accent class, e.g. "border-l-yoi-purple". */
+  /** Tailwind left-border accent class, e.g. "border-l-yoi-primary". */
   accent?: string
   /** Right-aligned header content (counts, totals, badges). */
   summary?: ReactNode
@@ -58,7 +58,7 @@ interface CollapsibleSectionProps extends Omit<SectionCardProps, 'className'> {
 
 /** A section card whose header is a button that expands/collapses its children. */
 export function CollapsibleSection({
-  title, subtitle, accent = 'border-l-yoi-purple', summary, open, onToggle, className, children,
+  title, subtitle, accent = 'border-l-yoi-primary', summary, open, onToggle, className, children,
 }: CollapsibleSectionProps) {
   return (
     <div className={`bg-white rounded-lg shadow-sm overflow-hidden ${className ?? 'mt-4'}`}>

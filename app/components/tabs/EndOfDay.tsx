@@ -39,9 +39,9 @@ const PLATFORM_META: Record<string, { name: string; logo: string; border: string
   other: {
     name: 'Online',
     logo: '',
-    border: 'border-purple-300',
-    bg: 'bg-purple-50',
-    iconBg: 'bg-purple-100',
+    border: 'border-teal-300',
+    bg: 'bg-teal-50',
+    iconBg: 'bg-teal-100',
   },
 }
 
@@ -66,7 +66,7 @@ const CARDS = [
     formula: 'Items removed from tickets after being rung up. Already excluded from Gross Sales — shown separately for visibility.' },
   { key: 'cashPayments',       label: 'Cash Payments',        color: '#16A34A', inverse: false,
     formula: 'Cash received from customers paying for orders, net of any cash refunds. NOT the same as "Cash In" in the Cash Summary — that\'s drawer paid-ins (owner adding cash, bank change, etc.).' },
-  { key: 'creditCardPayments', label: 'Credit Card Payments', color: '#7C3AED', inverse: false,
+  { key: 'creditCardPayments', label: 'Credit Card Payments', color: '#0D9488', inverse: false,
     formula: 'Total card transactions — sum of Visa, Mastercard, Amex, Discover, Debit, EBT (see Card Processing Detail below).' },
   { key: 'discounts',          label: 'Discounts',            color: '#EC4899', inverse: true,
     formula: 'Total discount value applied to tickets. Subtracted from Gross Sales to get Net Sales.' },
@@ -247,7 +247,7 @@ export default function EndOfDay() {
               <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
               Auto-refresh 5 min
             </span>
-            <button onClick={() => fetchData(date, false)} className="text-purple-600 hover:text-purple-800 font-medium">
+            <button onClick={() => fetchData(date, false)} className="text-teal-600 hover:text-teal-800 font-medium">
               Refresh now
             </button>
           </div>
@@ -280,7 +280,7 @@ export default function EndOfDay() {
 
       {/* Hero — Gross Sales gets the eye first */}
       <div
-        className={`relative bg-white rounded-2xl shadow-sm border-l-4 border-yoi-purple p-6 mb-4 transition-opacity ${loading ? 'opacity-50' : ''}`}
+        className={`relative bg-white rounded-2xl shadow-sm border-l-4 border-yoi-primary p-6 mb-4 transition-opacity ${loading ? 'opacity-50' : ''}`}
         title={GROSS_FORMULA}
       >
         <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -746,7 +746,7 @@ export default function EndOfDay() {
 
         {cateringOrders.map((order, idx) => {
           const palettes = [
-            { border: 'border-l-purple-600', titleBg: 'bg-purple-50',  titleBorder: 'border-purple-100',  titleText: 'text-purple-900',  totalText: 'text-purple-700' },
+            { border: 'border-l-teal-600', titleBg: 'bg-teal-50',  titleBorder: 'border-teal-100',  titleText: 'text-teal-900',  totalText: 'text-teal-700' },
             { border: 'border-l-indigo-600', titleBg: 'bg-indigo-50',  titleBorder: 'border-indigo-100',  titleText: 'text-indigo-900',  totalText: 'text-indigo-700' },
             { border: 'border-l-emerald-600',titleBg: 'bg-emerald-50', titleBorder: 'border-emerald-100', titleText: 'text-emerald-900', totalText: 'text-emerald-700'},
             { border: 'border-l-amber-600',  titleBg: 'bg-amber-50',   titleBorder: 'border-amber-100',   titleText: 'text-amber-900',   totalText: 'text-amber-700'  },

@@ -70,7 +70,7 @@ function LoginForm() {
                 onChange={e => setEmail(e.target.value)}
                 required
                 autoComplete="email"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                 placeholder="you@example.com"
               />
             </div>
@@ -83,7 +83,7 @@ function LoginForm() {
                   onChange={e => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                   placeholder="Enter your password"
                 />
                 <button
@@ -104,14 +104,14 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-purple-700 hover:bg-purple-800 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+              className="w-full bg-teal-700 hover:bg-teal-800 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
             >
               {loading ? 'Signing in…' : 'Sign In'}
             </button>
           </form>
 
           <div className="mt-5 text-center">
-            <a href="/forgot-password" className="text-sm text-purple-600 hover:text-purple-800">
+            <a href="/forgot-password" className="text-sm text-teal-600 hover:text-teal-800">
               Forgot password?
             </a>
           </div>

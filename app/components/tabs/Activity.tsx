@@ -77,7 +77,7 @@ export default function Activity() {
         </div>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {lastUpdated && <span>Updated {lastUpdated.toLocaleTimeString()}</span>}
-          <button onClick={load} className="text-purple-600 hover:text-purple-800 font-medium">
+          <button onClick={load} className="text-teal-600 hover:text-teal-800 font-medium">
             Refresh
           </button>
         </div>
@@ -89,7 +89,7 @@ export default function Activity() {
           <select
             value={selectedDate}
             onChange={e => setSelectedDate(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
+            className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white"
           >
             {availableDates.map(d => (
               <option key={d} value={d}>{fmtDateLabel(d)}</option>
@@ -103,7 +103,7 @@ export default function Activity() {
 
       {loading && (
         <div className="text-center py-16 text-gray-400">
-          <div className="inline-block w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin mb-3" />
+          <div className="inline-block w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin mb-3" />
           <p className="text-sm">Loading activity…</p>
         </div>
       )}

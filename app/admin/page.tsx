@@ -50,7 +50,7 @@ export default function AdminPage() {
             <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
             <p className="text-sm text-gray-500 mt-1">Create dashboard users</p>
           </div>
-          <a href="/" className="text-sm text-purple-600 hover:text-purple-800">← Dashboard</a>
+          <a href="/" className="text-sm text-teal-600 hover:text-teal-800">← Dashboard</a>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm p-8">
@@ -59,27 +59,27 @@ export default function AdminPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
               <input type="text" value={name} onChange={e => setName(e.target.value)} required
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                 placeholder="e.g. Sindhu Ranga" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
               <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                 placeholder="user@example.com" />
               <p className="text-xs text-gray-400 mt-1">This will be their login ID.</p>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
               <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} required
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                 placeholder="+1 (555) 000-0000" />
               <p className="text-xs text-gray-400 mt-1">Used for MFA codes and password reset.</p>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Temporary Password</label>
               <input type="text" value={tempPw} onChange={e => setTempPw(e.target.value)} required
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-teal-500"
                 placeholder="Min 8 chars, 1 uppercase, 1 number, 1 special" />
               <p className="text-xs text-gray-400 mt-1">User must change this on first login.</p>
             </div>
@@ -92,7 +92,7 @@ export default function AdminPage() {
             {success && <div className="bg-green-50 border border-green-200 text-green-700 rounded-lg px-3 py-2 text-sm">{success}</div>}
 
             <button type="submit" disabled={loading}
-              className="w-full bg-purple-700 hover:bg-purple-800 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors">
+              className="w-full bg-teal-700 hover:bg-teal-800 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors">
               {loading ? 'Creating…' : 'Create User'}
             </button>
           </form>

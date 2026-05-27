@@ -47,7 +47,7 @@ function Stars({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'lg' }) 
   return (
     <span className={cls + ' tracking-tight'}>
       {Array.from({ length: 5 }, (_, i) => (
-        <span key={i} className={i < filled ? 'text-yellow-500' : 'text-gray-300'}>★</span>
+        <span key={i} className={i < filled ? 'text-amber-500' : 'text-gray-300'}>★</span>
       ))}
     </span>
   )
@@ -96,7 +96,7 @@ export default function Reviews() {
         </div>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {lastUpdated && <span>Updated {lastUpdated.toLocaleTimeString()}</span>}
-          <button onClick={() => load()} className="text-purple-600 hover:text-purple-800 font-medium">Refresh</button>
+          <button onClick={() => load()} className="text-teal-600 hover:text-teal-800 font-medium">Refresh</button>
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export default function Reviews() {
         <select
           value={month}
           onChange={e => setMonth(e.target.value)}
-          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-300 cursor-pointer min-w-[180px]"
+          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 cursor-pointer min-w-[180px]"
         >
           {/* Always include the current month even if empty */}
           {(() => {
@@ -141,7 +141,7 @@ export default function Reviews() {
           {/* All-time + this-month summary */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
             {/* All-time */}
-            <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-amber-200 rounded-xl p-5">
+            <div className="bg-gradient-to-r from-amber-50 to-amber-50 border border-amber-200 rounded-xl p-5">
               <p className="text-xs uppercase tracking-wide text-amber-700 font-semibold mb-1">All-Time Rating</p>
               <div className="flex items-center gap-3">
                 <div className="text-4xl font-bold text-amber-700">{data.overall?.rating?.toFixed(1) ?? '—'}</div>
@@ -152,17 +152,17 @@ export default function Reviews() {
               </div>
               {data.overall?.mapsUrl && (
                 <a href={data.overall.mapsUrl} target="_blank" rel="noopener noreferrer"
-                  className="inline-block mt-2 text-xs text-purple-600 hover:text-purple-800 font-medium">
+                  className="inline-block mt-2 text-xs text-teal-600 hover:text-teal-800 font-medium">
                   View on Google Maps →
                 </a>
               )}
             </div>
 
             {/* Month */}
-            <div className="bg-gradient-to-r from-purple-50 to-fuchsia-50 border border-purple-200 rounded-xl p-5">
-              <p className="text-xs uppercase tracking-wide text-purple-700 font-semibold mb-1">{fmtMonth(data.month)}</p>
+            <div className="bg-gradient-to-r from-teal-50 to-fuchsia-50 border border-teal-200 rounded-xl p-5">
+              <p className="text-xs uppercase tracking-wide text-teal-700 font-semibold mb-1">{fmtMonth(data.month)}</p>
               <div className="flex items-center gap-3">
-                <div className="text-4xl font-bold text-purple-700">
+                <div className="text-4xl font-bold text-teal-700">
                   {data.monthCount > 0 ? data.monthAvg.toFixed(1) : '—'}
                 </div>
                 <div>

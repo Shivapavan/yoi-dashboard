@@ -63,7 +63,7 @@ export default function VerifyMfaPage() {
                 onChange={e => setCode(e.target.value.replace(/\D/g, ''))}
                 required
                 autoFocus
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-center tracking-widest text-lg font-mono focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-center tracking-widest text-lg font-mono focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                 placeholder="000000"
               />
             </div>
@@ -82,14 +82,14 @@ export default function VerifyMfaPage() {
             <button
               type="submit"
               disabled={loading || code.length !== 6}
-              className="w-full bg-purple-700 hover:bg-purple-800 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+              className="w-full bg-teal-700 hover:bg-teal-800 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
             >
               {loading ? 'Verifying…' : 'Verify'}
             </button>
           </form>
 
           <div className="mt-4 text-center space-y-2">
-            <button onClick={handleResend} className="text-sm text-purple-600 hover:text-purple-800">
+            <button onClick={handleResend} className="text-sm text-teal-600 hover:text-teal-800">
               Resend code
             </button>
             <div>

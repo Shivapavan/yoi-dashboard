@@ -294,7 +294,7 @@ export default function SalesTrend() {
             {(['daily', 'weekly', 'monthly'] as View[]).map((v) => (
               <button key={v} onClick={() => setView(v)}
                 className={`px-5 py-1.5 rounded-md text-sm font-medium transition-colors capitalize ${
-                  view === v ? 'bg-white text-purple-700 shadow-sm font-semibold' : 'text-gray-500 hover:text-gray-700'
+                  view === v ? 'bg-white text-teal-700 shadow-sm font-semibold' : 'text-gray-500 hover:text-gray-700'
                 }`}>
                 {v}
               </button>
@@ -307,7 +307,7 @@ export default function SalesTrend() {
               <select
                 value={dailyMonth}
                 onChange={(e) => setDailyMonth(e.target.value)}
-                className="px-3 py-1 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-300 cursor-pointer"
+                className="px-3 py-1 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 cursor-pointer"
               >
                 {monthOptions().map((o) => (
                   <option key={o.value} value={o.value}>{o.label}</option>
@@ -324,7 +324,7 @@ export default function SalesTrend() {
             <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             Auto-refresh 5 min
           </span>
-          <button onClick={() => fetchData(true)} className="text-purple-600 hover:text-purple-800 font-medium">Refresh now</button>
+          <button onClick={() => fetchData(true)} className="text-teal-600 hover:text-teal-800 font-medium">Refresh now</button>
         </div>
       </div>
 
@@ -336,7 +336,7 @@ export default function SalesTrend() {
           <select
             value={weekStart}
             onChange={(e) => setWeekStart(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-300 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 cursor-pointer"
           >
             {weekOptions().map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
@@ -353,7 +353,7 @@ export default function SalesTrend() {
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-300 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 cursor-pointer"
           >
             {monthOptions().map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
@@ -370,11 +370,11 @@ export default function SalesTrend() {
       {(trend.length > 0 || activityData) && (
         <>
           <div className={`grid grid-cols-2 gap-3 mb-4 ${view === 'daily' && cateringCash ? 'sm:grid-cols-3 lg:grid-cols-6' : 'sm:grid-cols-3 lg:grid-cols-5'}`}>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-purple-600">
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-teal-600">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Gross</div>
               <div className="text-xl font-bold text-gray-900">{fmt(totalGross)}</div>
             </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-yellow-600">
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-amber-600">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Net</div>
               <div className="text-xl font-bold text-gray-900">{fmt(totalNet)}</div>
             </div>
@@ -420,8 +420,8 @@ export default function SalesTrend() {
               <Tooltip formatter={(v: number, n: string) => [fmt(v), n]} labelFormatter={fmtFullDate}
                 contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }} />
               <Legend />
-              <Bar dataKey="grossSales" name="Gross Sales" fill="#5B21B6" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="netSales" name="Net Sales" fill="#B8860B" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="grossSales" name="Gross Sales" fill="#0D9488" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="netSales" name="Net Sales" fill="#D97706" radius={[3, 3, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         ) : (
@@ -435,8 +435,8 @@ export default function SalesTrend() {
               <Tooltip formatter={(v: number, n: string) => [fmt(v), n]} labelFormatter={tooltipTitle}
                 contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }} />
               <Legend />
-              <Bar dataKey="grossSales" name="Gross Sales" fill="#5B21B6" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="netSales" name="Net Sales" fill="#B8860B" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="grossSales" name="Gross Sales" fill="#0D9488" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="netSales" name="Net Sales" fill="#D97706" radius={[3, 3, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         )}
@@ -448,12 +448,12 @@ export default function SalesTrend() {
           <RevenueTable
             title="Gross Sales by Revenue Class"
             rows={activityData.grossByRevenue}
-            accent="border-purple-600"
+            accent="border-teal-600"
           />
           <RevenueTable
             title="Net Sales by Revenue Class"
             rows={activityData.netByRevenue}
-            accent="border-yellow-600"
+            accent="border-amber-600"
           />
         </div>
       )}

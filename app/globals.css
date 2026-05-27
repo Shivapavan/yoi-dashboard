@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --yoi-purple: #5B21B6;
-  --yoi-purple-light: #EDE9FE;
-  --yoi-gold: #B8860B;
-  --yoi-gold-light: #FEF3C7;
+  --yoi-primary: #0D9488;
+  --yoi-primary-light: #CCFBF1;
+  --yoi-accent: #D97706;
+  --yoi-accent-light: #FFEDD5;
   --yoi-bg: #F5F5F5;
 }
 
@@ -20,12 +20,12 @@ body {
 
 /* Visible keyboard focus on all interactive elements (mouse clicks unaffected). */
 :where(a, button, input, select, textarea, [role="button"], [tabindex]):focus-visible {
-  outline: 2px solid var(--yoi-purple);
+  outline: 2px solid var(--yoi-primary);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* Shimmer effect for the dashboard title — slow purple→gold→purple sweep */
+/* Shimmer effect for the dashboard title — slow teal→amber→teal sweep */
 @keyframes shimmer {
   0%   { background-position: 0% center; }
   100% { background-position: 200% center; }

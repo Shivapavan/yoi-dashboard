@@ -101,7 +101,7 @@ export default function EmpShdt() {
           <select
             value={weekStart}
             onChange={(e) => setWeekStart(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-300 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 cursor-pointer"
           >
             {options.map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
@@ -112,7 +112,7 @@ export default function EmpShdt() {
         </div>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {updated && <span>Updated {updated.toLocaleTimeString()}</span>}
-          <button onClick={fetchData} className="text-purple-600 hover:text-purple-800 font-medium">Refresh now</button>
+          <button onClick={fetchData} className="text-teal-600 hover:text-teal-800 font-medium">Refresh now</button>
         </div>
       </div>
 
@@ -129,11 +129,11 @@ export default function EmpShdt() {
         <>
           {/* Summary cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-purple-600">
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-teal-600">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Hours</div>
               <div className="text-xl font-bold text-gray-900">{hm(data.totalHours)}</div>
             </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-yellow-600">
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-amber-600">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Pay</div>
               <div className="text-xl font-bold text-gray-900">
                 ${data.employees.reduce((s, e) => s + payAmount(e.totalHours, e.employee), 0)
@@ -174,7 +174,7 @@ export default function EmpShdt() {
                         role="button"
                         tabIndex={0}
                         aria-expanded={expanded === emp.employee}
-                        className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer focus-visible:bg-purple-50"
+                        className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer focus-visible:bg-teal-50"
                         onClick={() => setExpanded(expanded === emp.employee ? null : emp.employee)}
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' || e.key === ' ') {
@@ -184,8 +184,8 @@ export default function EmpShdt() {
                         }}>
                         <td className="px-5 py-3 font-semibold text-gray-800">{emp.employee}</td>
                         <td className="px-4 py-3 text-center text-gray-500">{emp.shifts.length}</td>
-                        <td className="px-5 py-3 text-right font-bold text-yoi-purple">{hm(emp.totalHours)}</td>
-                        <td className="px-5 py-3 text-right font-bold text-yellow-700">
+                        <td className="px-5 py-3 text-right font-bold text-yoi-primary">{hm(emp.totalHours)}</td>
+                        <td className="px-5 py-3 text-right font-bold text-amber-700">
                           {pay(emp.totalHours, emp.employee)}
                           {rateFor(emp.employee) !== DEFAULT_HOURLY_RATE && (
                             <div className="text-[10px] text-gray-500 font-normal">@ ${rateFor(emp.employee)}/hr</div>
@@ -214,8 +214,8 @@ export default function EmpShdt() {
                                     <td className="py-1.5 pr-4 text-gray-600">{s.date}</td>
                                     <td className="py-1.5 pr-4 text-gray-600">{s.start}</td>
                                     <td className="py-1.5 pr-4 text-gray-600">{s.end}</td>
-                                    <td className="py-1.5 pr-4 text-right font-semibold text-purple-600">{hm(s.hours)}</td>
-                                    <td className="py-1.5 text-right font-semibold text-yellow-700">{pay(s.hours, emp.employee)}</td>
+                                    <td className="py-1.5 pr-4 text-right font-semibold text-teal-600">{hm(s.hours)}</td>
+                                    <td className="py-1.5 text-right font-semibold text-amber-700">{pay(s.hours, emp.employee)}</td>
                                   </tr>
                                 ))}
                               </tbody>

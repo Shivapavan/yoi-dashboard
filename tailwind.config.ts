@@ -9,11 +9,12 @@ const config: Config = {
     extend: {
       colors: {
         yoi: {
-          purple: '#5B21B6',
-          'purple-dark': '#4C1D95',
-          'purple-light': '#EDE9FE',
-          gold: '#B8860B',
-          'gold-light': '#FEF3C7',
+          // Brand theme: Teal primary + Amber accent.
+          primary: '#0D9488',
+          'primary-dark': '#0F766E',
+          'primary-light': '#CCFBF1',
+          accent: '#D97706',
+          'accent-light': '#FFEDD5',
         },
         // Semantic scale — one source of truth for status meaning.
         success: { DEFAULT: '#16A34A', light: '#F0FDF4', text: '#15803D' },

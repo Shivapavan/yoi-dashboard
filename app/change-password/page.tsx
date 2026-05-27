@@ -30,7 +30,7 @@ function PwField({ label, value, onChange, autoComplete }: {
           onChange={e => onChange(e.target.value)}
           required
           autoComplete={autoComplete}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full border border-gray-300 rounded-lg px-3 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
         <button type="button" onClick={() => setShow(v => !v)} tabIndex={-1}
           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -127,7 +127,7 @@ function ChangePasswordForm() {
             <button
               type="submit"
               disabled={loading || !requirements.every(r => r.ok)}
-              className="w-full bg-purple-700 hover:bg-purple-800 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+              className="w-full bg-teal-700 hover:bg-teal-800 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
             >
               {loading ? 'Saving…' : 'Set New Password'}
             </button>

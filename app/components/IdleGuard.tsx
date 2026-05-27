@@ -75,7 +75,7 @@ export default function IdleGuard({ children }: { children: React.ReactNode }) {
             </div>
             <button
               onClick={resetTimer}
-              className="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+              className="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
             >
               Keep me signed in
             </button>

@@ -37,7 +37,7 @@ export default function TabNav({ active, onChange, isAdmin, canEditMenu }: Props
             <button key={t.id} onClick={() => onChange(t.id)}
               aria-current={active === t.id ? 'page' : undefined}
               className={`pb-3 px-3 text-sm font-medium transition-colors whitespace-nowrap ${
-                active === t.id ? 'border-b-2 border-yoi-purple text-yoi-purple' : 'text-gray-500 hover:text-gray-700'
+                active === t.id ? 'border-b-2 border-yoi-primary text-yoi-primary' : 'text-gray-500 hover:text-gray-700'
               }`}>
               {t.label}
             </button>

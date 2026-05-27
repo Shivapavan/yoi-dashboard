@@ -42,7 +42,7 @@ export default function Catering() {
         <h2 className="text-lg font-bold text-gray-800">Catering Orders</h2>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {lastUpdated && <span>Updated {lastUpdated.toLocaleTimeString()}</span>}
-          <button onClick={fetchData} className="text-purple-600 hover:text-purple-800 font-medium">Refresh now</button>
+          <button onClick={fetchData} className="text-teal-600 hover:text-teal-800 font-medium">Refresh now</button>
         </div>
       </div>
 
@@ -50,7 +50,7 @@ export default function Catering() {
 
       {loading && (
         <div className="text-center py-16 text-gray-400">
-          <div className="inline-block w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin mb-3" />
+          <div className="inline-block w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin mb-3" />
           <p className="text-sm">Loading catering data from Google Sheets…</p>
         </div>
       )}

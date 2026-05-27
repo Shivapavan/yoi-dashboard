@@ -37,7 +37,7 @@ export default function Header() {
           </span>
         )}
         {isAdmin && (
-          <a href="/admin" className="text-sm font-medium text-gray-600 hover:text-yoi-purple transition-colors">
+          <a href="/admin" className="text-sm font-medium text-gray-600 hover:text-yoi-primary transition-colors">
             Admin
           </a>
         )}
@@ -50,7 +50,7 @@ export default function Header() {
       </div>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/yum_logo.png" alt="Yum of India" className="h-32 sm:h-40 w-auto" />
-      <h1 className="mt-3 text-2xl sm:text-3xl font-extrabold tracking-wide text-center bg-gradient-to-r from-yoi-purple via-yoi-gold to-yoi-purple bg-clip-text text-transparent animate-shimmer bg-[length:200%_auto]">
+      <h1 className="mt-3 text-2xl sm:text-3xl font-extrabold tracking-wide text-center bg-gradient-to-r from-yoi-primary via-yoi-accent to-yoi-primary bg-clip-text text-transparent animate-shimmer bg-[length:200%_auto]">
         Yum Of India Daily Dashboard
       </h1>
     </header>

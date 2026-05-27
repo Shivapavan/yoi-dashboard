@@ -12,9 +12,9 @@ export default function DatePicker({ value, onChange, min, max }: Props) {
       <input type="date" value={value} min={min} max={today}
         onChange={(e) => onChange(e.target.value)}
         aria-label="Select date"
-        className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yoi-purple" />
+        className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yoi-primary" />
       <button onClick={() => onChange(today)}
-        className="bg-yoi-purple text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-yoi-purple-dark transition-colors">
+        className="bg-yoi-primary text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-yoi-primary-dark transition-colors">
         Today
       </button>
       {value === today && <span className="text-sm font-semibold text-gray-700 ml-auto">Today&apos;s data</span>}

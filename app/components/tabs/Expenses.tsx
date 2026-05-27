@@ -54,9 +54,9 @@ const SECTION_COLORS: Record<string, string> = {
   Expenses:       'border-red-500',
   COGS:           'border-orange-500',
   'Cost of Goods Sold': 'border-orange-500',
-  NetIncome:      'border-purple-600',
-  'Net Income':   'border-purple-600',
-  'Net Earnings': 'border-purple-600',
+  NetIncome:      'border-teal-600',
+  'Net Income':   'border-teal-600',
+  'Net Earnings': 'border-teal-600',
 }
 
 export default function Expenses() {
@@ -160,7 +160,7 @@ export default function Expenses() {
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-300 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 cursor-pointer"
           >
             {monthOptions().map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
@@ -171,7 +171,7 @@ export default function Expenses() {
         </div>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {updated && <span>Updated {updated.toLocaleTimeString()}</span>}
-          <button onClick={fetchExpenses} className="text-purple-600 hover:text-purple-800 font-medium">Refresh now</button>
+          <button onClick={fetchExpenses} className="text-teal-600 hover:text-teal-800 font-medium">Refresh now</button>
           <a href="/api/qbo/connect" className="text-gray-400 hover:text-gray-600">Reconnect</a>
         </div>
       </div>
@@ -180,7 +180,7 @@ export default function Expenses() {
 
       {loading && (
         <div className="text-center py-16 text-gray-400">
-          <div className="inline-block w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin mb-3" />
+          <div className="inline-block w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin mb-3" />
           <p className="text-sm">Loading QuickBooks data…</p>
         </div>
       )}
@@ -197,7 +197,7 @@ export default function Expenses() {
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Expenses</div>
               <div className="text-xl font-bold text-gray-900">{expenses ? fmt(Math.abs(expenses.total)) : '—'}</div>
             </div>
-            <div className={`bg-white rounded-lg p-4 shadow-sm border-l-4 ${net && net.total >= 0 ? 'border-purple-600' : 'border-red-600'}`}>
+            <div className={`bg-white rounded-lg p-4 shadow-sm border-l-4 ${net && net.total >= 0 ? 'border-teal-600' : 'border-red-600'}`}>
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Net Income</div>
               <div className={`text-xl font-bold ${net && net.total >= 0 ? 'text-gray-900' : 'text-red-600'}`}>
                 {net ? fmt(net.total) : '—'}

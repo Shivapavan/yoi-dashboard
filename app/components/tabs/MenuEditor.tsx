@@ -177,7 +177,7 @@ export default function MenuEditor() {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={busy}
-            className="px-4 py-2 bg-purple-700 text-white rounded text-sm font-medium hover:bg-purple-800 disabled:opacity-50"
+            className="px-4 py-2 bg-teal-700 text-white rounded text-sm font-medium hover:bg-teal-800 disabled:opacity-50"
           >+ Add page(s)</button>
           <input
             ref={fileInputRef}
@@ -217,7 +217,7 @@ export default function MenuEditor() {
               onDrop={() => onDrop(p.id)}
               className={`relative border rounded-lg overflow-hidden bg-white shadow-sm cursor-move ${dragId === p.id ? 'opacity-50' : ''}`}
             >
-              <div className="absolute top-1 left-1 z-10 bg-purple-700 text-white text-xs font-bold rounded px-2 py-0.5">
+              <div className="absolute top-1 left-1 z-10 bg-teal-700 text-white text-xs font-bold rounded px-2 py-0.5">
                 {i + 1}
               </div>
               {/* eslint-disable-next-line @next/next/no-img-element */}

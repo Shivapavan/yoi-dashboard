@@ -81,7 +81,7 @@ export default function TopItems() {
               <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
               Auto-refresh 5 min
             </span>
-            <button onClick={() => fetchData(date, false)} className="text-purple-600 hover:text-purple-800 font-medium">
+            <button onClick={() => fetchData(date, false)} className="text-teal-600 hover:text-teal-800 font-medium">
               Refresh now
             </button>
           </div>
@@ -111,7 +111,7 @@ export default function TopItems() {
             <div className="flex flex-wrap gap-2 mb-4">
               {orderTypes.map((ot) => (
                 <div key={ot.type} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium shadow-sm ${
-                  ot.type === 'Dine In' ? 'bg-yoi-purple-light text-yoi-purple border border-purple-200' :
+                  ot.type === 'Dine In' ? 'bg-yoi-primary-light text-yoi-primary border border-teal-200' :
                   ot.type === 'To Go'   ? 'bg-success-light text-success-text border border-green-200' :
                                           'bg-gray-50 text-gray-700 border border-gray-200'
                 }`}>
@@ -128,7 +128,7 @@ export default function TopItems() {
               onClick={() => setSortBy('revenue')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 sortBy === 'revenue'
-                  ? 'bg-yoi-purple text-white'
+                  ? 'bg-yoi-primary text-white'
                   : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
               }`}
             >
@@ -138,7 +138,7 @@ export default function TopItems() {
               onClick={() => setSortBy('quantity')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 sortBy === 'quantity'
-                  ? 'bg-yoi-purple text-white'
+                  ? 'bg-yoi-primary text-white'
                   : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
               }`}
             >
@@ -155,7 +155,7 @@ export default function TopItems() {
                   <th className="px-6 py-3 text-right" aria-sort={sortBy === 'quantity' ? 'descending' : 'none'}>
                     <button
                       onClick={() => setSortBy('quantity')}
-                      className={`uppercase select-none hover:text-yoi-purple transition-colors ${sortBy === 'quantity' ? 'text-yoi-purple font-bold' : ''}`}
+                      className={`uppercase select-none hover:text-yoi-primary transition-colors ${sortBy === 'quantity' ? 'text-yoi-primary font-bold' : ''}`}
                     >
                       Qty {sortBy === 'quantity' ? '↓' : ''}
                     </button>
@@ -163,7 +163,7 @@ export default function TopItems() {
                   <th className="px-6 py-3 text-right" aria-sort={sortBy === 'revenue' ? 'descending' : 'none'}>
                     <button
                       onClick={() => setSortBy('revenue')}
-                      className={`uppercase select-none hover:text-yoi-purple transition-colors ${sortBy === 'revenue' ? 'text-yoi-purple font-bold' : ''}`}
+                      className={`uppercase select-none hover:text-yoi-primary transition-colors ${sortBy === 'revenue' ? 'text-yoi-primary font-bold' : ''}`}
                     >
                       Revenue {sortBy === 'revenue' ? '↓' : ''}
                     </button>
@@ -175,10 +175,10 @@ export default function TopItems() {
                   <tr key={item.name} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                     <td className="px-6 py-3 text-gray-400 font-mono text-xs">{i + 1}</td>
                     <td className="px-6 py-3 font-medium text-gray-800">{item.name}</td>
-                    <td className={`px-6 py-3 text-right ${sortBy === 'quantity' ? 'font-bold text-yoi-purple' : 'text-gray-600'}`}>
+                    <td className={`px-6 py-3 text-right ${sortBy === 'quantity' ? 'font-bold text-yoi-primary' : 'text-gray-600'}`}>
                       {item.count}
                     </td>
-                    <td className={`px-6 py-3 text-right ${sortBy === 'revenue' ? 'font-bold text-yoi-purple' : 'text-gray-700'}`}>
+                    <td className={`px-6 py-3 text-right ${sortBy === 'revenue' ? 'font-bold text-yoi-primary' : 'text-gray-700'}`}>
                       ${item.revenue.toFixed(2)}
                     </td>
                   </tr>

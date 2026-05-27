@@ -253,7 +253,7 @@ export default function ItemTrends() {
         </div>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {lastUpdated && <span>Updated {lastUpdated.toLocaleTimeString()}</span>}
-          <button onClick={load} className="text-purple-600 hover:text-purple-800 font-medium">Refresh</button>
+          <button onClick={load} className="text-teal-600 hover:text-teal-800 font-medium">Refresh</button>
         </div>
       </div>
 
@@ -266,7 +266,7 @@ export default function ItemTrends() {
             {(['month', 'week'] as const).map(g => (
               <button key={g} onClick={() => setGroupBy(g)}
                 className={`px-3 py-1 rounded-md text-xs font-medium capitalize ${
-                  groupBy === g ? 'bg-white text-purple-700 shadow-sm' : 'text-gray-500'
+                  groupBy === g ? 'bg-white text-teal-700 shadow-sm' : 'text-gray-500'
                 }`}>
                 {g}
               </button>
@@ -281,7 +281,7 @@ export default function ItemTrends() {
             {(['qty', 'revenue'] as const).map(m => (
               <button key={m} onClick={() => setMetric(m)}
                 className={`px-3 py-1 rounded-md text-xs font-medium ${
-                  metric === m ? 'bg-white text-purple-700 shadow-sm' : 'text-gray-500'
+                  metric === m ? 'bg-white text-teal-700 shadow-sm' : 'text-gray-500'
                 }`}>
                 {m === 'qty' ? 'Quantity' : 'Revenue'}
               </button>
@@ -293,7 +293,7 @@ export default function ItemTrends() {
         <div className="flex items-center gap-2">
           <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Category</label>
           <select value={category} onChange={e => setCategory(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value="all">All Items</option>
             <option value="biryani">Biryanis</option>
@@ -310,12 +310,12 @@ export default function ItemTrends() {
         {/* Search */}
         <input type="text" value={search} onChange={e => setSearch(e.target.value)}
           placeholder="Search items…"
-          className="ml-auto border border-gray-300 rounded-lg px-3 py-1.5 text-sm w-56 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+          className="ml-auto border border-gray-300 rounded-lg px-3 py-1.5 text-sm w-56 focus:outline-none focus:ring-2 focus:ring-teal-500" />
       </div>
 
       {loading && (
         <div className="text-center py-16 text-gray-400">
-          <div className="inline-block w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin mb-3" />
+          <div className="inline-block w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin mb-3" />
           <p className="text-sm">Loading {groupBy === 'month' ? 'monthly' : 'weekly'} item data — this can take ~30s for the full date range…</p>
         </div>
       )}
@@ -339,8 +339,8 @@ export default function ItemTrends() {
                       {p.label}
                     </th>
                   ))}
-                  <th className="text-right px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-purple-50">Total</th>
-                  <th className="text-right px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-purple-50">Overall Δ</th>
+                  <th className="text-right px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-teal-50">Total</th>
+                  <th className="text-right px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-teal-50">Overall Δ</th>
                 </tr>
               </thead>
               <tbody>
@@ -370,10 +370,10 @@ export default function ItemTrends() {
                           </td>
                         )
                       })}
-                      <td className="px-3 py-2 text-right font-bold text-purple-700 bg-purple-50 whitespace-nowrap">
+                      <td className="px-3 py-2 text-right font-bold text-teal-700 bg-teal-50 whitespace-nowrap">
                         {metric === 'qty' ? it.totalQty : fmt(it.totalRevenue)}
                       </td>
-                      <td className={`px-3 py-2 text-right font-semibold bg-purple-50 ${overall?.color ?? ''}`}>
+                      <td className={`px-3 py-2 text-right font-semibold bg-teal-50 ${overall?.color ?? ''}`}>
                         {overall?.text ?? '—'}
                       </td>
                     </tr>
@@ -392,7 +392,7 @@ export default function ItemTrends() {
       {/* Configurable item summary — search + month-range pickers */}
       {!loading && data.periods.length > 0 && (
         <div className="bg-white rounded-lg shadow-sm overflow-hidden mt-6">
-          <div className="px-4 py-3 border-b border-gray-100 border-l-4 border-l-yoi-purple">
+          <div className="px-4 py-3 border-b border-gray-100 border-l-4 border-l-yoi-primary">
             <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
               <div>
                 <h3 className="font-semibold text-gray-800">📊 Item Summary</h3>
@@ -412,7 +412,7 @@ export default function ItemTrends() {
                 value={summarySearch}
                 onChange={e => setSummarySearch(e.target.value)}
                 placeholder="Search items (comma for multiple: blue moon, bluemoon)"
-                className="flex-1 min-w-[240px] border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-yoi-purple"
+                className="flex-1 min-w-[240px] border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-yoi-primary"
               />
             </div>
 
@@ -424,7 +424,7 @@ export default function ItemTrends() {
                 value={summaryFrom}
                 onChange={e => setSummaryFrom(e.target.value)}
                 disabled={!!(rangeStart && rangeEnd)}
-                className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-yoi-purple disabled:opacity-50"
+                className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-yoi-primary disabled:opacity-50"
               >
                 <option value="">Earliest</option>
                 {data.periods.map(p => <option key={p.key} value={p.key}>{p.label}</option>)}
@@ -434,7 +434,7 @@ export default function ItemTrends() {
                 value={summaryTo}
                 onChange={e => setSummaryTo(e.target.value)}
                 disabled={!!(rangeStart && rangeEnd)}
-                className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-yoi-purple disabled:opacity-50"
+                className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-yoi-primary disabled:opacity-50"
               >
                 <option value="">Latest</option>
                 {data.periods.map(p => <option key={p.key} value={p.key}>{p.label}</option>)}
@@ -449,19 +449,19 @@ export default function ItemTrends() {
                 type="date"
                 value={rangeStart}
                 onChange={e => setRangeStart(e.target.value)}
-                className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-yoi-purple"
+                className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-yoi-primary"
               />
               <label className="text-xs text-gray-500">To</label>
               <input
                 type="date"
                 value={rangeEnd}
                 onChange={e => setRangeEnd(e.target.value)}
-                className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-yoi-purple"
+                className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-yoi-primary"
               />
               {(rangeStart || rangeEnd) && (
                 <button
                   onClick={() => { setRangeStart(''); setRangeEnd('') }}
-                  className="text-xs text-purple-600 hover:text-purple-800 font-medium"
+                  className="text-xs text-teal-600 hover:text-teal-800 font-medium"
                 >Clear dates</button>
               )}
               {rangeLoading && <span className="text-xs text-gray-400 animate-pulse">Fetching…</span>}
@@ -475,7 +475,7 @@ export default function ItemTrends() {
                     setSummaryFrom(''); setSummaryTo('')
                     setRangeStart(''); setRangeEnd('')
                   }}
-                  className="text-xs text-purple-600 hover:text-purple-800 font-medium"
+                  className="text-xs text-teal-600 hover:text-teal-800 font-medium"
                 >Reset all</button>
               </div>
             )}
@@ -500,7 +500,7 @@ export default function ItemTrends() {
                         {p.label}
                       </th>
                     ))}
-                    <th className="text-right px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-yoi-purple-light">Total</th>
+                    <th className="text-right px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-yoi-primary-light">Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -518,7 +518,7 @@ export default function ItemTrends() {
                             </td>
                           )
                         })}
-                        <td className="px-3 py-2.5 text-right font-bold text-yoi-purple bg-yoi-purple-light whitespace-nowrap">
+                        <td className="px-3 py-2.5 text-right font-bold text-yoi-primary bg-yoi-primary-light whitespace-nowrap">
                           {metric === 'qty' ? total.qty : fmt(total.revenue)}
                         </td>
                       </tr>
@@ -535,7 +535,7 @@ export default function ItemTrends() {
                           </td>
                         )
                       })}
-                      <td className="px-3 py-2.5 text-right text-purple-800 bg-purple-100 whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-right text-teal-800 bg-teal-100 whitespace-nowrap">
                         {metric === 'qty'
                           ? summary.sortedGroups.reduce((s, g) => s + summary.groupTotals[g].qty, 0)
                           : fmt(summary.sortedGroups.reduce((s, g) => s + summary.groupTotals[g].revenue, 0))}
@@ -549,7 +549,7 @@ export default function ItemTrends() {
 
           {summary && summary.mode === 'range' && (
             <div className="overflow-x-auto">
-              <div className="px-4 py-2 text-xs text-gray-500 bg-yoi-purple-light border-b border-purple-100">
+              <div className="px-4 py-2 text-xs text-gray-500 bg-yoi-primary-light border-b border-teal-100">
                 Range: <strong>{summary.rangeLabel}</strong>
               </div>
               <table className="w-full text-sm">
@@ -558,7 +558,7 @@ export default function ItemTrends() {
                     <th className="text-left px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide min-w-[120px]">
                       {summary.hasSizes ? 'Size' : 'Item'}
                     </th>
-                    <th className="text-right px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-yoi-purple-light">
+                    <th className="text-right px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-yoi-primary-light">
                       Range Total
                     </th>
                   </tr>
@@ -569,7 +569,7 @@ export default function ItemTrends() {
                     return (
                       <tr key={g} className="border-b border-gray-50 last:border-0 hover:bg-gray-50">
                         <td className="px-4 py-2.5 font-semibold text-gray-800">{g}</td>
-                        <td className="px-3 py-2.5 text-right font-bold text-yoi-purple bg-yoi-purple-light whitespace-nowrap">
+                        <td className="px-3 py-2.5 text-right font-bold text-yoi-primary bg-yoi-primary-light whitespace-nowrap">
                           {metric === 'qty' ? total.qty : fmt(total.revenue)}
                         </td>
                       </tr>
@@ -578,7 +578,7 @@ export default function ItemTrends() {
                   {summary.sortedGroups.length > 1 && (
                     <tr className="border-t-2 border-gray-200 bg-gray-50 font-bold">
                       <td className="px-4 py-2.5 text-gray-900">All matching</td>
-                      <td className="px-3 py-2.5 text-right text-purple-800 bg-purple-100 whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-right text-teal-800 bg-teal-100 whitespace-nowrap">
                         {metric === 'qty'
                           ? summary.sortedGroups.reduce((s, g) => s + summary.groupTotals[g].qty, 0)
                           : fmt(summary.sortedGroups.reduce((s, g) => s + summary.groupTotals[g].revenue, 0))}

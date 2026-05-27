@@ -21,7 +21,7 @@ const COUNTRY_FLAG: Record<string, string> = {
 const DEVICE_COLORS = {
   ios:     { bg: 'bg-blue-100',  text: 'text-blue-700',  bar: '#3B82F6', icon: '📱 iPhone / iPad' },
   android: { bg: 'bg-green-100', text: 'text-green-700', bar: '#22C55E', icon: '📱 Android' },
-  desktop: { bg: 'bg-purple-100',text: 'text-purple-700',bar: '#7C3AED', icon: '🖥 Desktop' },
+  desktop: { bg: 'bg-teal-100',text: 'text-teal-700',bar: '#0D9488', icon: '🖥 Desktop' },
   other:   { bg: 'bg-gray-100',  text: 'text-gray-600',  bar: '#9CA3AF', icon: '❓ Other' },
 }
 
@@ -60,7 +60,7 @@ export default function Visitors() {
         <h2 className="text-lg font-bold text-gray-800">Visitor Analytics</h2>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {updated && <span>Updated {updated.toLocaleTimeString()}</span>}
-          <button onClick={fetchStats} className="text-purple-600 hover:text-purple-800 font-medium">
+          <button onClick={fetchStats} className="text-teal-600 hover:text-teal-800 font-medium">
             Refresh now
           </button>
         </div>
@@ -68,7 +68,7 @@ export default function Visitors() {
 
       {loading && (
         <div className="text-center py-16 text-gray-400">
-          <div className="inline-block w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin mb-3" />
+          <div className="inline-block w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin mb-3" />
           <p className="text-sm">Loading visitor stats…</p>
         </div>
       )}
@@ -77,7 +77,7 @@ export default function Visitors() {
         <>
           {/* ── Top summary ────────────────────────────────────────────── */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-purple-600">
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-teal-600">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Visits</div>
               <div className="text-2xl font-bold text-gray-900">{stats.total.toLocaleString()}</div>
             </div>
@@ -105,7 +105,7 @@ export default function Visitors() {
                     labelFormatter={fmtDate}
                     contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }}
                   />
-                  <Bar dataKey="visits" fill="#7C3AED" radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="visits" fill="#0D9488" radius={[3, 3, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -151,7 +151,7 @@ export default function Visitors() {
                       </span>
                       <div className="flex items-center gap-2">
                         <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div className="h-full bg-purple-400 rounded-full"
+                          <div className="h-full bg-teal-400 rounded-full"
                             style={{ width: pct(count, stats.total) }} />
                         </div>
                         <span className="text-sm font-semibold text-gray-900 w-8 text-right">{count}</span>
