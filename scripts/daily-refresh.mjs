@@ -9,9 +9,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const TOKEN = process.argv[2];
 if (!TOKEN) { console.error('Usage: node daily-refresh.mjs <JWT_TOKEN>'); process.exit(1); }
 
-const TODAY = '2026-05-26';  // YYYY-MM-DD
-const YESTERDAY = '2026-05-25';
-const TOMORROW = '2026-05-27';
+const TODAY = '2026-06-01';  // YYYY-MM-DD
+const YESTERDAY = '2026-05-31';
+const TOMORROW = '2026-06-02';
 const MERCHANT_ID = '0022712560';
 const LOCATION_ID = '43141083';
 const HEADERS = { 'x-access-token': TOKEN, 'accept': 'application/json' };
