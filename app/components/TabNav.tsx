@@ -1,6 +1,6 @@
 'use client'
 
-export type Tab = 'end-of-day' | 'sales-trend' | 'top-items' | 'item-trends' | 'catering' | 'visitors' | 'emp-shdt' | 'expenses' | 'containers' | 'reviews' | 'activity' | 'menu-editor'
+export type Tab = 'end-of-day' | 'sales-trend' | 'top-items' | 'item-trends' | 'catering' | 'visitors' | 'emp-shdt' | 'expenses' | 'containers' | 'reviews' | 'activity' | 'menu-editor' | 'events-space'
 
 interface Props { active: Tab; onChange: (t: Tab) => void; isAdmin?: boolean; canEditMenu?: boolean }
 
@@ -10,6 +10,7 @@ const BASE_TABS: { id: Tab; label: string }[] = [
   { id: 'top-items',    label: 'Top Items' },
   { id: 'item-trends',  label: 'Item Trends' },
   { id: 'catering',     label: 'Catering' },
+  { id: 'events-space', label: 'Events Space' },
   { id: 'containers',   label: 'Containers' },
   { id: 'reviews',      label: 'Reviews' },
   { id: 'visitors',     label: 'Visitors' },

@@ -10,6 +10,11 @@ const PUBLIC_PATHS = [
   '/api/menu',
   '/api/auth/',
   '/api/cron/',
+  // Events Space: public page reachable via /events/<slug>. The page itself
+  // verifies the slug against EVENTS_PUBLIC_SLUG and 404s otherwise; the
+  // bookings API checks the slug query param in-route.
+  '/events/',
+  '/api/events/bookings',
 ]
 
 function getSecret() {

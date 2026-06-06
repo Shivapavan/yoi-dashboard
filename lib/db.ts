@@ -50,4 +50,18 @@ CREATE TABLE IF NOT EXISTS otp_codes (
   used_at    TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS event_bookings (
+  id         UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+  date       DATE         NOT NULL,
+  name       TEXT         NOT NULL,
+  party_size INTEGER,
+  start_time TEXT,
+  phone      TEXT,
+  status     TEXT         NOT NULL DEFAULT 'Tentative',
+  notes      TEXT,
+  created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS event_bookings_date_idx ON event_bookings(date);
 `

@@ -14,6 +14,7 @@ import Containers from './tabs/Containers'
 import Reviews from './tabs/Reviews'
 import Activity from './tabs/Activity'
 import MenuEditor from './tabs/MenuEditor'
+import EventsSpace from './tabs/EventsSpace'
 
 export default function Dashboard() {
   const [tab, setTab] = useState<Tab>('end-of-day')
@@ -38,6 +39,7 @@ export default function Dashboard() {
       <div className={tab === 'top-items'    ? '' : 'hidden'}><TopItems /></div>
       <div className={tab === 'item-trends'  ? '' : 'hidden'}><ItemTrends /></div>
       <div className={tab === 'catering'     ? '' : 'hidden'}><Catering /></div>
+      <div className={tab === 'events-space' ? '' : 'hidden'}><EventsSpace /></div>
       <div className={tab === 'containers'   ? '' : 'hidden'}><Containers /></div>
       <div className={tab === 'reviews'      ? '' : 'hidden'}><Reviews /></div>
       <div className={tab === 'visitors'     ? '' : 'hidden'}><Visitors /></div>
