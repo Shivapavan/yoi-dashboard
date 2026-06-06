@@ -38,7 +38,7 @@ export default function CardProcessingDetail({ windowLabel, rows, historical }: 
                 {row.label}
               </td>
               <td className={`px-6 py-3 text-right ${row.bold ? 'font-bold text-gray-900' : 'text-gray-400'}`}>
-                {row.amount === null
+                {row.amount == null
                   ? '—'
                   : `$${row.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
                 }
