@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import QRCode from 'qrcode'
 import EventsCalendar from '../EventsCalendar'
 
 // July end this year (computed at render so the calendar follows the calendar year).
@@ -13,6 +14,7 @@ function julyEndThisYear(): string {
 export default function EventsSpace() {
   const [slug, setSlug] = useState<string | null>(null)
   const [slugLoading, setSlugLoading] = useState(true)
+  const [qrSrc, setQrSrc] = useState<string | null>(null)
   const endDate = julyEndThisYear()
 
   useEffect(() => {
@@ -28,9 +30,19 @@ export default function EventsSpace() {
 
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const publicUrl = slug ? `${origin}/events/${slug}` : null
-  const qrSrc = publicUrl
-    ? `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=10&data=${encodeURIComponent(publicUrl)}`
-    : null
+
+  // Render the QR entirely client-side as a base64 data URL. The slug never
+  // leaves this admin's browser — no third-party QR rendering service is
+  // contacted (the previous api.qrserver.com call would have leaked the
+  // credential into their logs).
+  useEffect(() => {
+    if (!publicUrl) { setQrSrc(null); return }
+    let cancelled = false
+    QRCode.toDataURL(publicUrl, { width: 240, margin: 2, errorCorrectionLevel: 'M' })
+      .then(url => { if (!cancelled) setQrSrc(url) })
+      .catch(() => { if (!cancelled) setQrSrc(null) })
+    return () => { cancelled = true }
+  }, [publicUrl])
 
   return (
     <div className="space-y-6">
