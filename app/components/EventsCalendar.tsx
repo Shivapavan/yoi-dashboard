@@ -79,6 +79,7 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [openDays, setOpenDays] = useState<Set<string>>(new Set())
+  const [editingId, setEditingId] = useState<string | null>(null)
 
   const slugParam = slug ? `&slug=${encodeURIComponent(slug)}` : ''
 
@@ -148,6 +149,24 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
     if (r.ok) await load()
   }
 
+  async function saveEdit(id: string, patch: NewBookingForm) {
+    const url = slug
+      ? `/api/events/bookings/${id}?slug=${encodeURIComponent(slug)}`
+      : `/api/events/bookings/${id}`
+    const r = await fetch(url, {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(patch),
+    })
+    if (!r.ok) {
+      const j = await r.json().catch(() => ({}))
+      throw new Error(j.error || `HTTP ${r.status}`)
+    }
+    setEditingId(null)
+    await load()
+  }
+
   return (
     <div className="space-y-4">
       {(title || subtitle) && (
@@ -207,36 +226,61 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
                   <div className="space-y-2 mt-3">
                     {dayBookings.map(b => (
                       <div key={b.id} className="bg-gray-50 rounded p-3">
-                        <div className="flex items-start gap-2">
-                          <div className="flex-1 min-w-0">
-                            <div className="text-sm font-semibold text-gray-800 truncate">
-                              {b.name}
-                              {b.party_size != null && <span className="text-gray-500 font-normal"> · {b.party_size} ppl</span>}
-                              {b.start_time && <span className="text-gray-500 font-normal"> · {b.start_time}</span>}
+                        {editingId === b.id ? (
+                          <BookingForm
+                            heading="Edit booking"
+                            initial={{
+                              name:       b.name,
+                              party_size: b.party_size != null ? String(b.party_size) : '',
+                              start_time: b.start_time ?? '',
+                              phone:      b.phone ?? '',
+                              status:     b.status,
+                              notes:      b.notes ?? '',
+                            }}
+                            submitLabel="Save changes"
+                            onSubmit={(form) => saveEdit(b.id, form)}
+                            onCancel={() => setEditingId(null)}
+                          />
+                        ) : (
+                          <div className="flex items-start gap-2">
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-semibold text-gray-800 truncate">
+                                {b.name}
+                                {b.party_size != null && <span className="text-gray-500 font-normal"> · {b.party_size} ppl</span>}
+                                {b.start_time && <span className="text-gray-500 font-normal"> · {b.start_time}</span>}
+                              </div>
+                              {b.phone && <div className="text-xs text-gray-500">📞 {b.phone}</div>}
+                              {b.notes && <div className="text-xs text-gray-600 mt-1 whitespace-pre-wrap">{b.notes}</div>}
                             </div>
-                            {b.phone && <div className="text-xs text-gray-500">📞 {b.phone}</div>}
-                            {b.notes && <div className="text-xs text-gray-600 mt-1 whitespace-pre-wrap">{b.notes}</div>}
+                            <div className="flex flex-col gap-1 items-end">
+                              <button onClick={() => toggleStatus(b)}
+                                className={`text-[10px] uppercase tracking-wide font-semibold px-2 py-0.5 rounded border ${
+                                  b.status === 'Confirmed'
+                                    ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                                    : 'bg-amber-100 text-amber-800 border-amber-300'
+                                }`}>
+                                {b.status}
+                              </button>
+                              <button onClick={() => setEditingId(b.id)}
+                                className="text-[10px] text-yoi-primary hover:underline">
+                                edit
+                              </button>
+                              <button onClick={() => deleteBooking(b.id)}
+                                className="text-[10px] text-red-500 hover:underline">
+                                delete
+                              </button>
+                            </div>
                           </div>
-                          <div className="flex flex-col gap-1 items-end">
-                            <button onClick={() => toggleStatus(b)}
-                              className={`text-[10px] uppercase tracking-wide font-semibold px-2 py-0.5 rounded border ${
-                                b.status === 'Confirmed'
-                                  ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                                  : 'bg-amber-100 text-amber-800 border-amber-300'
-                              }`}>
-                              {b.status}
-                            </button>
-                            <button onClick={() => deleteBooking(b.id)}
-                              className="text-[10px] text-red-500 hover:underline">
-                              delete
-                            </button>
-                          </div>
-                        </div>
+                        )}
                       </div>
                     ))}
                   </div>
 
-                  <AddBookingForm onSubmit={(form) => addBooking(date, form)} />
+                  <BookingForm
+                    heading="Add booking"
+                    submitLabel="Save booking"
+                    onSubmit={(form) => addBooking(date, form)}
+                  />
                 </div>
               )}
             </div>
@@ -265,23 +309,34 @@ type NewBookingForm = {
   notes: string
 }
 
-function AddBookingForm({ onSubmit }: { onSubmit: (f: NewBookingForm) => Promise<void> }) {
-  const [form, setForm] = useState<NewBookingForm>({
-    name: '', party_size: '', start_time: '', phone: '', status: 'Tentative', notes: '',
-  })
+interface BookingFormProps {
+  heading: string
+  submitLabel: string
+  initial?: NewBookingForm
+  onSubmit: (f: NewBookingForm) => Promise<void>
+  onCancel?: () => void
+}
+
+const EMPTY_FORM: NewBookingForm = {
+  name: '', party_size: '', start_time: '', phone: '', status: 'Tentative', notes: '',
+}
+
+function BookingForm({ heading, submitLabel, initial, onSubmit, onCancel }: BookingFormProps) {
+  const [form, setForm] = useState<NewBookingForm>(initial ?? EMPTY_FORM)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
+  const isEdit = !!onCancel
 
   return (
     <form
-      className="mt-3 border-t border-gray-100 pt-3 space-y-2"
+      className={isEdit ? 'space-y-2' : 'mt-3 border-t border-gray-100 pt-3 space-y-2'}
       onSubmit={async (e) => {
         e.preventDefault()
         if (!form.name.trim()) { setErr('Name is required'); return }
         setBusy(true); setErr(null)
         try {
           await onSubmit(form)
-          setForm({ name: '', party_size: '', start_time: '', phone: '', status: 'Tentative', notes: '' })
+          if (!isEdit) setForm(EMPTY_FORM)
         } catch (e: any) {
           setErr(e?.message || 'Failed')
         } finally {
@@ -289,7 +344,7 @@ function AddBookingForm({ onSubmit }: { onSubmit: (f: NewBookingForm) => Promise
         }
       }}
     >
-      <div className="text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Add booking</div>
+      <div className="text-[10px] uppercase tracking-wide text-gray-400 font-semibold">{heading}</div>
       <div className="grid grid-cols-2 gap-2">
         <input
           className="col-span-2 text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yoi-primary/30"
@@ -340,8 +395,18 @@ function AddBookingForm({ onSubmit }: { onSubmit: (f: NewBookingForm) => Promise
           disabled={busy}
           className="text-sm bg-yoi-primary text-white px-3 py-1.5 rounded font-medium hover:bg-yoi-primary-dark disabled:opacity-50"
         >
-          {busy ? 'Saving…' : 'Save booking'}
+          {busy ? 'Saving…' : submitLabel}
         </button>
+        {onCancel && (
+          <button
+            type="button"
+            onClick={onCancel}
+            disabled={busy}
+            className="text-sm text-gray-500 hover:text-gray-700 px-2 py-1.5"
+          >
+            Cancel
+          </button>
+        )}
       </div>
     </form>
   )
