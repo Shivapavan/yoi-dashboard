@@ -99,7 +99,15 @@ export async function GET(req: NextRequest) {
     // HISTORICAL: prefer Postgres daily_data table (populated by daily-checks cron),
     // then fall back to dashboard.json, then to a live Lighthouse fetch.
     const stored = await getDailyData(date).catch(() => null)
-    if (stored && stored.grossSales > 0) {
+    // "Thin" stored row = Total Sales is filled but every individual card row
+    // is null (i.e., the cron's per-card breakdown call to Lighthouse failed
+    // when it tried to store). If we serve this back, the user sees all
+    // em-dashes. Treat it as missing so the route falls through to the live
+    // re-fetch below.
+    const isThinProcessing = (pd: any) =>
+      !!pd && Array.isArray(pd.rows) && pd.rows.length > 1 &&
+      pd.rows.filter((r: any) => r.label !== 'Total Sales' && r.amount != null).length === 0
+    if (stored && stored.grossSales > 0 && !isThinProcessing(stored.processingDetail)) {
       return NextResponse.json({
         date,
         metrics: {
@@ -174,7 +182,7 @@ export async function GET(req: NextRequest) {
         cashDetails = activityData.cashDetails ?? []
         orderTypes = activityData.orderTypes ?? []
         return NextResponse.json({
-          date, metrics, processingDetail: null, recommendedDate,
+          date, metrics, processingDetail, recommendedDate,
           earliestDate, businessDay: data.businessDay, live: true, cashRefund, voidDetails, cashDetails, orderTypes,
         })
       }
