@@ -32,7 +32,9 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   }
   if (body.start_time !== undefined) patch.start_time = body.start_time ? String(body.start_time).slice(0, 20) : null
   if (body.phone      !== undefined) patch.phone      = body.phone      ? String(body.phone).slice(0, 30) : null
-  if (body.status === 'Confirmed' || body.status === 'Tentative') patch.status = body.status
+  if (body.status === 'Confirmed' || body.status === 'Tentative' || body.status === 'NotAvailable') {
+    patch.status = body.status
+  }
   if (body.notes      !== undefined) patch.notes      = body.notes ? String(body.notes).slice(0, 2000) : null
 
   const updated = await updateBooking(id, patch)

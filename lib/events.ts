@@ -1,6 +1,8 @@
 import { getDb } from '@/lib/db'
 
-export type BookingStatus = 'Tentative' | 'Confirmed' | 'Open'
+export type BookingStatus = 'Tentative' | 'Confirmed' | 'NotAvailable' | 'Open'
+
+export const VALID_STATUSES: BookingStatus[] = ['Tentative', 'Confirmed', 'NotAvailable']
 
 export interface EventBooking {
   id: string
@@ -54,7 +56,7 @@ export async function listBookings(startDate: string, endDate: string): Promise<
 export async function createBooking(b: Partial<EventBooking>): Promise<EventBooking> {
   await ensureEventBookingsTable()
   const sql = getDb()
-  const status = (b.status === 'Confirmed' || b.status === 'Tentative') ? b.status : 'Tentative'
+  const status = VALID_STATUSES.includes(b.status as BookingStatus) ? b.status : 'Tentative'
   const rows = await sql`
     INSERT INTO event_bookings (date, name, party_size, start_time, phone, status, notes)
     VALUES (${b.date}, ${b.name}, ${b.party_size ?? null}, ${b.start_time ?? null},
@@ -69,7 +71,7 @@ export async function createBooking(b: Partial<EventBooking>): Promise<EventBook
 export async function updateBooking(id: string, b: Partial<EventBooking>): Promise<EventBooking | null> {
   await ensureEventBookingsTable()
   const sql = getDb()
-  const status = (b.status === 'Confirmed' || b.status === 'Tentative') ? b.status : null
+  const status = VALID_STATUSES.includes(b.status as BookingStatus) ? b.status : null
   const rows = await sql`
     UPDATE event_bookings SET
       date       = COALESCE(${b.date}::date,    date),

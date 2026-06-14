@@ -30,6 +30,7 @@ export default function EventsSpace() {
 
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const publicUrl = slug ? `${origin}/events/${slug}` : null
+  const icsUrl    = slug ? `${origin}/api/events/calendar.ics?slug=${encodeURIComponent(slug)}` : null
 
   // Render the QR entirely client-side as a base64 data URL. The slug never
   // leaves this admin's browser — no third-party QR rendering service is
@@ -103,6 +104,47 @@ export default function EventsSpace() {
           )}
         </div>
       </div>
+
+      {icsUrl && (
+        <div className="bg-white rounded-lg shadow-sm p-5">
+          <h3 className="text-lg font-bold text-gray-800">Sync to Google Calendar</h3>
+          <p className="text-sm text-gray-500 mt-1">
+            Subscribe Google Calendar (or any iCal-aware app) to this URL and your bookings will show
+            up there automatically. <b>Not Available</b> days appear as busy/blocked; Confirmed and
+            Tentative bookings appear as all-day events. Google polls the feed every few hours, so
+            updates lag slightly — that's a Google Calendar limit, not the app.
+          </p>
+
+          <div className="mt-4">
+            <div className="text-xs uppercase tracking-wide text-gray-400 font-semibold">iCal subscription URL</div>
+            <div className="flex items-center gap-2 mt-1">
+              <input
+                readOnly
+                value={icsUrl}
+                className="flex-1 text-sm border border-gray-200 rounded px-3 py-2 font-mono bg-gray-50"
+                onFocus={(e) => e.currentTarget.select()}
+              />
+              <button
+                onClick={() => navigator.clipboard.writeText(icsUrl)}
+                className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded font-medium"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+
+          <details className="mt-4 text-sm text-gray-600">
+            <summary className="cursor-pointer font-medium text-gray-800">How to add it in Google Calendar</summary>
+            <ol className="list-decimal ml-5 mt-2 space-y-1">
+              <li>Open <a className="text-yoi-primary hover:underline" href="https://calendar.google.com" target="_blank" rel="noopener noreferrer">calendar.google.com</a> signed in as <code className="font-mono bg-gray-100 px-1 rounded">yumofmckinney@gmail.com</code>.</li>
+              <li>In the left sidebar, click the <b>+</b> next to <b>Other calendars</b>.</li>
+              <li>Choose <b>From URL</b>.</li>
+              <li>Paste the URL above and click <b>Add calendar</b>.</li>
+              <li>The new "Yum of India — Party Space" calendar appears in your list and updates automatically.</li>
+            </ol>
+          </details>
+        </div>
+      )}
 
       <EventsCalendar
         endDate={endDate}

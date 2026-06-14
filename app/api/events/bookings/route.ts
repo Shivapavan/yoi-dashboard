@@ -49,7 +49,9 @@ export async function POST(req: NextRequest) {
   const partySize = body.party_size === '' || body.party_size == null
     ? null
     : Math.max(1, Math.min(500, parseInt(String(body.party_size), 10) || 0))
-  const status = body.status === 'Confirmed' ? 'Confirmed' : 'Tentative'
+  const status = (body.status === 'Confirmed' || body.status === 'NotAvailable')
+    ? body.status
+    : 'Tentative'
 
   const booking = await createBooking({
     date: body.date,

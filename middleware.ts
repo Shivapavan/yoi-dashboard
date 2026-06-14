@@ -10,11 +10,13 @@ const PUBLIC_PATHS = [
   '/api/menu',
   '/api/auth/',
   '/api/cron/',
-  // Events Space: public page reachable via /events/<slug>. The page itself
-  // verifies the slug against EVENTS_PUBLIC_SLUG and 404s otherwise; the
-  // bookings API checks the slug query param in-route.
+  // Events Space: public page reachable via /events/<slug>. Each route here
+  // enforces its own auth (session cookie OR matching ?slug=… query) — the
+  // middleware just gets out of the way so Google Calendar can fetch the
+  // .ics feed and so the standalone /events/<slug> page can render.
   '/events/',
   '/api/events/bookings',
+  '/api/events/calendar.ics',
 ]
 
 function getSecret() {

@@ -9,7 +9,7 @@ export interface Booking {
   party_size: number | null
   start_time: string | null
   phone: string | null
-  status: 'Tentative' | 'Confirmed'
+  status: 'Tentative' | 'Confirmed' | 'NotAvailable'
   notes: string | null
   created_at: string
   updated_at: string
@@ -51,6 +51,8 @@ function prettyDate(yyyymmdd: string): { weekday: string; main: string; isWeeken
 
 function dayStatus(bookings: Booking[]): { label: string; cls: string } {
   if (bookings.length === 0) return { label: 'Open', cls: 'bg-gray-100 text-gray-500 border-gray-200' }
+  if (bookings.some(b => b.status === 'NotAvailable'))
+    return { label: 'Not Available', cls: 'bg-red-100 text-red-800 border-red-300' }
   if (bookings.some(b => b.status === 'Confirmed'))
     return { label: 'Confirmed', cls: 'bg-emerald-100 text-emerald-800 border-emerald-300' }
   return { label: 'Tentative', cls: 'bg-amber-100 text-amber-800 border-amber-300' }
@@ -58,8 +60,16 @@ function dayStatus(bookings: Booking[]): { label: string; cls: string } {
 
 function statusBarColor(bookings: Booking[]): string {
   if (bookings.length === 0) return 'bg-gray-200'
-  if (bookings.some(b => b.status === 'Confirmed')) return 'bg-emerald-500'
+  if (bookings.some(b => b.status === 'NotAvailable')) return 'bg-red-500'
+  if (bookings.some(b => b.status === 'Confirmed'))    return 'bg-emerald-500'
   return 'bg-amber-400'
+}
+
+function dayCardBg(bookings: Booking[]): string {
+  // Whole-card red tint for blocked days — the user wanted "complete red"
+  // when a day is marked Not Available.
+  if (bookings.some(b => b.status === 'NotAvailable')) return 'bg-red-50'
+  return 'bg-white'
 }
 
 export default function EventsCalendar({ endDate, slug, title, subtitle }: Props) {
@@ -199,7 +209,7 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
           const isOpen = openDays.has(date)
           const pretty = prettyDate(date)
           return (
-            <div key={date} className="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div key={date} className={`${dayCardBg(dayBookings)} rounded-lg shadow-sm overflow-hidden`}>
               <button
                 onClick={() => toggleDay(date)}
                 className="w-full text-left"
@@ -255,11 +265,13 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
                             <div className="flex flex-col gap-1 items-end">
                               <button onClick={() => toggleStatus(b)}
                                 className={`text-[10px] uppercase tracking-wide font-semibold px-2 py-0.5 rounded border ${
-                                  b.status === 'Confirmed'
-                                    ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                                    : 'bg-amber-100 text-amber-800 border-amber-300'
+                                  b.status === 'NotAvailable'
+                                    ? 'bg-red-100 text-red-800 border-red-300'
+                                    : b.status === 'Confirmed'
+                                      ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                                      : 'bg-amber-100 text-amber-800 border-amber-300'
                                 }`}>
-                                {b.status}
+                                {b.status === 'NotAvailable' ? 'NOT AVAIL.' : b.status}
                               </button>
                               <button onClick={() => setEditingId(b.id)}
                                 className="text-[10px] text-yoi-primary hover:underline">
@@ -305,7 +317,7 @@ type NewBookingForm = {
   party_size: string
   start_time: string
   phone: string
-  status: 'Tentative' | 'Confirmed'
+  status: 'Tentative' | 'Confirmed' | 'NotAvailable'
   notes: string
 }
 
@@ -375,10 +387,11 @@ function BookingForm({ heading, submitLabel, initial, onSubmit, onCancel }: Book
         <select
           className="text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yoi-primary/30"
           value={form.status}
-          onChange={(e) => setForm(f => ({ ...f, status: e.target.value as 'Tentative' | 'Confirmed' }))}
+          onChange={(e) => setForm(f => ({ ...f, status: e.target.value as NewBookingForm['status'] }))}
         >
-          <option>Tentative</option>
-          <option>Confirmed</option>
+          <option value="Tentative">Tentative</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="NotAvailable">Not Available (block this day)</option>
         </select>
         <textarea
           className="col-span-2 text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yoi-primary/30"
