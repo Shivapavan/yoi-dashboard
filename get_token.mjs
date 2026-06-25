@@ -1,21 +1,20 @@
 import { chromium } from 'playwright';
 
-const proxyServer = process.env.HTTPS_PROXY || '';
-const launchArgs = [
-  '--ignore-certificate-errors',
-  '--disable-web-security',
-  '--no-sandbox',
-];
-if (proxyServer) launchArgs.push(`--proxy-server=${proxyServer}`);
 const browser = await chromium.launch({
   headless: true,
-  args: launchArgs,
+  executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
+  proxy: { server: 'http://127.0.0.1:41317' },
+  args: [
+    '--ignore-certificate-errors',
+    '--disable-web-security',
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--proxy-server=http://127.0.0.1:41317',
+    `--trusted-proxies=127.0.0.1`,
+  ]
 });
 
-const context = await browser.newContext({
-  ignoreHTTPSErrors: true,
-  ...(proxyServer ? { proxy: { server: proxyServer } } : {}),
-});
+const context = await browser.newContext({ ignoreHTTPSErrors: true });
 const page = await context.newPage();
 
 async function tryLogin() {

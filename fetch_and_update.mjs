@@ -8,15 +8,9 @@ const XLSX = require('xlsx');
 const TOKEN = process.argv[2];
 if (!TOKEN) { console.error('Usage: node fetch_and_update.mjs <token>'); process.exit(1); }
 
-// Compute today's date in CDT (UTC-5)
-function cdtDate(offsetDays = 0) {
-  const d = new Date(Date.now() + offsetDays * 86400000);
-  const cdt = new Date(d.getTime() - 5 * 3600000);
-  return cdt.toISOString().slice(0, 10);
-}
-const TODAY     = cdtDate(0);
-const YESTERDAY = cdtDate(-1);
-const TOMORROW  = cdtDate(1);
+const TODAY     = '2026-06-25';
+const YESTERDAY = '2026-06-24';
+const TOMORROW  = '2026-06-26';
 
 // Today's business day window (4AM CDT = 9AM UTC)
 const TODAY_START = `${TODAY}T09:00:00.000Z`;
