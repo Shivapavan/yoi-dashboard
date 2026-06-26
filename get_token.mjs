@@ -1,16 +1,25 @@
 import { chromium } from 'playwright';
+import fs from 'fs';
+
+// Write a PAC file that only routes HTTPS through proxy (plain HTTP goes direct)
+// This avoids Chromium sending non-CONNECT requests through the proxy, which it rejects
+const pacContent = `function FindProxyForURL(url, host) {
+  if (url.substring(0, 5) === 'https') {
+    return "PROXY 127.0.0.1:44237";
+  }
+  return "DIRECT";
+}`;
+fs.writeFileSync('/tmp/chromium_proxy.pac', pacContent);
 
 const browser = await chromium.launch({
   headless: true,
   executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
-  proxy: { server: 'http://127.0.0.1:41317' },
   args: [
-    '--ignore-certificate-errors',
-    '--disable-web-security',
     '--no-sandbox',
     '--disable-setuid-sandbox',
-    '--proxy-server=http://127.0.0.1:41317',
-    `--trusted-proxies=127.0.0.1`,
+    '--disable-background-networking',
+    '--no-first-run',
+    '--proxy-pac-url=file:///tmp/chromium_proxy.pac',
   ]
 });
 
@@ -19,7 +28,6 @@ const page = await context.newPage();
 
 async function tryLogin() {
   await page.goto('https://lh.shift4.com/sign-in', { waitUntil: 'load', timeout: 30000 });
-  // Wait for inputs to appear
   await page.waitForSelector('input', { timeout: 10000 });
   const emailInput = page.locator('input').first();
   const passInput = page.locator('input[type="password"]');
