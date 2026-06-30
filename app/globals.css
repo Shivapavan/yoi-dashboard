@@ -7,12 +7,19 @@
   --yoi-primary-light: #CCFBF1;
   --yoi-accent: #D97706;
   --yoi-accent-light: #FFEDD5;
-  --yoi-bg: #F5F5F5;
+  --yoi-bg: #0D1117;
+  --bg-card: #161B22;
+  --bg-card-hover: #1C2333;
+  --border-card: #21262D;
+  --text-primary: #E6EDF3;
+  --text-secondary: #8B949E;
+  --text-muted: #6E7681;
 }
 
 body {
   background-color: var(--yoi-bg);
   font-family: system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
 }
 
 .scrollbar-none::-webkit-scrollbar { display: none; }

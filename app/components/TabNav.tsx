@@ -31,21 +31,27 @@ export default function TabNav({ active, onChange, isAdmin, canEditMenu }: Props
   ]
 
   return (
-    <div className="relative border-b border-gray-200 mb-6">
-      <div className="overflow-x-auto scrollbar-none">
+    <div className="relative mb-6 -mx-6 px-6" style={{ borderBottom: '1px solid #21262D' }}>
+      <div className="overflow-x-auto scrollbar-none pb-3">
         <div className="flex gap-1 min-w-max">
           {tabs.map((t) => (
-            <button key={t.id} onClick={() => onChange(t.id)}
+            <button
+              key={t.id}
+              onClick={() => onChange(t.id)}
               aria-current={active === t.id ? 'page' : undefined}
-              className={`pb-3 px-3 text-sm font-medium transition-colors whitespace-nowrap ${
-                active === t.id ? 'border-b-2 border-yoi-primary text-yoi-primary' : 'text-gray-500 hover:text-gray-700'
-              }`}>
+              className="px-3.5 py-1.5 text-sm font-medium transition-all whitespace-nowrap rounded-full"
+              style={
+                active === t.id
+                  ? { backgroundColor: '#0D9488', color: '#fff', boxShadow: '0 0 12px rgba(13,148,136,0.4)' }
+                  : { color: '#8B949E', backgroundColor: 'transparent' }
+              }
+            >
               {t.label}
             </button>
           ))}
         </div>
       </div>
-      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10" style={{ background: 'linear-gradient(to left, #0D1117, transparent)' }} />
     </div>
   )
 }

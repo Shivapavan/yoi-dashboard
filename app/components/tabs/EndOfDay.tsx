@@ -14,34 +14,34 @@ function fmt(v: number) {
   return `$${v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 }
 
-const PLATFORM_META: Record<string, { name: string; logo: string; border: string; bg: string; iconBg: string }> = {
+const PLATFORM_META: Record<string, { name: string; logo: string; borderColor: string; bgColor: string; iconBgColor: string }> = {
   doordash: {
     name: 'DoorDash',
     logo: 'https://www.google.com/s2/favicons?sz=64&domain=doordash.com',
-    border: 'border-red-400',
-    bg: 'bg-red-50',
-    iconBg: 'bg-red-100',
+    borderColor: '#F87171',
+    bgColor: 'rgba(239,68,68,0.08)',
+    iconBgColor: 'rgba(239,68,68,0.15)',
   },
   ubereats: {
     name: 'Uber Eats',
     logo: 'https://www.google.com/s2/favicons?sz=64&domain=ubereats.com',
-    border: 'border-gray-700',
-    bg: 'bg-gray-50',
-    iconBg: 'bg-gray-900',
+    borderColor: '#4B5563',
+    bgColor: 'rgba(75,85,99,0.08)',
+    iconBgColor: 'rgba(17,24,39,0.5)',
   },
   grubhub: {
     name: 'Grubhub',
     logo: 'https://www.google.com/s2/favicons?sz=64&domain=grubhub.com',
-    border: 'border-orange-400',
-    bg: 'bg-orange-50',
-    iconBg: 'bg-orange-100',
+    borderColor: '#FB923C',
+    bgColor: 'rgba(251,146,60,0.08)',
+    iconBgColor: 'rgba(251,146,60,0.15)',
   },
   other: {
     name: 'Online',
     logo: '',
-    border: 'border-teal-300',
-    bg: 'bg-teal-50',
-    iconBg: 'bg-teal-100',
+    borderColor: '#2DD4BF',
+    bgColor: 'rgba(45,212,191,0.08)',
+    iconBgColor: 'rgba(45,212,191,0.15)',
   },
 }
 
@@ -232,12 +232,16 @@ export default function EndOfDay() {
 
   return (
     <div>
-      <div className="bg-white rounded-lg p-4 mb-6 shadow-sm">
+      {/* Controls bar */}
+      <div
+        className="rounded-xl p-4 mb-6"
+        style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+      >
         <div className="flex items-center justify-between flex-wrap gap-2">
           <DatePicker value={date} onChange={setDate} min={earliestDate} max={today} />
-          <div className="flex items-center gap-3 text-xs text-gray-400">
+          <div className="flex items-center gap-3 text-xs" style={{ color: '#6E7681' }}>
             {isLive && (
-              <span className="flex items-center gap-1 text-red-500 font-semibold">
+              <span className="flex items-center gap-1 font-semibold" style={{ color: '#F87171' }}>
                 <span className="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                 LIVE
               </span>
@@ -247,7 +251,11 @@ export default function EndOfDay() {
               <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
               Auto-refresh 5 min
             </span>
-            <button onClick={() => fetchData(date, false)} className="text-teal-600 hover:text-teal-800 font-medium">
+            <button
+              onClick={() => fetchData(date, false)}
+              className="font-medium transition-colors"
+              style={{ color: '#0D9488' }}
+            >
               Refresh now
             </button>
           </div>
@@ -255,11 +263,19 @@ export default function EndOfDay() {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 rounded p-3 mb-4 text-sm">{error}</div>
+        <div
+          className="rounded-xl p-3 mb-4 text-sm"
+          style={{ backgroundColor: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.3)', color: '#F87171' }}
+        >
+          {error}
+        </div>
       )}
 
       {noData && (
-        <div className="bg-amber-50 border border-amber-200 text-amber-800 rounded p-3 mb-4 text-sm flex items-center gap-2">
+        <div
+          className="rounded-xl p-3 mb-4 text-sm flex items-center gap-2"
+          style={{ backgroundColor: 'rgba(217,119,6,0.1)', border: '1px solid rgba(217,119,6,0.3)', color: '#FCD34D' }}
+        >
           <span>⚠️</span>
           <span>
             No data for {date}.
@@ -269,7 +285,8 @@ export default function EndOfDay() {
             {recommendedDate && (
               <button
                 onClick={() => setDate(recommendedDate)}
-                className="ml-2 underline font-medium hover:text-amber-900"
+                className="ml-2 underline font-medium"
+                style={{ color: '#FCD34D' }}
               >
                 Go to {recommendedDate} (last available)
               </button>
@@ -280,23 +297,35 @@ export default function EndOfDay() {
 
       {/* Hero — Gross Sales gets the eye first */}
       <div
-        className={`relative bg-white rounded-2xl shadow-sm border-l-4 border-yoi-primary p-6 mb-4 transition-opacity ${loading ? 'opacity-50' : ''}`}
+        className={`relative rounded-2xl p-6 mb-4 transition-opacity ${loading ? 'opacity-50' : ''}`}
+        style={{
+          backgroundColor: '#161B22',
+          border: '1px solid #21262D',
+          borderLeft: '4px solid #0D9488',
+        }}
         title={GROSS_FORMULA}
       >
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#8B949E' }}>
               Gross Sales — {date === today ? 'Today' : date}
             </p>
-            <p className="text-4xl sm:text-5xl font-extrabold text-gray-900 mt-1 leading-none">{fmt(metrics.grossSales)}</p>
-            {metrics.grossSales > 0 && <p className="text-xs text-gray-500 mt-2 font-mono">= {grossBreakdown}</p>}
+            <p className="text-4xl sm:text-5xl font-extrabold mt-1 leading-none" style={{ color: '#E6EDF3' }}>
+              {fmt(metrics.grossSales)}
+            </p>
+            {metrics.grossSales > 0 && (
+              <p className="text-xs mt-2 font-mono" style={{ color: '#6E7681' }}>= {grossBreakdown}</p>
+            )}
           </div>
           {grossDelta !== null && (
             <div className="text-right flex-shrink-0">
-              <div className={`inline-flex items-center gap-1 text-base font-bold ${grossDelta >= 0 ? 'text-success' : 'text-danger'}`}>
+              <div
+                className="inline-flex items-center gap-1 text-base font-bold"
+                style={{ color: grossDelta >= 0 ? '#4ADE80' : '#F87171' }}
+              >
                 {grossDelta >= 0 ? '▲' : '▼'} {Math.abs(grossDelta).toFixed(1)}%
               </div>
-              <p className="text-xs text-gray-500 mt-0.5">vs 14-day avg</p>
+              <p className="text-xs mt-0.5" style={{ color: '#6E7681' }}>vs 14-day avg</p>
             </div>
           )}
         </div>
@@ -376,25 +405,25 @@ export default function EndOfDay() {
           summary={
             <>
               {openTicketsLoading
-                ? <span className="text-xs text-gray-400 animate-pulse">Loading…</span>
-                : <span className="text-gray-500">{openTicketsList.length} ticket{openTicketsList.length !== 1 ? 's' : ''}</span>}
-              <span className="font-bold text-cyan-700">{fmt(openTicketsList.reduce((s, t) => s + t.grandTotal, 0))}</span>
+                ? <span className="text-xs animate-pulse" style={{ color: '#6E7681' }}>Loading…</span>
+                : <span style={{ color: '#6E7681' }}>{openTicketsList.length} ticket{openTicketsList.length !== 1 ? 's' : ''}</span>}
+              <span className="font-bold" style={{ color: '#22D3EE' }}>{fmt(openTicketsList.reduce((s, t) => s + t.grandTotal, 0))}</span>
             </>
           }
         >
               {openTicketsList.length === 0 && !openTicketsLoading && (
-                <p className="px-6 py-4 text-sm text-gray-400">No open tickets returned by Lighthouse.</p>
+                <p className="px-6 py-4 text-sm" style={{ color: '#6E7681' }}>No open tickets returned by Lighthouse.</p>
               )}
               {openTicketsList.length > 0 && (
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-gray-100">
-                      <th className="text-left  px-6 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Order</th>
-                      <th className="text-left  px-4 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Type</th>
-                      <th className="text-left  px-4 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Customer / Table</th>
-                      <th className="text-left  px-4 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Server</th>
-                      <th className="text-left  px-4 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Opened</th>
-                      <th className="text-right px-6 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Total</th>
+                    <tr style={{ borderBottom: '1px solid #21262D' }}>
+                      <th className="text-left  px-6 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Order</th>
+                      <th className="text-left  px-4 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Type</th>
+                      <th className="text-left  px-4 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Customer / Table</th>
+                      <th className="text-left  px-4 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Server</th>
+                      <th className="text-left  px-4 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Opened</th>
+                      <th className="text-right px-6 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Total</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -402,31 +431,37 @@ export default function EndOfDay() {
                       const ageHrs = Math.floor((Date.now() - new Date(t.createdAt).getTime()) / 3600000)
                       const stale  = ageHrs >= 6
                       return (
-                        <tr key={t.guid} className={`border-b border-gray-50 last:border-0 ${stale ? 'bg-red-50' : ''}`}>
-                          <td className="px-6 py-2.5 font-semibold text-gray-800">{t.orderName}</td>
-                          <td className="px-4 py-2.5 text-gray-500">{t.orderTypeName || '—'}</td>
-                          <td className="px-4 py-2.5 text-gray-700">{t.customerName || '—'}</td>
-                          <td className="px-4 py-2.5 text-gray-500">{t.employeeName || '—'}</td>
-                          <td className={`px-4 py-2.5 whitespace-nowrap ${stale ? 'text-red-600 font-medium' : 'text-gray-500'}`}>
+                        <tr
+                          key={t.guid}
+                          style={{
+                            borderBottom: '1px solid #1C2333',
+                            backgroundColor: stale ? 'rgba(220,38,38,0.08)' : 'transparent',
+                          }}
+                        >
+                          <td className="px-6 py-2.5 font-semibold" style={{ color: '#E6EDF3' }}>{t.orderName}</td>
+                          <td className="px-4 py-2.5" style={{ color: '#8B949E' }}>{t.orderTypeName || '—'}</td>
+                          <td className="px-4 py-2.5" style={{ color: '#C9D1D9' }}>{t.customerName || '—'}</td>
+                          <td className="px-4 py-2.5" style={{ color: '#8B949E' }}>{t.employeeName || '—'}</td>
+                          <td className="px-4 py-2.5 whitespace-nowrap" style={{ color: stale ? '#F87171' : '#8B949E', fontWeight: stale ? '500' : undefined }}>
                             {fmtTime(t.createdAt)}
                             {ageHrs > 0 && <span className="ml-1 text-xs">({ageHrs}h ago)</span>}
                           </td>
-                          <td className="px-6 py-2.5 text-right font-semibold text-gray-900">{fmt(t.grandTotal)}</td>
+                          <td className="px-6 py-2.5 text-right font-semibold" style={{ color: '#E6EDF3' }}>{fmt(t.grandTotal)}</td>
                         </tr>
                       )
                     })}
                   </tbody>
                   <tfoot>
-                    <tr className="bg-gray-50 border-t border-gray-200">
-                      <td colSpan={5} className="px-6 py-2 font-bold text-gray-900">Total Open</td>
-                      <td className="px-6 py-2 text-right font-bold text-cyan-700">
+                    <tr style={{ backgroundColor: '#1C2333', borderTop: '1px solid #21262D' }}>
+                      <td colSpan={5} className="px-6 py-2 font-bold" style={{ color: '#E6EDF3' }}>Total Open</td>
+                      <td className="px-6 py-2 text-right font-bold" style={{ color: '#22D3EE' }}>
                         {fmt(openTicketsList.reduce((s, t) => s + t.grandTotal, 0))}
                       </td>
                     </tr>
                   </tfoot>
                 </table>
               )}
-          <p className="px-6 py-2 text-xs text-gray-500 border-t border-gray-100 bg-gray-50">
+          <p className="px-6 py-2 text-xs" style={{ borderTop: '1px solid #21262D', backgroundColor: '#1C2333', color: '#6E7681' }}>
             Tickets older than 6 hours appear in red — likely forgotten/stale.
           </p>
         </CollapsibleSection>
@@ -449,44 +484,46 @@ export default function EndOfDay() {
             title="Void Detail"
             accent="border-l-danger"
             className="mt-6"
-            summary={<span className="text-xs text-gray-500">{voidDetails.length} voids · {fmt(grandTotal)}</span>}
+            summary={<span className="text-xs" style={{ color: '#8B949E' }}>{voidDetails.length} voids · {fmt(grandTotal)}</span>}
           >
             {byEmployee.map(({ emp, rows, total }) => (
-              <div key={emp} className="border-b border-gray-100 last:border-0">
+              <div key={emp} style={{ borderBottom: '1px solid #21262D' }} className="last:border-0">
                 {/* Summary row */}
                 <button
                   onClick={() => setExpanded(expanded === `void-${emp}` ? null : `void-${emp}`)}
-                  className="w-full flex items-center justify-between px-6 py-3 hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center justify-between px-6 py-3 transition-colors"
+                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#1C2333')}
+                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-semibold text-gray-800">{emp}</span>
-                    <span className="text-xs text-gray-400">{rows.length} void{rows.length !== 1 ? 's' : ''}</span>
+                    <span className="font-semibold" style={{ color: '#E6EDF3' }}>{emp}</span>
+                    <span className="text-xs" style={{ color: '#6E7681' }}>{rows.length} void{rows.length !== 1 ? 's' : ''}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="font-bold text-danger">{fmt(total)}</span>
+                    <span className="font-bold" style={{ color: '#F87171' }}>{fmt(total)}</span>
                     <Chevron open={expanded === `void-${emp}`} />
                   </div>
                 </button>
                 {/* Detail rows */}
                 {expanded === `void-${emp}` && (
-                  <table className="w-full text-xs border-t border-gray-100 bg-gray-50">
+                  <table className="w-full text-xs" style={{ borderTop: '1px solid #21262D', backgroundColor: '#1C2333' }}>
                     <thead>
-                      <tr className="border-b border-gray-200">
-                        <th className="text-left px-8 py-2 text-gray-400 font-semibold uppercase tracking-wide">Time</th>
-                        <th className="text-left px-4 py-2 text-gray-400 font-semibold uppercase tracking-wide">Ticket</th>
-                        <th className="text-left px-4 py-2 text-gray-400 font-semibold uppercase tracking-wide">Item</th>
-                        <th className="text-left px-4 py-2 text-gray-400 font-semibold uppercase tracking-wide">Reason</th>
-                        <th className="text-right px-5 py-2 text-gray-400 font-semibold uppercase tracking-wide">Amount</th>
+                      <tr style={{ borderBottom: '1px solid #21262D' }}>
+                        <th className="text-left px-8 py-2 font-semibold uppercase tracking-wide" style={{ color: '#6E7681' }}>Time</th>
+                        <th className="text-left px-4 py-2 font-semibold uppercase tracking-wide" style={{ color: '#6E7681' }}>Ticket</th>
+                        <th className="text-left px-4 py-2 font-semibold uppercase tracking-wide" style={{ color: '#6E7681' }}>Item</th>
+                        <th className="text-left px-4 py-2 font-semibold uppercase tracking-wide" style={{ color: '#6E7681' }}>Reason</th>
+                        <th className="text-right px-5 py-2 font-semibold uppercase tracking-wide" style={{ color: '#6E7681' }}>Amount</th>
                       </tr>
                     </thead>
                     <tbody>
                       {rows.map((v, i) => (
-                        <tr key={i} className="border-b border-gray-100 last:border-0">
-                          <td className="px-8 py-2 text-gray-500 whitespace-nowrap">{v.voidedAt}</td>
-                          <td className="px-4 py-2 text-gray-500">{v.ticket}</td>
-                          <td className="px-4 py-2 text-gray-700">{v.item}</td>
-                          <td className="px-4 py-2 text-gray-500">{v.reason}</td>
-                          <td className="px-5 py-2 text-right font-medium text-red-600">{fmt(v.amount)}</td>
+                        <tr key={i} style={{ borderBottom: '1px solid #21262D' }} className="last:border-0">
+                          <td className="px-8 py-2 whitespace-nowrap" style={{ color: '#8B949E' }}>{v.voidedAt}</td>
+                          <td className="px-4 py-2" style={{ color: '#8B949E' }}>{v.ticket}</td>
+                          <td className="px-4 py-2" style={{ color: '#C9D1D9' }}>{v.item}</td>
+                          <td className="px-4 py-2" style={{ color: '#8B949E' }}>{v.reason}</td>
+                          <td className="px-5 py-2 text-right font-medium" style={{ color: '#F87171' }}>{fmt(v.amount)}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -511,17 +548,27 @@ export default function EndOfDay() {
             onToggle={() => setExpanded(isOpen ? null : 'cash-summary')}
             summary={
               <>
-                <span className="text-gray-500">Starting: <span className="font-semibold text-gray-800">{fmt(startingCash)}</span></span>
-                <span className="text-gray-500">Expected: <span className="font-semibold text-green-700">{fmt(cashExpected)}</span></span>
+                <span style={{ color: '#8B949E' }}>Starting: <span className="font-semibold" style={{ color: '#E6EDF3' }}>{fmt(startingCash)}</span></span>
+                <span style={{ color: '#8B949E' }}>Expected: <span className="font-semibold" style={{ color: '#4ADE80' }}>{fmt(cashExpected)}</span></span>
               </>
             }
           >
             <table className="w-full text-sm">
               <tbody>
                 {cashDetails.map((r, i) => (
-                  <tr key={i} className={`border-b border-gray-50 last:border-0 ${r.label === 'Cash Expected' || r.label === 'Final Deposit' ? 'bg-gray-50 font-semibold' : ''}`}>
-                    <td className="px-6 py-2.5 text-gray-700">{r.label}</td>
-                    <td className={`px-6 py-2.5 text-right ${r.amount < 0 ? 'text-red-600' : 'text-gray-900'}`}>{r.amount !== 0 ? fmt(r.amount) : '—'}</td>
+                  <tr
+                    key={i}
+                    style={{
+                      borderBottom: '1px solid #1C2333',
+                      backgroundColor: (r.label === 'Cash Expected' || r.label === 'Final Deposit') ? '#1C2333' : 'transparent',
+                      fontWeight: (r.label === 'Cash Expected' || r.label === 'Final Deposit') ? '600' : undefined,
+                    }}
+                    className="last:border-0"
+                  >
+                    <td className="px-6 py-2.5" style={{ color: '#C9D1D9' }}>{r.label}</td>
+                    <td className="px-6 py-2.5 text-right" style={{ color: r.amount < 0 ? '#F87171' : '#E6EDF3' }}>
+                      {r.amount !== 0 ? fmt(r.amount) : '—'}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -537,22 +584,22 @@ export default function EndOfDay() {
           accent="border-l-teal-600"
           open={expanded === 'orderTypes'}
           onToggle={() => setExpanded(expanded === 'orderTypes' ? null : 'orderTypes')}
-          summary={<span className="text-gray-500">{orderTypes.length} types</span>}
+          summary={<span style={{ color: '#8B949E' }}>{orderTypes.length} types</span>}
         >
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-100">
-                  <th className="text-left px-6 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Type</th>
-                  <th className="text-right px-6 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Orders</th>
-                  <th className="text-right px-6 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Amount</th>
+                <tr style={{ borderBottom: '1px solid #21262D' }}>
+                  <th className="text-left px-6 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Type</th>
+                  <th className="text-right px-6 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Orders</th>
+                  <th className="text-right px-6 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Amount</th>
                 </tr>
               </thead>
               <tbody>
                 {orderTypes.map((ot) => (
-                  <tr key={ot.type} className="border-b border-gray-50 last:border-0">
-                    <td className="px-6 py-2.5 text-gray-700">{ot.type}</td>
-                    <td className="px-6 py-2.5 text-right text-gray-400">{ot.count > 0 ? ot.count : '—'}</td>
-                    <td className="px-6 py-2.5 text-right font-semibold text-gray-900">{fmt(ot.amount)}</td>
+                  <tr key={ot.type} style={{ borderBottom: '1px solid #1C2333' }} className="last:border-0">
+                    <td className="px-6 py-2.5" style={{ color: '#C9D1D9' }}>{ot.type}</td>
+                    <td className="px-6 py-2.5 text-right" style={{ color: '#6E7681' }}>{ot.count > 0 ? ot.count : '—'}</td>
+                    <td className="px-6 py-2.5 text-right font-semibold" style={{ color: '#E6EDF3' }}>{fmt(ot.amount)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -562,17 +609,20 @@ export default function EndOfDay() {
 
       {/* ── Online Delivery Orders ────────────────────────────────────────── */}
       {(onlineLoading || onlineOrders.length > 0) && (
-        <div className="bg-white rounded-lg shadow-sm mt-4 overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <div
+          className="rounded-xl mt-4 overflow-hidden"
+          style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+        >
+          <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid #21262D' }}>
             <div>
-              <h3 className="font-semibold text-gray-800">Online Delivery Orders</h3>
+              <h3 className="font-semibold" style={{ color: '#E6EDF3' }}>Online Delivery Orders</h3>
               {!onlineLoading && onlineOrders.length > 0 && (
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-xs mt-0.5" style={{ color: '#6E7681' }}>
                   {onlineOrders.length} order{onlineOrders.length !== 1 ? 's' : ''} · {fmt(onlineOrders.reduce((s, o) => s + o.grandTotal, 0))} total
                 </p>
               )}
             </div>
-            {onlineLoading && <span className="text-xs text-gray-400 animate-pulse">Loading…</span>}
+            {onlineLoading && <span className="text-xs animate-pulse" style={{ color: '#6E7681' }}>Loading…</span>}
             {/* Platform summary badges */}
             {!onlineLoading && onlineOrders.length > 0 && (
               <div className="flex items-center gap-2 flex-wrap">
@@ -581,7 +631,11 @@ export default function EndOfDay() {
                   if (!count) return null
                   const meta = PLATFORM_META[p]
                   return (
-                    <span key={p} className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-semibold ${meta.bg} border ${meta.border}`}>
+                    <span
+                      key={p}
+                      className="flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-semibold"
+                      style={{ backgroundColor: meta.bgColor, border: `1px solid ${meta.borderColor}`, color: '#E6EDF3' }}
+                    >
                       <img src={meta.logo} alt={meta.name} className="w-4 h-4 rounded object-contain" />
                       {meta.name} {count}
                     </span>
@@ -592,18 +646,21 @@ export default function EndOfDay() {
           </div>
 
           {!onlineLoading && onlineOrders.length === 0 && (
-            <p className="px-6 py-5 text-sm text-gray-400">No delivery orders found for this day.</p>
+            <p className="px-6 py-5 text-sm" style={{ color: '#6E7681' }}>No delivery orders found for this day.</p>
           )}
 
-          <div className="divide-y divide-gray-50">
+          <div>
             {onlineOrders.map((order) => {
               const meta = PLATFORM_META[order.platform] ?? PLATFORM_META.other
               const key = `online-${order.guid}`
               const isOpen = expanded === key
               return (
-                <div key={order.guid}>
+                <div key={order.guid} style={{ borderBottom: '1px solid #1C2333' }} className="last:border-0">
                   <button
-                    className="w-full flex items-center gap-3 px-6 py-3.5 hover:bg-gray-50 transition-colors text-left"
+                    className="w-full flex items-center gap-3 px-6 py-3.5 transition-colors text-left"
+                    style={{ backgroundColor: 'transparent' }}
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#1C2333')}
+                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
                     onClick={() => {
                       setExpanded(isOpen ? null : key)
                       if (!isOpen && orderItems[order.guid] === undefined) {
@@ -621,56 +678,62 @@ export default function EndOfDay() {
                     }}
                   >
                     {/* Platform logo */}
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 border ${meta.border} ${meta.iconBg}`}>
+                    <div
+                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ border: `1px solid ${meta.borderColor}`, backgroundColor: meta.iconBgColor }}
+                    >
                       {meta.logo
                         ? <img src={meta.logo} alt={meta.name} className="w-7 h-7 object-contain rounded" />
-                        : <span className="text-xs font-bold text-gray-500">?</span>
+                        : <span className="text-xs font-bold" style={{ color: '#8B949E' }}>?</span>
                       }
                     </div>
                     {/* Order info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-gray-800">Order #{order.orderNumber}</span>
-                        <span className="text-xs text-gray-400">{fmtTime(order.completedAt ?? order.createdAt)}</span>
+                        <span className="text-sm font-semibold" style={{ color: '#E6EDF3' }}>Order #{order.orderNumber}</span>
+                        <span className="text-xs" style={{ color: '#6E7681' }}>{fmtTime(order.completedAt ?? order.createdAt)}</span>
                       </div>
                       {order.customerName && (
-                        <div className="text-xs text-gray-500 truncate">{order.customerName}</div>
+                        <div className="text-xs truncate" style={{ color: '#8B949E' }}>{order.customerName}</div>
                       )}
                     </div>
                     {/* Total + expand */}
                     <div className="flex items-center gap-3 flex-shrink-0">
-                      <span className="text-sm font-bold text-gray-900">{fmt(order.grandTotal)}</span>
+                      <span className="text-sm font-bold" style={{ color: '#E6EDF3' }}>{fmt(order.grandTotal)}</span>
                       <Chevron open={isOpen} />
                     </div>
                   </button>
 
                   {isOpen && (
-                    <div className={`px-6 pb-4 ${meta.bg}`}>
+                    <div className="px-6 pb-4" style={{ backgroundColor: meta.bgColor }}>
                       {/* ── Items from email receipt ── */}
-                      <div className="mt-3 mb-3 bg-white rounded-lg overflow-hidden border border-gray-100">
-                        <div className="px-4 py-2 border-b border-gray-100 flex items-center justify-between">
-                          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Order Items</span>
-                          {orderItemsLoading[order.guid] && <span className="text-xs text-gray-400 animate-pulse">Looking up…</span>}
+                      <div
+                        className="mt-3 mb-3 rounded-lg overflow-hidden"
+                        style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+                      >
+                        <div className="px-4 py-2 flex items-center justify-between" style={{ borderBottom: '1px solid #21262D' }}>
+                          <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#6E7681' }}>Order Items</span>
+                          {orderItemsLoading[order.guid] && <span className="text-xs animate-pulse" style={{ color: '#6E7681' }}>Looking up…</span>}
                         </div>
                         {orderItemsLoading[order.guid] && (
-                          <div className="px-4 py-3 text-sm text-gray-400">Searching email receipt…</div>
+                          <div className="px-4 py-3 text-sm" style={{ color: '#6E7681' }}>Searching email receipt…</div>
                         )}
                         {!orderItemsLoading[order.guid] && orderItems[order.guid] === null && (
-                          <div className="px-4 py-3 text-sm text-gray-400">No email receipt found for this order.</div>
+                          <div className="px-4 py-3 text-sm" style={{ color: '#6E7681' }}>No email receipt found for this order.</div>
                         )}
                         {!orderItemsLoading[order.guid] && Array.isArray(orderItems[order.guid]) && orderItems[order.guid]!.length === 0 && (
-                          <div className="px-4 py-3 text-sm text-gray-400">Email found but couldn't read item list.</div>
+                          <div className="px-4 py-3 text-sm" style={{ color: '#6E7681' }}>Email found but couldn't read item list.</div>
                         )}
                         {!orderItemsLoading[order.guid] && orderItems[order.guid] && orderItems[order.guid]!.length > 0 && (
                           <table className="w-full text-sm">
                             <tbody>
                               {orderItems[order.guid]!.map((item, i) => (
-                                <tr key={i} className="border-b border-gray-50 last:border-0">
-                                  <td className="px-4 py-2 text-gray-700">
-                                    <span className="text-gray-400 mr-2">{item.qty}×</span>
+                                <tr key={i} style={{ borderBottom: '1px solid #1C2333' }} className="last:border-0">
+                                  <td className="px-4 py-2" style={{ color: '#C9D1D9' }}>
+                                    <span className="mr-2" style={{ color: '#6E7681' }}>{item.qty}×</span>
                                     {item.name}
                                   </td>
-                                  <td className="px-4 py-2 text-right text-gray-700 font-medium">
+                                  <td className="px-4 py-2 text-right font-medium" style={{ color: '#C9D1D9' }}>
                                     {item.price !== null ? fmt(item.price) : ''}
                                   </td>
                                 </tr>
@@ -679,42 +742,42 @@ export default function EndOfDay() {
                           </table>
                         )}
                         {orderItems[order.guid] === undefined && !orderItemsLoading[order.guid] && (
-                          <div className="px-4 py-3 text-sm text-gray-300 italic">Expand to load</div>
+                          <div className="px-4 py-3 text-sm italic" style={{ color: '#6E7681' }}>Expand to load</div>
                         )}
                       </div>
 
                       {/* ── Financials ── */}
                       <div className="grid grid-cols-2 gap-x-8 gap-y-1.5 text-sm">
-                        <div className="text-gray-500">Platform</div>
-                        <div className="font-medium text-gray-800">{order.paymentTypeName}</div>
+                        <div style={{ color: '#8B949E' }}>Platform</div>
+                        <div className="font-medium" style={{ color: '#E6EDF3' }}>{order.paymentTypeName}</div>
                         {order.customerName && (
                           <>
-                            <div className="text-gray-500">Customer</div>
-                            <div className="font-medium text-gray-800">{order.customerName}</div>
+                            <div style={{ color: '#8B949E' }}>Customer</div>
+                            <div className="font-medium" style={{ color: '#E6EDF3' }}>{order.customerName}</div>
                           </>
                         )}
-                        <div className="text-gray-500">Processed by</div>
-                        <div className="font-medium text-gray-800">{order.employeeName || '—'}</div>
-                        <div className="text-gray-500">Time</div>
-                        <div className="font-medium text-gray-800">{fmtTime(order.completedAt ?? order.createdAt)} CDT</div>
-                        <div className="text-gray-500">Subtotal</div>
-                        <div className="font-medium text-gray-800">{fmt(order.subtotal)}</div>
+                        <div style={{ color: '#8B949E' }}>Processed by</div>
+                        <div className="font-medium" style={{ color: '#E6EDF3' }}>{order.employeeName || '—'}</div>
+                        <div style={{ color: '#8B949E' }}>Time</div>
+                        <div className="font-medium" style={{ color: '#E6EDF3' }}>{fmtTime(order.completedAt ?? order.createdAt)} CDT</div>
+                        <div style={{ color: '#8B949E' }}>Subtotal</div>
+                        <div className="font-medium" style={{ color: '#E6EDF3' }}>{fmt(order.subtotal)}</div>
                         {order.discountTotal > 0 && (
                           <>
-                            <div className="text-gray-500">Discount</div>
-                            <div className="font-medium text-red-600">−{fmt(order.discountTotal)}</div>
+                            <div style={{ color: '#8B949E' }}>Discount</div>
+                            <div className="font-medium" style={{ color: '#F87171' }}>−{fmt(order.discountTotal)}</div>
                           </>
                         )}
                         {order.surchargeTotal > 0 && (
                           <>
-                            <div className="text-gray-500">Surcharge</div>
-                            <div className="font-medium text-gray-800">{fmt(order.surchargeTotal)}</div>
+                            <div style={{ color: '#8B949E' }}>Surcharge</div>
+                            <div className="font-medium" style={{ color: '#E6EDF3' }}>{fmt(order.surchargeTotal)}</div>
                           </>
                         )}
-                        <div className="text-gray-500">Tax</div>
-                        <div className="font-medium text-gray-800">{fmt(order.taxTotal)}</div>
-                        <div className="text-gray-500 font-semibold">Total</div>
-                        <div className="font-bold text-gray-900">{fmt(order.grandTotal)}</div>
+                        <div style={{ color: '#8B949E' }}>Tax</div>
+                        <div className="font-medium" style={{ color: '#E6EDF3' }}>{fmt(order.taxTotal)}</div>
+                        <div className="font-semibold" style={{ color: '#8B949E' }}>Total</div>
+                        <div className="font-bold" style={{ color: '#E6EDF3' }}>{fmt(order.grandTotal)}</div>
                       </div>
                     </div>
                   )}
@@ -727,60 +790,70 @@ export default function EndOfDay() {
 
       {/* Catering Orders for selected date */}
       <div className="mt-6">
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-3">
+        <div
+          className="rounded-xl overflow-hidden mb-3"
+          style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+        >
           <div className="px-6 py-4 flex items-center justify-between">
             <div>
-              <h3 className="font-semibold text-gray-800">Catering Orders — {date}</h3>
+              <h3 className="font-semibold" style={{ color: '#E6EDF3' }}>Catering Orders — {date}</h3>
               {!cateringLoading && cateringOrders.length > 0 && (
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-xs mt-0.5" style={{ color: '#6E7681' }}>
                   {cateringOrders.length} order{cateringOrders.length !== 1 ? 's' : ''} · {fmt(cateringOrders.reduce((s, o) => s + (o.finalPrice ?? o.total), 0))} total
                 </p>
               )}
             </div>
-            {cateringLoading && <span className="text-xs text-gray-400">Loading…</span>}
+            {cateringLoading && <span className="text-xs" style={{ color: '#6E7681' }}>Loading…</span>}
           </div>
           {!cateringLoading && cateringOrders.length === 0 && (
-            <p className="px-6 pb-4 text-sm text-gray-400">No catering orders for this day.</p>
+            <p className="px-6 pb-4 text-sm" style={{ color: '#6E7681' }}>No catering orders for this day.</p>
           )}
         </div>
 
         {cateringOrders.map((order, idx) => {
           const palettes = [
-            { border: 'border-l-teal-600', titleBg: 'bg-teal-50',  titleBorder: 'border-teal-100',  titleText: 'text-teal-900',  totalText: 'text-teal-700' },
-            { border: 'border-l-indigo-600', titleBg: 'bg-indigo-50',  titleBorder: 'border-indigo-100',  titleText: 'text-indigo-900',  totalText: 'text-indigo-700' },
-            { border: 'border-l-emerald-600',titleBg: 'bg-emerald-50', titleBorder: 'border-emerald-100', titleText: 'text-emerald-900', totalText: 'text-emerald-700'},
-            { border: 'border-l-amber-600',  titleBg: 'bg-amber-50',   titleBorder: 'border-amber-100',   titleText: 'text-amber-900',   totalText: 'text-amber-700'  },
-            { border: 'border-l-rose-600',   titleBg: 'bg-rose-50',    titleBorder: 'border-rose-100',    titleText: 'text-rose-900',    totalText: 'text-rose-700'   },
-            { border: 'border-l-cyan-600',   titleBg: 'bg-cyan-50',    titleBorder: 'border-cyan-100',    titleText: 'text-cyan-900',    totalText: 'text-cyan-700'   },
+            { borderColor: '#0D9488', headerBg: 'rgba(13,148,136,0.1)',  totalColor: '#2DD4BF'  },
+            { borderColor: '#818CF8', headerBg: 'rgba(129,140,248,0.1)', totalColor: '#A5B4FC'  },
+            { borderColor: '#34D399', headerBg: 'rgba(52,211,153,0.1)',  totalColor: '#6EE7B7'  },
+            { borderColor: '#F59E0B', headerBg: 'rgba(245,158,11,0.1)',  totalColor: '#FCD34D'  },
+            { borderColor: '#F43F5E', headerBg: 'rgba(244,63,94,0.1)',   totalColor: '#FB7185'  },
+            { borderColor: '#22D3EE', headerBg: 'rgba(34,211,238,0.1)',  totalColor: '#67E8F9'  },
           ]
           const c = palettes[idx % palettes.length]
           const finalPrice = order.finalPrice ?? order.total
           const hasDiscount = order.total > 0 && finalPrice > 0 && Math.abs(order.total - finalPrice) > 0.01
           return (
-            <div key={idx} className={`bg-white rounded-lg shadow-sm overflow-hidden mb-3 border-l-4 ${c.border}`}>
+            <div
+              key={idx}
+              className="rounded-xl overflow-hidden mb-3"
+              style={{ backgroundColor: '#161B22', border: '1px solid #21262D', borderLeft: `4px solid ${c.borderColor}` }}
+            >
               {/* Order title + final price */}
-              <div className={`px-6 py-3 ${c.titleBg} border-b ${c.titleBorder} flex items-center justify-between flex-wrap gap-2`}>
-                <p className={`font-semibold text-sm ${c.titleText}`}>{order.title}</p>
+              <div
+                className="px-6 py-3 flex items-center justify-between flex-wrap gap-2"
+                style={{ backgroundColor: c.headerBg, borderBottom: '1px solid #21262D' }}
+              >
+                <p className="font-semibold text-sm" style={{ color: '#E6EDF3' }}>{order.title}</p>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Final Price</span>
-                  <span className={`text-lg font-bold ${c.totalText}`}>{fmt(finalPrice)}</span>
+                  <span className="text-xs uppercase tracking-wide font-semibold" style={{ color: '#8B949E' }}>Final Price</span>
+                  <span className="text-lg font-bold" style={{ color: c.totalColor }}>{fmt(finalPrice)}</span>
                 </div>
               </div>
               {/* Items table */}
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100">
-                    <th className="text-left px-6 py-2 text-xs uppercase tracking-wide text-gray-500 font-semibold">Item</th>
-                    <th className="text-center px-4 py-2 text-xs uppercase tracking-wide text-gray-500 font-semibold">Tray</th>
-                    <th className="text-right px-6 py-2 text-xs uppercase tracking-wide text-gray-500 font-semibold">Price</th>
+                  <tr style={{ borderBottom: '1px solid #21262D' }}>
+                    <th className="text-left px-6 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Item</th>
+                    <th className="text-center px-4 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Tray</th>
+                    <th className="text-right px-6 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Price</th>
                   </tr>
                 </thead>
                 <tbody>
                   {order.items.map((item, i) => (
-                    <tr key={i} className="border-b border-gray-50 last:border-0">
-                      <td className="px-6 py-2 text-gray-700">{item.name}</td>
-                      <td className="px-4 py-2 text-center text-gray-400">{item.traySize || '—'}</td>
-                      <td className="px-6 py-2 text-right text-gray-700">
+                    <tr key={i} style={{ borderBottom: '1px solid #1C2333' }} className="last:border-0">
+                      <td className="px-6 py-2" style={{ color: '#C9D1D9' }}>{item.name}</td>
+                      <td className="px-4 py-2 text-center" style={{ color: '#6E7681' }}>{item.traySize || '—'}</td>
+                      <td className="px-6 py-2 text-right" style={{ color: '#C9D1D9' }}>
                         {item.price > 0 ? fmt(item.price) : '—'}
                       </td>
                     </tr>
@@ -789,26 +862,26 @@ export default function EndOfDay() {
                 <tfoot>
                   {hasDiscount && (
                     <>
-                      <tr className="border-t border-gray-100 bg-gray-50">
-                        <td colSpan={2} className="px-6 py-2 text-gray-700">Total Price</td>
-                        <td className="px-6 py-2 text-right text-gray-700">{fmt(order.total)}</td>
+                      <tr style={{ borderTop: '1px solid #21262D', backgroundColor: '#1C2333' }}>
+                        <td colSpan={2} className="px-6 py-2" style={{ color: '#C9D1D9' }}>Total Price</td>
+                        <td className="px-6 py-2 text-right" style={{ color: '#C9D1D9' }}>{fmt(order.total)}</td>
                       </tr>
-                      <tr className="border-t border-gray-100 bg-gray-50">
-                        <td colSpan={2} className="px-6 py-2 text-gray-500">Discount</td>
-                        <td className="px-6 py-2 text-right text-red-600">−{fmt(order.total - finalPrice)}</td>
+                      <tr style={{ borderTop: '1px solid #21262D', backgroundColor: '#1C2333' }}>
+                        <td colSpan={2} className="px-6 py-2" style={{ color: '#8B949E' }}>Discount</td>
+                        <td className="px-6 py-2 text-right" style={{ color: '#F87171' }}>−{fmt(order.total - finalPrice)}</td>
                       </tr>
                     </>
                   )}
-                  <tr className="border-t border-gray-200 bg-gray-50">
-                    <td colSpan={2} className="px-6 py-2 font-bold text-gray-900">
+                  <tr style={{ borderTop: '1px solid #21262D', backgroundColor: '#1C2333' }}>
+                    <td colSpan={2} className="px-6 py-2 font-bold" style={{ color: '#E6EDF3' }}>
                       {hasDiscount ? 'Final Price' : 'Grand Total'}
                       {order.cash !== finalPrice && (
-                        <span className="ml-2 text-xs font-normal text-gray-400">
+                        <span className="ml-2 text-xs font-normal" style={{ color: '#6E7681' }}>
                           (Cash: {fmt(order.cash)})
                         </span>
                       )}
                     </td>
-                    <td className={`px-6 py-2 text-right font-bold ${c.totalText}`}>{fmt(finalPrice)}</td>
+                    <td className="px-6 py-2 text-right font-bold" style={{ color: c.totalColor }}>{fmt(finalPrice)}</td>
                   </tr>
                 </tfoot>
               </table>

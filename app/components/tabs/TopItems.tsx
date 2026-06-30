@@ -72,31 +72,44 @@ export default function TopItems() {
 
   return (
     <div>
-      <div className="bg-white rounded-lg p-4 mb-6 shadow-sm">
+      <div
+        className="rounded-xl p-4 mb-6"
+        style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+      >
         <div className="flex items-center justify-between flex-wrap gap-2">
           <DatePicker value={date} onChange={setDate} />
-          <div className="flex items-center gap-3 text-xs text-gray-400">
+          <div className="flex items-center gap-3 text-xs" style={{ color: '#6E7681' }}>
             {lastUpdated && <span>Updated {lastUpdated.toLocaleTimeString()}</span>}
             <span className="flex items-center gap-1">
               <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
               Auto-refresh 5 min
             </span>
-            <button onClick={() => fetchData(date, false)} className="text-teal-600 hover:text-teal-800 font-medium">
+            <button onClick={() => fetchData(date, false)} className="font-medium" style={{ color: '#0D9488' }}>
               Refresh now
             </button>
           </div>
         </div>
       </div>
 
-      {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded p-3 mb-4 text-sm">{error}</div>}
+      {error && (
+        <div
+          className="rounded-xl p-3 mb-4 text-sm"
+          style={{ backgroundColor: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.3)', color: '#F87171' }}
+        >
+          {error}
+        </div>
+      )}
 
       {noData && (
-        <div className="bg-amber-50 border border-amber-200 text-amber-800 rounded p-3 mb-4 text-sm flex items-center gap-2">
+        <div
+          className="rounded-xl p-3 mb-4 text-sm flex items-center gap-2"
+          style={{ backgroundColor: 'rgba(217,119,6,0.1)', border: '1px solid rgba(217,119,6,0.3)', color: '#FCD34D' }}
+        >
           <span>⚠️</span>
           <span>
             No items data for {date} — not yet scraped.
             {recommendedDate && (
-              <button onClick={() => setDate(recommendedDate)} className="ml-2 underline font-medium hover:text-amber-900">
+              <button onClick={() => setDate(recommendedDate)} className="ml-2 underline font-medium" style={{ color: '#FCD34D' }}>
                 Go to {recommendedDate} (last available)
               </button>
             )}
@@ -109,53 +122,54 @@ export default function TopItems() {
           {/* Order type summary */}
           {orderTypes.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-4">
-              {orderTypes.map((ot) => (
-                <div key={ot.type} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium shadow-sm ${
-                  ot.type === 'Dine In' ? 'bg-yoi-primary-light text-yoi-primary border border-teal-200' :
-                  ot.type === 'To Go'   ? 'bg-success-light text-success-text border border-green-200' :
-                                          'bg-gray-50 text-gray-700 border border-gray-200'
-                }`}>
-                  <span>{ot.type === 'Dine In' ? '🍽' : ot.type === 'To Go' ? '🥡' : '📦'}</span>
-                  <span>{ot.type}</span>
-                  <span className="font-bold">${ot.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                </div>
-              ))}
+              {orderTypes.map((ot) => {
+                const style = ot.type === 'Dine In'
+                  ? { backgroundColor: 'rgba(13,148,136,0.15)', color: '#2DD4BF', border: '1px solid rgba(13,148,136,0.4)' }
+                  : ot.type === 'To Go'
+                  ? { backgroundColor: 'rgba(34,197,94,0.12)', color: '#4ADE80', border: '1px solid rgba(34,197,94,0.35)' }
+                  : { backgroundColor: '#1C2333', color: '#C9D1D9', border: '1px solid #30363D' }
+                return (
+                  <div key={ot.type} className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium" style={style}>
+                    <span>{ot.type === 'Dine In' ? '🍽' : ot.type === 'To Go' ? '🥡' : '📦'}</span>
+                    <span>{ot.type}</span>
+                    <span className="font-bold">${ot.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                  </div>
+                )
+              })}
             </div>
           )}
           {/* Sort toggle */}
           <div className="flex gap-2 mb-4">
-            <button
-              onClick={() => setSortBy('revenue')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                sortBy === 'revenue'
-                  ? 'bg-yoi-primary text-white'
-                  : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              Sort by Revenue ↓
-            </button>
-            <button
-              onClick={() => setSortBy('quantity')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                sortBy === 'quantity'
-                  ? 'bg-yoi-primary text-white'
-                  : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              Sort by Quantity ↓
-            </button>
+            {(['revenue', 'quantity'] as SortBy[]).map((s) => (
+              <button
+                key={s}
+                onClick={() => setSortBy(s)}
+                className="px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+                style={
+                  sortBy === s
+                    ? { backgroundColor: '#0D9488', color: '#fff', boxShadow: '0 0 10px rgba(13,148,136,0.4)' }
+                    : { backgroundColor: '#1C2333', border: '1px solid #30363D', color: '#8B949E' }
+                }
+              >
+                Sort by {s === 'revenue' ? 'Revenue' : 'Quantity'} ↓
+              </button>
+            ))}
           </div>
 
-          <div className={`bg-white rounded-lg shadow-sm transition-opacity ${loading ? 'opacity-50' : ''}`}>
+          <div
+            className={`rounded-xl overflow-hidden transition-opacity ${loading ? 'opacity-50' : ''}`}
+            style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+          >
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200 text-xs uppercase text-gray-500 font-semibold">
-                  <th className="text-left px-6 py-3">#</th>
-                  <th className="text-left px-6 py-3">Item</th>
+                <tr style={{ borderBottom: '1px solid #21262D' }} className="text-xs uppercase font-semibold">
+                  <th className="text-left px-6 py-3" style={{ color: '#6E7681' }}>#</th>
+                  <th className="text-left px-6 py-3" style={{ color: '#6E7681' }}>Item</th>
                   <th className="px-6 py-3 text-right" aria-sort={sortBy === 'quantity' ? 'descending' : 'none'}>
                     <button
                       onClick={() => setSortBy('quantity')}
-                      className={`uppercase select-none hover:text-yoi-primary transition-colors ${sortBy === 'quantity' ? 'text-yoi-primary font-bold' : ''}`}
+                      className="uppercase select-none transition-colors"
+                      style={{ color: sortBy === 'quantity' ? '#0D9488' : '#6E7681', fontWeight: sortBy === 'quantity' ? '700' : undefined }}
                     >
                       Qty {sortBy === 'quantity' ? '↓' : ''}
                     </button>
@@ -163,7 +177,8 @@ export default function TopItems() {
                   <th className="px-6 py-3 text-right" aria-sort={sortBy === 'revenue' ? 'descending' : 'none'}>
                     <button
                       onClick={() => setSortBy('revenue')}
-                      className={`uppercase select-none hover:text-yoi-primary transition-colors ${sortBy === 'revenue' ? 'text-yoi-primary font-bold' : ''}`}
+                      className="uppercase select-none transition-colors"
+                      style={{ color: sortBy === 'revenue' ? '#0D9488' : '#6E7681', fontWeight: sortBy === 'revenue' ? '700' : undefined }}
                     >
                       Revenue {sortBy === 'revenue' ? '↓' : ''}
                     </button>
@@ -172,13 +187,19 @@ export default function TopItems() {
               </thead>
               <tbody>
                 {sorted.map((item, i) => (
-                  <tr key={item.name} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
-                    <td className="px-6 py-3 text-gray-400 font-mono text-xs">{i + 1}</td>
-                    <td className="px-6 py-3 font-medium text-gray-800">{item.name}</td>
-                    <td className={`px-6 py-3 text-right ${sortBy === 'quantity' ? 'font-bold text-yoi-primary' : 'text-gray-600'}`}>
+                  <tr
+                    key={item.name}
+                    style={{ borderBottom: '1px solid #1C2333', backgroundColor: 'transparent' }}
+                    className="last:border-0 transition-colors"
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#1C2333')}
+                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                  >
+                    <td className="px-6 py-3 font-mono text-xs" style={{ color: '#6E7681' }}>{i + 1}</td>
+                    <td className="px-6 py-3 font-medium" style={{ color: '#E6EDF3' }}>{item.name}</td>
+                    <td className="px-6 py-3 text-right" style={{ color: sortBy === 'quantity' ? '#0D9488' : '#8B949E', fontWeight: sortBy === 'quantity' ? '700' : undefined }}>
                       {item.count}
                     </td>
-                    <td className={`px-6 py-3 text-right ${sortBy === 'revenue' ? 'font-bold text-yoi-primary' : 'text-gray-700'}`}>
+                    <td className="px-6 py-3 text-right" style={{ color: sortBy === 'revenue' ? '#0D9488' : '#C9D1D9', fontWeight: sortBy === 'revenue' ? '700' : undefined }}>
                       ${item.revenue.toFixed(2)}
                     </td>
                   </tr>

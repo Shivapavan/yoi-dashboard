@@ -16,6 +16,12 @@ function EyeIcon({ open }: { open: boolean }) {
   )
 }
 
+const inputStyle: React.CSSProperties = {
+  backgroundColor: '#0D1117',
+  border: '1px solid #30363D',
+  color: '#E6EDF3',
+}
+
 function LoginForm() {
   const router = useRouter()
   const params = useSearchParams()
@@ -47,35 +53,45 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center px-4">
+    <div
+      className="min-h-screen flex flex-col items-center justify-center px-4"
+      style={{ backgroundColor: '#0D1117' }}
+    >
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/yum_logo.png" alt="Yum of India" className="h-24 w-auto mx-auto mb-2" />
-          <p className="text-sm text-gray-500">Dashboard Login</p>
+          <p className="text-sm" style={{ color: '#6E7681' }}>Dashboard Login</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm p-8">
+        <div
+          className="rounded-2xl p-8"
+          style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+        >
           {idleOut && (
-            <div className="bg-amber-50 border border-amber-200 text-amber-700 rounded-lg px-3 py-2 text-sm mb-4">
+            <div
+              className="rounded-lg px-3 py-2 text-sm mb-4"
+              style={{ backgroundColor: 'rgba(217,119,6,0.1)', border: '1px solid rgba(217,119,6,0.3)', color: '#FCD34D' }}
+            >
               You were signed out due to 20 minutes of inactivity.
             </div>
           )}
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+              <label className="block text-sm font-medium mb-1" style={{ color: '#8B949E' }}>Email Address</label>
               <input
                 type="text"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
                 autoComplete="email"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                className="w-full rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                 placeholder="you@example.com"
+                style={{ ...inputStyle, colorScheme: 'dark' }}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label className="block text-sm font-medium mb-1" style={{ color: '#8B949E' }}>Password</label>
               <div className="relative">
                 <input
                   type={showPw ? 'text' : 'password'}
@@ -83,13 +99,15 @@ function LoginForm() {
                   onChange={e => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  className="w-full rounded-lg px-3 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                   placeholder="Enter your password"
+                  style={{ ...inputStyle, colorScheme: 'dark' }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPw(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+                  style={{ color: '#6E7681' }}
                   tabIndex={-1}
                 >
                   <EyeIcon open={showPw} />
@@ -98,20 +116,26 @@ function LoginForm() {
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg px-3 py-2 text-sm">{error}</div>
+              <div
+                className="rounded-lg px-3 py-2 text-sm"
+                style={{ backgroundColor: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.3)', color: '#F87171' }}
+              >
+                {error}
+              </div>
             )}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-teal-700 hover:bg-teal-800 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+              className="w-full disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+              style={{ backgroundColor: '#0D9488' }}
             >
               {loading ? 'Signing in…' : 'Sign In'}
             </button>
           </form>
 
           <div className="mt-5 text-center">
-            <a href="/forgot-password" className="text-sm text-teal-600 hover:text-teal-800">
+            <a href="/forgot-password" className="text-sm" style={{ color: '#0D9488' }}>
               Forgot password?
             </a>
           </div>

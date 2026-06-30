@@ -6,7 +6,7 @@ import IdleGuard from './components/IdleGuard'
 export default function Home() {
   return (
     <IdleGuard>
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--yoi-bg)' }}>
         <Header />
         <main className="max-w-6xl mx-auto px-6 py-6">
           <Dashboard />

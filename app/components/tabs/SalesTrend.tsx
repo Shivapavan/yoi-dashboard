@@ -88,37 +88,62 @@ function monthOptions(): Array<{ value: string; label: string }> {
   return options.reverse() // most recent first
 }
 
-function RevenueTable({ title, rows, accent }: { title: string; rows: RevenueRow[]; accent: string }) {
+const selectStyle: React.CSSProperties = {
+  backgroundColor: '#0D1117',
+  border: '1px solid #30363D',
+  color: '#E6EDF3',
+  colorScheme: 'dark',
+}
+
+function NavBtn({ children, onClick, disabled }: { children: React.ReactNode; onClick?: () => void; disabled?: boolean }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      style={{ border: '1px solid #30363D', color: '#8B949E', backgroundColor: 'transparent' }}
+      onMouseEnter={e => !disabled && (e.currentTarget.style.backgroundColor = '#21262D')}
+      onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+    >
+      {children}
+    </button>
+  )
+}
+
+function RevenueTable({ title, rows, accentColor }: { title: string; rows: RevenueRow[]; accentColor: string }) {
   const dataRows = rows.filter((r) => !r.label.startsWith('Total'))
   const totalRow = rows.find((r) => r.label.startsWith('Total'))
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-      <div className={`px-5 py-3 border-l-4 ${accent} border-b border-gray-100`}>
-        <h4 className="font-semibold text-gray-800 text-sm">{title}</h4>
+    <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}>
+      <div
+        className="px-5 py-3"
+        style={{ borderLeft: `4px solid ${accentColor}`, borderBottom: '1px solid #21262D' }}
+      >
+        <h4 className="font-semibold text-sm" style={{ color: '#E6EDF3' }}>{title}</h4>
       </div>
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-gray-100">
-            <th className="text-left px-5 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Category</th>
-            <th className="text-right px-5 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Count</th>
-            <th className="text-right px-5 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Amount</th>
+          <tr style={{ borderBottom: '1px solid #21262D' }}>
+            <th className="text-left px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Category</th>
+            <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Count</th>
+            <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Amount</th>
           </tr>
         </thead>
         <tbody>
           {dataRows.map((r) => (
-            <tr key={r.label} className="border-b border-gray-50 last:border-0">
-              <td className="px-5 py-2.5 text-gray-700">{r.label}</td>
-              <td className="px-5 py-2.5 text-right text-gray-400">{r.count ?? '—'}</td>
-              <td className="px-5 py-2.5 text-right text-gray-700">{fmt(r.amount)}</td>
+            <tr key={r.label} style={{ borderBottom: '1px solid #1C2333' }} className="last:border-0">
+              <td className="px-5 py-2.5" style={{ color: '#C9D1D9' }}>{r.label}</td>
+              <td className="px-5 py-2.5 text-right" style={{ color: '#6E7681' }}>{r.count ?? '—'}</td>
+              <td className="px-5 py-2.5 text-right" style={{ color: '#C9D1D9' }}>{fmt(r.amount)}</td>
             </tr>
           ))}
         </tbody>
         {totalRow && (
           <tfoot>
-            <tr className="border-t border-gray-200 bg-gray-50">
-              <td className="px-5 py-2.5 font-bold text-gray-900">{totalRow.label.replace(':', '')}</td>
-              <td className="px-5 py-2.5 text-right font-bold text-gray-900">{totalRow.count ?? '—'}</td>
-              <td className="px-5 py-2.5 text-right font-bold text-gray-900">{fmt(totalRow.amount)}</td>
+            <tr style={{ borderTop: '1px solid #21262D', backgroundColor: '#1C2333' }}>
+              <td className="px-5 py-2.5 font-bold" style={{ color: '#E6EDF3' }}>{totalRow.label.replace(':', '')}</td>
+              <td className="px-5 py-2.5 text-right font-bold" style={{ color: '#E6EDF3' }}>{totalRow.count ?? '—'}</td>
+              <td className="px-5 py-2.5 text-right font-bold" style={{ color: '#E6EDF3' }}>{fmt(totalRow.amount)}</td>
             </tr>
           </tfoot>
         )}
@@ -217,24 +242,19 @@ export default function SalesTrend() {
   }, [fetchData])
 
   // ── Summary stats ──────────────────────────────────────────────────────────
-  // Sum from `trend` (per-day values) instead of activityData aggregates.
-  // The Lighthouse activity-summary report defines "Net Sales" differently for
-  // multi-day ranges than the per-day metric, which made Total Net wildly off.
-  // Per-day values are consistent with what the EOD card shows for each day.
   const activeDays = trend.filter((d) => d.grossSales > 0)
   const totalGross = activeDays.reduce((s, d) => s + (d.grossSales || 0), 0)
   const totalNet   = activeDays.reduce((s, d) => s + (d.netSales   || 0), 0)
   const totalCash  = trend.reduce((s, d) => s + (d.cashPayments || 0), 0)
 
-  // Days elapsed in the period (for avg when trend has no scraped data but activityData does)
   const daysElapsed = (() => {
     const td = todayStr()
     if (view === 'daily') {
       const [y, m] = dailyMonth.split('-').map(Number)
       const lastDay = `${dailyMonth}-${String(new Date(y, m, 0).getDate()).padStart(2, '0')}`
-      if (td > lastDay) return new Date(y, m, 0).getDate() // past month — all days
+      if (td > lastDay) return new Date(y, m, 0).getDate()
       if (td < `${dailyMonth}-01`) return 1
-      return parseInt(td.slice(8)) // current month — days elapsed
+      return parseInt(td.slice(8))
     }
     if (view === 'monthly') {
       const [y, m] = month.split('-').map(Number)
@@ -257,8 +277,7 @@ export default function SalesTrend() {
     ? totalGross / activeDays.length
     : (activityData?.grossSales && daysElapsed > 0 ? activityData.grossSales / daysElapsed : 0)
 
-  const best       = trend.reduce<any>((b, d) => (d.grossSales > (b?.grossSales ?? 0) ? d : b), null)
-
+  const best      = trend.reduce<any>((b, d) => (d.grossSales > (b?.grossSales ?? 0) ? d : b), null)
   const bestLabel = best?.grossSales > 0
     ? view === 'daily'
       ? fmtShortDate(best.date)
@@ -266,10 +285,6 @@ export default function SalesTrend() {
       ? new Date(best.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
       : `${best.label} (${fmtMonthShort(month)})`
     : null
-
-  const weekEnd    = addDays(weekStart, 6)
-  const weekLabel  = `${fmtShortDate(weekStart)} – ${fmtShortDate(weekEnd)}`
-  const monthLabel = fmtMonth(month)
 
   const todayMonday  = weekMonday(todayStr())
   const canNextWeek  = weekStart < todayMonday
@@ -281,145 +296,152 @@ export default function SalesTrend() {
     return item ? fmtFullDate(item.date) : label
   }
 
-  const dailyTickInterval = Math.max(0, Math.floor(trend.length / 10) - 1)
-
   const hasChartData = activeDays.length > 0 || (activityData?.grossSales ?? 0) > 0
+
+  const showCatering = view === 'daily' && cateringCash
 
   return (
     <div>
       {/* ── Toolbar ──────────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between mb-5 flex-wrap gap-2">
         <div className="flex items-center gap-3">
-          <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+          {/* View toggle */}
+          <div
+            className="flex gap-1 rounded-xl p-1"
+            style={{ backgroundColor: '#1C2333' }}
+          >
             {(['daily', 'weekly', 'monthly'] as View[]).map((v) => (
-              <button key={v} onClick={() => setView(v)}
-                className={`px-5 py-1.5 rounded-md text-sm font-medium transition-colors capitalize ${
-                  view === v ? 'bg-white text-teal-700 shadow-sm font-semibold' : 'text-gray-500 hover:text-gray-700'
-                }`}>
+              <button
+                key={v}
+                onClick={() => setView(v)}
+                className="px-5 py-1.5 rounded-lg text-sm font-medium transition-all capitalize"
+                style={
+                  view === v
+                    ? { backgroundColor: '#0D9488', color: '#fff', boxShadow: '0 0 10px rgba(13,148,136,0.4)' }
+                    : { color: '#8B949E', backgroundColor: 'transparent' }
+                }
+              >
                 {v}
               </button>
             ))}
           </div>
           {view === 'daily' && (
             <div className="flex items-center gap-2">
-              <button onClick={() => setDailyMonth(addMonths(dailyMonth, -1))}
-                className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm">‹</button>
+              <NavBtn onClick={() => setDailyMonth(addMonths(dailyMonth, -1))}>‹</NavBtn>
               <select
                 value={dailyMonth}
                 onChange={(e) => setDailyMonth(e.target.value)}
-                className="px-3 py-1 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 cursor-pointer"
+                className="px-3 py-1 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+                style={selectStyle}
               >
                 {monthOptions().map((o) => (
                   <option key={o.value} value={o.value}>{o.label}</option>
                 ))}
               </select>
-              <button onClick={() => setDailyMonth(addMonths(dailyMonth, 1))} disabled={dailyMonth >= thisMonthStr()}
-                className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm disabled:opacity-30 disabled:cursor-not-allowed">›</button>
+              <NavBtn onClick={() => setDailyMonth(addMonths(dailyMonth, 1))} disabled={dailyMonth >= thisMonthStr()}>›</NavBtn>
             </div>
           )}
         </div>
-        <div className="flex items-center gap-3 text-xs text-gray-400">
+        <div className="flex items-center gap-3 text-xs" style={{ color: '#6E7681' }}>
           {lastUpdated && <span>Updated {lastUpdated.toLocaleTimeString()}</span>}
           <span className="flex items-center gap-1">
             <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             Auto-refresh 5 min
           </span>
-          <button onClick={() => fetchData(true)} className="text-teal-600 hover:text-teal-800 font-medium">Refresh now</button>
+          <button onClick={() => fetchData(true)} className="font-medium" style={{ color: '#0D9488' }}>Refresh now</button>
         </div>
       </div>
 
       {/* ── Period navigator ─────────────────────────────────────────────── */}
       {view === 'weekly' && (
         <div className="flex items-center justify-center gap-3 mb-4">
-          <button onClick={() => setWeekStart(addDays(weekStart, -7))}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold">‹</button>
+          <NavBtn onClick={() => setWeekStart(addDays(weekStart, -7))}>‹</NavBtn>
           <select
             value={weekStart}
             onChange={(e) => setWeekStart(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+            style={selectStyle}
           >
             {weekOptions().map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
           </select>
-          <button onClick={() => setWeekStart(addDays(weekStart, 7))} disabled={!canNextWeek}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold disabled:opacity-30 disabled:cursor-not-allowed">›</button>
+          <NavBtn onClick={() => setWeekStart(addDays(weekStart, 7))} disabled={!canNextWeek}>›</NavBtn>
         </div>
       )}
       {view === 'monthly' && (
         <div className="flex items-center justify-center gap-2 mb-4">
-          <button onClick={() => setMonth(addMonths(month, -1))}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold">‹</button>
+          <NavBtn onClick={() => setMonth(addMonths(month, -1))}>‹</NavBtn>
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+            style={selectStyle}
           >
             {monthOptions().map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
           </select>
-          <button onClick={() => setMonth(addMonths(month, 1))} disabled={!canNextMonth}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold disabled:opacity-30 disabled:cursor-not-allowed">›</button>
+          <NavBtn onClick={() => setMonth(addMonths(month, 1))} disabled={!canNextMonth}>›</NavBtn>
         </div>
       )}
 
-      {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded p-3 mb-4 text-sm">{error}</div>}
+      {error && (
+        <div
+          className="rounded-xl p-3 mb-4 text-sm"
+          style={{ backgroundColor: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.3)', color: '#F87171' }}
+        >
+          {error}
+        </div>
+      )}
 
-      {/* ── Summary cards ────────────────────────────────────────────────── */}
+      {/* ── Summary mini-cards ────────────────────────────────────────────── */}
       {(trend.length > 0 || activityData) && (
-        <>
-          <div className={`grid grid-cols-2 gap-3 mb-4 ${view === 'daily' && cateringCash ? 'sm:grid-cols-3 lg:grid-cols-6' : 'sm:grid-cols-3 lg:grid-cols-5'}`}>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-teal-600">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Gross</div>
-              <div className="text-xl font-bold text-gray-900">{fmt(totalGross)}</div>
+        <div className={`grid grid-cols-2 gap-3 mb-4 ${showCatering ? 'sm:grid-cols-3 lg:grid-cols-6' : 'sm:grid-cols-3 lg:grid-cols-5'}`}>
+          {[
+            { label: 'Total Gross',   value: fmt(totalGross),                              borderColor: '#0D9488' },
+            { label: 'Total Net',     value: fmt(totalNet),                                borderColor: '#D97706' },
+            { label: 'Avg / Day',     value: avgGross > 0 ? fmt(avgGross) : '—',           borderColor: '#818CF8' },
+            { label: 'Best Day',      value: best?.grossSales > 0 ? fmt(best.grossSales) : '—', borderColor: '#22C55E', sub: bestLabel },
+            { label: 'Cash Received', value: fmt(totalCash),                               borderColor: '#2DD4BF' },
+            ...(showCatering ? [{
+              label: `${dailyPeriodLabel ? fmtMonth(dailyPeriodLabel) : ''} CAT CAH`,
+              value: fmt(cateringCash!.total),
+              borderColor: '#F97316',
+            }] : []),
+          ].map((card) => (
+            <div
+              key={card.label}
+              className="rounded-xl p-4"
+              style={{ backgroundColor: '#161B22', border: '1px solid #21262D', borderLeft: `4px solid ${card.borderColor}` }}
+            >
+              <div className="text-xs uppercase tracking-wide mb-1" style={{ color: '#8B949E' }}>{card.label}</div>
+              <div className="text-xl font-bold" style={{ color: '#E6EDF3' }}>{card.value}</div>
+              {card.sub && <div className="text-xs mt-0.5" style={{ color: '#6E7681' }}>{card.sub}</div>}
             </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-amber-600">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Net</div>
-              <div className="text-xl font-bold text-gray-900">{fmt(totalNet)}</div>
-            </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-indigo-500">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Avg / Day</div>
-              <div className="text-xl font-bold text-gray-900">{avgGross > 0 ? fmt(avgGross) : '—'}</div>
-            </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-green-500">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Best Day</div>
-              <div className="text-xl font-bold text-gray-900">{best?.grossSales > 0 ? fmt(best.grossSales) : '—'}</div>
-              {bestLabel && <div className="text-xs text-gray-500 mt-0.5">{bestLabel}</div>}
-            </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-teal-500">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Cash Received</div>
-              <div className="text-xl font-bold text-gray-900">{fmt(totalCash)}</div>
-            </div>
-            {/* CAT CAH — catering cash total for the same month, from Google Sheets Summary tab */}
-            {view === 'daily' && cateringCash && (
-              <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-orange-500">
-                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                  {dailyPeriodLabel ? fmtMonth(dailyPeriodLabel) : ''} CAT CAH
-                </div>
-                <div className="text-xl font-bold text-gray-900">{fmt(cateringCash.total)}</div>
-              </div>
-            )}
-          </div>
-        </>
+          ))}
+        </div>
       )}
 
       {/* ── Chart ────────────────────────────────────────────────────────── */}
-      <div className={`bg-white rounded-lg p-6 shadow-sm transition-opacity ${loading ? 'opacity-50' : ''}`}>
+      <div
+        className={`rounded-xl p-6 transition-opacity ${loading ? 'opacity-50' : ''}`}
+        style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+      >
         {!hasChartData && !loading ? (
-          <p className="text-center text-gray-400 py-12">No sales data for this period.</p>
+          <p className="text-center py-12" style={{ color: '#6E7681' }}>No sales data for this period.</p>
         ) : view === 'daily' ? (
-          // Daily: bar chart, only days with actual sales (no zeros distorting the trend)
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={activeDays} margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="date" tick={{ fontSize: 11 }} tickFormatter={fmtShortDate}
-                interval={Math.max(0, Math.floor(activeDays.length / 10) - 1)} />
-              <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => `$${v.toLocaleString()}`} width={72}
-                domain={[0, (max: number) => Math.max(max, 100)]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#21262D" />
+              <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#8B949E' }} tickFormatter={fmtShortDate}
+                interval={Math.max(0, Math.floor(activeDays.length / 10) - 1)} axisLine={{ stroke: '#21262D' }} tickLine={false} />
+              <YAxis tick={{ fontSize: 11, fill: '#8B949E' }} tickFormatter={(v) => `$${v.toLocaleString()}`} width={72}
+                domain={[0, (max: number) => Math.max(max, 100)]} axisLine={false} tickLine={false} />
               <Tooltip formatter={(v: number, n: string) => [fmt(v), n]} labelFormatter={fmtFullDate}
-                contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }} />
-              <Legend />
+                contentStyle={{ backgroundColor: '#1C2333', border: '1px solid #30363D', borderRadius: 8, fontSize: 12, color: '#E6EDF3' }}
+                labelStyle={{ color: '#8B949E' }} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
+              <Legend wrapperStyle={{ color: '#8B949E', fontSize: 12 }} />
               <Bar dataKey="grossSales" name="Gross Sales" fill="#0D9488" radius={[3, 3, 0, 0]} />
               <Bar dataKey="netSales" name="Net Sales" fill="#D97706" radius={[3, 3, 0, 0]} />
             </BarChart>
@@ -427,14 +449,16 @@ export default function SalesTrend() {
         ) : (
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={trend} margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="label" tick={{ fontSize: 11 }}
-                interval={view === 'monthly' ? Math.max(0, Math.floor(trend.length / 15) - 1) : 0} />
-              <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => `$${v.toLocaleString()}`} width={72}
-                domain={[0, (max: number) => Math.max(max, 100)]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#21262D" />
+              <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#8B949E' }}
+                interval={view === 'monthly' ? Math.max(0, Math.floor(trend.length / 15) - 1) : 0}
+                axisLine={{ stroke: '#21262D' }} tickLine={false} />
+              <YAxis tick={{ fontSize: 11, fill: '#8B949E' }} tickFormatter={(v) => `$${v.toLocaleString()}`} width={72}
+                domain={[0, (max: number) => Math.max(max, 100)]} axisLine={false} tickLine={false} />
               <Tooltip formatter={(v: number, n: string) => [fmt(v), n]} labelFormatter={tooltipTitle}
-                contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }} />
-              <Legend />
+                contentStyle={{ backgroundColor: '#1C2333', border: '1px solid #30363D', borderRadius: 8, fontSize: 12, color: '#E6EDF3' }}
+                labelStyle={{ color: '#8B949E' }} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
+              <Legend wrapperStyle={{ color: '#8B949E', fontSize: 12 }} />
               <Bar dataKey="grossSales" name="Gross Sales" fill="#0D9488" radius={[3, 3, 0, 0]} />
               <Bar dataKey="netSales" name="Net Sales" fill="#D97706" radius={[3, 3, 0, 0]} />
             </BarChart>
@@ -445,39 +469,34 @@ export default function SalesTrend() {
       {/* ── Revenue class tables ─────────────────────────────────────────── */}
       {activityData && activityData.grossByRevenue.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          <RevenueTable
-            title="Gross Sales by Revenue Class"
-            rows={activityData.grossByRevenue}
-            accent="border-teal-600"
-          />
-          <RevenueTable
-            title="Net Sales by Revenue Class"
-            rows={activityData.netByRevenue}
-            accent="border-amber-600"
-          />
+          <RevenueTable title="Gross Sales by Revenue Class" rows={activityData.grossByRevenue} accentColor="#0D9488" />
+          <RevenueTable title="Net Sales by Revenue Class" rows={activityData.netByRevenue} accentColor="#D97706" />
         </div>
       )}
 
       {/* ── Order Type Breakdown ─────────────────────────────────────────── */}
       {activityData && activityData.orderTypes && activityData.orderTypes.length > 0 && (
-        <div className="mt-4 bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="px-5 py-3 border-l-4 border-teal-600 border-b border-gray-100">
-            <h4 className="font-semibold text-gray-800 text-sm">Sales by Order Type</h4>
+        <div
+          className="mt-4 rounded-xl overflow-hidden"
+          style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+        >
+          <div className="px-5 py-3" style={{ borderLeft: '4px solid #0D9488', borderBottom: '1px solid #21262D' }}>
+            <h4 className="font-semibold text-sm" style={{ color: '#E6EDF3' }}>Sales by Order Type</h4>
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left px-5 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Type</th>
-                <th className="text-right px-5 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Orders</th>
-                <th className="text-right px-5 py-2 text-xs uppercase tracking-wide text-gray-400 font-semibold">Amount</th>
+              <tr style={{ borderBottom: '1px solid #21262D' }}>
+                <th className="text-left px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Type</th>
+                <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Orders</th>
+                <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Amount</th>
               </tr>
             </thead>
             <tbody>
               {activityData.orderTypes.map((ot) => (
-                <tr key={ot.type} className="border-b border-gray-50 last:border-0">
-                  <td className="px-5 py-2.5 text-gray-700">{ot.type}</td>
-                  <td className="px-5 py-2.5 text-right text-gray-400">{ot.count > 0 ? ot.count : '—'}</td>
-                  <td className="px-5 py-2.5 text-right font-semibold text-gray-900">{fmt(ot.amount)}</td>
+                <tr key={ot.type} style={{ borderBottom: '1px solid #1C2333' }} className="last:border-0">
+                  <td className="px-5 py-2.5" style={{ color: '#C9D1D9' }}>{ot.type}</td>
+                  <td className="px-5 py-2.5 text-right" style={{ color: '#6E7681' }}>{ot.count > 0 ? ot.count : '—'}</td>
+                  <td className="px-5 py-2.5 text-right font-semibold" style={{ color: '#E6EDF3' }}>{fmt(ot.amount)}</td>
                 </tr>
               ))}
             </tbody>
@@ -490,22 +509,31 @@ export default function SalesTrend() {
         const selected = ddPayouts.find(p => p.weekStart === ddWeek) ?? ddPayouts[0]
         const totalAll = ddPayouts.reduce((s, p) => s + p.amount, 0)
         return (
-          <div className="mt-6 bg-white rounded-lg shadow-sm overflow-hidden">
-            <div className="px-5 py-4 border-l-4 border-red-500 border-b border-gray-100 flex items-center justify-between flex-wrap gap-3">
+          <div
+            className="mt-6 rounded-xl overflow-hidden"
+            style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+          >
+            <div
+              className="px-5 py-4 flex items-center justify-between flex-wrap gap-3"
+              style={{ borderLeft: '4px solid #F87171', borderBottom: '1px solid #21262D' }}
+            >
               <div>
-                <h4 className="font-semibold text-gray-800">🚗 DoorDash Payout</h4>
-                <p className="text-xs text-gray-400 mt-0.5">Auto-synced from email · Total {ddPayouts.length} weeks: {fmt(totalAll)}</p>
+                <h4 className="font-semibold" style={{ color: '#E6EDF3' }}>🚗 DoorDash Payout</h4>
+                <p className="text-xs mt-0.5" style={{ color: '#6E7681' }}>Auto-synced from email · Total {ddPayouts.length} weeks: {fmt(totalAll)}</p>
               </div>
               <div className="flex items-center gap-2">
-                <button onClick={() => {
-                  const idx = ddPayouts.findIndex(p => p.weekStart === ddWeek)
-                  if (idx < ddPayouts.length - 1) setDdWeek(ddPayouts[idx + 1].weekStart)
-                }} disabled={ddPayouts.findIndex(p => p.weekStart === ddWeek) >= ddPayouts.length - 1}
-                  className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm disabled:opacity-30">‹</button>
+                <NavBtn
+                  onClick={() => {
+                    const idx = ddPayouts.findIndex(p => p.weekStart === ddWeek)
+                    if (idx < ddPayouts.length - 1) setDdWeek(ddPayouts[idx + 1].weekStart)
+                  }}
+                  disabled={ddPayouts.findIndex(p => p.weekStart === ddWeek) >= ddPayouts.length - 1}
+                >‹</NavBtn>
                 <select
                   value={ddWeek}
                   onChange={e => setDdWeek(e.target.value)}
-                  className="px-3 py-1 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-red-300 cursor-pointer"
+                  className="px-3 py-1 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-red-400 cursor-pointer"
+                  style={selectStyle}
                 >
                   {ddPayouts.map(p => (
                     <option key={p.weekStart} value={p.weekStart}>
@@ -513,24 +541,31 @@ export default function SalesTrend() {
                     </option>
                   ))}
                 </select>
-                <button onClick={() => {
-                  const idx = ddPayouts.findIndex(p => p.weekStart === ddWeek)
-                  if (idx > 0) setDdWeek(ddPayouts[idx - 1].weekStart)
-                }} disabled={ddPayouts.findIndex(p => p.weekStart === ddWeek) <= 0}
-                  className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 font-bold text-sm disabled:opacity-30">›</button>
+                <NavBtn
+                  onClick={() => {
+                    const idx = ddPayouts.findIndex(p => p.weekStart === ddWeek)
+                    if (idx > 0) setDdWeek(ddPayouts[idx - 1].weekStart)
+                  }}
+                  disabled={ddPayouts.findIndex(p => p.weekStart === ddWeek) <= 0}
+                >›</NavBtn>
               </div>
             </div>
             {selected && (
               <div className="px-5 py-4 flex items-center justify-between">
                 <div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">
+                  <div className="text-xs uppercase tracking-wide mb-1" style={{ color: '#6E7681' }}>
                     {fmtShortDate(selected.weekStart)} – {fmtShortDate(selected.weekEnd)}
                   </div>
-                  <div className="text-2xl font-bold text-gray-900">{fmt(selected.amount)}</div>
+                  <div className="text-2xl font-bold" style={{ color: '#E6EDF3' }}>{fmt(selected.amount)}</div>
                 </div>
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                  selected.type === 'finalized' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
-                }`}>
+                <span
+                  className="px-3 py-1 rounded-full text-sm font-semibold"
+                  style={
+                    selected.type === 'finalized'
+                      ? { backgroundColor: 'rgba(34,197,94,0.15)', color: '#4ADE80' }
+                      : { backgroundColor: 'rgba(245,158,11,0.15)', color: '#FCD34D' }
+                  }
+                >
                   {selected.type === 'finalized' ? '✓ Finalized' : '⏳ Projected'}
                 </span>
               </div>
