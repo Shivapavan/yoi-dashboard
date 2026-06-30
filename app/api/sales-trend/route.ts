@@ -127,9 +127,8 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // Inject live metrics for any zero-slots within the past 7 days (catches unscraped recent dates)
-    const sevenDaysAgo = addDays(today, -7)
-    const weekLiveTargets = slots.filter(s => s.grossSales < MIN_VALID_DAY_GROSS && s.date <= today && s.date > sevenDaysAgo)
+    // Inject live metrics for any zero-slots in the selected week (backfills past weeks too)
+    const weekLiveTargets = slots.filter(s => s.grossSales < MIN_VALID_DAY_GROSS && s.date <= today)
     if (weekLiveTargets.length > 0) {
       await Promise.all(weekLiveTargets.map(async (slot) => {
         try {
