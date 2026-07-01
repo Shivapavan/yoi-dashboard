@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <TubesBackground className="w-full">
       {/* Auth buttons — pointer-events-auto so clicks work through the overlay */}
-      <div className="absolute right-5 top-8 flex items-center gap-3 pointer-events-auto z-20">
+      <div className="absolute right-5 top-16 flex items-center gap-3 pointer-events-auto z-20">
         {username && (
           <span
             className="text-xs font-medium hidden sm:inline px-2.5 py-1 rounded-full"
