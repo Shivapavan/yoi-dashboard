@@ -393,8 +393,21 @@ export async function fetchCateringData(): Promise<CateringSheet[]> {
       } catch { /* skip unreadable sheet */ }
     }
 
+    // Drop zero-revenue sheets (empty templates / future placeholders)
+    const now = new Date()
+    const currentYM = now.getFullYear() * 12 + now.getMonth() // 0-based month
+
+    const nonEmpty = results.filter((r) => {
+      if (r.totalRevenue === 0) return false
+      const p = parseSheetMonth(r.name)
+      if (!p) return true
+      // exclude sheets whose month is strictly in the future
+      const sheetYM = p.year * 12 + (p.month - 1)
+      return sheetYM <= currentYM
+    })
+
     // Sort newest month first using parsed year/month
-    results.sort((a, b) => {
+    nonEmpty.sort((a, b) => {
       const pa = parseSheetMonth(a.name)
       const pb = parseSheetMonth(b.name)
       if (!pa || !pb) return 0
@@ -402,6 +415,6 @@ export async function fetchCateringData(): Promise<CateringSheet[]> {
       return pb.month - pa.month
     })
 
-    return results
+    return nonEmpty
   } catch { return [] }
 }
