@@ -2,13 +2,6 @@ import EventsCalendar from '@/app/components/EventsCalendar'
 import { getEventsPublicSlug } from '@/lib/events'
 import { notFound } from 'next/navigation'
 
-// July-end this calendar year, computed on the server at render time.
-function julyEndThisYear(): string {
-  const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric' })
-  const y = fmt.format(new Date())
-  return `${y}-07-31`
-}
-
 export const dynamic = 'force-dynamic'
 
 export default async function PublicEventsPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -17,7 +10,6 @@ export default async function PublicEventsPage({ params }: { params: Promise<{ s
   if (!expected || slug !== expected) {
     notFound()
   }
-  const endDate = julyEndThisYear()
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -33,10 +25,9 @@ export default async function PublicEventsPage({ params }: { params: Promise<{ s
       </header>
       <main className="max-w-4xl mx-auto px-4 py-5">
         <EventsCalendar
-          endDate={endDate}
           slug={slug}
           title="Party Space Bookings"
-          subtitle={`Today through ${endDate}`}
+          subtitle="Browse availability and request a booking"
         />
       </main>
     </div>

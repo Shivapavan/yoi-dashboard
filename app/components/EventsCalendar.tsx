@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 export interface Booking {
   id: string
@@ -16,88 +16,137 @@ export interface Booking {
 }
 
 interface Props {
-  /** End date (inclusive), YYYY-MM-DD. Start is always today (CDT). */
-  endDate: string
-  /** If set, used as ?slug=<value> on all API calls (public QR mode). */
+  /** Kept for backwards compat — no longer used; calendar navigates freely. */
+  endDate?: string
   slug?: string
-  /** Label shown at the top of the calendar. */
   title?: string
-  /** Sub-label shown under the title. */
   subtitle?: string
 }
 
-// Today in America/Chicago — YYYY-MM-DD
+// ─── date helpers ────────────────────────────────────────────────────────────
+
 function todayChicago(): string {
-  const now = new Date()
-  const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' })
-  return fmt.format(now)
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Chicago',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(new Date())
 }
 
-function addDays(yyyymmdd: string, days: number): string {
-  const [y, m, d] = yyyymmdd.split('-').map(Number)
-  const dt = new Date(Date.UTC(y, m - 1, d))
-  dt.setUTCDate(dt.getUTCDate() + days)
-  return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, '0')}-${String(dt.getUTCDate()).padStart(2, '0')}`
+function ymd(y: number, m: number, d: number): string {
+  return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`
 }
 
-function prettyDate(yyyymmdd: string): { weekday: string; main: string; isWeekend: boolean } {
-  const [y, m, d] = yyyymmdd.split('-').map(Number)
-  const dt = new Date(Date.UTC(y, m - 1, d))
-  const wd = dt.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' })
-  const main = dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })
-  const dayIdx = dt.getUTCDay() // 0=Sun, 6=Sat
-  return { weekday: wd, main, isWeekend: dayIdx === 0 || dayIdx === 6 }
+function shiftMonth(year: number, month: number, delta: number): { year: number; month: number } {
+  let m = month + delta, y = year
+  while (m > 12) { m -= 12; y++ }
+  while (m < 1)  { m += 12; y-- }
+  return { year: y, month: m }
 }
 
-function dayStatus(bookings: Booking[]): { label: string; cls: string } {
-  if (bookings.length === 0) return { label: 'Open', cls: 'bg-gray-100 text-gray-500 border-gray-200' }
-  if (bookings.some(b => b.status === 'NotAvailable'))
-    return { label: 'Not Available', cls: 'bg-red-100 text-red-800 border-red-300' }
-  if (bookings.some(b => b.status === 'Confirmed'))
-    return { label: 'Confirmed', cls: 'bg-emerald-100 text-emerald-800 border-emerald-300' }
-  return { label: 'Tentative', cls: 'bg-amber-100 text-amber-800 border-amber-300' }
+function daysInMonth(year: number, month: number): number {
+  return new Date(Date.UTC(year, month, 0)).getUTCDate()
 }
 
-function statusBarColor(bookings: Booking[]): string {
-  if (bookings.length === 0) return 'bg-gray-200'
-  if (bookings.some(b => b.status === 'NotAvailable')) return 'bg-red-500'
-  if (bookings.some(b => b.status === 'Confirmed'))    return 'bg-emerald-500'
-  return 'bg-amber-400'
+/** Returns rows of (date string | null) for a calendar grid (Sun–Sat). */
+function buildGrid(year: number, month: number): (string | null)[][] {
+  const firstDow = new Date(Date.UTC(year, month - 1, 1)).getUTCDay()
+  const total = daysInMonth(year, month)
+  const cells: (string | null)[] = Array(firstDow).fill(null)
+  for (let d = 1; d <= total; d++) cells.push(ymd(year, month, d))
+  while (cells.length % 7) cells.push(null)
+  const rows: (string | null)[][] = []
+  for (let i = 0; i < cells.length; i += 7) rows.push(cells.slice(i, i + 7))
+  return rows
 }
 
-function dayCardBg(bookings: Booking[]): string {
-  // Whole-card red tint for blocked days — the user wanted "complete red"
-  // when a day is marked Not Available.
-  if (bookings.some(b => b.status === 'NotAvailable')) return 'bg-red-50'
-  return 'bg-white'
+function monthLabel(year: number, month: number): string {
+  return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString('en-US', {
+    month: 'long', year: 'numeric', timeZone: 'UTC',
+  })
 }
 
-export default function EventsCalendar({ endDate, slug, title, subtitle }: Props) {
-  const startDate = useMemo(() => todayChicago(), [])
+function firstOfMonth(year: number, month: number): string {
+  return ymd(year, month, 1)
+}
 
-  const days = useMemo(() => {
-    const out: string[] = []
-    let d = startDate
-    while (d <= endDate) {
-      out.push(d)
-      d = addDays(d, 1)
-    }
-    return out
-  }, [startDate, endDate])
+function lastOfMonth(year: number, month: number): string {
+  return ymd(year, month, daysInMonth(year, month))
+}
 
-  const [bookings, setBookings] = useState<Record<string, Booking[]>>({})
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [openDays, setOpenDays] = useState<Set<string>>(new Set())
-  const [editingId, setEditingId] = useState<string | null>(null)
+// ─── status helpers ───────────────────────────────────────────────────────────
+
+type DayStatus = 'open' | 'tentative' | 'confirmed' | 'blocked'
+
+function dayStatus(bookings: Booking[]): DayStatus {
+  if (!bookings.length) return 'open'
+  if (bookings.some(b => b.status === 'NotAvailable')) return 'blocked'
+  if (bookings.some(b => b.status === 'Confirmed'))    return 'confirmed'
+  return 'tentative'
+}
+
+const CELL_BG: Record<DayStatus, string> = {
+  open:      'bg-white hover:bg-gray-50',
+  tentative: 'bg-amber-50 hover:bg-amber-100',
+  confirmed: 'bg-emerald-50 hover:bg-emerald-100',
+  blocked:   'bg-red-50 hover:bg-red-100',
+}
+const CELL_RING: Record<DayStatus, string> = {
+  open:      'ring-gray-200',
+  tentative: 'ring-amber-300',
+  confirmed: 'ring-emerald-400',
+  blocked:   'ring-red-400',
+}
+const DOT_COLOR: Record<DayStatus, string> = {
+  open:      'bg-transparent',
+  tentative: 'bg-amber-400',
+  confirmed: 'bg-emerald-500',
+  blocked:   'bg-red-500',
+}
+const STATUS_LABEL: Record<DayStatus, string> = {
+  open:      'Open',
+  tentative: 'Tentative',
+  confirmed: 'Confirmed',
+  blocked:   'Not Available',
+}
+const STATUS_BADGE: Record<DayStatus, string> = {
+  open:      'bg-gray-100 text-gray-500 border-gray-200',
+  tentative: 'bg-amber-100 text-amber-800 border-amber-300',
+  confirmed: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+  blocked:   'bg-red-100 text-red-800 border-red-300',
+}
+
+const DOW = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+
+// ─── main component ───────────────────────────────────────────────────────────
+
+export default function EventsCalendar({ slug, title, subtitle }: Props) {
+  const today = useMemo(() => todayChicago(), [])
+  const [ty, tm] = today.split('-').map(Number)
+
+  // offset from today's month: 0 = current month shown on left
+  const [offset, setOffset] = useState(0)
+
+  const leftMonth  = useMemo(() => shiftMonth(ty, tm, offset),     [ty, tm, offset])
+  const rightMonth = useMemo(() => shiftMonth(ty, tm, offset + 1), [ty, tm, offset])
+
+  const rangeStart = useMemo(() => firstOfMonth(leftMonth.year,  leftMonth.month),  [leftMonth])
+  const rangeEnd   = useMemo(() => lastOfMonth(rightMonth.year, rightMonth.month), [rightMonth])
+
+  const [bookings, setBookings]     = useState<Record<string, Booking[]>>({})
+  const [loading,  setLoading]      = useState(true)
+  const [error,    setError]        = useState<string | null>(null)
+  const [selected, setSelected]     = useState<string | null>(null)
+  const [editingId, setEditingId]   = useState<string | null>(null)
 
   const slugParam = slug ? `&slug=${encodeURIComponent(slug)}` : ''
 
-  async function load() {
+  const load = useCallback(async (start: string, end: string) => {
     setLoading(true); setError(null)
     try {
-      const r = await fetch(`/api/events/bookings?start=${startDate}&end=${endDate}${slugParam}`,
-        { cache: 'no-store', credentials: 'include' })
+      const r = await fetch(
+        `/api/events/bookings?start=${start}&end=${end}${slugParam}`,
+        { cache: 'no-store', credentials: 'include' },
+      )
       if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `HTTP ${r.status}`)
       const j = await r.json()
       const byDate: Record<string, Booking[]> = {}
@@ -110,17 +159,13 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
     } finally {
       setLoading(false)
     }
-  }
+  }, [slugParam])
 
-  useEffect(() => { load() }, [startDate, endDate, slug])
-
-  function toggleDay(date: string) {
-    setOpenDays(prev => {
-      const next = new Set(prev)
-      next.has(date) ? next.delete(date) : next.add(date)
-      return next
-    })
-  }
+  useEffect(() => {
+    load(rangeStart, rangeEnd)
+    setSelected(null)
+    setEditingId(null)
+  }, [rangeStart, rangeEnd, load])
 
   async function addBooking(date: string, form: NewBookingForm) {
     const r = await fetch(`/api/events/bookings?${slugParam.slice(1)}`, {
@@ -133,7 +178,7 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
       const j = await r.json().catch(() => ({}))
       throw new Error(j.error || `HTTP ${r.status}`)
     }
-    await load()
+    await load(rangeStart, rangeEnd)
   }
 
   async function deleteBooking(id: string) {
@@ -142,7 +187,7 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
       ? `/api/events/bookings/${id}?slug=${encodeURIComponent(slug)}`
       : `/api/events/bookings/${id}`
     const r = await fetch(url, { method: 'DELETE', credentials: 'include' })
-    if (r.ok) await load()
+    if (r.ok) await load(rangeStart, rangeEnd)
   }
 
   async function toggleStatus(b: Booking) {
@@ -156,7 +201,7 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
       credentials: 'include',
       body: JSON.stringify({ status: next }),
     })
-    if (r.ok) await load()
+    if (r.ok) await load(rangeStart, rangeEnd)
   }
 
   async function saveEdit(id: string, patch: NewBookingForm) {
@@ -174,143 +219,288 @@ export default function EventsCalendar({ endDate, slug, title, subtitle }: Props
       throw new Error(j.error || `HTTP ${r.status}`)
     }
     setEditingId(null)
-    await load()
+    await load(rangeStart, rangeEnd)
   }
 
+  const selectedBookings = selected ? (bookings[selected] || []) : []
+  const selectedStatus   = dayStatus(selectedBookings)
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
+      {/* Header */}
       {(title || subtitle) && (
         <div>
-          {title && <h2 className="text-2xl font-bold text-yoi-primary">{title}</h2>}
+          {title    && <h2 className="text-2xl font-bold text-yoi-primary">{title}</h2>}
           {subtitle && <p className="text-sm text-gray-500 mt-0.5">{subtitle}</p>}
         </div>
       )}
 
-      <div className="flex items-center gap-4 text-xs text-gray-600">
-        <Legend swatch="bg-gray-200"     label="Open" />
-        <Legend swatch="bg-amber-400"    label="Tentative" />
-        <Legend swatch="bg-emerald-500"  label="Confirmed" />
-        <span className="ml-auto">{startDate} → {endDate}</span>
+      {/* Navigation + month labels */}
+      <div className="flex items-center justify-between gap-2">
+        <button
+          onClick={() => setOffset(o => o - 1)}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 text-sm font-medium text-gray-700 transition-colors"
+          aria-label="Previous month"
+        >
+          ← Prev
+        </button>
+
+        <div className="flex-1 text-center">
+          <span className="text-sm font-semibold text-gray-700">
+            {monthLabel(leftMonth.year, leftMonth.month)}
+            {' '}–{' '}
+            {monthLabel(rightMonth.year, rightMonth.month)}
+          </span>
+          {offset !== 0 && (
+            <button
+              onClick={() => setOffset(0)}
+              className="ml-3 text-xs text-yoi-primary hover:underline"
+            >
+              Back to today
+            </button>
+          )}
+        </div>
+
+        <button
+          onClick={() => setOffset(o => o + 1)}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 text-sm font-medium text-gray-700 transition-colors"
+          aria-label="Next month"
+        >
+          Next →
+        </button>
+      </div>
+
+      {/* Legend */}
+      <div className="flex items-center gap-4 text-xs text-gray-500">
+        <Legend dot="bg-gray-200"    label="Open" />
+        <Legend dot="bg-amber-400"   label="Tentative" />
+        <Legend dot="bg-emerald-500" label="Confirmed" />
+        <Legend dot="bg-red-500"     label="Not Available" />
+        {loading && !error && (
+          <span className="ml-auto text-gray-400 animate-pulse">Loading…</span>
+        )}
       </div>
 
       {error && (
-        <div className="border border-red-200 bg-red-50 text-red-700 text-sm px-4 py-3 rounded">
+        <div className="border border-red-200 bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg">
           {error}
         </div>
       )}
-      {loading && !error && (
-        <div className="text-sm text-gray-500">Loading…</div>
-      )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {days.map(date => {
-          const dayBookings = bookings[date] || []
-          const status = dayStatus(dayBookings)
-          const isOpen = openDays.has(date)
-          const pretty = prettyDate(date)
-          return (
-            <div key={date} className={`${dayCardBg(dayBookings)} rounded-lg shadow-sm overflow-hidden`}>
-              <button
-                onClick={() => toggleDay(date)}
-                className="w-full text-left"
-                aria-expanded={isOpen}
-              >
-                <div className={`h-1 ${statusBarColor(dayBookings)}`} />
-                <div className="px-4 py-3 flex items-center gap-3">
-                  <div className="flex-shrink-0 w-12 text-center">
-                    <div className={`text-[10px] uppercase tracking-wide ${pretty.isWeekend ? 'text-yoi-accent' : 'text-gray-400'}`}>{pretty.weekday}</div>
-                    <div className="font-bold text-gray-800 text-sm">{pretty.main}</div>
-                  </div>
-                  <span className={`text-[10px] uppercase tracking-wide font-semibold px-2 py-0.5 rounded border ${status.cls}`}>
-                    {status.label}
-                  </span>
-                  <span className="ml-auto text-xs text-gray-400">
-                    {dayBookings.length > 0 ? `${dayBookings.length} booking${dayBookings.length === 1 ? '' : 's'}` : '—'}
-                  </span>
-                  <span className="text-gray-300 text-xs">{isOpen ? '▾' : '▸'}</span>
-                </div>
-              </button>
+      {/* Two-month grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <MonthGrid
+          year={leftMonth.year}
+          month={leftMonth.month}
+          today={today}
+          bookings={bookings}
+          selected={selected}
+          onSelect={setSelected}
+        />
+        <MonthGrid
+          year={rightMonth.year}
+          month={rightMonth.month}
+          today={today}
+          bookings={bookings}
+          selected={selected}
+          onSelect={setSelected}
+        />
+      </div>
 
-              {isOpen && (
-                <div className="px-4 pb-4 border-t border-gray-100">
-                  <div className="space-y-2 mt-3">
-                    {dayBookings.map(b => (
-                      <div key={b.id} className="bg-gray-50 rounded p-3">
-                        {editingId === b.id ? (
-                          <BookingForm
-                            heading="Edit booking"
-                            initial={{
-                              name:       b.name,
-                              party_size: b.party_size != null ? String(b.party_size) : '',
-                              start_time: b.start_time ?? '',
-                              phone:      b.phone ?? '',
-                              status:     b.status,
-                              notes:      b.notes ?? '',
-                            }}
-                            submitLabel="Save changes"
-                            onSubmit={(form) => saveEdit(b.id, form)}
-                            onCancel={() => setEditingId(null)}
-                          />
-                        ) : (
-                          <div className="flex items-start gap-2">
-                            <div className="flex-1 min-w-0">
-                              <div className="text-sm font-semibold text-gray-800 truncate">
-                                {b.name}
-                                {b.party_size != null && <span className="text-gray-500 font-normal"> · {b.party_size} ppl</span>}
-                                {b.start_time && <span className="text-gray-500 font-normal"> · {b.start_time}</span>}
-                              </div>
-                              {b.phone && <div className="text-xs text-gray-500">📞 {b.phone}</div>}
-                              {b.notes && <div className="text-xs text-gray-600 mt-1 whitespace-pre-wrap">{b.notes}</div>}
-                            </div>
-                            <div className="flex flex-col gap-1 items-end">
-                              <button onClick={() => toggleStatus(b)}
-                                className={`text-[10px] uppercase tracking-wide font-semibold px-2 py-0.5 rounded border ${
-                                  b.status === 'NotAvailable'
-                                    ? 'bg-red-100 text-red-800 border-red-300'
-                                    : b.status === 'Confirmed'
-                                      ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                                      : 'bg-amber-100 text-amber-800 border-amber-300'
-                                }`}>
-                                {b.status === 'NotAvailable' ? 'NOT AVAIL.' : b.status}
-                              </button>
-                              <button onClick={() => setEditingId(b.id)}
-                                className="text-[10px] text-yoi-primary hover:underline">
-                                edit
-                              </button>
-                              <button onClick={() => deleteBooking(b.id)}
-                                className="text-[10px] text-red-500 hover:underline">
-                                delete
-                              </button>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-
-                  <BookingForm
-                    heading="Add booking"
-                    submitLabel="Save booking"
-                    onSubmit={(form) => addBooking(date, form)}
-                  />
-                </div>
-              )}
+      {/* Selected day detail panel */}
+      {selected && (
+        <div className="border border-gray-200 rounded-xl bg-white shadow-sm overflow-hidden">
+          {/* Panel header */}
+          <div className={`px-5 py-3 flex items-center justify-between border-b ${
+            selectedStatus === 'blocked'   ? 'bg-red-50 border-red-200' :
+            selectedStatus === 'confirmed' ? 'bg-emerald-50 border-emerald-200' :
+            selectedStatus === 'tentative' ? 'bg-amber-50 border-amber-200' :
+            'bg-gray-50 border-gray-200'
+          }`}>
+            <div className="flex items-center gap-3">
+              <span className="font-semibold text-gray-800 text-sm">
+                {new Date(selected + 'T00:00:00Z').toLocaleDateString('en-US', {
+                  weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+                })}
+              </span>
+              <span className={`text-[10px] uppercase tracking-wide font-semibold px-2 py-0.5 rounded border ${STATUS_BADGE[selectedStatus]}`}>
+                {STATUS_LABEL[selectedStatus]}
+              </span>
             </div>
-          )
-        })}
+            <button
+              onClick={() => { setSelected(null); setEditingId(null) }}
+              className="text-gray-400 hover:text-gray-600 text-lg leading-none"
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
+
+          <div className="px-5 py-4 space-y-3">
+            {/* Existing bookings */}
+            {selectedBookings.map(b => (
+              <div key={b.id} className="bg-gray-50 rounded-lg p-3">
+                {editingId === b.id ? (
+                  <BookingForm
+                    heading="Edit booking"
+                    initial={{
+                      name:       b.name,
+                      party_size: b.party_size != null ? String(b.party_size) : '',
+                      start_time: b.start_time ?? '',
+                      phone:      b.phone ?? '',
+                      status:     b.status,
+                      notes:      b.notes ?? '',
+                    }}
+                    submitLabel="Save changes"
+                    onSubmit={(form) => saveEdit(b.id, form)}
+                    onCancel={() => setEditingId(null)}
+                  />
+                ) : (
+                  <div className="flex items-start gap-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-semibold text-gray-800 truncate">
+                        {b.name}
+                        {b.party_size != null && <span className="text-gray-500 font-normal"> · {b.party_size} ppl</span>}
+                        {b.start_time && <span className="text-gray-500 font-normal"> · {b.start_time}</span>}
+                      </div>
+                      {b.phone && <div className="text-xs text-gray-500">📞 {b.phone}</div>}
+                      {b.notes && <div className="text-xs text-gray-600 mt-1 whitespace-pre-wrap">{b.notes}</div>}
+                    </div>
+                    <div className="flex flex-col gap-1 items-end flex-shrink-0">
+                      <button
+                        onClick={() => toggleStatus(b)}
+                        className={`text-[10px] uppercase tracking-wide font-semibold px-2 py-0.5 rounded border ${
+                          b.status === 'NotAvailable'
+                            ? 'bg-red-100 text-red-800 border-red-300'
+                            : b.status === 'Confirmed'
+                              ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                              : 'bg-amber-100 text-amber-800 border-amber-300'
+                        }`}
+                      >
+                        {b.status === 'NotAvailable' ? 'NOT AVAIL.' : b.status}
+                      </button>
+                      <button onClick={() => setEditingId(b.id)}
+                        className="text-[10px] text-yoi-primary hover:underline">edit</button>
+                      <button onClick={() => deleteBooking(b.id)}
+                        className="text-[10px] text-red-500 hover:underline">delete</button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Add booking form */}
+            <BookingForm
+              heading="Add booking"
+              submitLabel="Save booking"
+              onSubmit={(form) => addBooking(selected, form)}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── month grid ───────────────────────────────────────────────────────────────
+
+function MonthGrid({
+  year, month, today, bookings, selected, onSelect,
+}: {
+  year: number
+  month: number
+  today: string
+  bookings: Record<string, Booking[]>
+  selected: string | null
+  onSelect: (date: string | null) => void
+}) {
+  const grid = useMemo(() => buildGrid(year, month), [year, month])
+
+  return (
+    <div>
+      {/* Month title */}
+      <div className="text-center font-semibold text-gray-700 mb-3">
+        {monthLabel(year, month)}
+      </div>
+
+      {/* Day-of-week header */}
+      <div className="grid grid-cols-7 mb-1">
+        {DOW.map(d => (
+          <div key={d} className="text-center text-[10px] font-semibold text-gray-400 uppercase tracking-wide py-1">
+            {d}
+          </div>
+        ))}
+      </div>
+
+      {/* Calendar rows */}
+      <div className="space-y-1">
+        {grid.map((row, ri) => (
+          <div key={ri} className="grid grid-cols-7 gap-1">
+            {row.map((date, ci) => {
+              if (!date) return <div key={ci} />
+
+              const bks    = bookings[date] || []
+              const status = dayStatus(bks)
+              const isToday    = date === today
+              const isPast     = date < today
+              const isSelected = date === selected
+              const hasBkgs    = bks.length > 0
+
+              return (
+                <button
+                  key={date}
+                  onClick={() => onSelect(isSelected ? null : date)}
+                  className={[
+                    'relative flex flex-col items-center justify-start rounded-lg py-1.5 px-0.5 text-center transition-all',
+                    'ring-1',
+                    CELL_BG[status],
+                    CELL_RING[status],
+                    isPast && !hasBkgs ? 'opacity-35' : '',
+                    isSelected ? 'ring-2 ring-yoi-primary shadow-md' : '',
+                    isToday ? 'ring-2 ring-yoi-primary' : '',
+                  ].filter(Boolean).join(' ')}
+                  aria-label={date}
+                  aria-pressed={isSelected}
+                >
+                  {/* Date number */}
+                  <span className={[
+                    'text-sm leading-none font-medium',
+                    isToday    ? 'text-yoi-primary font-bold' :
+                    isPast     ? 'text-gray-400' :
+                                 'text-gray-700',
+                  ].join(' ')}>
+                    {parseInt(date.split('-')[2], 10)}
+                  </span>
+
+                  {/* Status dot */}
+                  <span className={`mt-1 w-1.5 h-1.5 rounded-full ${DOT_COLOR[status]}`} />
+
+                  {/* Today label */}
+                  {isToday && (
+                    <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-yoi-primary" />
+                  )}
+                </button>
+              )
+            })}
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
-function Legend({ swatch, label }: { swatch: string; label: string }) {
+// ─── legend ───────────────────────────────────────────────────────────────────
+
+function Legend({ dot, label }: { dot: string; label: string }) {
   return (
     <span className="inline-flex items-center gap-1.5">
-      <span className={`inline-block w-3 h-1 rounded ${swatch}`} />
+      <span className={`inline-block w-2 h-2 rounded-full ${dot}`} />
       {label}
     </span>
   )
 }
+
+// ─── booking form ─────────────────────────────────────────────────────────────
 
 type NewBookingForm = {
   name: string
@@ -335,13 +525,13 @@ const EMPTY_FORM: NewBookingForm = {
 
 function BookingForm({ heading, submitLabel, initial, onSubmit, onCancel }: BookingFormProps) {
   const [form, setForm] = useState<NewBookingForm>(initial ?? EMPTY_FORM)
-  const [busy, setBusy] = useState(false)
-  const [err, setErr] = useState<string | null>(null)
+  const [busy, setBusy]   = useState(false)
+  const [err,  setErr]    = useState<string | null>(null)
   const isEdit = !!onCancel
 
   return (
     <form
-      className={isEdit ? 'space-y-2' : 'mt-3 border-t border-gray-100 pt-3 space-y-2'}
+      className={isEdit ? 'space-y-2' : 'border-t border-gray-100 pt-3 space-y-2 mt-1'}
       onSubmit={async (e) => {
         e.preventDefault()
         if (!form.name.trim()) { setErr('Name is required'); return }
@@ -411,12 +601,8 @@ function BookingForm({ heading, submitLabel, initial, onSubmit, onCancel }: Book
           {busy ? 'Saving…' : submitLabel}
         </button>
         {onCancel && (
-          <button
-            type="button"
-            onClick={onCancel}
-            disabled={busy}
-            className="text-sm text-gray-500 hover:text-gray-700 px-2 py-1.5"
-          >
+          <button type="button" onClick={onCancel} disabled={busy}
+            className="text-sm text-gray-500 hover:text-gray-700 px-2 py-1.5">
             Cancel
           </button>
         )}

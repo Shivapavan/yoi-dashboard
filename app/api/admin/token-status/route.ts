@@ -1,11 +1,23 @@
 import { NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
+const EDGE_KEY = 'LIGHTHOUSE_TOKEN'
+
 export async function GET() {
-  const token = process.env.LIGHTHOUSE_TOKEN || ''
+  // Edge Config is updated instantly (no redeploy needed) — check it first.
+  // Falls back to the env var baked into the deployment.
+  let token = ''
+  try {
+    const { get } = await import('@vercel/edge-config')
+    const ecToken = await get<string>(EDGE_KEY)
+    if (ecToken) token = ecToken
+  } catch { /* edge config unavailable — fall through */ }
+
+  if (!token) token = process.env.LIGHTHOUSE_TOKEN || ''
   if (!token) return NextResponse.json({ status: 'missing' })
 
   try {
-    // Decode JWT payload (middle section, base64url)
     const payload = JSON.parse(
       Buffer.from(token.split('.')[1], 'base64url').toString('utf8')
     )

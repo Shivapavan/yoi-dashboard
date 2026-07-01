@@ -1,12 +1,21 @@
 const BASE = 'https://lighthouse-api.harbortouch.com'
 
-function getToken():      string { return process.env.LIGHTHOUSE_TOKEN        || '' }
+// Read token from Edge Config first (updated instantly via ribbon), fall back to env var.
+async function resolveToken(): Promise<string> {
+  try {
+    const { get } = await import('@vercel/edge-config')
+    const t = await get<string>('LIGHTHOUSE_TOKEN')
+    if (t) return t
+  } catch { /* edge config unavailable */ }
+  return process.env.LIGHTHOUSE_TOKEN || ''
+}
+
 function getLocationId(): number { return Number(process.env.LIGHTHOUSE_LOCATION_ID) || 0 }
 function getMerchantId(): string { return process.env.LIGHTHOUSE_MERCHANT_ID   || '' }
 
-function headers() {
+function makeHeaders(token: string) {
   return {
-    'x-access-token': getToken(),
+    'x-access-token': token,
     'accept': 'application/json',
     'content-type': 'application/json;charset=UTF-8',
   }
@@ -31,14 +40,14 @@ export function centralTzOffset(dateStr: string): string {
 // Fetch totals + revenue class breakdowns from activity-summary.
 // start/end must be ISO strings with tz offset, e.g. "2026-04-01T04:00:00-05:00".
 export async function fetchActivitySummaryData(start: string, end: string) {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return null
   try {
     const res = await fetch(
       `${BASE}/api/v1/reports/echo-pro/activity-summary`,
       {
         method: 'POST',
-        headers: headers(),
+        headers: makeHeaders(token),
         body: JSON.stringify({
           start,
           end,
@@ -149,12 +158,12 @@ export type OnlineOrder = {
 }
 
 export async function fetchOnlineOrders(dateStr: string): Promise<OnlineOrder[]> {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return []
   try {
     // No server-side date filter works; fetch latest 100 online orders sorted desc and filter client-side by businessDay
     const url = `${BASE}/api/v1/echo-pro/tickets?location=${getLocationId()}&isOnlineOrder=true&order=${encodeURIComponent('completedAt desc')}&limit=100`
-    const res = await fetch(url, { headers: headers(), cache: 'no-store' })
+    const res = await fetch(url, { headers: makeHeaders(token), cache: 'no-store' })
     if (!res.ok) return []
     const data = await res.json()
     const tickets: any[] = data.tickets ?? []
@@ -203,12 +212,12 @@ export async function fetchOnlineOrders(dateStr: string): Promise<OnlineOrder[]>
 }
 
 export async function fetchMetric(metric: string, start: string, end: string): Promise<number> {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return 0
   try {
     const res = await fetch(
       `${BASE}/api/v1/dashboard/financial-overview/${metric}?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`,
-      { headers: headers(), cache: 'no-store' }
+      { headers: makeHeaders(token), cache: 'no-store' }
     )
     if (!res.ok) return 0
     const data = await res.json()
@@ -218,12 +227,12 @@ export async function fetchMetric(metric: string, start: string, end: string): P
 }
 
 export async function fetchVoidDetail(start: string, end: string): Promise<{ employee: string; approvedBy: string; voidedAt: string; ticket: string; item: string; reason: string; amount: number }[]> {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return []
   try {
     const res = await fetch(`${BASE}/api/v1/reports/echo-pro/voids-by-employee`, {
       method: 'POST',
-      headers: headers(),
+      headers: makeHeaders(token),
       body: JSON.stringify({ start, end, locations: [getLocationId()], intradayPeriodGroupGuids: [], locale: 'en-US', revenueCenterGuids: [] }),
       cache: 'no-store',
     })
@@ -271,7 +280,7 @@ export interface OpenTicket {
 }
 
 export async function fetchOpenTickets(): Promise<OpenTicket[]> {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return []
   try {
     // "Open ticket" in Shift4 terminology = unpaid (complete=false), regardless of whether
@@ -279,7 +288,7 @@ export async function fetchOpenTickets(): Promise<OpenTicket[]> {
     // Server-side filter complete=false would be ideal but is unreliable, so we filter client-side.
     // Sort newest first so today's real tickets surface above any old ghost tickets.
     const url = `${BASE}/api/v1/echo-pro/tickets?location=${getLocationId()}&order=${encodeURIComponent('createdAt desc')}&limit=200`
-    const res = await fetch(url, { headers: headers(), cache: 'no-store' })
+    const res = await fetch(url, { headers: makeHeaders(token), cache: 'no-store' })
     if (!res.ok) return []
     const data = await res.json()
     const tickets: any[] = data.tickets ?? []
@@ -321,7 +330,7 @@ export async function fetchLiveDayMetrics(dateStr: string) {
 }
 
 export async function fetchLiveCardBreakdown(dateStr: string) {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return null
 
   const [y, m, d] = dateStr.split('-').map(Number)
@@ -333,7 +342,7 @@ export async function fetchLiveCardBreakdown(dateStr: string) {
       `${BASE}/api/v1/reports/echo-pro/activity-summary`,
       {
         method: 'POST',
-        headers: headers(),
+        headers: makeHeaders(token),
         body: JSON.stringify({
           start: `${dateStr}T04:00:00${centralTzOffset(dateStr)}`,
           end:   `${nextStr}T03:59:59${centralTzOffset(nextStr)}`,
@@ -373,7 +382,7 @@ export async function fetchLiveCardBreakdown(dateStr: string) {
 }
 
 export async function fetchLiveBatchDetail(dateStr: string) {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return null
   try {
     const nextDate = new Date(dateStr + 'T12:00:00'); nextDate.setDate(nextDate.getDate() + 1)
@@ -383,7 +392,7 @@ export async function fetchLiveBatchDetail(dateStr: string) {
 
     const res = await fetch(
       `${BASE}/api/v1/dashboard/processing/batch-detail?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end.toISOString())}&merchantId=${getMerchantId()}`,
-      { headers: headers(), cache: 'no-store' }
+      { headers: makeHeaders(token), cache: 'no-store' }
     )
     if (!res.ok) return null
     const data = await res.json()
@@ -405,7 +414,7 @@ export async function fetchLiveBatchDetail(dateStr: string) {
 // Fetch items sold for an arbitrary date range. Uses the same XLS report as
 // fetchLiveItems but with custom start/end.
 export async function fetchItemsForRange(startDate: string, endDate: string): Promise<{name: string; qty: number; revenue: number}[] | null> {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return null
   try {
     const startISO = `${startDate}T04:00:00${centralTzOffset(startDate)}`
@@ -433,7 +442,7 @@ export async function fetchItemsForRange(startDate: string, endDate: string): Pr
 }
 
 export async function fetchLiveItems(dateStr: string, orderType?: string) {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return null
   try {
     const { start, end } = businessDayWindow(dateStr)
@@ -470,7 +479,7 @@ export interface EmployeeShift {
 
 // start/end: ISO strings with CDT offset e.g. "2026-05-01T04:00:00-05:00"
 export async function fetchEmployeeShifts(start: string, end: string): Promise<EmployeeShift[]> {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return []
   try {
     // v2 timeclock API expects UTC ISO strings (e.g. "2026-05-02T09:00:00.000Z")
@@ -491,7 +500,7 @@ export async function fetchEmployeeShifts(start: string, end: string): Promise<E
 
     // Fetch all pages (portal uses limit=10; we use 200 to cover all shifts in one request)
     const url = `${BASE}/api/v2/echo-pro/time-clock-shifts?filter=${encodeURIComponent(filter)}&limit=200&offset=0&order=${encodeURIComponent('clockedInAt asc')}`
-    const res = await fetch(url, { headers: headers(), cache: 'no-store' })
+    const res = await fetch(url, { headers: makeHeaders(token), cache: 'no-store' })
     if (!res.ok) return []
 
     const data = await res.json()
@@ -519,7 +528,7 @@ export async function fetchEmployeeShifts(start: string, end: string): Promise<E
 }
 
 export async function fetchLiveDisputes(knownDisputes: any[]) {
-  const token = getToken()
+  const token = await resolveToken()
   if (!token) return knownDisputes
 
   try {
@@ -542,7 +551,7 @@ export async function fetchLiveDisputes(knownDisputes: any[]) {
       try {
         const res = await fetch(
           `${BASE}/api/v2/internet-payments/transactions?limit=5&offset=0&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}&searchTerm=${d.txnId}&sortBy=date&sortDir=DESC`,
-          { method: 'POST', headers: headers(), body: JSON.stringify({ locationIds: [getLocationId()] }), cache: 'no-store' }
+          { method: 'POST', headers: makeHeaders(token), body: JSON.stringify({ locationIds: [getLocationId()] }), cache: 'no-store' }
         )
         if (!res.ok) return { ...d, link: lhUrl() }
         const data = await res.json()

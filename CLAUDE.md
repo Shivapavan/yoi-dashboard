@@ -1,5 +1,10 @@
 # CLAUDE.md — YOI Dashboard
 
+## Domain Rules (authoritative — read these first)
+@.claude/rules/frontend.md
+@.claude/rules/api.md
+@.claude/rules/data.md
+
 ## Project Overview
 
 **Yum of India — Shift4 Daily Dashboard**
@@ -14,11 +19,13 @@ A web dashboard for Yum of India restaurant (McKinney, TX) that pulls daily tran
 
 ## Brand Identity
 
-- **Primary color:** Purple `#5B21B6`
-- **Accent color:** Gold `#B8860B`
-- **Alert color:** Red `#B91C1C`
-- **Logo:** `/assets/yum_logo.png` (purple serif wordmark with brushstroke circle)
+- **Primary color:** Teal `#0D9488` (token `yoi-primary`)
+- **Accent color:** Amber `#D97706` (token `yoi-accent`)
+- **Alert color:** Red `#DC2626` (token `danger`)
+- **Logo:** `/yum_logo.png` (purple wordmark with brushstroke circle — intentionally kept purple)
 - **Font style:** Clean, professional — matches existing dashboard aesthetic
+
+> Detailed, current standards live in `.claude/rules/` (imported below). Some sections further down in this file are historical and may be out of date — the rules files are authoritative.
 
 ---
 
