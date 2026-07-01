@@ -53,7 +53,7 @@ export default function Header() {
       </TubesBackground>
 
       {/* Buttons sit on the outer relative <header>, above the canvas — always visible */}
-      <div className="absolute right-5 top-1/2 -translate-y-1/2 flex items-center gap-3 z-30">
+      <div className="absolute right-5 bottom-5 flex items-center gap-3 z-30">
         {username && (
           <span
             className="text-xs font-medium hidden sm:inline px-2.5 py-1 rounded-full"
