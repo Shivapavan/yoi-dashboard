@@ -54,7 +54,7 @@ export default function Header() {
 
       <div className="flex flex-col items-center gap-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/yum_logo.png" alt="Yum of India" className="h-24 sm:h-28 w-auto" />
+        <img src="/yum_logo.png" alt="Yum of India" className="h-36 sm:h-44 w-auto" />
         <h1 className="text-xl sm:text-2xl font-extrabold tracking-wide text-center bg-gradient-to-r from-yoi-primary via-yoi-accent to-yoi-primary bg-clip-text text-transparent animate-shimmer bg-[length:200%_auto]">
           Yum Of India Daily Dashboard
         </h1>
