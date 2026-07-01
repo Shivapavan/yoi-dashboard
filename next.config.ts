@@ -3,7 +3,7 @@ import type { NextConfig } from 'next'
 const csp = [
   "default-src 'self'",
   // Next.js inlines small bootstrap scripts; needs 'unsafe-inline'. 'unsafe-eval' only in dev.
-  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"}`,
+  `script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"}`,
   // Tailwind generates inline style attributes
   "style-src 'self' 'unsafe-inline'",
   // Images: self, Vercel Blob (menu uploads), Google logos for review tab, data: for inline SVG
@@ -11,7 +11,7 @@ const csp = [
   // Fonts (Next/font + system)
   "font-src 'self' data:",
   // XHR/fetch: self + Lighthouse + Google Places + Twilio + Gmail API + Vercel Blob
-  "connect-src 'self' https://lighthouse-api.harbortouch.com https://maps.googleapis.com https://places.googleapis.com https://api.twilio.com https://gmail.googleapis.com https://oauth2.googleapis.com https://*.public.blob.vercel-storage.com https://api.vercel.com",
+  "connect-src 'self' https://lighthouse-api.harbortouch.com https://maps.googleapis.com https://places.googleapis.com https://api.twilio.com https://gmail.googleapis.com https://oauth2.googleapis.com https://*.public.blob.vercel-storage.com https://api.vercel.com https://cdn.jsdelivr.net",
   // No framing
   "frame-ancestors 'none'",
   "base-uri 'self'",

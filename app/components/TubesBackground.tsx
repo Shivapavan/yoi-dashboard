@@ -2,8 +2,6 @@
 
 import { useEffect, useRef } from 'react'
 
-const CDN_URL = 'https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js'
-
 const YOI_TUBES   = ['#0D9488', '#D97706', '#9333EA']          // teal · amber · purple
 const YOI_LIGHTS  = ['#0D9488', '#F472B6', '#D97706', '#7C3AED'] // teal · pink · amber · violet
 
@@ -27,10 +25,10 @@ export default function TubesBackground({ children, className, enableClick = tru
     if (!canvasRef.current) return
     let mounted = true
 
-    // Use Function constructor so webpack doesn't try to bundle a URL import
-    const dynamicImport = new Function('url', 'return import(url)')
-
-    dynamicImport(CDN_URL)
+    // webpackIgnore tells the bundler to leave this import as-is;
+    // the browser resolves it as a native ES module (no eval required).
+    // @ts-ignore — TypeScript doesn't allow URL strings in import()
+    import(/* webpackIgnore: true */ 'https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js')
       .then((mod: any) => {
         if (!mounted || !canvasRef.current) return
         const TubesCursor = mod.default ?? mod
