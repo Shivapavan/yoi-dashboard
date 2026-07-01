@@ -6,7 +6,7 @@ export function Chevron({ open }: { open: boolean }) {
   return (
     <svg
       className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`}
-      style={{ color: '#6E7681' }}
+      style={{ color: '#94A3B8' }}
       viewBox="0 0 20 20"
       fill="currentColor"
       aria-hidden="true"
@@ -33,19 +33,19 @@ export function SectionCard({ title, subtitle, accent, summary, className, child
   return (
     <div
       className={`rounded-xl overflow-hidden ${className ?? 'mt-4'}`}
-      style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+      style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
     >
       {(title || summary) && (
         <div
           className="px-6 py-4 flex items-center justify-between gap-3"
           style={{
-            borderBottom: '1px solid #21262D',
+            borderBottom: '1px solid #E4E7F3',
             borderLeft: accent ? `4px solid ${accent.replace('border-l-', '').replace('border-l-yoi-primary', '#0D9488').replace('border-l-yoi-accent', '#D97706')}` : undefined,
           }}
         >
           <div className="min-w-0">
-            {title && <h3 className="font-semibold text-sm" style={{ color: '#E6EDF3' }}>{title}</h3>}
-            {subtitle && <p className="text-xs mt-0.5" style={{ color: '#8B949E' }}>{subtitle}</p>}
+            {title && <h3 className="font-semibold text-sm" style={{ color: '#1E1B4B' }}>{title}</h3>}
+            {subtitle && <p className="text-xs mt-0.5" style={{ color: '#64748B' }}>{subtitle}</p>}
           </div>
           {summary && <div className="flex items-center gap-3 text-sm flex-shrink-0">{summary}</div>}
         </div>
@@ -69,7 +69,7 @@ export function CollapsibleSection({
   return (
     <div
       className={`rounded-xl overflow-hidden ${className ?? 'mt-4'}`}
-      style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+      style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
     >
       <button
         type="button"
@@ -77,15 +77,15 @@ export function CollapsibleSection({
         aria-expanded={open}
         className="w-full flex items-center justify-between gap-3 px-6 py-4 transition-colors text-left"
         style={{
-          borderBottom: '1px solid #21262D',
+          borderBottom: '1px solid #E4E7F3',
           borderLeft: `4px solid ${accentColor}`,
         }}
-        onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#1C2333')}
+        onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#F5F6FD')}
         onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
       >
         <div className="min-w-0">
-          <span className="font-semibold text-sm" style={{ color: '#E6EDF3' }}>{title}</span>
-          {subtitle && <p className="text-xs mt-0.5" style={{ color: '#8B949E' }}>{subtitle}</p>}
+          <span className="font-semibold text-sm" style={{ color: '#1E1B4B' }}>{title}</span>
+          {subtitle && <p className="text-xs mt-0.5" style={{ color: '#64748B' }}>{subtitle}</p>}
         </div>
         <div className="flex items-center gap-3 text-sm flex-shrink-0">
           {summary}

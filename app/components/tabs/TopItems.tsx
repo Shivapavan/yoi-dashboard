@@ -10,7 +10,6 @@ type SortBy = 'revenue' | 'quantity'
 interface Item { name: string; count: number; revenue: number }
 
 export default function TopItems() {
-  // Business day starts at 4 AM CDT — shift back 4 h so midnight–3:59 AM stays on previous day
   const today = new Date(Date.now() - 4 * 60 * 60 * 1000)
     .toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })
   const [date, setDate] = useState(today)
@@ -36,7 +35,6 @@ export default function TopItems() {
         if (res.error) throw new Error(res.error)
         setRecommendedDate(res.recommendedDate)
 
-        // Only auto-redirect if NOT today's live date (restaurant may not have opened yet)
         if (autoRedirect && !res.live && res.items.length === 0 && res.recommendedDate && res.recommendedDate !== d) {
           setDate(res.recommendedDate)
           return
@@ -74,17 +72,17 @@ export default function TopItems() {
     <div>
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
       >
         <div className="flex items-center justify-between flex-wrap gap-2">
           <DatePicker value={date} onChange={setDate} />
-          <div className="flex items-center gap-3 text-xs" style={{ color: '#6E7681' }}>
+          <div className="flex items-center gap-3 text-xs" style={{ color: '#94A3B8' }}>
             {lastUpdated && <span>Updated {lastUpdated.toLocaleTimeString()}</span>}
             <span className="flex items-center gap-1">
               <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
               Auto-refresh 5 min
             </span>
-            <button onClick={() => fetchData(date, false)} className="font-medium" style={{ color: '#0D9488' }}>
+            <button onClick={() => fetchData(date, false)} className="font-medium" style={{ color: '#4F46E5' }}>
               Refresh now
             </button>
           </div>
@@ -94,7 +92,7 @@ export default function TopItems() {
       {error && (
         <div
           className="rounded-xl p-3 mb-4 text-sm"
-          style={{ backgroundColor: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.3)', color: '#F87171' }}
+          style={{ backgroundColor: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.2)', color: '#DC2626' }}
         >
           {error}
         </div>
@@ -103,13 +101,13 @@ export default function TopItems() {
       {noData && (
         <div
           className="rounded-xl p-3 mb-4 text-sm flex items-center gap-2"
-          style={{ backgroundColor: 'rgba(217,119,6,0.1)', border: '1px solid rgba(217,119,6,0.3)', color: '#FCD34D' }}
+          style={{ backgroundColor: 'rgba(217,119,6,0.08)', border: '1px solid rgba(217,119,6,0.2)', color: '#B45309' }}
         >
           <span>⚠️</span>
           <span>
             No items data for {date} — not yet scraped.
             {recommendedDate && (
-              <button onClick={() => setDate(recommendedDate)} className="ml-2 underline font-medium" style={{ color: '#FCD34D' }}>
+              <button onClick={() => setDate(recommendedDate)} className="ml-2 underline font-medium" style={{ color: '#B45309' }}>
                 Go to {recommendedDate} (last available)
               </button>
             )}
@@ -124,10 +122,10 @@ export default function TopItems() {
             <div className="flex flex-wrap gap-2 mb-4">
               {orderTypes.map((ot) => {
                 const style = ot.type === 'Dine In'
-                  ? { backgroundColor: 'rgba(13,148,136,0.15)', color: '#2DD4BF', border: '1px solid rgba(13,148,136,0.4)' }
+                  ? { backgroundColor: 'rgba(13,148,136,0.08)', color: '#0D9488', border: '1px solid rgba(13,148,136,0.25)' }
                   : ot.type === 'To Go'
-                  ? { backgroundColor: 'rgba(34,197,94,0.12)', color: '#4ADE80', border: '1px solid rgba(34,197,94,0.35)' }
-                  : { backgroundColor: '#1C2333', color: '#C9D1D9', border: '1px solid #30363D' }
+                  ? { backgroundColor: 'rgba(16,185,129,0.08)', color: '#059669', border: '1px solid rgba(16,185,129,0.25)' }
+                  : { backgroundColor: '#F5F6FD', color: '#64748B', border: '1px solid #E4E7F3' }
                 return (
                   <div key={ot.type} className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium" style={style}>
                     <span>{ot.type === 'Dine In' ? '🍽' : ot.type === 'To Go' ? '🥡' : '📦'}</span>
@@ -147,8 +145,8 @@ export default function TopItems() {
                 className="px-4 py-2 rounded-xl text-sm font-medium transition-colors"
                 style={
                   sortBy === s
-                    ? { backgroundColor: '#0D9488', color: '#fff', boxShadow: '0 0 10px rgba(13,148,136,0.4)' }
-                    : { backgroundColor: '#1C2333', border: '1px solid #30363D', color: '#8B949E' }
+                    ? { background: 'linear-gradient(135deg, #4F46E5, #7C3AED)', color: '#fff', boxShadow: '0 2px 8px rgba(79,70,229,0.3)' }
+                    : { backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', color: '#64748B' }
                 }
               >
                 Sort by {s === 'revenue' ? 'Revenue' : 'Quantity'} ↓
@@ -158,18 +156,18 @@ export default function TopItems() {
 
           <div
             className={`rounded-xl overflow-hidden transition-opacity ${loading ? 'opacity-50' : ''}`}
-            style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
           >
             <table className="w-full text-sm">
               <thead>
-                <tr style={{ borderBottom: '1px solid #21262D' }} className="text-xs uppercase font-semibold">
-                  <th className="text-left px-6 py-3" style={{ color: '#6E7681' }}>#</th>
-                  <th className="text-left px-6 py-3" style={{ color: '#6E7681' }}>Item</th>
+                <tr style={{ borderBottom: '1px solid #E4E7F3' }} className="text-xs uppercase font-semibold">
+                  <th className="text-left px-6 py-3" style={{ color: '#94A3B8' }}>#</th>
+                  <th className="text-left px-6 py-3" style={{ color: '#94A3B8' }}>Item</th>
                   <th className="px-6 py-3 text-right" aria-sort={sortBy === 'quantity' ? 'descending' : 'none'}>
                     <button
                       onClick={() => setSortBy('quantity')}
                       className="uppercase select-none transition-colors"
-                      style={{ color: sortBy === 'quantity' ? '#0D9488' : '#6E7681', fontWeight: sortBy === 'quantity' ? '700' : undefined }}
+                      style={{ color: sortBy === 'quantity' ? '#4F46E5' : '#94A3B8', fontWeight: sortBy === 'quantity' ? '700' : undefined }}
                     >
                       Qty {sortBy === 'quantity' ? '↓' : ''}
                     </button>
@@ -178,7 +176,7 @@ export default function TopItems() {
                     <button
                       onClick={() => setSortBy('revenue')}
                       className="uppercase select-none transition-colors"
-                      style={{ color: sortBy === 'revenue' ? '#0D9488' : '#6E7681', fontWeight: sortBy === 'revenue' ? '700' : undefined }}
+                      style={{ color: sortBy === 'revenue' ? '#4F46E5' : '#94A3B8', fontWeight: sortBy === 'revenue' ? '700' : undefined }}
                     >
                       Revenue {sortBy === 'revenue' ? '↓' : ''}
                     </button>
@@ -189,17 +187,17 @@ export default function TopItems() {
                 {sorted.map((item, i) => (
                   <tr
                     key={item.name}
-                    style={{ borderBottom: '1px solid #1C2333', backgroundColor: 'transparent' }}
+                    style={{ borderBottom: '1px solid #F0F2FA', backgroundColor: 'transparent' }}
                     className="last:border-0 transition-colors"
-                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#1C2333')}
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#F5F6FD')}
                     onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
                   >
-                    <td className="px-6 py-3 font-mono text-xs" style={{ color: '#6E7681' }}>{i + 1}</td>
-                    <td className="px-6 py-3 font-medium" style={{ color: '#E6EDF3' }}>{item.name}</td>
-                    <td className="px-6 py-3 text-right" style={{ color: sortBy === 'quantity' ? '#0D9488' : '#8B949E', fontWeight: sortBy === 'quantity' ? '700' : undefined }}>
+                    <td className="px-6 py-3 font-mono text-xs" style={{ color: '#94A3B8' }}>{i + 1}</td>
+                    <td className="px-6 py-3 font-medium" style={{ color: '#1E1B4B' }}>{item.name}</td>
+                    <td className="px-6 py-3 text-right" style={{ color: sortBy === 'quantity' ? '#4F46E5' : '#94A3B8', fontWeight: sortBy === 'quantity' ? '700' : undefined }}>
                       {item.count}
                     </td>
-                    <td className="px-6 py-3 text-right" style={{ color: sortBy === 'revenue' ? '#0D9488' : '#C9D1D9', fontWeight: sortBy === 'revenue' ? '700' : undefined }}>
+                    <td className="px-6 py-3 text-right font-semibold" style={{ color: sortBy === 'revenue' ? '#0D9488' : '#64748B', fontWeight: sortBy === 'revenue' ? '700' : undefined }}>
                       ${item.revenue.toFixed(2)}
                     </td>
                   </tr>

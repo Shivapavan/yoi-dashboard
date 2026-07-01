@@ -7,13 +7,15 @@
   --yoi-primary-light: #CCFBF1;
   --yoi-accent: #D97706;
   --yoi-accent-light: #FFEDD5;
-  --yoi-bg: #0D1117;
-  --bg-card: #161B22;
-  --bg-card-hover: #1C2333;
-  --border-card: #21262D;
-  --text-primary: #E6EDF3;
-  --text-secondary: #8B949E;
-  --text-muted: #6E7681;
+  --yoi-bg: #F0F2FA;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F5F6FD;
+  --border-card: #E4E7F3;
+  --text-primary: #1E1B4B;
+  --text-secondary: #4B5563;
+  --text-muted: #64748B;
+  --indigo: #4F46E5;
+  --pink: #D946EF;
 }
 
 body {
@@ -32,7 +34,7 @@ body {
   border-radius: 4px;
 }
 
-/* Shimmer effect for the dashboard title — slow teal→amber→teal sweep */
+/* Shimmer effect for the dashboard title */
 @keyframes shimmer {
   0%   { background-position: 0% center; }
   100% { background-position: 200% center; }

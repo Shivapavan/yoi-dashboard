@@ -31,9 +31,9 @@ export default function TabNav({ active, onChange, isAdmin, canEditMenu }: Props
   ]
 
   return (
-    <div className="relative mb-6 -mx-6 px-6" style={{ borderBottom: '1px solid #21262D' }}>
+    <div className="relative mb-6 -mx-6 px-6" style={{ borderBottom: '1px solid #E4E7F3', backgroundColor: '#FFFFFF' }}>
       <div className="overflow-x-auto scrollbar-none pb-3">
-        <div className="flex gap-1 min-w-max">
+        <div className="flex gap-1 min-w-max pt-2">
           {tabs.map((t) => (
             <button
               key={t.id}
@@ -42,8 +42,8 @@ export default function TabNav({ active, onChange, isAdmin, canEditMenu }: Props
               className="px-3.5 py-1.5 text-sm font-medium transition-all whitespace-nowrap rounded-full"
               style={
                 active === t.id
-                  ? { backgroundColor: '#0D9488', color: '#fff', boxShadow: '0 0 12px rgba(13,148,136,0.4)' }
-                  : { color: '#8B949E', backgroundColor: 'transparent' }
+                  ? { background: 'linear-gradient(135deg, #4F46E5, #7C3AED)', color: '#fff', boxShadow: '0 2px 8px rgba(79,70,229,0.35)' }
+                  : { color: '#64748B', backgroundColor: 'transparent' }
               }
             >
               {t.label}
@@ -51,7 +51,7 @@ export default function TabNav({ active, onChange, isAdmin, canEditMenu }: Props
           ))}
         </div>
       </div>
-      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10" style={{ background: 'linear-gradient(to left, #0D1117, transparent)' }} />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10" style={{ background: 'linear-gradient(to left, #FFFFFF, transparent)' }} />
     </div>
   )
 }

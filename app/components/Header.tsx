@@ -28,22 +28,25 @@ export default function Header() {
   }
 
   return (
-    <header style={{ backgroundColor: '#0D1117', borderBottom: '1px solid #21262D' }} className="px-6 py-4 flex flex-col items-center justify-center relative">
+    <header
+      style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E4E7F3', boxShadow: '0 1px 3px rgba(79,70,229,0.06)' }}
+      className="px-6 py-4 flex flex-col items-center justify-center relative"
+    >
       <div className="absolute right-5 top-1/2 -translate-y-1/2 flex items-center gap-3">
         {username && (
-          <span className="text-xs font-medium hidden sm:inline px-2.5 py-1 rounded-full" style={{ backgroundColor: '#21262D', color: '#8B949E' }}>
+          <span className="text-xs font-medium hidden sm:inline px-2.5 py-1 rounded-full" style={{ backgroundColor: '#F0F2FA', color: '#64748B', border: '1px solid #E4E7F3' }}>
             {username}
           </span>
         )}
         {isAdmin && (
-          <a href="/admin" className="text-xs font-semibold transition-colors px-3 py-1.5 rounded-full" style={{ backgroundColor: '#161B22', color: '#0D9488', border: '1px solid #21262D' }}>
+          <a href="/admin" className="text-xs font-semibold transition-colors px-3 py-1.5 rounded-full" style={{ backgroundColor: '#EEF2FF', color: '#4F46E5', border: '1px solid #C7D2FE' }}>
             Admin
           </a>
         )}
         <button
           onClick={handleLogout}
           className="text-xs font-semibold transition-colors px-3 py-1.5 rounded-full"
-          style={{ backgroundColor: '#161B22', color: '#8B949E', border: '1px solid #21262D' }}
+          style={{ backgroundColor: '#F0F2FA', color: '#64748B', border: '1px solid #E4E7F3' }}
         >
           Sign out
         </button>

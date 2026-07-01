@@ -31,21 +31,22 @@ export default function MetricCard({
     <div
       className="relative rounded-xl p-5 transition-all duration-200"
       style={{
-        backgroundColor: '#161B22',
-        border: '1px solid #21262D',
+        backgroundColor: '#FFFFFF',
+        border: '1px solid #E4E7F3',
         borderTop: `3px solid ${borderColor}`,
+        boxShadow: '0 1px 4px rgba(79,70,229,0.06)',
       }}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
       <div className="flex items-start justify-between mb-3">
-        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#8B949E' }}>{label}</p>
+        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#94A3B8' }}>{label}</p>
         {formula && (
           <button
             type="button"
             onClick={() => setShowTooltip(v => !v)}
             className="w-5 h-5 -mr-0.5 -mt-0.5 rounded-full text-[10px] leading-none flex items-center justify-center transition-colors"
-            style={{ border: '1px solid #30363D', color: '#6E7681', backgroundColor: '#0D1117' }}
+            style={{ border: '1px solid #E4E7F3', color: '#94A3B8', backgroundColor: '#F5F6FD' }}
             aria-label={`Show how ${label} is calculated`}
           >
             ?
@@ -53,36 +54,36 @@ export default function MetricCard({
         )}
       </div>
 
-      <p className="text-3xl font-bold tracking-tight mb-2" style={{ color: '#E6EDF3' }}>{formatted}</p>
+      <p className="text-3xl font-bold tracking-tight mb-2" style={{ color: '#1E1B4B' }}>{formatted}</p>
 
       {showDelta && (
         <span
           className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full"
           style={
             isGood
-              ? { backgroundColor: 'rgba(22,163,74,0.15)', color: '#4ADE80' }
-              : { backgroundColor: 'rgba(220,38,38,0.15)', color: '#F87171' }
+              ? { backgroundColor: 'rgba(22,163,74,0.1)', color: '#16A34A' }
+              : { backgroundColor: 'rgba(220,38,38,0.1)', color: '#DC2626' }
           }
         >
           {deltaText} <span className="font-normal opacity-70">vs 14d avg</span>
         </span>
       )}
 
-      {breakdown && <p className="text-xs mt-2 font-mono" style={{ color: '#6E7681' }}>{breakdown}</p>}
-      {note && <p className="text-xs mt-1" style={{ color: '#6E7681' }}>{note}</p>}
+      {breakdown && <p className="text-xs mt-2 font-mono" style={{ color: '#94A3B8' }}>{breakdown}</p>}
+      {note && <p className="text-xs mt-1" style={{ color: '#94A3B8' }}>{note}</p>}
 
       {formula && showTooltip && (
         <div
-          className="absolute z-20 left-3 right-3 top-full mt-2 text-xs rounded-xl p-3 shadow-2xl leading-relaxed pointer-events-none"
-          style={{ backgroundColor: '#1C2333', border: '1px solid #30363D', color: '#C9D1D9' }}
+          className="absolute z-20 left-3 right-3 top-full mt-2 text-xs rounded-xl p-3 shadow-xl leading-relaxed pointer-events-none"
+          style={{ backgroundColor: '#1E1B4B', border: '1px solid #312E81', color: '#E0E7FF' }}
         >
           {formula}
           {breakdown && (
-            <div className="mt-2 pt-2 font-mono text-[11px]" style={{ borderTop: '1px solid #30363D', color: '#8B949E' }}>
+            <div className="mt-2 pt-2 font-mono text-[11px]" style={{ borderTop: '1px solid #312E81', color: '#A5B4FC' }}>
               {breakdown}
             </div>
           )}
-          <div className="absolute -top-1.5 left-6 w-2.5 h-2.5 rotate-45" style={{ backgroundColor: '#1C2333', borderLeft: '1px solid #30363D', borderTop: '1px solid #30363D' }} />
+          <div className="absolute -top-1.5 left-6 w-2.5 h-2.5 rotate-45" style={{ backgroundColor: '#1E1B4B', borderLeft: '1px solid #312E81', borderTop: '1px solid #312E81' }} />
         </div>
       )}
     </div>

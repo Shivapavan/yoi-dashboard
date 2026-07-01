@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import {
-  LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip,
+  AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip,
   ResponsiveContainer, CartesianGrid, Legend,
 } from 'recharts'
 
@@ -52,14 +52,12 @@ function weekMonday(dateStr: string): string {
   d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day))
   return d.toISOString().split('T')[0]
 }
-// Business day starts at 4 AM CDT — shift back 4 h before extracting date
 function todayStr() {
   return new Date(Date.now() - 4 * 60 * 60 * 1000)
     .toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })
 }
 function thisMonthStr() { return todayStr().slice(0, 7) }
 
-// Generate week options from Aug 4 2025 to current week
 function weekOptions(): Array<{ value: string; label: string }> {
   const options: Array<{ value: string; label: string }> = []
   let cur = '2025-08-04'
@@ -72,10 +70,9 @@ function weekOptions(): Array<{ value: string; label: string }> {
   return options.reverse()
 }
 
-// Generate month options from Aug 2025 to current month
 function monthOptions(): Array<{ value: string; label: string }> {
   const options: Array<{ value: string; label: string }> = []
-  const start = new Date(2025, 7, 1) // August 2025
+  const start = new Date(2025, 7, 1)
   const [y, m] = thisMonthStr().split('-').map(Number)
   const end = new Date(y, m - 1, 1)
   const cur = new Date(start)
@@ -85,14 +82,13 @@ function monthOptions(): Array<{ value: string; label: string }> {
     options.push({ value, label })
     cur.setMonth(cur.getMonth() + 1)
   }
-  return options.reverse() // most recent first
+  return options.reverse()
 }
 
 const selectStyle: React.CSSProperties = {
-  backgroundColor: '#0D1117',
-  border: '1px solid #30363D',
-  color: '#E6EDF3',
-  colorScheme: 'dark',
+  backgroundColor: '#F5F6FD',
+  border: '1px solid #E4E7F3',
+  color: '#1E1B4B',
 }
 
 function NavBtn({ children, onClick, disabled }: { children: React.ReactNode; onClick?: () => void; disabled?: boolean }) {
@@ -101,9 +97,9 @@ function NavBtn({ children, onClick, disabled }: { children: React.ReactNode; on
       onClick={onClick}
       disabled={disabled}
       className="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-      style={{ border: '1px solid #30363D', color: '#8B949E', backgroundColor: 'transparent' }}
-      onMouseEnter={e => !disabled && (e.currentTarget.style.backgroundColor = '#21262D')}
-      onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+      style={{ border: '1px solid #E4E7F3', color: '#64748B', backgroundColor: '#FFFFFF' }}
+      onMouseEnter={e => !disabled && (e.currentTarget.style.backgroundColor = '#F5F6FD')}
+      onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
     >
       {children}
     </button>
@@ -114,36 +110,36 @@ function RevenueTable({ title, rows, accentColor }: { title: string; rows: Reven
   const dataRows = rows.filter((r) => !r.label.startsWith('Total'))
   const totalRow = rows.find((r) => r.label.startsWith('Total'))
   return (
-    <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}>
+    <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}>
       <div
         className="px-5 py-3"
-        style={{ borderLeft: `4px solid ${accentColor}`, borderBottom: '1px solid #21262D' }}
+        style={{ borderLeft: `4px solid ${accentColor}`, borderBottom: '1px solid #E4E7F3' }}
       >
-        <h4 className="font-semibold text-sm" style={{ color: '#E6EDF3' }}>{title}</h4>
+        <h4 className="font-semibold text-sm" style={{ color: '#1E1B4B' }}>{title}</h4>
       </div>
       <table className="w-full text-sm">
         <thead>
-          <tr style={{ borderBottom: '1px solid #21262D' }}>
-            <th className="text-left px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Category</th>
-            <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Count</th>
-            <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Amount</th>
+          <tr style={{ borderBottom: '1px solid #E4E7F3' }}>
+            <th className="text-left px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#94A3B8' }}>Category</th>
+            <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#94A3B8' }}>Count</th>
+            <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#94A3B8' }}>Amount</th>
           </tr>
         </thead>
         <tbody>
           {dataRows.map((r) => (
-            <tr key={r.label} style={{ borderBottom: '1px solid #1C2333' }} className="last:border-0">
-              <td className="px-5 py-2.5" style={{ color: '#C9D1D9' }}>{r.label}</td>
-              <td className="px-5 py-2.5 text-right" style={{ color: '#6E7681' }}>{r.count ?? '—'}</td>
-              <td className="px-5 py-2.5 text-right" style={{ color: '#C9D1D9' }}>{fmt(r.amount)}</td>
+            <tr key={r.label} style={{ borderBottom: '1px solid #F0F2FA' }} className="last:border-0">
+              <td className="px-5 py-2.5" style={{ color: '#4B5563' }}>{r.label}</td>
+              <td className="px-5 py-2.5 text-right" style={{ color: '#94A3B8' }}>{r.count ?? '—'}</td>
+              <td className="px-5 py-2.5 text-right font-semibold" style={{ color: '#0D9488' }}>{fmt(r.amount)}</td>
             </tr>
           ))}
         </tbody>
         {totalRow && (
           <tfoot>
-            <tr style={{ borderTop: '1px solid #21262D', backgroundColor: '#1C2333' }}>
-              <td className="px-5 py-2.5 font-bold" style={{ color: '#E6EDF3' }}>{totalRow.label.replace(':', '')}</td>
-              <td className="px-5 py-2.5 text-right font-bold" style={{ color: '#E6EDF3' }}>{totalRow.count ?? '—'}</td>
-              <td className="px-5 py-2.5 text-right font-bold" style={{ color: '#E6EDF3' }}>{fmt(totalRow.amount)}</td>
+            <tr style={{ borderTop: '1px solid #E4E7F3', backgroundColor: '#F5F6FD' }}>
+              <td className="px-5 py-2.5 font-bold" style={{ color: '#1E1B4B' }}>{totalRow.label.replace(':', '')}</td>
+              <td className="px-5 py-2.5 text-right font-bold" style={{ color: '#1E1B4B' }}>{totalRow.count ?? '—'}</td>
+              <td className="px-5 py-2.5 text-right font-bold" style={{ color: '#0D9488' }}>{fmt(totalRow.amount)}</td>
             </tr>
           </tfoot>
         )}
@@ -159,7 +155,7 @@ export default function SalesTrend() {
   const [weekStart, setWeekStart] = useState(() => weekMonday(todayStr()))
   const [month, setMonth] = useState(thisMonthStr)
   const [ddPayouts, setDdPayouts] = useState<DDPayout[]>([])
-  const [ddWeek, setDdWeek] = useState('')  // selected week in DD payout dropdown
+  const [ddWeek, setDdWeek] = useState('')
   const [dailyMonth, setDailyMonth] = useState(thisMonthStr)
   const [trend, setTrend] = useState<any[]>([])
   const [activityData, setActivityData] = useState<ActivityData | null>(null)
@@ -171,14 +167,13 @@ export default function SalesTrend() {
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Fetch DoorDash payouts once on mount
   useEffect(() => {
     fetch('/api/doordash-payouts')
       .then(r => r.json())
       .then(d => {
         if (d.payouts?.length) {
           setDdPayouts(d.payouts)
-          setDdWeek(d.payouts[0].weekStart)  // default to most recent
+          setDdWeek(d.payouts[0].weekStart)
         }
       })
       .catch(() => {})
@@ -196,15 +191,13 @@ export default function SalesTrend() {
       if (view === 'monthly') url += `&month=${month}`
 
       try {
-        // Phase 1 — chart data only (fast: reads dashboard.json, no Lighthouse call)
         const r1 = await fetch(url + '&lite=true')
         const d1 = await r1.json()
         if (d1.error) throw new Error(d1.error)
         setTrend(d1.trend ?? [])
         if (d1.periodLabel) setDailyPeriodLabel(d1.periodLabel)
-        setLoading(false) // chart is ready
+        setLoading(false)
 
-        // Phase 2 — activity summary (slow: Lighthouse API call)
         const r2 = await fetch(url)
         const d2 = await r2.json()
         if (!d2.error) {
@@ -221,9 +214,6 @@ export default function SalesTrend() {
     }, delay)
   }, [view, weekStart, month, dailyMonth])
 
-  // Clear data immediately only when switching between view TYPES (daily/weekly/monthly)
-  // so the chart resets. For period navigation (month/week changes), keep stale data
-  // visible while the debounced fetch runs — avoids jarring gray-box flash.
   const prevViewRef = useRef(view)
   useEffect(() => {
     if (view !== prevViewRef.current) {
@@ -241,7 +231,6 @@ export default function SalesTrend() {
     }
   }, [fetchData])
 
-  // ── Summary stats ──────────────────────────────────────────────────────────
   const activeDays = trend.filter((d) => d.grossSales > 0)
   const totalGross = activeDays.reduce((s, d) => s + (d.grossSales || 0), 0)
   const totalNet   = activeDays.reduce((s, d) => s + (d.netSales   || 0), 0)
@@ -297,18 +286,24 @@ export default function SalesTrend() {
   }
 
   const hasChartData = activeDays.length > 0 || (activityData?.grossSales ?? 0) > 0
-
   const showCatering = view === 'daily' && cateringCash
+
+  const chartTooltipStyle = {
+    backgroundColor: '#1E1B4B',
+    border: '1px solid #312E81',
+    borderRadius: 10,
+    fontSize: 12,
+    color: '#E0E7FF',
+  }
 
   return (
     <div>
       {/* ── Toolbar ──────────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between mb-5 flex-wrap gap-2">
         <div className="flex items-center gap-3">
-          {/* View toggle */}
           <div
             className="flex gap-1 rounded-xl p-1"
-            style={{ backgroundColor: '#1C2333' }}
+            style={{ backgroundColor: '#F0F2FA', border: '1px solid #E4E7F3' }}
           >
             {(['daily', 'weekly', 'monthly'] as View[]).map((v) => (
               <button
@@ -317,8 +312,8 @@ export default function SalesTrend() {
                 className="px-5 py-1.5 rounded-lg text-sm font-medium transition-all capitalize"
                 style={
                   view === v
-                    ? { backgroundColor: '#0D9488', color: '#fff', boxShadow: '0 0 10px rgba(13,148,136,0.4)' }
-                    : { color: '#8B949E', backgroundColor: 'transparent' }
+                    ? { background: 'linear-gradient(135deg, #4F46E5, #7C3AED)', color: '#fff', boxShadow: '0 2px 8px rgba(79,70,229,0.3)' }
+                    : { color: '#64748B', backgroundColor: 'transparent' }
                 }
               >
                 {v}
@@ -331,7 +326,7 @@ export default function SalesTrend() {
               <select
                 value={dailyMonth}
                 onChange={(e) => setDailyMonth(e.target.value)}
-                className="px-3 py-1 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+                className="px-3 py-1 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
                 style={selectStyle}
               >
                 {monthOptions().map((o) => (
@@ -342,13 +337,13 @@ export default function SalesTrend() {
             </div>
           )}
         </div>
-        <div className="flex items-center gap-3 text-xs" style={{ color: '#6E7681' }}>
+        <div className="flex items-center gap-3 text-xs" style={{ color: '#94A3B8' }}>
           {lastUpdated && <span>Updated {lastUpdated.toLocaleTimeString()}</span>}
           <span className="flex items-center gap-1">
             <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             Auto-refresh 5 min
           </span>
-          <button onClick={() => fetchData(true)} className="font-medium" style={{ color: '#0D9488' }}>Refresh now</button>
+          <button onClick={() => fetchData(true)} className="font-medium" style={{ color: '#4F46E5' }}>Refresh now</button>
         </div>
       </div>
 
@@ -359,7 +354,7 @@ export default function SalesTrend() {
           <select
             value={weekStart}
             onChange={(e) => setWeekStart(e.target.value)}
-            className="px-3 py-1.5 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
             style={selectStyle}
           >
             {weekOptions().map((o) => (
@@ -375,7 +370,7 @@ export default function SalesTrend() {
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            className="px-3 py-1.5 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
             style={selectStyle}
           >
             {monthOptions().map((o) => (
@@ -389,7 +384,7 @@ export default function SalesTrend() {
       {error && (
         <div
           className="rounded-xl p-3 mb-4 text-sm"
-          style={{ backgroundColor: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.3)', color: '#F87171' }}
+          style={{ backgroundColor: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.2)', color: '#DC2626' }}
         >
           {error}
         </div>
@@ -399,11 +394,11 @@ export default function SalesTrend() {
       {(trend.length > 0 || activityData) && (
         <div className={`grid grid-cols-2 gap-3 mb-4 ${showCatering ? 'sm:grid-cols-3 lg:grid-cols-6' : 'sm:grid-cols-3 lg:grid-cols-5'}`}>
           {[
-            { label: 'Total Gross',   value: fmt(totalGross),                              borderColor: '#0D9488' },
-            { label: 'Total Net',     value: fmt(totalNet),                                borderColor: '#D97706' },
-            { label: 'Avg / Day',     value: avgGross > 0 ? fmt(avgGross) : '—',           borderColor: '#818CF8' },
-            { label: 'Best Day',      value: best?.grossSales > 0 ? fmt(best.grossSales) : '—', borderColor: '#22C55E', sub: bestLabel },
-            { label: 'Cash Received', value: fmt(totalCash),                               borderColor: '#2DD4BF' },
+            { label: 'Total Gross',   value: fmt(totalGross),                              borderColor: '#4F46E5' },
+            { label: 'Total Net',     value: fmt(totalNet),                                borderColor: '#D946EF' },
+            { label: 'Avg / Day',     value: avgGross > 0 ? fmt(avgGross) : '—',           borderColor: '#0D9488' },
+            { label: 'Best Day',      value: best?.grossSales > 0 ? fmt(best.grossSales) : '—', borderColor: '#F59E0B', sub: bestLabel },
+            { label: 'Cash Received', value: fmt(totalCash),                               borderColor: '#10B981' },
             ...(showCatering ? [{
               label: `${dailyPeriodLabel ? fmtMonth(dailyPeriodLabel) : ''} CAT CAH`,
               value: fmt(cateringCash!.total),
@@ -413,11 +408,11 @@ export default function SalesTrend() {
             <div
               key={card.label}
               className="rounded-xl p-4"
-              style={{ backgroundColor: '#161B22', border: '1px solid #21262D', borderLeft: `4px solid ${card.borderColor}` }}
+              style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', borderLeft: `4px solid ${card.borderColor}`, boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
             >
-              <div className="text-xs uppercase tracking-wide mb-1" style={{ color: '#8B949E' }}>{card.label}</div>
-              <div className="text-xl font-bold" style={{ color: '#E6EDF3' }}>{card.value}</div>
-              {card.sub && <div className="text-xs mt-0.5" style={{ color: '#6E7681' }}>{card.sub}</div>}
+              <div className="text-xs uppercase tracking-wide mb-1" style={{ color: '#94A3B8' }}>{card.label}</div>
+              <div className="text-xl font-bold" style={{ color: '#1E1B4B' }}>{card.value}</div>
+              {card.sub && <div className="text-xs mt-0.5" style={{ color: '#64748B' }}>{card.sub}</div>}
             </div>
           ))}
         </div>
@@ -426,41 +421,55 @@ export default function SalesTrend() {
       {/* ── Chart ────────────────────────────────────────────────────────── */}
       <div
         className={`rounded-xl p-6 transition-opacity ${loading ? 'opacity-50' : ''}`}
-        style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
       >
         {!hasChartData && !loading ? (
-          <p className="text-center py-12" style={{ color: '#6E7681' }}>No sales data for this period.</p>
+          <p className="text-center py-12" style={{ color: '#94A3B8' }}>No sales data for this period.</p>
         ) : view === 'daily' ? (
+          /* Smooth area chart for daily — Dashcom style */
           <ResponsiveContainer width="100%" height={320}>
-            <BarChart data={activeDays} margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#21262D" />
-              <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#8B949E' }} tickFormatter={fmtShortDate}
-                interval={Math.max(0, Math.floor(activeDays.length / 10) - 1)} axisLine={{ stroke: '#21262D' }} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: '#8B949E' }} tickFormatter={(v) => `$${v.toLocaleString()}`} width={72}
+            <AreaChart data={activeDays} margin={{ top: 8, right: 16, left: 8, bottom: 4 }}>
+              <defs>
+                <linearGradient id="grossGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#4F46E5" stopOpacity={0.25} />
+                  <stop offset="95%" stopColor="#4F46E5" stopOpacity={0.02} />
+                </linearGradient>
+                <linearGradient id="netGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#D946EF" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#D946EF" stopOpacity={0.02} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#F0F2FA" />
+              <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#94A3B8' }} tickFormatter={fmtShortDate}
+                interval={Math.max(0, Math.floor(activeDays.length / 10) - 1)} axisLine={{ stroke: '#E4E7F3' }} tickLine={false} />
+              <YAxis tick={{ fontSize: 11, fill: '#94A3B8' }} tickFormatter={(v) => `$${v.toLocaleString()}`} width={72}
                 domain={[0, (max: number) => Math.max(max, 100)]} axisLine={false} tickLine={false} />
               <Tooltip formatter={(v: number, n: string) => [fmt(v), n]} labelFormatter={fmtFullDate}
-                contentStyle={{ backgroundColor: '#1C2333', border: '1px solid #30363D', borderRadius: 8, fontSize: 12, color: '#E6EDF3' }}
-                labelStyle={{ color: '#8B949E' }} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
-              <Legend wrapperStyle={{ color: '#8B949E', fontSize: 12 }} />
-              <Bar dataKey="grossSales" name="Gross Sales" fill="#0D9488" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="netSales" name="Net Sales" fill="#D97706" radius={[3, 3, 0, 0]} />
-            </BarChart>
+                contentStyle={chartTooltipStyle}
+                labelStyle={{ color: '#A5B4FC' }} cursor={{ stroke: '#4F46E5', strokeWidth: 1, strokeDasharray: '4 4' }} />
+              <Legend wrapperStyle={{ color: '#64748B', fontSize: 12 }} />
+              <Area type="monotone" dataKey="grossSales" name="Gross Sales" stroke="#4F46E5" strokeWidth={2.5}
+                fill="url(#grossGradient)" dot={false} activeDot={{ r: 5, fill: '#4F46E5' }} />
+              <Area type="monotone" dataKey="netSales" name="Net Sales" stroke="#D946EF" strokeWidth={2.5}
+                fill="url(#netGradient)" dot={false} activeDot={{ r: 5, fill: '#D946EF' }} />
+            </AreaChart>
           </ResponsiveContainer>
         ) : (
+          /* Bar chart for weekly/monthly */
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={trend} margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#21262D" />
-              <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#8B949E' }}
+              <CartesianGrid strokeDasharray="3 3" stroke="#F0F2FA" />
+              <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#94A3B8' }}
                 interval={view === 'monthly' ? Math.max(0, Math.floor(trend.length / 15) - 1) : 0}
-                axisLine={{ stroke: '#21262D' }} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: '#8B949E' }} tickFormatter={(v) => `$${v.toLocaleString()}`} width={72}
+                axisLine={{ stroke: '#E4E7F3' }} tickLine={false} />
+              <YAxis tick={{ fontSize: 11, fill: '#94A3B8' }} tickFormatter={(v) => `$${v.toLocaleString()}`} width={72}
                 domain={[0, (max: number) => Math.max(max, 100)]} axisLine={false} tickLine={false} />
               <Tooltip formatter={(v: number, n: string) => [fmt(v), n]} labelFormatter={tooltipTitle}
-                contentStyle={{ backgroundColor: '#1C2333', border: '1px solid #30363D', borderRadius: 8, fontSize: 12, color: '#E6EDF3' }}
-                labelStyle={{ color: '#8B949E' }} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
-              <Legend wrapperStyle={{ color: '#8B949E', fontSize: 12 }} />
-              <Bar dataKey="grossSales" name="Gross Sales" fill="#0D9488" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="netSales" name="Net Sales" fill="#D97706" radius={[3, 3, 0, 0]} />
+                contentStyle={chartTooltipStyle}
+                labelStyle={{ color: '#A5B4FC' }} cursor={{ fill: 'rgba(79,70,229,0.05)' }} />
+              <Legend wrapperStyle={{ color: '#64748B', fontSize: 12 }} />
+              <Bar dataKey="grossSales" name="Gross Sales" fill="#4F46E5" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="netSales" name="Net Sales" fill="#D946EF" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         )}
@@ -469,8 +478,8 @@ export default function SalesTrend() {
       {/* ── Revenue class tables ─────────────────────────────────────────── */}
       {activityData && activityData.grossByRevenue.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          <RevenueTable title="Gross Sales by Revenue Class" rows={activityData.grossByRevenue} accentColor="#0D9488" />
-          <RevenueTable title="Net Sales by Revenue Class" rows={activityData.netByRevenue} accentColor="#D97706" />
+          <RevenueTable title="Gross Sales by Revenue Class" rows={activityData.grossByRevenue} accentColor="#4F46E5" />
+          <RevenueTable title="Net Sales by Revenue Class" rows={activityData.netByRevenue} accentColor="#D946EF" />
         </div>
       )}
 
@@ -478,25 +487,25 @@ export default function SalesTrend() {
       {activityData && activityData.orderTypes && activityData.orderTypes.length > 0 && (
         <div
           className="mt-4 rounded-xl overflow-hidden"
-          style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
         >
-          <div className="px-5 py-3" style={{ borderLeft: '4px solid #0D9488', borderBottom: '1px solid #21262D' }}>
-            <h4 className="font-semibold text-sm" style={{ color: '#E6EDF3' }}>Sales by Order Type</h4>
+          <div className="px-5 py-3" style={{ borderLeft: '4px solid #0D9488', borderBottom: '1px solid #E4E7F3' }}>
+            <h4 className="font-semibold text-sm" style={{ color: '#1E1B4B' }}>Sales by Order Type</h4>
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ borderBottom: '1px solid #21262D' }}>
-                <th className="text-left px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Type</th>
-                <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Orders</th>
-                <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#6E7681' }}>Amount</th>
+              <tr style={{ borderBottom: '1px solid #E4E7F3' }}>
+                <th className="text-left px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#94A3B8' }}>Type</th>
+                <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#94A3B8' }}>Orders</th>
+                <th className="text-right px-5 py-2 text-xs uppercase tracking-wide font-semibold" style={{ color: '#94A3B8' }}>Amount</th>
               </tr>
             </thead>
             <tbody>
               {activityData.orderTypes.map((ot) => (
-                <tr key={ot.type} style={{ borderBottom: '1px solid #1C2333' }} className="last:border-0">
-                  <td className="px-5 py-2.5" style={{ color: '#C9D1D9' }}>{ot.type}</td>
-                  <td className="px-5 py-2.5 text-right" style={{ color: '#6E7681' }}>{ot.count > 0 ? ot.count : '—'}</td>
-                  <td className="px-5 py-2.5 text-right font-semibold" style={{ color: '#E6EDF3' }}>{fmt(ot.amount)}</td>
+                <tr key={ot.type} style={{ borderBottom: '1px solid #F0F2FA' }} className="last:border-0">
+                  <td className="px-5 py-2.5" style={{ color: '#4B5563' }}>{ot.type}</td>
+                  <td className="px-5 py-2.5 text-right" style={{ color: '#94A3B8' }}>{ot.count > 0 ? ot.count : '—'}</td>
+                  <td className="px-5 py-2.5 text-right font-semibold" style={{ color: '#0D9488' }}>{fmt(ot.amount)}</td>
                 </tr>
               ))}
             </tbody>
@@ -511,15 +520,15 @@ export default function SalesTrend() {
         return (
           <div
             className="mt-6 rounded-xl overflow-hidden"
-            style={{ backgroundColor: '#161B22', border: '1px solid #21262D' }}
+            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
           >
             <div
               className="px-5 py-4 flex items-center justify-between flex-wrap gap-3"
-              style={{ borderLeft: '4px solid #F87171', borderBottom: '1px solid #21262D' }}
+              style={{ borderLeft: '4px solid #EF4444', borderBottom: '1px solid #E4E7F3' }}
             >
               <div>
-                <h4 className="font-semibold" style={{ color: '#E6EDF3' }}>🚗 DoorDash Payout</h4>
-                <p className="text-xs mt-0.5" style={{ color: '#6E7681' }}>Auto-synced from email · Total {ddPayouts.length} weeks: {fmt(totalAll)}</p>
+                <h4 className="font-semibold" style={{ color: '#1E1B4B' }}>🚗 DoorDash Payout</h4>
+                <p className="text-xs mt-0.5" style={{ color: '#94A3B8' }}>Auto-synced from email · Total {ddPayouts.length} weeks: {fmt(totalAll)}</p>
               </div>
               <div className="flex items-center gap-2">
                 <NavBtn
@@ -553,17 +562,17 @@ export default function SalesTrend() {
             {selected && (
               <div className="px-5 py-4 flex items-center justify-between">
                 <div>
-                  <div className="text-xs uppercase tracking-wide mb-1" style={{ color: '#6E7681' }}>
+                  <div className="text-xs uppercase tracking-wide mb-1" style={{ color: '#94A3B8' }}>
                     {fmtShortDate(selected.weekStart)} – {fmtShortDate(selected.weekEnd)}
                   </div>
-                  <div className="text-2xl font-bold" style={{ color: '#E6EDF3' }}>{fmt(selected.amount)}</div>
+                  <div className="text-2xl font-bold" style={{ color: '#1E1B4B' }}>{fmt(selected.amount)}</div>
                 </div>
                 <span
                   className="px-3 py-1 rounded-full text-sm font-semibold"
                   style={
                     selected.type === 'finalized'
-                      ? { backgroundColor: 'rgba(34,197,94,0.15)', color: '#4ADE80' }
-                      : { backgroundColor: 'rgba(245,158,11,0.15)', color: '#FCD34D' }
+                      ? { backgroundColor: 'rgba(16,185,129,0.1)', color: '#059669' }
+                      : { backgroundColor: 'rgba(245,158,11,0.1)', color: '#D97706' }
                   }
                 >
                   {selected.type === 'finalized' ? '✓ Finalized' : '⏳ Projected'}
