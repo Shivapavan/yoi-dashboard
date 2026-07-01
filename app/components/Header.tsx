@@ -29,16 +29,38 @@ export default function Header() {
   }
 
   return (
-    <TubesBackground className="w-full">
-      {/* Auth buttons — pointer-events-auto so clicks work through the overlay */}
-      <div className="absolute right-5 top-16 flex items-center gap-3 pointer-events-auto z-20">
+    <header className="relative">
+      <TubesBackground className="w-full">
+        <div className="flex flex-col items-center justify-center py-8 gap-3">
+          {/* White card behind logo so the PNG white bg blends intentionally */}
+          <div style={{
+            backgroundColor: 'rgba(255,255,255,0.95)',
+            borderRadius: '16px',
+            padding: '12px 28px',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
+            display: 'inline-block',
+          }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/yum_logo.png" alt="Yum of India" className="h-32 sm:h-40 w-auto block" />
+          </div>
+          <h1
+            className="text-xl sm:text-2xl font-extrabold tracking-wide text-center text-white"
+            style={{ textShadow: '0 0 24px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.8)' }}
+          >
+            Yum Of India Daily Dashboard
+          </h1>
+        </div>
+      </TubesBackground>
+
+      {/* Buttons sit on the outer relative <header>, above the canvas — always visible */}
+      <div className="absolute right-5 top-1/2 -translate-y-1/2 flex items-center gap-3 z-30">
         {username && (
           <span
             className="text-xs font-medium hidden sm:inline px-2.5 py-1 rounded-full"
             style={{
               backgroundColor: 'rgba(255,255,255,0.15)',
               color: '#E0E7FF',
-              border: '1px solid rgba(255,255,255,0.2)',
+              border: '1px solid rgba(255,255,255,0.25)',
               backdropFilter: 'blur(8px)',
             }}
           >
@@ -48,11 +70,11 @@ export default function Header() {
         {isAdmin && (
           <a
             href="/admin"
-            className="text-xs font-semibold px-3 py-1.5 rounded-full transition-colors"
+            className="text-xs font-semibold px-3 py-1.5 rounded-full"
             style={{
-              backgroundColor: 'rgba(79,70,229,0.3)',
+              backgroundColor: 'rgba(79,70,229,0.35)',
               color: '#C7D2FE',
-              border: '1px solid rgba(167,139,250,0.4)',
+              border: '1px solid rgba(167,139,250,0.45)',
               backdropFilter: 'blur(8px)',
             }}
           >
@@ -61,34 +83,17 @@ export default function Header() {
         )}
         <button
           onClick={handleLogout}
-          className="text-xs font-semibold px-3 py-1.5 rounded-full transition-colors"
+          className="text-xs font-semibold px-3 py-1.5 rounded-full"
           style={{
-            backgroundColor: 'rgba(255,255,255,0.12)',
+            backgroundColor: 'rgba(255,255,255,0.15)',
             color: '#E0E7FF',
-            border: '1px solid rgba(255,255,255,0.2)',
+            border: '1px solid rgba(255,255,255,0.25)',
             backdropFilter: 'blur(8px)',
           }}
         >
           Sign out
         </button>
       </div>
-
-      {/* Centered logo + title */}
-      <div className="flex flex-col items-center justify-center py-6 gap-2">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/yum_logo.png"
-          alt="Yum of India"
-          className="h-36 sm:h-44 w-auto"
-          style={{ filter: 'drop-shadow(0 4px 16px rgba(0,0,0,0.4))' }}
-        />
-        <h1
-          className="text-xl sm:text-2xl font-extrabold tracking-wide text-center text-white"
-          style={{ textShadow: '0 0 24px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.8)' }}
-        >
-          Yum Of India Daily Dashboard
-        </h1>
-      </div>
-    </TubesBackground>
+    </header>
   )
 }
