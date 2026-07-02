@@ -32,17 +32,13 @@ export default function Header() {
     <header className="relative">
       <TubesBackground className="w-full">
         <div className="flex flex-col items-center justify-center py-8 gap-3">
-          {/* White card behind logo so the PNG white bg blends intentionally */}
-          <div style={{
-            backgroundColor: 'rgba(255,255,255,0.95)',
-            borderRadius: '16px',
-            padding: '12px 28px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
-            display: 'inline-block',
-          }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/yum_logo.png" alt="Yum of India" className="h-32 sm:h-40 w-auto block" />
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/yum_logo_transparent.png"
+            alt="Yum of India"
+            className="h-32 sm:h-40 w-auto block"
+            style={{ filter: 'drop-shadow(0 4px 16px rgba(0,0,0,0.5))' }}
+          />
           <h1
             className="text-xl sm:text-2xl font-extrabold tracking-wide text-center text-white"
             style={{ textShadow: '0 0 24px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.8)' }}
