@@ -15,6 +15,7 @@ import Reviews from './tabs/Reviews'
 import Activity from './tabs/Activity'
 import MenuEditor from './tabs/MenuEditor'
 import EventsSpace from './tabs/EventsSpace'
+import Instagram from './tabs/Instagram'
 
 export default function Dashboard() {
   const [tab, setTab] = useState<Tab>('end-of-day')
@@ -47,6 +48,7 @@ export default function Dashboard() {
       <div className={tab === 'expenses'     ? '' : 'hidden'}><Expenses /></div>
       {canEditMenu && <div className={tab === 'menu-editor' ? '' : 'hidden'}><MenuEditor /></div>}
       {isAdmin && <div className={tab === 'activity' ? '' : 'hidden'}><Activity /></div>}
+      <div className={tab === 'instagram'    ? '' : 'hidden'}><Instagram /></div>
     </div>
   )
 }
