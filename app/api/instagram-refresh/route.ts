@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { put, list } from '@vercel/blob'
+import { scrapeAccounts } from '@/lib/scraper/instagram'
 
-const APIFY_ACTOR = 'apify~instagram-scraper'
 const IG_ACCOUNTS = [
   '_bharatbhavan_', 'athidhi.aalayam', 'spicerackfrisco', 'marina_indian',
   'ulavacharu_frisco', 'themangoyard', 'rayalaseemaruchulu_usa_frisco',
   'spicyvihaarfrisco', 'desichowrastha', 'nh7dhaba', 'yumofindia_mckinney',
-  'tantraindianbistro', 'bhoomifoodtruck', 'dhamakamckinney', 'babai_bandi',
+  'tantraindianbistro', 'bhoomifoodtruck', 'babai_bandi',
   'hyderabadwala23', 'hyderabadhouseprosper', 'golconda_xpress_food_truck',
-  'desi.district', 'dumngrill_melissa',
+  'desi.district', 'dumngrill_melissa', 'jataraindiankitchen',
+  '_nagskitchen_', 'premaskitchen', 'aaha_kitchen_celina', 'saibhavancarrollton',
 ]
 
 const DISPLAY_NAMES: Record<string, string> = {
@@ -25,13 +26,17 @@ const DISPLAY_NAMES: Record<string, string> = {
   'yumofindia_mckinney': 'Yum of India',
   'tantraindianbistro': 'Tantra Indian Bistro',
   'bhoomifoodtruck': 'Bhoomi Food Truck',
-  'dhamakamckinney': 'Dhamaka McKinney',
   'babai_bandi': 'Babai Bandi',
   'hyderabadwala23': 'Hyderabad Wala',
   'hyderabadhouseprosper': 'Hyderabad House Prosper',
   'golconda_xpress_food_truck': 'Golconda Xpress',
   'desi.district': 'Desi District',
   'dumngrill_melissa': 'Dum N Grill',
+  'jataraindiankitchen': 'Jatara Indian Kitchen',
+  '_nagskitchen_': 'Nags Kitchen',
+  'premaskitchen': "Prema's Kitchen",
+  'aaha_kitchen_celina': 'Aaha Kitchen',
+  'saibhavancarrollton': 'Sai Bhavan',
 }
 
 const TOPICS: Record<string, string[]> = {
@@ -47,12 +52,13 @@ const TOPICS: Record<string, string[]> = {
   'Franchise / Business': ['franchise', 'food truck', 'business'],
 }
 
-// Blob-based run state (replaces KV)
 interface IgRunState {
-  runId: string
   status: 'running' | 'done' | 'failed'
   startedAt: string
+  finishedAt?: string
+  elapsedSecs?: number
   blobUrl?: string
+  error?: string
 }
 
 const RUN_STATE_BLOB = 'instagram-run-state.json'
@@ -77,147 +83,120 @@ async function setRunState(state: IgRunState): Promise<void> {
   })
 }
 
-// POST — start a fresh Apify scrape
-export async function POST() {
-  const token = process.env.APIFY_TOKEN
-  if (!token) return NextResponse.json({ error: 'APIFY_TOKEN not configured' }, { status: 500 })
+// POST — start a self-hosted scrape (no Apify)
+export async function POST(req: NextRequest) {
+  const sessionId = process.env.IG_SESSION_ID
+  if (!sessionId) {
+    return NextResponse.json({ error: 'IG_SESSION_ID not configured' }, { status: 500 })
+  }
 
-  // Check if a run is already in progress
   const existing = await getRunState()
   if (existing?.status === 'running') {
-    return NextResponse.json({ status: 'already_running', runId: existing.runId, startedAt: existing.startedAt })
+    return NextResponse.json({ status: 'already_running', startedAt: existing.startedAt })
   }
 
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
+  const startedAt = new Date().toISOString()
+  await setRunState({ status: 'running', startedAt })
 
-  const res = await fetch(
-    `https://api.apify.com/v2/acts/${APIFY_ACTOR}/runs?token=${token}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        directUrls: IG_ACCOUNTS.map(a => `https://www.instagram.com/${a}/`),
-        resultsType: 'posts',
-        resultsLimit: 30,
-        scrapePostsUntilDate: thirtyDaysAgo,
-      }),
+  // Background scrape — runs after response is sent
+  const doScrape = async () => {
+    try {
+      const profiles = await scrapeAccounts(IG_ACCOUNTS, sessionId, 30)
+      const intel = buildIntel(profiles)
+
+      const blob = await put('instagram-intel.json', JSON.stringify(intel), {
+        access: 'public',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+      })
+
+      const secs = Math.round((Date.now() - new Date(startedAt).getTime()) / 1000)
+      await setRunState({ status: 'done', startedAt, finishedAt: new Date().toISOString(), elapsedSecs: secs, blobUrl: blob.url })
+    } catch (e) {
+      await setRunState({ status: 'failed', startedAt, error: String(e) })
     }
-  )
-  if (!res.ok) return NextResponse.json({ error: 'Failed to start Apify run' }, { status: 502 })
+  }
 
-  const data = await res.json()
-  const runId: string = data.data?.id
-  if (!runId) return NextResponse.json({ error: 'No run ID returned' }, { status: 502 })
+  // Use waitUntil if available (Vercel Edge / newer Node runtime)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ctx = (req as any)[Symbol.for('vercel-request-context')]
+  if (ctx?.waitUntil) {
+    ctx.waitUntil(doScrape())
+  } else {
+    doScrape().catch(() => {})
+  }
 
-  await setRunState({ runId, status: 'running', startedAt: new Date().toISOString() })
-  return NextResponse.json({ status: 'started', runId })
+  return NextResponse.json({ status: 'started' })
 }
 
-// GET — check run status; fetch & store data when complete
-export async function GET(_req: NextRequest) {
-  const token = process.env.APIFY_TOKEN
-  if (!token) return NextResponse.json({ error: 'APIFY_TOKEN not configured' }, { status: 500 })
-
+// GET — check scrape status
+export async function GET() {
   const run = await getRunState()
   if (!run) return NextResponse.json({ status: 'idle' })
-  if (run.status === 'done') return NextResponse.json({ status: 'done' })
 
-  // Check Apify run status
-  const statusRes = await fetch(
-    `https://api.apify.com/v2/actor-runs/${run.runId}?token=${token}`
-  )
-  if (!statusRes.ok) return NextResponse.json({ status: 'unknown' })
-
-  const statusData = await statusRes.json()
-  const apifyStatus: string = statusData.data?.status ?? 'UNKNOWN'
-  const datasetId: string = statusData.data?.defaultDatasetId ?? ''
-
-  if (apifyStatus === 'RUNNING' || apifyStatus === 'READY') {
-    const secs = Math.round(statusData.data?.stats?.runTimeSecs ?? 0)
-    return NextResponse.json({ status: 'running', runId: run.runId, elapsedSecs: secs })
+  if (run.status === 'done') {
+    return NextResponse.json({ status: 'done', elapsedSecs: run.elapsedSecs })
   }
 
-  if (apifyStatus !== 'SUCCEEDED') {
-    await setRunState({ ...run, status: 'failed' })
-    return NextResponse.json({ status: 'failed' })
+  if (run.status === 'failed') {
+    return NextResponse.json({ status: 'failed', error: run.error })
   }
 
-  // Fetch dataset items
-  const itemsRes = await fetch(
-    `https://api.apify.com/v2/datasets/${datasetId}/items?token=${token}&limit=2000`
-  )
-  if (!itemsRes.ok) return NextResponse.json({ status: 'error_fetching' })
-  const posts: Record<string, unknown>[] = await itemsRes.json()
-
-  // Process data
-  const intel = processData(posts)
-
-  // Save to Vercel Blob
-  const blob = await put('instagram-intel.json', JSON.stringify(intel), {
-    access: 'public',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-  })
-
-  await setRunState({ ...run, status: 'done', blobUrl: blob.url })
-  return NextResponse.json({ status: 'done', lastUpdated: intel.lastUpdated })
+  // running — compute elapsed time
+  const elapsedSecs = Math.round((Date.now() - new Date(run.startedAt).getTime()) / 1000)
+  return NextResponse.json({ status: 'running', elapsedSecs })
 }
 
-function processData(posts: Record<string, unknown>[]) {
-  const target = new Set(IG_ACCOUNTS)
-  const targetPosts = posts.filter(p => target.has(p.ownerUsername as string))
+// ─── Data processing ──────────────────────────────────────────────────────────
 
-  const byAccount = new Map<string, Record<string, unknown>[]>()
-  for (const p of targetPosts) {
-    const acc = p.ownerUsername as string
-    if (!byAccount.has(acc)) byAccount.set(acc, [])
-    byAccount.get(acc)!.push(p)
-  }
+import type { IgProfile, IgPost } from '@/lib/scraper/types'
 
-  const accounts = Array.from(byAccount.entries()).map(([acc, ps]) => {
-    const views = ps.map(p => (p.videoViewCount as number) || 0)
-    const likes = ps.map(p => (p.likesCount as number) || 0)
+function buildIntel(profiles: IgProfile[]) {
+  const accounts = profiles.map(p => {
+    const views = p.posts.map(post => post.views)
+    const likes = p.posts.map(post => post.likes)
     const topViews = Math.max(...views, 0)
     const avgViews = Math.round(views.reduce((a, b) => a + b, 0) / (views.length || 1))
     const avgLikes = Math.round((likes.reduce((a, b) => a + b, 0) / (likes.length || 1)) * 10) / 10
-    const videos = ps.filter(p => p.type === 'Video').length
-    const best = ps.reduce((a, b) =>
-      ((b.videoViewCount as number) || 0) > ((a.videoViewCount as number) || 0) ? b : a
-    )
+    const videos = p.posts.filter(post => post.type === 'video').length
+    const best = p.posts.reduce<IgPost | null>((a, b) => (!a || b.views > a.views) ? b : a, null)
+
     return {
-      account: acc,
-      name: DISPLAY_NAMES[acc] ?? acc,
-      posts: ps.length,
+      account: p.username,
+      name: DISPLAY_NAMES[p.username] ?? p.username,
+      followers: p.followers,
+      posts: p.posts.length,
       videos,
       topViews,
       avgViews,
       avgLikes,
-      isYoi: acc === 'yumofindia_mckinney',
-      bestPostUrl: (best.url as string) ?? '',
-      bestCaption: ((best.caption as string) ?? '').slice(0, 100).replace(/\n/g, ' '),
+      isYoi: p.username === 'yumofindia_mckinney',
+      bestPostUrl: best?.url ?? '',
+      bestCaption: (best?.caption ?? '').slice(0, 100).replace(/\n/g, ' '),
     }
   }).sort((a, b) => b.topViews - a.topViews)
 
-  const videoPosts = targetPosts
-    .filter(p => (p.videoViewCount as number) > 0)
-    .sort((a, b) => ((b.videoViewCount as number) || 0) - ((a.videoViewCount as number) || 0))
+  const allPosts = profiles.flatMap(p => p.posts)
+
+  const topPosts = allPosts
+    .filter(p => p.views > 0)
+    .sort((a, b) => b.views - a.views)
     .slice(0, 10)
     .map(p => ({
-      views: (p.videoViewCount as number) || 0,
-      url: (p.url as string) ?? '',
-      account: (p.ownerUsername as string) ?? '',
-      name: DISPLAY_NAMES[(p.ownerUsername as string) ?? ''] ?? (p.ownerUsername as string),
-      caption: ((p.caption as string) ?? '').slice(0, 140).replace(/\n/g, ' '),
-      date: ((p.timestamp as string) ?? '').slice(0, 10),
-      likes: (p.likesCount as number) || 0,
+      views: p.views,
+      url: p.url,
+      account: p.username,
+      name: DISPLAY_NAMES[p.username] ?? p.username,
+      caption: p.caption.slice(0, 140).replace(/\n/g, ' '),
+      date: p.timestamp.slice(0, 10),
+      likes: p.likes,
     }))
 
   const tagCounts = new Map<string, number>()
-  for (const p of targetPosts) {
-    for (const tag of ((p.hashtags as string[]) ?? [])) {
-      const t = tag.toLowerCase().replace(/^#/, '').trim()
-      if (t.length > 2 && !/^\d+[,.]?\d*$/.test(t)) {
-        tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1)
+  for (const p of allPosts) {
+    for (const tag of p.hashtags) {
+      if (tag.length > 2 && !/^\d+$/.test(tag)) {
+        tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)
       }
     }
   }
@@ -227,8 +206,8 @@ function processData(posts: Record<string, unknown>[]) {
     .map(([tag, count]) => ({ tag, count }))
 
   const topics = Object.entries(TOPICS).map(([topic, keywords]) => {
-    const count = targetPosts.filter(p => {
-      const c = ((p.caption as string) ?? '').toLowerCase()
+    const count = allPosts.filter(p => {
+      const c = p.caption.toLowerCase()
       return keywords.some(kw => c.includes(kw))
     }).length
     return { topic, count }
@@ -236,9 +215,9 @@ function processData(posts: Record<string, unknown>[]) {
 
   return {
     lastUpdated: new Date().toISOString(),
-    totalPosts: targetPosts.length,
+    totalPosts: allPosts.length,
     accounts,
-    topPosts: videoPosts,
+    topPosts,
     hashtags,
     topics,
   }
