@@ -187,7 +187,16 @@ export default function Instagram() {
       {/* Top Posts */}
       {activeSection === 'posts' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 14 }}>
-          {data.topPosts.map((post, i) => (
+          {data.topPosts.map((post, i) => {
+            const GRADIENTS = [
+              'linear-gradient(135deg,#0D9488,#7C3AED)',
+              'linear-gradient(135deg,#D97706,#DC2626)',
+              'linear-gradient(135deg,#7C3AED,#0D9488)',
+              'linear-gradient(135deg,#0891b2,#7C3AED)',
+              'linear-gradient(135deg,#059669,#0D9488)',
+            ]
+            const grad = GRADIENTS[i % GRADIENTS.length]
+            return (
             <a
               key={post.url}
               href={post.url}
@@ -196,10 +205,11 @@ export default function Instagram() {
               onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.1)')}
               onMouseLeave={e => (e.currentTarget.style.boxShadow = '')}
             >
-              {post.thumbnail
-                ? <img src={post.thumbnail} alt="" style={{ width: '100%', height: 170, objectFit: 'cover', display: 'block' }} />
-                : <div style={{ width: '100%', height: 170, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>🎬</div>
-              }
+              <div style={{ width: '100%', height: 130, background: grad, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                <span style={{ fontSize: '2.2rem' }}>🎬</span>
+                <span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700, fontSize: '0.8rem' }}>{post.name}</span>
+                <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.7rem' }}>▶ Open on Instagram</span>
+              </div>
               <div style={{ padding: '10px 12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                   <span style={{ color: '#D97706', fontWeight: 700, fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>#{i + 1} Most Viewed</span>
@@ -214,7 +224,8 @@ export default function Instagram() {
                 <div style={{ color: '#94a3b8', fontSize: '0.68rem', marginTop: 4 }}>❤️ {post.likes} likes</div>
               </div>
             </a>
-          ))}
+            )
+          })}
         </div>
       )}
 
