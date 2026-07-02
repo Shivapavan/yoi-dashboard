@@ -53,17 +53,59 @@ function RankBadge({ rank }: { rank: number }) {
   )
 }
 
+type RefreshStatus = 'idle' | 'starting' | 'running' | 'done' | 'failed'
+
 export default function Instagram() {
   const [data, setData] = useState<IntelData | null>(null)
   const [loading, setLoading] = useState(true)
+  const [refreshStatus, setRefreshStatus] = useState<RefreshStatus>('idle')
+  const [elapsedSecs, setElapsedSecs] = useState(0)
   const [activeSection, setActiveSection] = useState<'leaderboard' | 'posts' | 'trends'>('leaderboard')
 
-  useEffect(() => {
+  const loadData = () => {
     fetch('/api/instagram-intel')
       .then(r => r.json())
       .then(d => { setData(d); setLoading(false) })
       .catch(() => setLoading(false))
-  }, [])
+  }
+
+  useEffect(() => { loadData() }, [])
+
+  // Poll run status while scraping is in progress
+  useEffect(() => {
+    if (refreshStatus !== 'running') return
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch('/api/instagram-refresh')
+        const json = await res.json()
+        if (json.status === 'done') {
+          setRefreshStatus('done')
+          loadData()
+        } else if (json.status === 'failed') {
+          setRefreshStatus('failed')
+        } else if (json.elapsedSecs) {
+          setElapsedSecs(json.elapsedSecs)
+        }
+      } catch { /* keep polling */ }
+    }, 30_000)
+    return () => clearInterval(interval)
+  }, [refreshStatus])
+
+  const startRefresh = async () => {
+    setRefreshStatus('starting')
+    try {
+      const res = await fetch('/api/instagram-refresh', { method: 'POST' })
+      const json = await res.json()
+      if (json.status === 'started' || json.status === 'already_running') {
+        setRefreshStatus('running')
+        setElapsedSecs(0)
+      } else {
+        setRefreshStatus('failed')
+      }
+    } catch {
+      setRefreshStatus('failed')
+    }
+  }
 
   if (loading) return (
     <div className="flex items-center justify-center py-20 text-gray-400">Loading Instagram data…</div>
@@ -88,10 +130,36 @@ export default function Instagram() {
             <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.8rem', marginTop: 4 }}>
               {data.accounts.length} restaurants · {data.totalPosts.toLocaleString()} posts · Updated {updatedDate}
             </p>
+            {refreshStatus === 'running' && (
+              <p style={{ color: '#FCD34D', fontSize: '0.75rem', marginTop: 4 }}>
+                ⏳ Scraping… {elapsedSecs > 0 ? `${Math.round(elapsedSecs / 60)}m elapsed` : 'starting'} (~20 min total)
+              </p>
+            )}
+            {refreshStatus === 'done' && (
+              <p style={{ color: '#6EE7B7', fontSize: '0.75rem', marginTop: 4 }}>✅ Data refreshed!</p>
+            )}
+            {refreshStatus === 'failed' && (
+              <p style={{ color: '#FCA5A5', fontSize: '0.75rem', marginTop: 4 }}>❌ Refresh failed — try again</p>
+            )}
           </div>
-          <div style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 10, padding: '10px 16px', textAlign: 'center' }}>
-            <div style={{ color: '#FFD700', fontWeight: 800, fontSize: '1.6rem', lineHeight: 1 }}>#{yoiRank}</div>
-            <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.7rem', marginTop: 2 }}>YOI Rank</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
+            <div style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 10, padding: '10px 16px', textAlign: 'center' }}>
+              <div style={{ color: '#FFD700', fontWeight: 800, fontSize: '1.6rem', lineHeight: 1 }}>#{yoiRank}</div>
+              <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.7rem', marginTop: 2 }}>YOI Rank</div>
+            </div>
+            <button
+              onClick={startRefresh}
+              disabled={refreshStatus === 'running' || refreshStatus === 'starting'}
+              style={{
+                background: refreshStatus === 'running' || refreshStatus === 'starting' ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.2)',
+                border: '1px solid rgba(255,255,255,0.35)',
+                color: '#fff', borderRadius: 8, padding: '7px 14px',
+                fontSize: '0.78rem', fontWeight: 600, cursor: refreshStatus === 'running' || refreshStatus === 'starting' ? 'not-allowed' : 'pointer',
+                opacity: refreshStatus === 'running' || refreshStatus === 'starting' ? 0.6 : 1,
+              }}
+            >
+              {refreshStatus === 'starting' ? '⏳ Starting…' : refreshStatus === 'running' ? '⏳ Scraping…' : '🔄 Refresh Data'}
+            </button>
           </div>
         </div>
 
