@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { put } from '@vercel/blob'
+import { put, list } from '@vercel/blob'
 
 const APIFY_ACTOR = 'apify~instagram-scraper'
 const IG_ACCOUNTS = [
@@ -59,10 +59,9 @@ const RUN_STATE_BLOB = 'instagram-run-state.json'
 
 async function getRunState(): Promise<IgRunState | null> {
   try {
-    const res = await fetch(
-      `${process.env.BLOB_BASE_URL ?? 'https://blob.vercel-storage.com'}/${RUN_STATE_BLOB}`,
-      { next: { revalidate: 0 } }
-    )
+    const { blobs } = await list({ prefix: RUN_STATE_BLOB })
+    if (!blobs.length) return null
+    const res = await fetch(blobs[0].url, { cache: 'no-store' })
     if (!res.ok) return null
     return await res.json() as IgRunState
   } catch {

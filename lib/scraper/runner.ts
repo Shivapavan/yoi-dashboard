@@ -1,4 +1,4 @@
-import { put, head } from '@vercel/blob'
+import { put, list } from '@vercel/blob'
 import type { ScraperConfig, ScrapeRun } from './types'
 
 const STATE_BLOB = 'scraper/state.json'
@@ -11,11 +11,9 @@ interface ScraperState {
 
 async function readState(): Promise<ScraperState> {
   try {
-    // head() checks if blob exists without fetching full content
-    const info = await head(`https://blob.vercel-storage.com/${STATE_BLOB}`).catch(() => null)
-    if (!info) return { configs: [], runs: [], resultUrls: {} }
-
-    const res = await fetch(info.url, { next: { revalidate: 0 } })
+    const { blobs } = await list({ prefix: STATE_BLOB })
+    if (!blobs.length) return { configs: [], runs: [], resultUrls: {} }
+    const res = await fetch(blobs[0].url, { cache: 'no-store' })
     if (!res.ok) return { configs: [], runs: [], resultUrls: {} }
     return await res.json() as ScraperState
   } catch {
@@ -72,7 +70,6 @@ export async function startRun(scraperId: string): Promise<ScrapeRun> {
     startedAt: new Date().toISOString(),
   }
   const state = await readState()
-  // Keep only last 20 runs total
   state.runs = state.runs.slice(-19)
   state.runs.push(run)
   await writeState(state)
@@ -111,7 +108,7 @@ export async function getResult<T>(scraperId: string): Promise<T | null> {
   const url = await getResultUrl(scraperId)
   if (!url) return null
   try {
-    const res = await fetch(url, { next: { revalidate: 0 } })
+    const res = await fetch(url, { cache: 'no-store' })
     return res.ok ? (res.json() as Promise<T>) : null
   } catch {
     return null

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { list } from '@vercel/blob'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
@@ -7,15 +8,15 @@ const RUN_STATE_BLOB = 'instagram-run-state.json'
 export async function GET() {
   try {
     // Check Blob run state for latest blob URL
-    const stateRes = await fetch(
-      `${process.env.BLOB_BASE_URL ?? 'https://blob.vercel-storage.com'}/${RUN_STATE_BLOB}`,
-      { next: { revalidate: 0 } }
-    )
-    if (stateRes.ok) {
-      const state = await stateRes.json() as { blobUrl?: string }
-      if (state.blobUrl) {
-        const dataRes = await fetch(state.blobUrl, { next: { revalidate: 0 } })
-        if (dataRes.ok) return NextResponse.json(await dataRes.json())
+    const { blobs } = await list({ prefix: RUN_STATE_BLOB })
+    if (blobs.length) {
+      const stateRes = await fetch(blobs[0].url, { cache: 'no-store' })
+      if (stateRes.ok) {
+        const state = await stateRes.json() as { blobUrl?: string }
+        if (state.blobUrl) {
+          const dataRes = await fetch(state.blobUrl, { cache: 'no-store' })
+          if (dataRes.ok) return NextResponse.json(await dataRes.json())
+        }
       }
     }
   } catch {
