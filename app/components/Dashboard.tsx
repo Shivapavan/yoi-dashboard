@@ -22,20 +22,22 @@ export default function Dashboard() {
   const [tab, setTab] = useState<Tab>('end-of-day')
   const [isAdmin, setIsAdmin] = useState(false)
   const [canEditMenu, setCanEditMenu] = useState(false)
+  const [canScrape, setCanScrape] = useState(false)
 
   useEffect(() => {
     fetch('/api/auth/me')
       .then(r => r.json())
       .then(d => {
-        if (d.user?.isAdmin) setIsAdmin(true)
+        if (d.user?.isAdmin) { setIsAdmin(true); setCanScrape(true) }
         if (d.user?.canEditMenu) setCanEditMenu(true)
+        if (d.user?.username?.toLowerCase() === 'shivapavankumar') setCanScrape(true)
       })
       .catch(() => {})
   }, [])
 
   return (
     <div>
-      <TabNav active={tab} onChange={setTab} isAdmin={isAdmin} canEditMenu={canEditMenu} />
+      <TabNav active={tab} onChange={setTab} isAdmin={isAdmin} canEditMenu={canEditMenu} canScrape={canScrape} />
       <div className={tab === 'end-of-day'   ? '' : 'hidden'}><EndOfDay /></div>
       <div className={tab === 'sales-trend'  ? '' : 'hidden'}><SalesTrend /></div>
       <div className={tab === 'top-items'    ? '' : 'hidden'}><TopItems /></div>

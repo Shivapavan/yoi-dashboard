@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { kv } from '@vercel/kv'
 import { put } from '@vercel/blob'
 
 const APIFY_ACTOR = 'apify~instagram-scraper'
@@ -48,13 +47,44 @@ const TOPICS: Record<string, string[]> = {
   'Franchise / Business': ['franchise', 'food truck', 'business'],
 }
 
+// Blob-based run state (replaces KV)
+interface IgRunState {
+  runId: string
+  status: 'running' | 'done' | 'failed'
+  startedAt: string
+  blobUrl?: string
+}
+
+const RUN_STATE_BLOB = 'instagram-run-state.json'
+
+async function getRunState(): Promise<IgRunState | null> {
+  try {
+    const res = await fetch(
+      `${process.env.BLOB_BASE_URL ?? 'https://blob.vercel-storage.com'}/${RUN_STATE_BLOB}`,
+      { next: { revalidate: 0 } }
+    )
+    if (!res.ok) return null
+    return await res.json() as IgRunState
+  } catch {
+    return null
+  }
+}
+
+async function setRunState(state: IgRunState): Promise<void> {
+  await put(RUN_STATE_BLOB, JSON.stringify(state), {
+    access: 'public',
+    contentType: 'application/json',
+    addRandomSuffix: false,
+  })
+}
+
 // POST — start a fresh Apify scrape
 export async function POST() {
   const token = process.env.APIFY_TOKEN
   if (!token) return NextResponse.json({ error: 'APIFY_TOKEN not configured' }, { status: 500 })
 
   // Check if a run is already in progress
-  const existing = await kv.get<{ runId: string; status: string; startedAt: string }>('ig:run')
+  const existing = await getRunState()
   if (existing?.status === 'running') {
     return NextResponse.json({ status: 'already_running', runId: existing.runId, startedAt: existing.startedAt })
   }
@@ -80,7 +110,7 @@ export async function POST() {
   const runId: string = data.data?.id
   if (!runId) return NextResponse.json({ error: 'No run ID returned' }, { status: 502 })
 
-  await kv.set('ig:run', { runId, status: 'running', startedAt: new Date().toISOString() })
+  await setRunState({ runId, status: 'running', startedAt: new Date().toISOString() })
   return NextResponse.json({ status: 'started', runId })
 }
 
@@ -89,7 +119,7 @@ export async function GET(_req: NextRequest) {
   const token = process.env.APIFY_TOKEN
   if (!token) return NextResponse.json({ error: 'APIFY_TOKEN not configured' }, { status: 500 })
 
-  const run = await kv.get<{ runId: string; status: string; startedAt: string }>('ig:run')
+  const run = await getRunState()
   if (!run) return NextResponse.json({ status: 'idle' })
   if (run.status === 'done') return NextResponse.json({ status: 'done' })
 
@@ -109,7 +139,7 @@ export async function GET(_req: NextRequest) {
   }
 
   if (apifyStatus !== 'SUCCEEDED') {
-    await kv.set('ig:run', { ...run, status: 'failed' })
+    await setRunState({ ...run, status: 'failed' })
     return NextResponse.json({ status: 'failed' })
   }
 
@@ -130,9 +160,7 @@ export async function GET(_req: NextRequest) {
     addRandomSuffix: false,
   })
 
-  await kv.set('ig:run', { ...run, status: 'done' })
-  await kv.set('ig:blob-url', blob.url)
-
+  await setRunState({ ...run, status: 'done', blobUrl: blob.url })
   return NextResponse.json({ status: 'done', lastUpdated: intel.lastUpdated })
 }
 

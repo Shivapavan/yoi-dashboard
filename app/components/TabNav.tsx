@@ -2,7 +2,7 @@
 
 export type Tab = 'end-of-day' | 'sales-trend' | 'top-items' | 'item-trends' | 'catering' | 'visitors' | 'emp-shdt' | 'expenses' | 'containers' | 'reviews' | 'activity' | 'menu-editor' | 'events-space' | 'instagram' | 'scraper'
 
-interface Props { active: Tab; onChange: (t: Tab) => void; isAdmin?: boolean; canEditMenu?: boolean }
+interface Props { active: Tab; onChange: (t: Tab) => void; isAdmin?: boolean; canEditMenu?: boolean; canScrape?: boolean }
 
 const BASE_TABS: { id: Tab; label: string }[] = [
   { id: 'end-of-day',   label: 'End of Day' },
@@ -17,19 +17,20 @@ const BASE_TABS: { id: Tab; label: string }[] = [
   { id: 'emp-shdt',     label: 'Staff' },
   { id: 'expenses',     label: 'Expenses' },
   { id: 'instagram',   label: 'Instagram' },
-  { id: 'scraper',     label: '🕷 Scraper' },
 ]
 
 const MENU_TAB: { id: Tab; label: string } = { id: 'menu-editor', label: 'Menu' }
 const ADMIN_ONLY_TABS: { id: Tab; label: string }[] = [
   { id: 'activity', label: 'Activity' },
 ]
+const SCRAPER_TAB: { id: Tab; label: string } = { id: 'scraper', label: '🕷 Scraper' }
 
-export default function TabNav({ active, onChange, isAdmin, canEditMenu }: Props) {
+export default function TabNav({ active, onChange, isAdmin, canEditMenu, canScrape }: Props) {
   const tabs = [
     ...BASE_TABS,
     ...(canEditMenu ? [MENU_TAB] : []),
     ...(isAdmin ? ADMIN_ONLY_TABS : []),
+    ...(canScrape ? [SCRAPER_TAB] : []),
   ]
 
   return (

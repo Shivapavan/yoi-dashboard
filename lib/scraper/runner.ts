@@ -1,33 +1,61 @@
-import { kv } from '@vercel/kv'
-import { put, list, del } from '@vercel/blob'
+import { put, head } from '@vercel/blob'
 import type { ScraperConfig, ScrapeRun } from './types'
 
-const KV_CONFIGS = 'scraper:configs'
-const KV_RUNS   = 'scraper:runs'
+const STATE_BLOB = 'scraper/state.json'
+
+interface ScraperState {
+  configs: ScraperConfig[]
+  runs: ScrapeRun[]
+  resultUrls: Record<string, string>
+}
+
+async function readState(): Promise<ScraperState> {
+  try {
+    // head() checks if blob exists without fetching full content
+    const info = await head(`https://blob.vercel-storage.com/${STATE_BLOB}`).catch(() => null)
+    if (!info) return { configs: [], runs: [], resultUrls: {} }
+
+    const res = await fetch(info.url, { next: { revalidate: 0 } })
+    if (!res.ok) return { configs: [], runs: [], resultUrls: {} }
+    return await res.json() as ScraperState
+  } catch {
+    return { configs: [], runs: [], resultUrls: {} }
+  }
+}
+
+async function writeState(state: ScraperState): Promise<void> {
+  await put(STATE_BLOB, JSON.stringify(state), {
+    access: 'public',
+    contentType: 'application/json',
+    addRandomSuffix: false,
+  })
+}
 
 // ─── Config management ────────────────────────────────────────────────────────
 
 export async function getConfigs(): Promise<ScraperConfig[]> {
-  return (await kv.get<ScraperConfig[]>(KV_CONFIGS)) ?? []
+  return (await readState()).configs
 }
 
 export async function saveConfig(config: ScraperConfig): Promise<void> {
-  const configs = await getConfigs()
-  const idx = configs.findIndex(c => c.id === config.id)
-  if (idx >= 0) configs[idx] = config
-  else configs.push(config)
-  await kv.set(KV_CONFIGS, configs)
+  const state = await readState()
+  const idx = state.configs.findIndex(c => c.id === config.id)
+  if (idx >= 0) state.configs[idx] = config
+  else state.configs.push(config)
+  await writeState(state)
 }
 
 export async function deleteConfig(id: string): Promise<void> {
-  const configs = await getConfigs()
-  await kv.set(KV_CONFIGS, configs.filter(c => c.id !== id))
+  const state = await readState()
+  state.configs = state.configs.filter(c => c.id !== id)
+  delete state.resultUrls[id]
+  await writeState(state)
 }
 
 // ─── Run management ───────────────────────────────────────────────────────────
 
 export async function getRuns(scraperId?: string): Promise<ScrapeRun[]> {
-  const runs = (await kv.get<ScrapeRun[]>(KV_RUNS)) ?? []
+  const runs = (await readState()).runs
   return scraperId ? runs.filter(r => r.scraperId === scraperId) : runs
 }
 
@@ -43,20 +71,20 @@ export async function startRun(scraperId: string): Promise<ScrapeRun> {
     status: 'running',
     startedAt: new Date().toISOString(),
   }
-  const runs = await getRuns()
+  const state = await readState()
   // Keep only last 20 runs total
-  const trimmed = runs.slice(-19)
-  trimmed.push(run)
-  await kv.set(KV_RUNS, trimmed)
+  state.runs = state.runs.slice(-19)
+  state.runs.push(run)
+  await writeState(state)
   return run
 }
 
 export async function updateRun(runId: string, patch: Partial<ScrapeRun>): Promise<void> {
-  const runs = await getRuns()
-  const idx = runs.findIndex(r => r.id === runId)
+  const state = await readState()
+  const idx = state.runs.findIndex(r => r.id === runId)
   if (idx >= 0) {
-    runs[idx] = { ...runs[idx], ...patch }
-    await kv.set(KV_RUNS, runs)
+    state.runs[idx] = { ...state.runs[idx], ...patch }
+    await writeState(state)
   }
 }
 
@@ -68,12 +96,15 @@ export async function saveResult(scraperId: string, data: unknown): Promise<stri
     contentType: 'application/json',
     addRandomSuffix: false,
   })
-  await kv.set(`scraper:result-url:${scraperId}`, blob.url)
+  const state = await readState()
+  state.resultUrls[scraperId] = blob.url
+  await writeState(state)
   return blob.url
 }
 
 export async function getResultUrl(scraperId: string): Promise<string | null> {
-  return kv.get<string>(`scraper:result-url:${scraperId}`)
+  const state = await readState()
+  return state.resultUrls[scraperId] ?? null
 }
 
 export async function getResult<T>(scraperId: string): Promise<T | null> {
@@ -88,13 +119,7 @@ export async function getResult<T>(scraperId: string): Promise<T | null> {
 }
 
 export async function deleteResult(scraperId: string): Promise<void> {
-  const url = await getResultUrl(scraperId)
-  if (url) {
-    try {
-      // List blobs and delete matching one
-      const { blobs } = await list({ prefix: `scraper/${scraperId}/` })
-      for (const blob of blobs) await del(blob.url)
-    } catch { /* ignore */ }
-    await kv.del(`scraper:result-url:${scraperId}`)
-  }
+  const state = await readState()
+  delete state.resultUrls[scraperId]
+  await writeState(state)
 }

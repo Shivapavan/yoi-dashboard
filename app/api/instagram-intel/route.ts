@@ -1,17 +1,21 @@
 import { NextResponse } from 'next/server'
-import { kv } from '@vercel/kv'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
+const RUN_STATE_BLOB = 'instagram-run-state.json'
+
 export async function GET() {
   try {
-    // Try Blob (latest refresh) first
-    const blobUrl = await kv.get<string>('ig:blob-url')
-    if (blobUrl) {
-      const res = await fetch(blobUrl, { next: { revalidate: 0 } })
-      if (res.ok) {
-        const data = await res.json()
-        return NextResponse.json(data)
+    // Check Blob run state for latest blob URL
+    const stateRes = await fetch(
+      `${process.env.BLOB_BASE_URL ?? 'https://blob.vercel-storage.com'}/${RUN_STATE_BLOB}`,
+      { next: { revalidate: 0 } }
+    )
+    if (stateRes.ok) {
+      const state = await stateRes.json() as { blobUrl?: string }
+      if (state.blobUrl) {
+        const dataRes = await fetch(state.blobUrl, { next: { revalidate: 0 } })
+        if (dataRes.ok) return NextResponse.json(await dataRes.json())
       }
     }
   } catch {
