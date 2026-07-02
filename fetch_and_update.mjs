@@ -8,9 +8,24 @@ const XLSX = require('xlsx');
 const TOKEN = process.argv[2];
 if (!TOKEN) { console.error('Usage: node fetch_and_update.mjs <token>'); process.exit(1); }
 
-const TODAY     = '2026-06-30';
-const YESTERDAY = '2026-06-29';
-const TOMORROW  = '2026-07-01';
+// Compute business day dynamically (CDT = UTC-5; day starts at 4AM CDT = 9AM UTC)
+function computeBusinessDay() {
+  const now = new Date();
+  const cdtMs = now.getTime() - 5 * 60 * 60 * 1000;
+  const cdt = new Date(cdtMs);
+  const biz = new Date(cdtMs);
+  if (cdt.getUTCHours() < 4) biz.setUTCDate(biz.getUTCDate() - 1);
+  const p = n => String(n).padStart(2, '0');
+  return `${biz.getUTCFullYear()}-${p(biz.getUTCMonth()+1)}-${p(biz.getUTCDate())}`;
+}
+const TODAY = computeBusinessDay();
+const tdDate = new Date(TODAY + 'T00:00:00Z');
+const ydDate = new Date(tdDate.getTime() - 86400000);
+const tmDate = new Date(tdDate.getTime() + 86400000);
+const _p = n => String(n).padStart(2, '0');
+const YESTERDAY = `${ydDate.getUTCFullYear()}-${_p(ydDate.getUTCMonth()+1)}-${_p(ydDate.getUTCDate())}`;
+const TOMORROW  = `${tmDate.getUTCFullYear()}-${_p(tmDate.getUTCMonth()+1)}-${_p(tmDate.getUTCDate())}`;
+console.error(`Business day: TODAY=${TODAY} YESTERDAY=${YESTERDAY} TOMORROW=${TOMORROW}`);
 
 // Today's business day window (4AM CDT = 9AM UTC)
 const TODAY_START = `${TODAY}T09:00:00.000Z`;
