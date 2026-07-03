@@ -7,10 +7,16 @@ export async function GET() {
   const sessionPrefix = sessionId.slice(0, 8) + '...'
 
   // Test the exact endpoint the scraper uses
+  const scraperKey = process.env.SCRAPER_API_KEY
   const testUsername = 'golconda_xpress_food_truck'
+  const targetUrl = `https://i.instagram.com/api/v1/users/web_profile_info/?username=${testUsername}`
+  const fetchUrl = scraperKey
+    ? `http://api.scraperapi.com?api_key=${scraperKey}&url=${encodeURIComponent(targetUrl)}&keep_headers=true`
+    : targetUrl
+
   try {
     const res = await fetch(
-      `https://i.instagram.com/api/v1/users/web_profile_info/?username=${testUsername}`,
+      fetchUrl,
       {
         headers: {
           'x-ig-app-id': '936619743392459',
@@ -31,7 +37,7 @@ export async function GET() {
     let parsed: unknown
     try { parsed = JSON.parse(text) } catch { parsed = text.slice(0, 300) }
     const hasUser = !!(parsed as Record<string, unknown>)?.data
-    return NextResponse.json({ status: res.status, sessionPrefix, hasUser, body: hasUser ? 'OK — user data found' : parsed })
+    return NextResponse.json({ status: res.status, sessionPrefix, scraperApiUsed: !!scraperKey, hasUser, body: hasUser ? 'OK — user data found' : parsed })
   } catch (e) {
     return NextResponse.json({ error: String(e), sessionPrefix })
   }

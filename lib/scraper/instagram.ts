@@ -3,6 +3,15 @@ import type { IgPost, IgProfile } from './types'
 const APP_ID = '936619743392459'
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'
 
+// Route through ScraperAPI residential proxies if SCRAPER_API_KEY is set.
+// ScraperAPI's keep_headers=true forwards our session cookie + app headers
+// through their residential IPs so Instagram doesn't rate-limit us.
+function proxyUrl(target: string): string {
+  const key = process.env.SCRAPER_API_KEY
+  if (!key) return target
+  return `http://api.scraperapi.com?api_key=${key}&url=${encodeURIComponent(target)}&keep_headers=true`
+}
+
 function igHeaders(sessionId: string) {
   return {
     'x-ig-app-id': APP_ID,
@@ -21,7 +30,7 @@ function igHeaders(sessionId: string) {
 async function getProfile(username: string, sessionId: string): Promise<{ userId: string; profile: Partial<IgProfile> } | null> {
   try {
     const res = await fetch(
-      `https://i.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(username)}`,
+      proxyUrl(`https://i.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(username)}`),
       { headers: igHeaders(sessionId) }
     )
     if (!res.ok) return null
@@ -57,7 +66,7 @@ async function getPosts(userId: string, username: string, sessionId: string, lim
 
     try {
       const res: Response = await fetch(
-        `https://i.instagram.com/api/v1/feed/user/${userId}/?${params}`,
+        proxyUrl(`https://i.instagram.com/api/v1/feed/user/${userId}/?${params}`),
         { headers: igHeaders(sessionId) }
       )
       if (!res.ok) break
