@@ -43,7 +43,7 @@ async function readState(): Promise<RunState | null> {
 }
 
 async function writeState(state: RunState) {
-  await put(STATE_BLOB, JSON.stringify(state), { access: 'public', contentType: 'application/json', addRandomSuffix: false })
+  await put(STATE_BLOB, JSON.stringify(state), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true })
 }
 
 async function doScrape(usernames: string[]) {
@@ -67,7 +67,7 @@ async function doScrape(usernames: string[]) {
       await put(
         `instagram-following-${username}.json`,
         JSON.stringify(result),
-        { access: 'public', contentType: 'application/json', addRandomSuffix: false }
+        { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true }
       )
 
       await new Promise(r => setTimeout(r, 3000))
@@ -89,7 +89,7 @@ async function doScrape(usernames: string[]) {
       totalUniqueFollows: new Set(results.flatMap(r => r.accounts.map(a => a.username))).size,
     }
 
-    const blob = await put(SUMMARY_BLOB, JSON.stringify(summary), { access: 'public', contentType: 'application/json', addRandomSuffix: false })
+    const blob = await put(SUMMARY_BLOB, JSON.stringify(summary), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true })
     await writeState({ status: 'done', startedAt: new Date().toISOString(), blobUrl: blob.url, processed: results.length, total: usernames.length })
   } catch (e) {
     await writeState({ status: 'failed', startedAt: new Date().toISOString(), error: String(e) })

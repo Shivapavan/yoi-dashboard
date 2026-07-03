@@ -36,7 +36,7 @@ async function readState(): Promise<RunState | null> {
 }
 
 async function writeState(state: RunState) {
-  await put(RUN_STATE_BLOB, JSON.stringify(state), { access: 'public', contentType: 'application/json', addRandomSuffix: false })
+  await put(RUN_STATE_BLOB, JSON.stringify(state), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true })
 }
 
 async function doScrape() {
@@ -46,7 +46,7 @@ async function doScrape() {
   try {
     const profiles = await scrapeGoogleMapsProfiles(BUSINESSES, apiKey)
     const intel = buildIntel(profiles)
-    const blob = await put('google-maps-intel.json', JSON.stringify(intel), { access: 'public', contentType: 'application/json', addRandomSuffix: false })
+    const blob = await put('google-maps-intel.json', JSON.stringify(intel), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true })
     await writeState({ status: 'done', startedAt: new Date().toISOString(), blobUrl: blob.url })
   } catch (e) {
     await writeState({ status: 'failed', startedAt: new Date().toISOString(), error: String(e) })

@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       await put('instagram-intel.json', JSON.stringify(intel), {
         access: 'public',
         contentType: 'application/json',
-        addRandomSuffix: false,
+        addRandomSuffix: false, allowOverwrite: true,
       })
 
       await updateRun(run.id, {

@@ -32,7 +32,7 @@ async function setRunState(state: IgRunState): Promise<void> {
   await put(RUN_STATE_BLOB, JSON.stringify(state), {
     access: 'public',
     contentType: 'application/json',
-    addRandomSuffix: false,
+    addRandomSuffix: false, allowOverwrite: true,
   })
 }
 
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
         const blob = await put('instagram-intel.json', JSON.stringify(intel), {
           access: 'public',
           contentType: 'application/json',
-          addRandomSuffix: false,
+          addRandomSuffix: false, allowOverwrite: true,
         })
 
         const secs = Math.round((Date.now() - new Date(startedAt).getTime()) / 1000)

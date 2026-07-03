@@ -25,7 +25,7 @@ async function writeState(state: ScraperState): Promise<void> {
   await put(STATE_BLOB, JSON.stringify(state), {
     access: 'public',
     contentType: 'application/json',
-    addRandomSuffix: false,
+    addRandomSuffix: false, allowOverwrite: true,
   })
 }
 
@@ -91,7 +91,7 @@ export async function saveResult(scraperId: string, data: unknown): Promise<stri
   const blob = await put(`scraper/${scraperId}/result.json`, JSON.stringify(data), {
     access: 'public',
     contentType: 'application/json',
-    addRandomSuffix: false,
+    addRandomSuffix: false, allowOverwrite: true,
   })
   const state = await readState()
   state.resultUrls[scraperId] = blob.url

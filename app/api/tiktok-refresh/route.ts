@@ -34,7 +34,7 @@ async function readState(): Promise<RunState | null> {
 }
 
 async function writeState(state: RunState) {
-  await put(RUN_STATE_BLOB, JSON.stringify(state), { access: 'public', contentType: 'application/json', addRandomSuffix: false })
+  await put(RUN_STATE_BLOB, JSON.stringify(state), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true })
 }
 
 async function doScrape() {
@@ -42,7 +42,7 @@ async function doScrape() {
     const profiles = await scrapeTikTokProfiles(USERNAMES)
     profiles.forEach(p => { p.isYoi = p.username === YOI_USERNAME })
     const intel = buildIntel(profiles)
-    const blob = await put('tiktok-intel.json', JSON.stringify(intel), { access: 'public', contentType: 'application/json', addRandomSuffix: false })
+    const blob = await put('tiktok-intel.json', JSON.stringify(intel), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true })
     await writeState({ status: 'done', startedAt: new Date().toISOString(), blobUrl: blob.url })
   } catch (e) {
     await writeState({ status: 'failed', startedAt: new Date().toISOString(), error: String(e) })

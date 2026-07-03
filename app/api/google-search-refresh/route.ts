@@ -30,7 +30,7 @@ async function readState(): Promise<RunState | null> {
 }
 
 async function writeState(state: RunState) {
-  await put(RUN_STATE_BLOB, JSON.stringify(state), { access: 'public', contentType: 'application/json', addRandomSuffix: false })
+  await put(RUN_STATE_BLOB, JSON.stringify(state), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true })
 }
 
 async function doScrape() {
@@ -49,7 +49,7 @@ async function doScrape() {
       totalQueries: results.length,
       avgYoiPosition: results.filter(r => r.yoiPosition !== null).reduce((s, r) => s + (r.yoiPosition ?? 0), 0) / (results.filter(r => r.yoiPosition !== null).length || 1),
     }
-    const blob = await put('google-search-intel.json', JSON.stringify(intel), { access: 'public', contentType: 'application/json', addRandomSuffix: false })
+    const blob = await put('google-search-intel.json', JSON.stringify(intel), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true })
     await writeState({ status: 'done', startedAt: new Date().toISOString(), blobUrl: blob.url })
   } catch (e) {
     await writeState({ status: 'failed', startedAt: new Date().toISOString(), error: String(e) })

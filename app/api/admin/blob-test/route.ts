@@ -20,7 +20,7 @@ export async function GET() {
     await put('blob-test-delete-me.txt', 'test', {
       access: 'public',
       contentType: 'text/plain',
-      addRandomSuffix: false,
+      addRandomSuffix: false, allowOverwrite: true,
     })
     results.putOk = true
   } catch (e) {
