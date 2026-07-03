@@ -167,19 +167,16 @@ export default function Instagram() {
             <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.8rem', marginTop: 4 }}>
               {data.accounts.length} restaurants · {data.totalPosts.toLocaleString()} posts · Updated {updatedDate}
             </p>
-            {refreshStatus === 'running' && <p style={{ color: '#FCD34D', fontSize: '0.75rem', marginTop: 4 }}>⏳ Scraping… {elapsedSecs > 0 && elapsedSecs < 5400 ? `${Math.round(elapsedSecs / 60)}m elapsed` : 'starting'} (~20 min total)</p>}
-            {refreshStatus === 'done'    && <p style={{ color: '#6EE7B7', fontSize: '0.75rem', marginTop: 4 }}>✅ Data refreshed!</p>}
-            {refreshStatus === 'failed'  && <p style={{ color: '#FCA5A5', fontSize: '0.75rem', marginTop: 4 }}>❌ Refresh failed — try again</p>}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
             <div style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 10, padding: '10px 16px', textAlign: 'center' }}>
               <div style={{ color: '#FFD700', fontWeight: 800, fontSize: '1.6rem', lineHeight: 1 }}>#{yoiRank}</div>
               <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.7rem', marginTop: 2 }}>YOI Rank</div>
             </div>
-            <button onClick={startRefresh} disabled={refreshStatus === 'running' || refreshStatus === 'starting'}
-              style={{ background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.35)', color: '#fff', borderRadius: 8, padding: '7px 14px', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer', opacity: refreshStatus === 'running' || refreshStatus === 'starting' ? 0.6 : 1 }}>
-              {refreshStatus === 'starting' ? '⏳ Starting…' : refreshStatus === 'running' ? '⏳ Scraping…' : '🔄 Refresh Data'}
-            </button>
+            <div style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 8, padding: '7px 12px', fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)', textAlign: 'right', maxWidth: 200 }}>
+              💻 To refresh, run:<br />
+              <code style={{ color: '#FCD34D', fontSize: '0.68rem' }}>node scripts/scrape-instagram-local.mjs</code>
+            </div>
           </div>
         </div>
         {yoi && (
