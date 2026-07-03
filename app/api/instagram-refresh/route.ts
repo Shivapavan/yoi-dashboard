@@ -44,7 +44,11 @@ export async function POST(req: NextRequest) {
 
   const existing = await getRunState()
   if (existing?.status === 'running') {
-    return NextResponse.json({ status: 'already_running', startedAt: existing.startedAt })
+    const staleSecs = Math.round((Date.now() - new Date(existing.startedAt).getTime()) / 1000)
+    if (staleSecs < 5400) {
+      return NextResponse.json({ status: 'already_running', startedAt: existing.startedAt })
+    }
+    // stale run — allow a new one to start
   }
 
   const startedAt = new Date().toISOString()
@@ -89,7 +93,7 @@ export async function GET() {
   // auto-expire stale running state after 90 min
   const elapsedSecs = Math.round((Date.now() - new Date(run.startedAt).getTime()) / 1000)
   if (elapsedSecs > 5400) {
-    await setRunState({ status: 'failed', startedAt: run.startedAt, error: 'Timed out — run expired after 90 min' })
+    try { await setRunState({ status: 'failed', startedAt: run.startedAt, error: 'Timed out' }) } catch { /* ignore */ }
     return NextResponse.json({ status: 'failed', error: 'Timed out' })
   }
   return NextResponse.json({ status: 'running', elapsedSecs })
