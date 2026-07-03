@@ -513,14 +513,12 @@ export default function Instagram() {
                 <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.75rem', marginTop: 4 }}>
                   See who your competitors follow — find influencers, suppliers, and industry accounts they watch
                 </p>
-                {netStatus === 'running' && <p style={{ color: '#FCD34D', fontSize: '0.72rem', marginTop: 4 }}>⏳ Scraping following lists… (~10 min total)</p>}
-                {netStatus === 'done'    && <p style={{ color: '#6EE7B7', fontSize: '0.72rem', marginTop: 4 }}>✅ Done!</p>}
-                {netStatus === 'failed'  && <p style={{ color: '#FCA5A5', fontSize: '0.72rem', marginTop: 4 }}>❌ Failed — try again</p>}
+                {netStatus === 'done' && <p style={{ color: '#6EE7B7', fontSize: '0.72rem', marginTop: 4 }}>✅ Done!</p>}
               </div>
-              <button onClick={startNetworkScrape} disabled={netStatus === 'running' || netStatus === 'starting'}
-                style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', borderRadius: 8, padding: '7px 14px', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer', opacity: netStatus === 'running' || netStatus === 'starting' ? 0.5 : 1 }}>
-                {netStatus === 'starting' ? '⏳ Starting…' : netStatus === 'running' ? '⏳ Running…' : '🔄 Scrape Following Lists'}
-              </button>
+              <div style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 8, padding: '7px 12px', fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)', textAlign: 'right', maxWidth: 200 }}>
+                💻 To refresh, run:<br />
+                <code style={{ color: '#FCD34D', fontSize: '0.68rem' }}>node scripts/scrape-following-local.mjs</code>
+              </div>
             </div>
             {netSummary && (
               <div style={{ display: 'flex', gap: 10, marginTop: 14, flexWrap: 'wrap' }}>
@@ -540,7 +538,7 @@ export default function Instagram() {
 
           {!netSummary && netStatus === 'idle' && (
             <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: '0.85rem' }}>
-              No data yet. Click "Scrape Following Lists" to start. Takes ~10 minutes for all competitor accounts.
+              No data yet. Run <code>node scripts/scrape-following-local.mjs</code> from your Mac to scrape following lists (~10 min).
             </div>
           )}
 
