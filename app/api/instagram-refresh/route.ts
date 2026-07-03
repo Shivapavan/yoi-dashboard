@@ -1,20 +1,20 @@
-import { NextRequest, NextResponse, after } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { put, list } from '@vercel/blob'
 import { scrapeAccounts } from '@/lib/scraper/instagram'
 import { IG_ACCOUNTS, buildIntel } from '@/lib/scraper/instagram-intel'
+import { after } from 'next/server'
 
 export const maxDuration = 300
+
+const RUN_STATE_BLOB = 'instagram-run-state.json'
 
 interface IgRunState {
   status: 'running' | 'done' | 'failed'
   startedAt: string
   finishedAt?: string
   elapsedSecs?: number
-  blobUrl?: string
   error?: string
 }
-
-const RUN_STATE_BLOB = 'instagram-run-state.json'
 
 async function getRunState(): Promise<IgRunState | null> {
   try {
@@ -32,11 +32,11 @@ async function setRunState(state: IgRunState): Promise<void> {
   await put(RUN_STATE_BLOB, JSON.stringify(state), {
     access: 'public',
     contentType: 'application/json',
-    addRandomSuffix: false, allowOverwrite: true,
+    addRandomSuffix: false,
+    allowOverwrite: true,
   })
 }
 
-// POST — start a self-hosted scrape
 export async function POST(req: NextRequest) {
   void req
   try {
@@ -60,19 +60,18 @@ export async function POST(req: NextRequest) {
       try {
         const profiles = await scrapeAccounts(IG_ACCOUNTS, sessionId, 30)
         if (profiles.length === 0) {
-          try { await setRunState({ status: 'failed', startedAt, error: 'Session expired — 0 accounts returned. Refresh IG_SESSION_ID.' }) } catch { /* ignore */ }
+          try { await setRunState({ status: 'failed', startedAt, error: 'Session expired or rate limited — 0 accounts returned' }) } catch { /* ignore */ }
           return
         }
         const intel = buildIntel(profiles)
-
-        const blob = await put('instagram-intel.json', JSON.stringify(intel), {
+        await put('instagram-intel.json', JSON.stringify(intel), {
           access: 'public',
           contentType: 'application/json',
-          addRandomSuffix: false, allowOverwrite: true,
+          addRandomSuffix: false,
+          allowOverwrite: true,
         })
-
         const secs = Math.round((Date.now() - new Date(startedAt).getTime()) / 1000)
-        try { await setRunState({ status: 'done', startedAt, finishedAt: new Date().toISOString(), elapsedSecs: secs, blobUrl: blob.url }) } catch { /* ignore */ }
+        try { await setRunState({ status: 'done', startedAt, finishedAt: new Date().toISOString(), elapsedSecs: secs }) } catch { /* ignore */ }
       } catch (e) {
         try { await setRunState({ status: 'failed', startedAt, error: String(e) }) } catch { /* ignore */ }
       }
@@ -86,20 +85,12 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET — check scrape status
 export async function GET() {
   const run = await getRunState()
   if (!run) return NextResponse.json({ status: 'idle' })
+  if (run.status === 'done') return NextResponse.json({ status: 'done', elapsedSecs: run.elapsedSecs })
+  if (run.status === 'failed') return NextResponse.json({ status: 'failed', error: run.error })
 
-  if (run.status === 'done') {
-    return NextResponse.json({ status: 'done', elapsedSecs: run.elapsedSecs })
-  }
-
-  if (run.status === 'failed') {
-    return NextResponse.json({ status: 'failed', error: run.error })
-  }
-
-  // auto-expire stale running state after 90 min
   const elapsedSecs = Math.round((Date.now() - new Date(run.startedAt).getTime()) / 1000)
   if (elapsedSecs > 5400) {
     try { await setRunState({ status: 'failed', startedAt: run.startedAt, error: 'Timed out' }) } catch { /* ignore */ }
