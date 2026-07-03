@@ -11,6 +11,10 @@ function igHeaders(sessionId: string) {
     'Accept-Language': 'en-US,en;q=0.9',
     'Cookie': `sessionid=${sessionId}`,
     'Referer': 'https://www.instagram.com/',
+    'Origin': 'https://www.instagram.com',
+    'Sec-Fetch-Site': 'same-site',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Dest': 'empty',
   }
 }
 
