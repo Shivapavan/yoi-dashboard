@@ -1,6 +1,6 @@
 'use client'
 
-export type Tab = 'end-of-day' | 'sales-trend' | 'top-items' | 'item-trends' | 'catering' | 'visitors' | 'emp-shdt' | 'expenses' | 'containers' | 'reviews' | 'activity' | 'menu-editor' | 'events-space' | 'instagram' | 'scraper'
+export type Tab = 'end-of-day' | 'sales-trend' | 'top-items' | 'item-trends' | 'catering' | 'visitors' | 'emp-shdt' | 'expenses' | 'containers' | 'reviews' | 'activity' | 'menu-editor' | 'events-space' | 'instagram' | 'tiktok' | 'local-intel' | 'scraper'
 
 interface Props { active: Tab; onChange: (t: Tab) => void; isAdmin?: boolean; canEditMenu?: boolean; canScrape?: boolean }
 
@@ -17,6 +17,8 @@ const BASE_TABS: { id: Tab; label: string }[] = [
   { id: 'emp-shdt',     label: 'Staff' },
   { id: 'expenses',     label: 'Expenses' },
   { id: 'instagram',   label: 'Instagram' },
+  { id: 'tiktok',      label: 'TikTok' },
+  { id: 'local-intel', label: '🗺 Local Intel' },
 ]
 
 const MENU_TAB: { id: Tab; label: string } = { id: 'menu-editor', label: 'Menu' }

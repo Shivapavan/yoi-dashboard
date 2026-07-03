@@ -16,6 +16,8 @@ import Activity from './tabs/Activity'
 import MenuEditor from './tabs/MenuEditor'
 import EventsSpace from './tabs/EventsSpace'
 import Instagram from './tabs/Instagram'
+import TikTok from './tabs/TikTok'
+import LocalIntel from './tabs/LocalIntel'
 import Scraper from './tabs/Scraper'
 
 export default function Dashboard() {
@@ -52,6 +54,8 @@ export default function Dashboard() {
       {canEditMenu && <div className={tab === 'menu-editor' ? '' : 'hidden'}><MenuEditor /></div>}
       {isAdmin && <div className={tab === 'activity' ? '' : 'hidden'}><Activity /></div>}
       <div className={tab === 'instagram'    ? '' : 'hidden'}><Instagram /></div>
+      <div className={tab === 'tiktok'       ? '' : 'hidden'}><TikTok /></div>
+      <div className={tab === 'local-intel'  ? '' : 'hidden'}><LocalIntel /></div>
       <div className={tab === 'scraper'      ? '' : 'hidden'}><Scraper /></div>
     </div>
   )

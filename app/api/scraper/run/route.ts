@@ -1,9 +1,11 @@
 // POST /api/scraper/run  — trigger a scraper run
 // GET  /api/scraper/run?id=xxx  — get run status + results
 
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
+import { put } from '@vercel/blob'
 import { getConfigs, getActiveRun, startRun, updateRun, saveResult, getResult, getRuns } from '@/lib/scraper/runner'
 import { scrapeAccounts } from '@/lib/scraper/instagram'
+import { buildIntel } from '@/lib/scraper/instagram-intel'
 import { scrapeUrls } from '@/lib/scraper/http'
 import type { HttpScraperConfig } from '@/lib/scraper/http'
 
@@ -47,11 +49,19 @@ export async function POST(req: NextRequest) {
 
   const postLimit = (config.options?.postLimit as number) ?? 30
 
-  // Fire-and-forget background execution
   const doScrape = async () => {
     try {
       const profiles = await scrapeAccounts(config.targets, sessionId, postLimit)
       await saveResult(scraperId, profiles)
+
+      // Also write to instagram-intel.json so the Instagram tab stays in sync
+      const intel = buildIntel(profiles)
+      await put('instagram-intel.json', JSON.stringify(intel), {
+        access: 'public',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+      })
+
       await updateRun(run.id, {
         status: 'done',
         finishedAt: new Date().toISOString(),
@@ -62,15 +72,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // Use waitUntil if available (Vercel Edge / Node runtime with AsyncLocalStorage)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ctx = (req as any)[Symbol.for('vercel-request-context')]
-  if (ctx?.waitUntil) {
-    ctx.waitUntil(doScrape())
-  } else {
-    // Best-effort: start but don't await (works in long-running environments)
-    doScrape().catch(() => {})
-  }
+  after(doScrape)
 
   return NextResponse.json({ run, status: 'started', message: 'Scraping started in background' })
 }
