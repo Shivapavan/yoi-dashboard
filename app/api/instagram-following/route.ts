@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { put, list } from '@vercel/blob'
 import { scrapeFollowing, findCommonFollows } from '@/lib/scraper/instagram-following'
 
+export const maxDuration = 300
+
 // Blob key pattern: instagram-following-{username}.json
 // Summary blob: instagram-following-summary.json
 
@@ -100,7 +102,11 @@ async function doScrape(usernames: string[]) {
 // Body: { usernames?: string[] } — defaults to COMPETITOR_ACCOUNTS
 export async function POST(req: Request) {
   const state = await readState()
-  if (state?.status === 'running') return NextResponse.json({ status: 'already_running' })
+  if (state?.status === 'running') {
+    const staleSecs = Math.round((Date.now() - new Date(state.startedAt).getTime()) / 1000)
+    if (staleSecs < 900) return NextResponse.json({ status: 'already_running' })
+    // Stale — fall through and allow restart
+  }
 
   const body = await req.json().catch(() => ({})) as { usernames?: string[] }
   const targets = body.usernames ?? COMPETITOR_ACCOUNTS
@@ -128,6 +134,12 @@ export async function GET(req: Request) {
   if (!state) return NextResponse.json({ status: 'idle' })
 
   const elapsedSecs = Math.round((Date.now() - new Date(state.startedAt).getTime()) / 1000)
+
+  // Auto-expire runs stuck > 15 min
+  if (state.status === 'running' && elapsedSecs > 900) {
+    await writeState({ status: 'failed', startedAt: state.startedAt, error: 'Timed out — Instagram rate limited or session expired. Try again later.' })
+    return NextResponse.json({ status: 'failed', error: 'Timed out — Instagram rate limited or session expired. Try again later.' })
+  }
 
   if (state.status === 'done' && state.blobUrl) {
     const summaryRes = await fetch(state.blobUrl, { cache: 'no-store' })
