@@ -7,6 +7,7 @@ const PUBLIC_PATHS = [
   '/verify-mfa',
   '/change-password',
   '/menu',
+  '/dp700-exam',
   '/api/menu',
   '/api/auth/',
   '/api/cron/',
