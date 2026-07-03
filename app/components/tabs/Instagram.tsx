@@ -6,7 +6,7 @@ interface AccountSummary {
   account: string; name: string; followers: number
   posts: number; videos: number; topViews: number
   avgViews: number; avgLikes: number; engagementRate: number
-  isYoi: boolean; bestPostUrl: string; bestCaption: string
+  isYoi: boolean; isMarketives?: boolean; bestPostUrl: string; bestCaption: string
 }
 interface TopPost {
   views: number; url: string; account: string; name: string
@@ -67,7 +67,7 @@ export default function Instagram() {
   const [loading, setLoading] = useState(true)
   const [refreshStatus, setRefreshStatus] = useState<RefreshStatus>('idle')
   const [elapsedSecs, setElapsedSecs] = useState(0)
-  const [activeSection, setActiveSection] = useState<'leaderboard' | 'posts' | 'trends' | 'strategy' | 'network'>('leaderboard')
+  const [activeSection, setActiveSection] = useState<'leaderboard' | 'posts' | 'trends' | 'strategy' | 'network' | 'marketives'>('leaderboard')
 
   // Network (following scraper) state
   const [netStatus, setNetStatus] = useState<RefreshStatus>('idle')
@@ -198,12 +198,12 @@ export default function Instagram() {
 
       {/* Section Nav */}
       <div style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
-        {(['leaderboard', 'posts', 'trends', 'strategy', 'network'] as const).map(s => (
+        {(['leaderboard', 'posts', 'trends', 'strategy', 'network', 'marketives'] as const).map(s => (
           <button key={s} onClick={() => setActiveSection(s)}
             style={{ padding: '6px 16px', borderRadius: 999, fontSize: '0.82rem', fontWeight: 600, border: 'none', cursor: 'pointer',
               background: activeSection === s ? '#0D9488' : '#f1f5f9',
               color: activeSection === s ? '#fff' : '#64748b' }}>
-            {s === 'leaderboard' ? '🏆 Leaderboard' : s === 'posts' ? '🎬 Latest Reels' : s === 'trends' ? '📈 Trends' : s === 'strategy' ? '🎯 Strategy' : '🕵️ Network'}
+            {s === 'leaderboard' ? '🏆 Leaderboard' : s === 'posts' ? '🎬 Latest Reels' : s === 'trends' ? '📈 Trends' : s === 'strategy' ? '🎯 Strategy' : s === 'network' ? '🕵️ Network' : '🎯 Marketives'}
           </button>
         ))}
       </div>
@@ -211,7 +211,7 @@ export default function Instagram() {
       {/* ── Leaderboard ── */}
       {activeSection === 'leaderboard' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {data.accounts.map((acc, i) => {
+          {data.accounts.filter(a => !a.isMarketives).map((acc, i) => {
             const barPct = Math.round((acc.topViews / topViews) * 100)
             return (
               <div key={acc.account} style={{ background: acc.isYoi ? '#fffbeb' : '#fff', border: `1px solid ${acc.isYoi ? '#D97706' : '#e2e8f0'}`, borderRadius: 10, padding: '12px 16px', boxShadow: acc.isYoi ? '0 0 0 2px #D97706' : undefined }}>
@@ -669,6 +669,76 @@ export default function Instagram() {
           )}
         </div>
       )}
+      {/* ── Marketives ── */}
+      {activeSection === 'marketives' && (() => {
+        const mAcc = data.accounts.find(a => a.account === 'marketives')
+        const mPosts = data.topPosts.filter(p => p.account === 'marketives')
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {/* Profile card */}
+            <div style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)', borderRadius: 12, padding: 20, display: 'flex', alignItems: 'center', gap: 16 }}>
+              <div style={{ width: 60, height: 60, borderRadius: '50%', background: 'linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', flexShrink: 0 }}>
+                🎯
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 800, fontSize: '1.1rem', color: '#fff' }}>Marketives</div>
+                <a href="https://www.instagram.com/marketives/" target="_blank" rel="noopener"
+                  style={{ color: '#a5b4fc', fontSize: '0.78rem', textDecoration: 'none' }}>@marketives</a>
+                {mAcc && (
+                  <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.75rem', marginTop: 4 }}>
+                    {fmt(mAcc.followers)} followers · {mAcc.posts} posts scraped
+                  </div>
+                )}
+              </div>
+              {!mAcc && (
+                <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.78rem' }}>
+                  Run the scraper to load data
+                </div>
+              )}
+            </div>
+
+            {mPosts.length > 0 ? (
+              <>
+                <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#1e293b' }}>Recent Reels & Posts ({mPosts.length})</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 14 }}>
+                  {mPosts.map((post, i) => {
+                    const GRADS = ['linear-gradient(135deg,#f09433,#e6683c,#dc2743)', 'linear-gradient(135deg,#dc2743,#cc2366,#bc1888)', 'linear-gradient(135deg,#bc1888,#7C3AED,#0D9488)']
+                    return (
+                      <a key={post.url} href={post.url} target="_blank" rel="noopener"
+                        style={{ textDecoration: 'none', color: 'inherit', display: 'block', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}
+                        onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.1)')}
+                        onMouseLeave={e => (e.currentTarget.style.boxShadow = '')}>
+                        <div style={{ width: '100%', height: 110, background: GRADS[i % GRADS.length], display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+                          <span style={{ fontSize: '1.8rem' }}>🎬</span>
+                          <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.7rem' }}>▶ Open on Instagram</span>
+                        </div>
+                        <div style={{ padding: '10px 12px' }}>
+                          <div style={{ color: '#64748b', fontSize: '0.68rem', marginBottom: 4 }}>{post.date}</div>
+                          <div style={{ color: '#1e293b', fontSize: '0.78rem', lineHeight: 1.5, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as const }}>
+                            {post.caption || '(no caption)'}
+                          </div>
+                          <div style={{ display: 'flex', gap: 10, marginTop: 6, color: '#94a3b8', fontSize: '0.68rem' }}>
+                            <span>❤️ {post.likes.toLocaleString()}</span>
+                            {post.views > 0 && <span>▶ {fmt(post.views)} views</span>}
+                          </div>
+                        </div>
+                      </a>
+                    )
+                  })}
+                </div>
+              </>
+            ) : (
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 32, textAlign: 'center' }}>
+                <div style={{ fontSize: '2rem', marginBottom: 8 }}>📭</div>
+                <div style={{ color: '#64748b', fontSize: '0.85rem' }}>No Marketives posts yet.</div>
+                <div style={{ color: '#94a3b8', fontSize: '0.75rem', marginTop: 6 }}>
+                  Run <code style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>node scripts/scrape-instagram-local.mjs</code> to load their reels.
+                </div>
+              </div>
+            )}
+          </div>
+        )
+      })()}
     </div>
   )
 }

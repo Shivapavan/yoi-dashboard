@@ -33,8 +33,9 @@ const IG_ACCOUNTS = [
   'spicyvihaarfrisco', 'desichowrastha', 'nh7dhaba', 'yumofindia_mckinney',
   'tantraindianbistro', 'bhoomifoodtruck', 'babai_bandi',
   'hyderabadwala23', 'hyderabadhouseprosper', 'golconda_xpress_food_truck',
-  'desi.district', 'dumngrill_melissa', 'jataraindiankitchen',
+  'desi.district', 'dumngrill_melissa', 'dumngrill_frisco', 'jataraindiankitchen',
   '_nagskitchen_', 'premaskitchen', 'aaha_kitchen_celina', 'saibhavancarrollton',
+  'rrsalembiryani', 'marketives',
 ]
 
 const DISPLAY_NAMES = {
@@ -47,9 +48,11 @@ const DISPLAY_NAMES = {
   'bhoomifoodtruck': 'Bhoomi Food Truck', 'babai_bandi': 'Babai Bandi',
   'hyderabadwala23': 'Hyderabad Wala', 'hyderabadhouseprosper': 'Hyderabad House Prosper',
   'golconda_xpress_food_truck': 'Golconda Xpress', 'desi.district': 'Desi District',
-  'dumngrill_melissa': 'Dum N Grill', 'jataraindiankitchen': 'Jatara Indian Kitchen',
+  'dumngrill_melissa': 'Dum N Grill (Melissa)', 'dumngrill_frisco': 'Dum N Grill (Frisco)',
+  'jataraindiankitchen': 'Jatara Indian Kitchen',
   '_nagskitchen_': 'Nags Kitchen', 'premaskitchen': "Prema's Kitchen",
   'aaha_kitchen_celina': 'Aaha Kitchen', 'saibhavancarrollton': 'Sai Bhavan',
+  'rrsalembiryani': 'RR Salem Biryani', 'marketives': 'Marketives',
 }
 
 const TOPICS = {
@@ -193,6 +196,7 @@ function buildIntel(profiles) {
       avgLikes,
       engagementRate,
       isYoi: p.username === 'yumofindia_mckinney',
+      isMarketives: p.username === 'marketives',
       bestPostUrl: best?.url ?? '',
       bestCaption: (best?.caption ?? '').slice(0, 100).replace(/\n/g, ' '),
     }
