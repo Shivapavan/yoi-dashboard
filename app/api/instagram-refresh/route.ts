@@ -59,6 +59,10 @@ export async function POST(req: NextRequest) {
     const doScrape = async () => {
       try {
         const profiles = await scrapeAccounts(IG_ACCOUNTS, sessionId, 30)
+        if (profiles.length === 0) {
+          try { await setRunState({ status: 'failed', startedAt, error: 'Session expired — 0 accounts returned. Refresh IG_SESSION_ID.' }) } catch { /* ignore */ }
+          return
+        }
         const intel = buildIntel(profiles)
 
         const blob = await put('instagram-intel.json', JSON.stringify(intel), {
