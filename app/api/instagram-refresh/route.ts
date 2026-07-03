@@ -37,44 +37,47 @@ async function setRunState(state: IgRunState): Promise<void> {
 // POST — start a self-hosted scrape
 export async function POST(req: NextRequest) {
   void req
-  const sessionId = process.env.IG_SESSION_ID
-  if (!sessionId) {
-    return NextResponse.json({ error: 'IG_SESSION_ID not configured' }, { status: 500 })
-  }
-
-  const existing = await getRunState()
-  if (existing?.status === 'running') {
-    const staleSecs = Math.round((Date.now() - new Date(existing.startedAt).getTime()) / 1000)
-    if (staleSecs < 5400) {
-      return NextResponse.json({ status: 'already_running', startedAt: existing.startedAt })
+  try {
+    const sessionId = process.env.IG_SESSION_ID
+    if (!sessionId) {
+      return NextResponse.json({ error: 'IG_SESSION_ID not configured' }, { status: 500 })
     }
-    // stale run — allow a new one to start
-  }
 
-  const startedAt = new Date().toISOString()
-  await setRunState({ status: 'running', startedAt })
-
-  const doScrape = async () => {
-    try {
-      const profiles = await scrapeAccounts(IG_ACCOUNTS, sessionId, 30)
-      const intel = buildIntel(profiles)
-
-      const blob = await put('instagram-intel.json', JSON.stringify(intel), {
-        access: 'public',
-        contentType: 'application/json',
-        addRandomSuffix: false,
-      })
-
-      const secs = Math.round((Date.now() - new Date(startedAt).getTime()) / 1000)
-      await setRunState({ status: 'done', startedAt, finishedAt: new Date().toISOString(), elapsedSecs: secs, blobUrl: blob.url })
-    } catch (e) {
-      await setRunState({ status: 'failed', startedAt, error: String(e) })
+    const existing = await getRunState()
+    if (existing?.status === 'running') {
+      const staleSecs = Math.round((Date.now() - new Date(existing.startedAt).getTime()) / 1000)
+      if (staleSecs < 5400) {
+        return NextResponse.json({ status: 'already_running', startedAt: existing.startedAt })
+      }
     }
+
+    const startedAt = new Date().toISOString()
+    try { await setRunState({ status: 'running', startedAt }) } catch { /* non-fatal */ }
+
+    const doScrape = async () => {
+      try {
+        const profiles = await scrapeAccounts(IG_ACCOUNTS, sessionId, 30)
+        const intel = buildIntel(profiles)
+
+        const blob = await put('instagram-intel.json', JSON.stringify(intel), {
+          access: 'public',
+          contentType: 'application/json',
+          addRandomSuffix: false,
+        })
+
+        const secs = Math.round((Date.now() - new Date(startedAt).getTime()) / 1000)
+        try { await setRunState({ status: 'done', startedAt, finishedAt: new Date().toISOString(), elapsedSecs: secs, blobUrl: blob.url }) } catch { /* ignore */ }
+      } catch (e) {
+        try { await setRunState({ status: 'failed', startedAt, error: String(e) }) } catch { /* ignore */ }
+      }
+    }
+
+    try { after(doScrape) } catch { doScrape().catch(() => {}) }
+
+    return NextResponse.json({ status: 'started' })
+  } catch (e) {
+    return NextResponse.json({ error: String(e) }, { status: 500 })
   }
-
-  after(doScrape)
-
-  return NextResponse.json({ status: 'started' })
 }
 
 // GET — check scrape status
