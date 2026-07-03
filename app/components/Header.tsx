@@ -63,6 +63,18 @@ export default function Header() {
             {username}
           </span>
         )}
+        <a
+          href="/dp700-exam"
+          className="text-xs font-semibold px-3 py-1.5 rounded-full"
+          style={{
+            backgroundColor: 'rgba(99,102,241,0.25)',
+            color: '#C7D2FE',
+            border: '1px solid rgba(129,140,248,0.4)',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
+          DP-700
+        </a>
         {isAdmin && (
           <a
             href="/admin"
