@@ -3,6 +3,8 @@ import { put, list } from '@vercel/blob'
 import { scrapeAccounts } from '@/lib/scraper/instagram'
 import { IG_ACCOUNTS, buildIntel } from '@/lib/scraper/instagram-intel'
 
+export const maxDuration = 300
+
 interface IgRunState {
   status: 'running' | 'done' | 'failed'
   startedAt: string
