@@ -179,15 +179,15 @@ function buildIntel(profiles: IgProfile[]) {
   const allPosts = profiles.flatMap(p => p.posts)
 
   const topPosts = allPosts
-    .filter(p => p.views > 0)
-    .sort((a, b) => b.views - a.views)
-    .slice(0, 10)
+    .filter(p => p.type === 'video' || p.type === 'carousel')
+    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+    .slice(0, 20)
     .map(p => ({
       views: p.views,
       url: p.url,
       account: p.username,
       name: DISPLAY_NAMES[p.username] ?? p.username,
-      caption: p.caption.slice(0, 140).replace(/\n/g, ' '),
+      caption: p.caption.slice(0, 200).replace(/\n/g, ' '),
       date: p.timestamp.slice(0, 10),
       likes: p.likes,
     }))

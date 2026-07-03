@@ -193,7 +193,7 @@ export default function Instagram() {
               color: activeSection === s ? '#fff' : '#64748b',
             }}
           >
-            {s === 'leaderboard' ? '🏆 Leaderboard' : s === 'posts' ? '🔥 Top Reels' : '📈 Trends'}
+            {s === 'leaderboard' ? '🏆 Leaderboard' : s === 'posts' ? '🎬 Latest Reels' : '📈 Trends'}
           </button>
         ))}
       </div>
@@ -279,17 +279,18 @@ export default function Instagram() {
                 <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.7rem' }}>▶ Open on Instagram</span>
               </div>
               <div style={{ padding: '10px 12px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <span style={{ color: '#D97706', fontWeight: 700, fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>#{i + 1} Most Viewed</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
+                  <span style={{ color: '#7C3AED', fontSize: '0.75rem', fontWeight: 700 }}>{post.name}</span>
                   <span style={{ color: '#64748b', fontSize: '0.68rem' }}>{post.date}</span>
                 </div>
-                <div style={{ fontWeight: 800, fontSize: '1.3rem', color: '#0D9488', marginTop: 2 }}>{fmt(post.views)}</div>
-                <div style={{ color: '#7C3AED', fontSize: '0.75rem', fontWeight: 600 }}>{post.name}</div>
-                <div style={{ color: '#64748b', fontSize: '0.75rem', marginTop: 4, lineHeight: 1.4,
-                  overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as const }}>
-                  {post.caption}
+                <div style={{ color: '#1e293b', fontSize: '0.78rem', lineHeight: 1.5,
+                  overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as const }}>
+                  {post.caption || '(no caption)'}
                 </div>
-                <div style={{ color: '#94a3b8', fontSize: '0.68rem', marginTop: 4 }}>❤️ {post.likes} likes</div>
+                <div style={{ display: 'flex', gap: 10, marginTop: 6, color: '#94a3b8', fontSize: '0.68rem' }}>
+                  <span>❤️ {post.likes.toLocaleString()}</span>
+                  {post.views > 0 && <span>▶ {fmt(post.views)} views</span>}
+                </div>
               </div>
             </a>
             )
