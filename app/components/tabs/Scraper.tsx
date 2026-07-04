@@ -108,8 +108,12 @@ function NewScraperForm({ onSave }: { onSave: () => void }) {
 function ScraperCard({ scraper, onRefresh }: { scraper: EnrichedScraper; onRefresh: () => void }) {
   const [running, setRunning] = useState(scraper.lastRun?.status === 'running')
   const [pollCount, setPollCount] = useState(0)
+  const [editing, setEditing] = useState(false)
+  const [editName, setEditName] = useState(scraper.name)
+  const [editTargets, setEditTargets] = useState(scraper.targets.join('\n'))
+  const [editSchedule, setEditSchedule] = useState(scraper.schedule)
+  const [saving, setSaving] = useState(false)
 
-  // Poll while running
   useEffect(() => {
     if (!running) return
     const id = setInterval(async () => {
@@ -139,8 +143,64 @@ function ScraperCard({ scraper, onRefresh }: { scraper: EnrichedScraper; onRefre
     onRefresh()
   }
 
+  const saveEdit = async () => {
+    const targets = editTargets.split('\n').map(t => t.trim()).filter(Boolean)
+    if (!editName.trim() || targets.length === 0) return
+    setSaving(true)
+    await fetch('/api/scraper', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: scraper.id, name: editName.trim(), type: scraper.type, targets, schedule: editSchedule }),
+    })
+    setSaving(false)
+    setEditing(false)
+    onRefresh()
+  }
+
   const status = running ? 'running' : (scraper.lastRun?.status ?? 'idle')
   const statusColor = STATUS_COLORS[status] ?? '#94a3b8'
+  const isInstagram = scraper.type === 'instagram'
+
+  if (editing) {
+    return (
+      <div style={{ background: '#fff', border: '2px solid #0D9488', borderRadius: 12, padding: 18 }}>
+        <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#1e293b', marginBottom: 14 }}>✏️ Edit Scraper</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+          <div>
+            <label style={{ fontSize: '0.75rem', color: '#64748b', display: 'block', marginBottom: 4 }}>Name</label>
+            <input value={editName} onChange={e => setEditName(e.target.value)}
+              style={{ width: '100%', border: '1px solid #e2e8f0', borderRadius: 8, padding: '7px 10px', fontSize: '0.85rem' }} />
+          </div>
+          <div>
+            <label style={{ fontSize: '0.75rem', color: '#64748b', display: 'block', marginBottom: 4 }}>Schedule</label>
+            <select value={editSchedule} onChange={e => setEditSchedule(e.target.value as typeof editSchedule)}
+              style={{ width: '100%', border: '1px solid #e2e8f0', borderRadius: 8, padding: '7px 10px', fontSize: '0.85rem' }}>
+              <option value="manual">Manual only</option>
+              <option value="weekly">Weekly</option>
+              <option value="daily">Daily</option>
+            </select>
+          </div>
+        </div>
+        <div style={{ marginBottom: 12 }}>
+          <label style={{ fontSize: '0.75rem', color: '#64748b', display: 'block', marginBottom: 4 }}>
+            {isInstagram ? 'Usernames (one per line, no @)' : 'URLs (one per line)'}
+          </label>
+          <textarea value={editTargets} onChange={e => setEditTargets(e.target.value)} rows={8}
+            style={{ width: '100%', border: '1px solid #e2e8f0', borderRadius: 8, padding: '7px 10px', fontSize: '0.82rem', fontFamily: 'monospace', resize: 'vertical' }} />
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button onClick={saveEdit} disabled={saving}
+            style={{ background: '#0D9488', color: '#fff', border: 'none', borderRadius: 8, padding: '7px 16px', fontWeight: 600, fontSize: '0.82rem', cursor: 'pointer', opacity: saving ? 0.6 : 1 }}>
+            {saving ? 'Saving…' : '💾 Save'}
+          </button>
+          <button onClick={() => { setEditing(false); setEditName(scraper.name); setEditTargets(scraper.targets.join('\n')); setEditSchedule(scraper.schedule) }}
+            style={{ background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: 8, padding: '7px 16px', fontWeight: 600, fontSize: '0.82rem', cursor: 'pointer' }}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 18 }}>
@@ -162,12 +222,20 @@ function ScraperCard({ scraper, onRefresh }: { scraper: EnrichedScraper; onRefre
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          <button
-            onClick={runScraper} disabled={running}
-            style={{ background: running ? '#f1f5f9' : '#0D9488', color: running ? '#94a3b8' : '#fff', border: 'none', borderRadius: 8, padding: '6px 14px', fontWeight: 600, fontSize: '0.78rem', cursor: running ? 'not-allowed' : 'pointer' }}
-          >
-            {running ? `Running… (${pollCount * 15}s)` : '▶ Run Now'}
+          <button onClick={() => setEditing(true)}
+            style={{ background: '#f8fafc', color: '#475569', border: '1px solid #e2e8f0', borderRadius: 8, padding: '6px 12px', fontWeight: 600, fontSize: '0.78rem', cursor: 'pointer' }}>
+            ✏️ Edit
           </button>
+          {isInstagram ? (
+            <div style={{ background: '#fef3c7', border: '1px solid #fcd34d', borderRadius: 8, padding: '6px 12px', fontSize: '0.72rem', color: '#92400e', maxWidth: 200 }}>
+              💻 Run locally: <code style={{ fontSize: '0.68rem' }}>node scripts/scrape-instagram-local.mjs</code>
+            </div>
+          ) : (
+            <button onClick={runScraper} disabled={running}
+              style={{ background: running ? '#f1f5f9' : '#0D9488', color: running ? '#94a3b8' : '#fff', border: 'none', borderRadius: 8, padding: '6px 14px', fontWeight: 600, fontSize: '0.78rem', cursor: running ? 'not-allowed' : 'pointer' }}>
+              {running ? `Running… (${pollCount * 15}s)` : '▶ Run Now'}
+            </button>
+          )}
           <button onClick={deleteScraper}
             style={{ background: '#fff', color: '#ef4444', border: '1px solid #fecaca', borderRadius: 8, padding: '6px 10px', fontSize: '0.78rem', cursor: 'pointer' }}>
             🗑
@@ -175,13 +243,12 @@ function ScraperCard({ scraper, onRefresh }: { scraper: EnrichedScraper; onRefre
         </div>
       </div>
 
-      {/* Targets preview */}
       <div style={{ background: '#f8fafc', borderRadius: 8, padding: '8px 12px' }}>
         <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginBottom: 4 }}>TARGETS</div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {scraper.targets.slice(0, 8).map(t => (
             <span key={t} style={{ background: '#e2e8f0', color: '#475569', fontSize: '0.72rem', padding: '2px 8px', borderRadius: 999 }}>
-              {scraper.type === 'instagram' ? `@${t}` : t.replace('https://', '').slice(0, 30)}
+              {isInstagram ? `@${t}` : t.replace('https://', '').slice(0, 30)}
             </span>
           ))}
           {scraper.targets.length > 8 && (
@@ -190,7 +257,6 @@ function ScraperCard({ scraper, onRefresh }: { scraper: EnrichedScraper; onRefre
         </div>
       </div>
 
-      {/* Result preview */}
       {scraper.hasResult && (
         <div style={{ marginTop: 8, display: 'flex', gap: 8, alignItems: 'center' }}>
           <span style={{ color: '#10b981', fontSize: '0.75rem' }}>✓ Results available</span>
