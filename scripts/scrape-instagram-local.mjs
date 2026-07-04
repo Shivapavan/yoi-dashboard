@@ -35,7 +35,7 @@ const IG_ACCOUNTS = [
   'hyderabadwala23', 'hyderabadhouseprosper', 'golconda_xpress_food_truck',
   'desi.district', 'dumngrill_melissa', 'dumngrill_frisco', 'jataraindiankitchen',
   '_nagskitchen_', 'premaskitchen', 'aaha_kitchen_celina', 'saibhavancarrollton',
-  'rrsalembiryani', 'marketives',
+  'salemrrbiryani', 'marketives',
 ]
 
 const DISPLAY_NAMES = {
@@ -52,7 +52,7 @@ const DISPLAY_NAMES = {
   'jataraindiankitchen': 'Jatara Indian Kitchen',
   '_nagskitchen_': 'Nags Kitchen', 'premaskitchen': "Prema's Kitchen",
   'aaha_kitchen_celina': 'Aaha Kitchen', 'saibhavancarrollton': 'Sai Bhavan',
-  'rrsalembiryani': 'RR Salem Biryani', 'marketives': 'Marketives',
+  'salemrrbiryani': 'Salem RR Biryani', 'marketives': 'Marketives',
 }
 
 const TOPICS = {
