@@ -1,40 +1,40 @@
 {
-  "lastUpdated": "2026-07-04 10:03 AM CDT",
-  "businessDay": "2026-07-04",
-  "businessDayWindow": "2026-07-04 04:00AM – 2026-07-05 03:59AM CDT",
+  "lastUpdated": "2026-07-05 10:16 AM CDT",
+  "businessDay": "2026-07-05",
+  "businessDayWindow": "2026-07-05 04:00AM – 2026-07-06 03:59AM CDT",
   "eod": {
-    "grossSales": 49.7,
-    "netSales": 45.92,
-    "taxes": 3.78,
+    "grossSales": 10.8,
+    "netSales": 9.98,
+    "taxes": 0.82,
     "voids": 0,
     "cashPayments": 0,
-    "creditCardPayments": 49.7,
+    "creditCardPayments": 10.8,
     "discounts": 0,
-    "openTickets": 49.7
+    "openTickets": 10.8
   },
   "processingDetail": {
-    "windowLabel": "2026-07-03 batch (settled 2026-07-04)",
+    "windowLabel": "2026-07-04 batch (settled 2026-07-05)",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 3244.32,
+        "amount": 2795.36,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 1468.23
+        "amount": 1836.39
       },
       {
         "label": "Mastercard",
-        "amount": 1153.03
+        "amount": 397.65
       },
       {
         "label": "Amex",
-        "amount": 496.28
+        "amount": 359.57
       },
       {
         "label": "Discover",
-        "amount": 126.78
+        "amount": 201.75
       },
       {
         "label": "Debit",
@@ -8179,7 +8179,59 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 49.7
+      "openTickets": 49.7,
+      "cardBreakdown": {
+        "windowLabel": "2026-07-04 batch (settled 2026-07-05)",
+        "rows": [
+          {
+            "label": "Total Sales",
+            "amount": 2795.36,
+            "bold": true
+          },
+          {
+            "label": "Visa",
+            "amount": 1836.39
+          },
+          {
+            "label": "Mastercard",
+            "amount": 397.65
+          },
+          {
+            "label": "Amex",
+            "amount": 359.57
+          },
+          {
+            "label": "Discover",
+            "amount": 201.75
+          },
+          {
+            "label": "Debit",
+            "amount": 0
+          },
+          {
+            "label": "EBT",
+            "amount": 0
+          },
+          {
+            "label": "Returns",
+            "amount": 0
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-05",
+      "grossSales": 10.8,
+      "netSales": 9.98,
+      "taxes": 0.82,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 10.8,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "openTickets": 10.8
     }
   ],
   "itemsByDay": [
@@ -83761,6 +83813,21 @@
           "revenue": 0.99
         }
       ]
+    },
+    {
+      "date": "2026-07-05",
+      "items": [
+        {
+          "name": "Idly",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -83785,5 +83852,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-07-04 10:03 AM CDT"
+  "disputesScannedAt": "2026-07-05 10:16 AM CDT"
 }
