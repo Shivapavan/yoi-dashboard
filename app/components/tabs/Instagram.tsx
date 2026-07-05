@@ -20,6 +20,7 @@ interface Insights {
   dayCounts: Record<string, number>
   postsByDay: Record<string, number>
   yoiByDay: Record<string, number>
+  postsByDayAndAccount?: Record<string, { name: string; count: number }[]>
   engagementRanking: AccountSummary[]
   yoiPostsRecent: number; avgCompetitorPostsRecent: number
   sweetSpotCaptionLength: number; yoiAvgCaptionLength: number
@@ -314,19 +315,51 @@ export default function Instagram() {
           {/* Engagement Rate Ranking */}
           {ins?.engagementRanking && (
             <div style={{ gridColumn: '1 / -1', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
-              <h3 style={{ fontWeight: 700, fontSize: '0.9rem', color: '#1e293b', marginBottom: 4 }}>⚡ Engagement Rate (Views ÷ Followers)</h3>
-              <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: 14 }}>Who punches above their weight — regardless of follower count</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>
-                {ins.engagementRanking.map((a, i) => (
-                  <div key={a.account} style={{ background: a.isYoi ? '#fffbeb' : '#f8fafc', border: `1px solid ${a.isYoi ? '#D97706' : '#e2e8f0'}`, borderRadius: 8, padding: '10px 14px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontWeight: 700, fontSize: '0.8rem', color: '#1e293b' }}>#{i + 1} {a.name}</span>
-                      {a.isYoi && <span style={{ background: '#D97706', color: '#fff', fontSize: '0.6rem', fontWeight: 700, padding: '1px 5px', borderRadius: 4 }}>YOU</span>}
+              <h3 style={{ fontWeight: 700, fontSize: '0.9rem', color: '#1e293b', marginBottom: 4 }}>⚡ Engagement Rate (Avg Views ÷ Followers)</h3>
+              <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: 10 }}>Who punches above their weight — regardless of follower count</p>
+
+              {/* Explanation banner */}
+              <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 8, padding: '10px 14px', marginBottom: 14 }}>
+                <div style={{ fontWeight: 700, fontSize: '0.78rem', color: '#1d4ed8', marginBottom: 4 }}>💡 Why can engagement be 1000%+?</div>
+                <div style={{ fontSize: '0.73rem', color: '#1e40af', lineHeight: 1.55 }}>
+                  Instagram's algorithm distributes Reels to the <strong>Explore page and non-followers' feeds</strong> based on watch time, saves, and shares — not follower count.
+                  A restaurant with 176 followers getting 16K views means <strong>the algorithm is pushing their content to thousands of people who don't follow them</strong>.
+                  This is the single biggest opportunity: great Reels reach far beyond your followers.
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 10 }}>
+                {ins.engagementRanking.map((a, i) => {
+                  const videoRate = a.posts > 0 ? Math.round((a.videos / a.posts) * 100) : 0
+                  const isViral = a.engagementRate > 500
+                  const whatTheyDo = a.isYoi ? null : [
+                    videoRate >= 80 ? `Posts ${videoRate}% Reels (heavy video)` : videoRate >= 50 ? `${videoRate}% posts are Reels` : 'Mostly static photos',
+                    isViral ? 'Reels reaching the Explore page' : 'Moderate algorithmic reach',
+                    a.avgViews > 10000 ? 'High-production food visuals' : a.avgViews > 2000 ? 'Consistent local content' : 'Building momentum',
+                  ].join(' · ')
+                  const yoiTip = a.isYoi ? null : isViral
+                    ? `Copy their video style — same food type, similar hooks`
+                    : `Study their hashtag strategy and posting schedule`
+                  return (
+                    <div key={a.account} style={{ background: a.isYoi ? '#fffbeb' : '#f8fafc', border: `1px solid ${a.isYoi ? '#D97706' : isViral ? '#0D9488' : '#e2e8f0'}`, borderRadius: 8, padding: '10px 14px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontWeight: 700, fontSize: '0.8rem', color: '#1e293b' }}>#{i + 1} {a.name}</span>
+                        {a.isYoi && <span style={{ background: '#D97706', color: '#fff', fontSize: '0.6rem', fontWeight: 700, padding: '1px 5px', borderRadius: 4 }}>YOU</span>}
+                        {isViral && !a.isYoi && <span style={{ background: '#0D9488', color: '#fff', fontSize: '0.6rem', fontWeight: 700, padding: '1px 5px', borderRadius: 4 }}>🚀 VIRAL</span>}
+                      </div>
+                      <div style={{ fontWeight: 800, fontSize: '1.3rem', color: a.isYoi ? '#D97706' : '#0D9488', marginTop: 2 }}>{a.engagementRate}%</div>
+                      <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: whatTheyDo ? 6 : 0 }}>
+                        {fmt(a.followers)} followers · avg {fmt(a.avgViews)} views · {a.videos}/{a.posts} Reels
+                      </div>
+                      {whatTheyDo && (
+                        <div style={{ fontSize: '0.68rem', color: '#475569', borderTop: '1px solid #e2e8f0', paddingTop: 6, lineHeight: 1.4 }}>
+                          <div style={{ color: '#64748b' }}>📌 {whatTheyDo}</div>
+                          <div style={{ color: '#0D9488', fontWeight: 600, marginTop: 3 }}>→ {yoiTip}</div>
+                        </div>
+                      )}
                     </div>
-                    <div style={{ fontWeight: 800, fontSize: '1.3rem', color: a.isYoi ? '#D97706' : '#0D9488', marginTop: 2 }}>{a.engagementRate}%</div>
-                    <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>{fmt(a.followers)} followers · avg {fmt(a.avgViews)} views</div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           )}
@@ -408,21 +441,31 @@ export default function Instagram() {
               <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
                 <h3 style={{ fontWeight: 700, fontSize: '0.9rem', color: '#1e293b', marginBottom: 4 }}>⏰ Best Day to Post</h3>
                 <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: 14 }}>Based on competitor top-performing reels</p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {DAY_ORDER.map(day => {
                     const compCount = ins.postsByDay[day] ?? 0
                     const yoiCount = ins.yoiByDay[day] ?? 0
                     const maxCount = Math.max(...DAY_ORDER.map(d => ins.postsByDay[d] ?? 0), 1)
                     const isHot = day === ins.bestDay
+                    const dayComps = (ins.postsByDayAndAccount?.[day] ?? []).slice(0, 6)
                     return (
                       <div key={day}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: isHot ? '#D97706' : '#64748b', fontWeight: isHot ? 700 : 400, marginBottom: 2 }}>
                           <span>{isHot ? '🔥 ' : ''}{day}</span>
-                          <span>{compCount} competitor posts · YOI: {yoiCount}</span>
+                          <span style={{ color: isHot ? '#D97706' : '#64748b' }}>{compCount} competitor · YOI: {yoiCount}</span>
                         </div>
-                        <div style={{ background: '#f1f5f9', borderRadius: 4, height: 7 }}>
+                        <div style={{ background: '#f1f5f9', borderRadius: 4, height: 7, marginBottom: dayComps.length ? 4 : 0 }}>
                           <div style={{ width: `${Math.round((compCount / maxCount) * 100)}%`, height: 7, borderRadius: 4, background: isHot ? '#D97706' : '#0D9488', opacity: 0.7 }} />
                         </div>
+                        {dayComps.length > 0 && (
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                            {dayComps.map(({ name, count }) => (
+                              <span key={name} style={{ fontSize: '0.62rem', background: isHot ? '#fef3c7' : '#f1f5f9', border: `1px solid ${isHot ? '#fde68a' : '#e2e8f0'}`, borderRadius: 4, padding: '1px 5px', color: isHot ? '#92400e' : '#475569' }}>
+                                {name} ×{count}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     )
                   })}

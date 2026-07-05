@@ -140,6 +140,21 @@ export function buildIntel(profiles: IgProfile[]) {
   for (const p of competitorPosts) postsByDay[DAY_NAMES[new Date(p.timestamp).getUTCDay()]]++
   for (const p of yoi?.posts ?? []) yoiByDay[DAY_NAMES[new Date(p.timestamp).getUTCDay()]]++
 
+  // Per-competitor post counts by day (from all posts, not just top)
+  const dayAccountCounts: Record<string, Map<string, number>> = {}
+  for (const p of competitorPosts) {
+    const day = DAY_NAMES[new Date(p.timestamp).getUTCDay()]
+    if (!dayAccountCounts[day]) dayAccountCounts[day] = new Map()
+    const name = DISPLAY_NAMES[p.username] ?? p.username
+    dayAccountCounts[day].set(name, (dayAccountCounts[day].get(name) ?? 0) + 1)
+  }
+  const postsByDayAndAccount: Record<string, { name: string; count: number }[]> = {}
+  for (const [day, map] of Object.entries(dayAccountCounts)) {
+    postsByDayAndAccount[day] = Array.from(map.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }))
+  }
+
   const topCaptionLengths = topTier.slice(0, 20).map(p => p.caption.length).filter(n => n > 0)
   const sweetSpotLength = Math.round(topCaptionLengths.reduce((a, b) => a + b, 0) / (topCaptionLengths.length || 1))
   const yoiAvgCaptionLength = Math.round((yoi?.posts ?? []).map(p => p.caption.length).reduce((a, b) => a + b, 0) / ((yoi?.posts.length) || 1))
@@ -214,6 +229,7 @@ export function buildIntel(profiles: IgProfile[]) {
     topics,
     insights: {
       bestDay, bestHour, bestHourLabel, dayCounts, postsByDay, yoiByDay,
+      postsByDayAndAccount,
       engagementRanking, yoiPostsRecent: yoiRecent,
       avgCompetitorPostsRecent: avgCompetitorRecent,
       sweetSpotCaptionLength: sweetSpotLength,

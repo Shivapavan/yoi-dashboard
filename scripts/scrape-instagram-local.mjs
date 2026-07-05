@@ -35,7 +35,7 @@ const IG_ACCOUNTS = [
   'hyderabadwala23', 'hyderabadhouseprosper', 'golconda_xpress_food_truck',
   'desi.district', 'dumngrill_melissa', 'dumngrill_frisco', 'jataraindiankitchen',
   '_nagskitchen_', 'premaskitchen', 'aaha_kitchen_celina', 'saibhavancarrollton',
-  'salemrrbiryani', 'marketives',
+  'salemrrbiryani', 'marketives', 'kumbhakarna.mckinney',
 ]
 
 const DISPLAY_NAMES = {
@@ -53,6 +53,7 @@ const DISPLAY_NAMES = {
   '_nagskitchen_': 'Nags Kitchen', 'premaskitchen': "Prema's Kitchen",
   'aaha_kitchen_celina': 'Aaha Kitchen', 'saibhavancarrollton': 'Sai Bhavan',
   'salemrrbiryani': 'Salem RR Biryani', 'marketives': 'Marketives',
+  'kumbhakarna.mckinney': 'Kumbhakarna Indian Cuisine',
 }
 
 const TOPICS = {
@@ -249,6 +250,20 @@ function buildIntel(profiles) {
   for (const p of competitorPosts) postsByDay[DAY_NAMES[new Date(p.timestamp).getUTCDay()]]++
   for (const p of yoi?.posts ?? []) yoiByDay[DAY_NAMES[new Date(p.timestamp).getUTCDay()]]++
 
+  const dayAccountCounts = {}
+  for (const p of competitorPosts) {
+    const day = DAY_NAMES[new Date(p.timestamp).getUTCDay()]
+    if (!dayAccountCounts[day]) dayAccountCounts[day] = {}
+    const name = DISPLAY_NAMES[p.username] ?? p.username
+    dayAccountCounts[day][name] = (dayAccountCounts[day][name] ?? 0) + 1
+  }
+  const postsByDayAndAccount = {}
+  for (const [day, counts] of Object.entries(dayAccountCounts)) {
+    postsByDayAndAccount[day] = Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }))
+  }
+
   const topCaptionLengths = topTier.slice(0, 20).map(p => p.caption.length).filter(n => n > 0)
   const sweetSpotLength = Math.round(topCaptionLengths.reduce((a, b) => a + b, 0) / (topCaptionLengths.length || 1))
   const yoiAvgCaptionLength = Math.round((yoi?.posts ?? []).map(p => p.caption.length).reduce((a, b) => a + b, 0) / ((yoi?.posts.length) || 1))
@@ -266,7 +281,7 @@ function buildIntel(profiles) {
     lastUpdated: new Date().toISOString(),
     totalPosts: allPosts.length,
     accounts, topPosts, hashtags, topics,
-    insights: { bestDay, bestHour, bestHourLabel, dayCounts, postsByDay, yoiByDay, engagementRanking, yoiPostsRecent: yoiRecent, avgCompetitorPostsRecent: avgCompetitorRecent, sweetSpotCaptionLength: sweetSpotLength, yoiAvgCaptionLength, winningFirstLines },
+    insights: { bestDay, bestHour, bestHourLabel, dayCounts, postsByDay, yoiByDay, postsByDayAndAccount, engagementRanking, yoiPostsRecent: yoiRecent, avgCompetitorPostsRecent: avgCompetitorRecent, sweetSpotCaptionLength: sweetSpotLength, yoiAvgCaptionLength, winningFirstLines },
     suggestions,
   }
 }
