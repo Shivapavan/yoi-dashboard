@@ -1,6 +1,127 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+
+// ─── smart notes renderer ─────────────────────────────────────────────────────
+// Renders plain text, tab-separated tables, and pasted images.
+
+function NotesRenderer({ notes }: { notes: string | null }) {
+  if (!notes) return null
+
+  // Split into segments: [IMG:…] blocks vs text blocks
+  const IMG_RE = /\[IMG:(data:[^\]]+)\]/g
+  const segments: { type: 'text' | 'img'; content: string }[] = []
+  let last = 0, m: RegExpExecArray | null
+
+  while ((m = IMG_RE.exec(notes)) !== null) {
+    if (m.index > last) segments.push({ type: 'text', content: notes.slice(last, m.index) })
+    segments.push({ type: 'img', content: m[1] })
+    last = m.index + m[0].length
+  }
+  if (last < notes.length) segments.push({ type: 'text', content: notes.slice(last) })
+
+  return (
+    <div className="mt-1 space-y-1">
+      {segments.map((seg, i) => {
+        if (seg.type === 'img') {
+          return (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={i} src={seg.content} alt="pasted" className="max-w-full rounded border border-gray-200" style={{ maxHeight: 320 }} />
+          )
+        }
+        const text = seg.content.trim()
+        if (!text) return null
+        const lines = text.split('\n')
+        const tabLines = lines.filter(l => l.includes('\t'))
+        if (tabLines.length >= 2) {
+          // Render as table — first row is the header
+          const rows = lines.filter(l => l.trim()).map(l => l.split('\t'))
+          const [header, ...body] = rows
+          const cols = Math.max(...rows.map(r => r.length))
+          return (
+            <div key={i} className="overflow-x-auto">
+              <table className="text-xs border-collapse w-full">
+                <thead>
+                  <tr>
+                    {Array.from({ length: cols }, (_, ci) => (
+                      <th key={ci} className="border border-gray-200 px-2 py-1 bg-gray-100 text-left font-semibold text-gray-700 whitespace-nowrap">
+                        {header[ci] ?? ''}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {body.map((row, ri) => (
+                    <tr key={ri} className={ri % 2 === 0 ? '' : 'bg-gray-50'}>
+                      {Array.from({ length: cols }, (_, ci) => (
+                        <td key={ci} className="border border-gray-200 px-2 py-1 text-gray-600 whitespace-nowrap">
+                          {row[ci] ?? ''}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )
+        }
+        return (
+          <div key={i} className="text-xs text-gray-600 whitespace-pre-wrap">{text}</div>
+        )
+      })}
+    </div>
+  )
+}
+
+// ─── smart notes textarea ──────────────────────────────────────────────────────
+
+function SmartNotesTextarea({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const ref = useRef<HTMLTextAreaElement>(null)
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    // Image paste
+    const imageItem = Array.from(e.clipboardData.items).find(it => it.type.startsWith('image/'))
+    if (imageItem) {
+      e.preventDefault()
+      const file = imageItem.getAsFile()
+      if (!file) return
+      const reader = new FileReader()
+      reader.onload = () => {
+        const marker = `[IMG:${reader.result as string}]`
+        const ta = ref.current
+        if (!ta) { onChange(value + (value ? '\n' : '') + marker); return }
+        const before = value.slice(0, ta.selectionStart)
+        const after  = value.slice(ta.selectionEnd)
+        onChange(before + (before && !before.endsWith('\n') ? '\n' : '') + marker + (after ? '\n' : '') + after)
+      }
+      reader.readAsDataURL(file)
+      return
+    }
+
+    // Excel / TSV paste — let browser paste normally (tabs preserved), just expand rows
+    const text = e.clipboardData.getData('text/plain')
+    if (text.includes('\t')) {
+      // default paste handles inserting the text; we just ensure enough rows show
+      setTimeout(() => {
+        if (ref.current) ref.current.rows = Math.max(4, (ref.current.value.split('\n').length + 2))
+      }, 0)
+    }
+  }
+
+  const rows = Math.max(3, value.split('\n').length + 1)
+
+  return (
+    <textarea
+      ref={ref}
+      className="col-span-2 text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yoi-primary/30 font-mono"
+      placeholder="Notes — paste text, Excel rows, or a screenshot"
+      rows={Math.min(rows, 12)}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      onPaste={handlePaste}
+    />
+  )
+}
 
 export interface Booking {
   id: string
@@ -364,7 +485,7 @@ export default function EventsCalendar({ slug, title, subtitle }: Props) {
                         {b.start_time && <span className="text-gray-500 font-normal"> · {b.start_time}</span>}
                       </div>
                       {b.phone && <div className="text-xs text-gray-500">📞 {b.phone}</div>}
-                      {b.notes && <div className="text-xs text-gray-600 mt-1 whitespace-pre-wrap">{b.notes}</div>}
+                      {b.notes && <NotesRenderer notes={b.notes} />}
                     </div>
                     <div className="flex flex-col gap-1 items-end flex-shrink-0">
                       <button
@@ -583,12 +704,9 @@ function BookingForm({ heading, submitLabel, initial, onSubmit, onCancel }: Book
           <option value="Confirmed">Confirmed</option>
           <option value="NotAvailable">Not Available (block this day)</option>
         </select>
-        <textarea
-          className="col-span-2 text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yoi-primary/30"
-          placeholder="Notes (deposit, special requests, etc.)"
-          rows={2}
+        <SmartNotesTextarea
           value={form.notes}
-          onChange={(e) => setForm(f => ({ ...f, notes: e.target.value }))}
+          onChange={(v) => setForm(f => ({ ...f, notes: v }))}
         />
       </div>
       {err && <div className="text-xs text-red-600">{err}</div>}
