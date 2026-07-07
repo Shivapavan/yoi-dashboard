@@ -393,17 +393,22 @@ export async function fetchCateringData(): Promise<CateringSheet[]> {
       } catch { /* skip unreadable sheet */ }
     }
 
-    // Drop zero-revenue sheets (empty templates / future placeholders)
+    // Drop zero-revenue sheets, but keep current-year months even at $0
+    // (they may just be newly created with no orders yet)
     const now = new Date()
-    const currentYM = now.getFullYear() * 12 + now.getMonth() // 0-based month
+    const currentYear = now.getFullYear()
+    const currentYM = currentYear * 12 + now.getMonth() // 0-based month
 
     const nonEmpty = results.filter((r) => {
-      if (r.totalRevenue === 0) return false
       const p = parseSheetMonth(r.name)
-      if (!p) return true
-      // exclude sheets whose month is strictly in the future
+      if (!p) return r.totalRevenue > 0  // unnamed sheets: require revenue
+      // exclude strictly future months
       const sheetYM = p.year * 12 + (p.month - 1)
-      return sheetYM <= currentYM
+      if (sheetYM > currentYM) return false
+      // current year: show even if $0 (sheet may exist but be empty)
+      if (p.year === currentYear) return true
+      // past years: require revenue > 0
+      return r.totalRevenue > 0
     })
 
     // Sort newest month first using parsed year/month
