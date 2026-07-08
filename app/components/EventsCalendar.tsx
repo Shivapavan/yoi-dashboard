@@ -32,10 +32,12 @@ function NotesRenderer({ notes }: { notes: string | null }) {
         const text = seg.content.trim()
         if (!text) return null
         const lines = text.split('\n')
-        const tabLines = lines.filter(l => l.includes('\t'))
-        if (tabLines.length >= 2) {
+        // Detect table: lines with real tabs OR 2+ consecutive spaces (space-aligned columns)
+        const tableLines = lines.filter(l => l.includes('\t') || /\S {2,}\S/.test(l))
+        if (tableLines.length >= 2) {
           // Render as table — first row is the header
-          const rows = lines.filter(l => l.trim()).map(l => l.split('\t'))
+          // Split on tabs OR 2+ spaces
+          const rows = lines.filter(l => l.trim()).map(l => l.split(/\t| {2,}/).map(c => c.trim()))
           const [header, ...body] = rows
           const cols = Math.max(...rows.map(r => r.length))
           return (
@@ -132,6 +134,7 @@ export interface Booking {
   phone: string | null
   status: 'Tentative' | 'Confirmed' | 'NotAvailable'
   notes: string | null
+  handled_by: string | null
   created_at: string
   updated_at: string
 }
@@ -222,6 +225,16 @@ const DOT_COLOR: Record<DayStatus, string> = {
   tentative: 'bg-amber-400',
   confirmed: 'bg-emerald-500',
   blocked:   'bg-red-500',
+}
+
+// Returns dots to show for a day — one per distinct status present
+function dayDots(bookings: Booking[]): string[] {
+  if (!bookings.length) return []
+  const dots: string[] = []
+  if (bookings.some(b => b.status === 'NotAvailable')) dots.push('bg-red-500')
+  if (bookings.some(b => b.status === 'Confirmed'))    dots.push('bg-emerald-500')
+  if (bookings.some(b => b.status === 'Tentative'))    dots.push('bg-amber-400')
+  return dots
 }
 const STATUS_LABEL: Record<DayStatus, string> = {
   open:      'Open',
@@ -471,6 +484,7 @@ export default function EventsCalendar({ slug, title, subtitle }: Props) {
                       phone:      b.phone ?? '',
                       status:     b.status,
                       notes:      b.notes ?? '',
+                      handled_by: b.handled_by ?? '',
                     }}
                     submitLabel="Save changes"
                     onSubmit={(form) => saveEdit(b.id, form)}
@@ -485,6 +499,7 @@ export default function EventsCalendar({ slug, title, subtitle }: Props) {
                         {b.start_time && <span className="text-gray-500 font-normal"> · {b.start_time}</span>}
                       </div>
                       {b.phone && <div className="text-xs text-gray-500">📞 {b.phone}</div>}
+                      {b.handled_by && <div className="text-xs text-gray-500">👤 Handled by: {b.handled_by}</div>}
                       {b.notes && <NotesRenderer notes={b.notes} />}
                     </div>
                     <div className="flex flex-col gap-1 items-end flex-shrink-0">
@@ -593,8 +608,12 @@ function MonthGrid({
                     {parseInt(date.split('-')[2], 10)}
                   </span>
 
-                  {/* Status dot */}
-                  <span className={`mt-1 w-1.5 h-1.5 rounded-full ${DOT_COLOR[status]}`} />
+                  {/* Status dots — one per distinct status present */}
+                  <span className="mt-1 flex gap-0.5 items-center justify-center">
+                    {dayDots(bks).map((color, i) => (
+                      <span key={i} className={`w-1.5 h-1.5 rounded-full ${color}`} />
+                    ))}
+                  </span>
 
                   {/* Today label */}
                   {isToday && (
@@ -630,6 +649,7 @@ type NewBookingForm = {
   phone: string
   status: 'Tentative' | 'Confirmed' | 'NotAvailable'
   notes: string
+  handled_by: string
 }
 
 interface BookingFormProps {
@@ -641,7 +661,7 @@ interface BookingFormProps {
 }
 
 const EMPTY_FORM: NewBookingForm = {
-  name: '', party_size: '', start_time: '', phone: '', status: 'Tentative', notes: '',
+  name: '', party_size: '', start_time: '', phone: '', status: 'Tentative', notes: '', handled_by: '',
 }
 
 function BookingForm({ heading, submitLabel, initial, onSubmit, onCancel }: BookingFormProps) {
@@ -671,9 +691,15 @@ function BookingForm({ heading, submitLabel, initial, onSubmit, onCancel }: Book
       <div className="grid grid-cols-2 gap-2">
         <input
           className="col-span-2 text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yoi-primary/30"
-          placeholder="Name"
+          placeholder="Customer Name"
           value={form.name}
           onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
+        />
+        <input
+          className="col-span-2 text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yoi-primary/30"
+          placeholder="Handled by (staff name)"
+          value={form.handled_by}
+          onChange={(e) => setForm(f => ({ ...f, handled_by: e.target.value }))}
         />
         <input
           className="text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yoi-primary/30"
