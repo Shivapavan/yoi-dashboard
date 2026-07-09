@@ -1,40 +1,45 @@
 {
-  "lastUpdated": "2026-07-08 10:04 AM CDT",
-  "businessDay": "2026-07-08",
-  "businessDayWindow": "2026-07-08 04:00AM – 2026-07-09 03:59AM CDT",
+  "lastUpdated": "2026-07-09 10:18:55 CDT",
+  "businessDay": "2026-07-09",
+  "businessDayWindow": "2026-07-09 04:00AM – 2026-07-10 03:59AM CDT",
   "eod": {
+    "date": "2026-07-09",
     "grossSales": 0,
     "netSales": 0,
     "taxes": 0,
+    "discounts": 0,
     "voids": 0,
     "cashPayments": 0,
     "creditCardPayments": 0,
-    "discounts": 0,
     "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-07-07 batch (settled 2026-07-08)",
+    "windowLabel": "2026-07-08 batch (settled 2026-07-09)",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 1127.58,
+        "amount": 1586.44,
         "bold": true
       },
       {
+        "label": "Amex",
+        "amount": 140.28
+      },
+      {
         "label": "Visa",
-        "amount": 591.74
+        "amount": 913.27
       },
       {
         "label": "Mastercard",
-        "amount": 334.11
-      },
-      {
-        "label": "Amex",
-        "amount": 197.41
+        "amount": 195.64
       },
       {
         "label": "Discover",
-        "amount": 4.32
+        "amount": 264.52
+      },
+      {
+        "label": "Other",
+        "amount": 14.6
       },
       {
         "label": "Debit",
@@ -8377,6 +8382,62 @@
     },
     {
       "date": "2026-07-08",
+      "grossSales": 1501.44,
+      "netSales": 1387.02,
+      "taxes": 114.42,
+      "discounts": 6.74,
+      "voids": 0,
+      "cashPayments": 58.15,
+      "creditCard": 1416.82,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "openTickets": 1501.44,
+      "cardBreakdown": {
+        "windowLabel": "2026-07-08 batch (settled 2026-07-09)",
+        "rows": [
+          {
+            "label": "Total Sales",
+            "amount": 1586.44,
+            "bold": true
+          },
+          {
+            "label": "Amex",
+            "amount": 140.28
+          },
+          {
+            "label": "Visa",
+            "amount": 913.27
+          },
+          {
+            "label": "Mastercard",
+            "amount": 195.64
+          },
+          {
+            "label": "Discover",
+            "amount": 264.52
+          },
+          {
+            "label": "Other",
+            "amount": 14.6
+          },
+          {
+            "label": "Debit",
+            "amount": 0
+          },
+          {
+            "label": "EBT",
+            "amount": 0
+          },
+          {
+            "label": "Returns",
+            "amount": 0
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-09",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -85203,5 +85264,5 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-07-08 10:04 AM CDT"
+  "disputesScannedAt": "2026-07-09T15:18:55.216Z"
 }
