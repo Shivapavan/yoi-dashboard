@@ -227,13 +227,16 @@ const DOT_COLOR: Record<DayStatus, string> = {
   blocked:   'bg-red-500',
 }
 
-// Returns dots to show for a day — one per distinct status present
-function dayDots(bookings: Booking[]): string[] {
+// Returns dot indicators for a day — one per distinct status, with count when > 1
+function dayDots(bookings: Booking[]): { color: string; count: number }[] {
   if (!bookings.length) return []
-  const dots: string[] = []
-  if (bookings.some(b => b.status === 'NotAvailable')) dots.push('bg-red-500')
-  if (bookings.some(b => b.status === 'Confirmed'))    dots.push('bg-emerald-500')
-  if (bookings.some(b => b.status === 'Tentative'))    dots.push('bg-amber-400')
+  const dots: { color: string; count: number }[] = []
+  const blocked   = bookings.filter(b => b.status === 'NotAvailable').length
+  const confirmed = bookings.filter(b => b.status === 'Confirmed').length
+  const tentative = bookings.filter(b => b.status === 'Tentative').length
+  if (blocked)   dots.push({ color: 'bg-red-500',     count: blocked })
+  if (confirmed) dots.push({ color: 'bg-emerald-500', count: confirmed })
+  if (tentative) dots.push({ color: 'bg-amber-400',   count: tentative })
   return dots
 }
 const STATUS_LABEL: Record<DayStatus, string> = {
@@ -608,10 +611,15 @@ function MonthGrid({
                     {parseInt(date.split('-')[2], 10)}
                   </span>
 
-                  {/* Status dots — one per distinct status present */}
-                  <span className="mt-1 flex gap-0.5 items-center justify-center">
-                    {dayDots(bks).map((color, i) => (
-                      <span key={i} className={`w-1.5 h-1.5 rounded-full ${color}`} />
+                  {/* Status dots — one per distinct status, count shown when > 1 */}
+                  <span className="mt-0.5 flex gap-1 items-center justify-center">
+                    {dayDots(bks).map((d, i) => (
+                      <span key={i} className="flex items-center gap-0.5">
+                        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${d.color}`} />
+                        {d.count > 1 && (
+                          <span className="text-[9px] font-bold leading-none text-gray-500">{d.count}</span>
+                        )}
+                      </span>
                     ))}
                   </span>
 
