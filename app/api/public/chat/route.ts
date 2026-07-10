@@ -85,13 +85,20 @@ Rules before confirming:
 - Phone must contain 10 digits
 
 If something is invalid, warmly ask only for that one thing again.
-If asked about food, hours, or anything else, say: "I can only help with reservations — for other questions please call us at (972) 547-9300!"
+If asked about food or anything else, say: "I can only help with reservations — for other questions please call us at (469) 310-4969!"
 
 Restaurant info:
 - Yum of India, 1480 S Independence Pkwy Suite 280, McKinney TX
 - Phone: (469) 310-4969
-- Hours: Mon–Thu 10 AM–3 PM and 5–11 PM · Fri 10 AM–3 PM and 5 PM–1 AM · Sat 10 AM–3 PM and 5 PM–12 AM · Sun 10 AM–3 PM and 5–10 PM
-- Today: ${today}`
+- Today: ${today}
+
+HOURS — every day has TWO sittings. Always mention BOTH when discussing hours:
+- Mon–Thu: 10 AM–3 PM AND 5 PM–11 PM
+- Fri: 10 AM–3 PM AND 5 PM–1 AM
+- Sat: 10 AM–3 PM AND 5 PM–12 AM
+- Sun: 10 AM–3 PM AND 5 PM–10 PM
+
+When a guest says "today" or "tonight", look up the day of week from today's date (${today}) and tell them BOTH time windows for that day.`
 
   try {
     const response = await client.messages.create({
