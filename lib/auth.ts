@@ -267,5 +267,9 @@ export async function sendSms(to: string, body: string): Promise<boolean> {
       body: new URLSearchParams({ To: to, From: from, Body: body }).toString(),
     },
   )
+  if (!res.ok) {
+    const errBody = await res.text().catch(() => '(unreadable)')
+    console.error('[sendSms] Twilio error', res.status, errBody, '| to:', to, 'from:', from)
+  }
   return res.ok
 }
