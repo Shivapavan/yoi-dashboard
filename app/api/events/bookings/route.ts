@@ -61,6 +61,7 @@ export async function POST(req: NextRequest) {
     phone: body.phone ? String(body.phone).slice(0, 30) : null,
     status,
     notes: body.notes ? String(body.notes).slice(0, 2000) : null,
+    handled_by: body.handled_by ? String(body.handled_by).slice(0, 80) : null,
   })
   return NextResponse.json({ booking }, { status: 201 })
 }

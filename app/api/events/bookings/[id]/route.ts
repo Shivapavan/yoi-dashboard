@@ -36,6 +36,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     patch.status = body.status
   }
   if (body.notes      !== undefined) patch.notes      = body.notes ? String(body.notes).slice(0, 2000) : null
+  if (body.handled_by !== undefined) patch.handled_by = body.handled_by ? String(body.handled_by).slice(0, 80) : null
 
   const updated = await updateBooking(id, patch)
   if (!updated) return NextResponse.json({ error: 'Not found' }, { status: 404 })

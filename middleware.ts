@@ -8,9 +8,11 @@ const PUBLIC_PATHS = [
   '/change-password',
   '/menu',
   '/dp700-exam',
+  '/reserve',
   '/api/menu',
   '/api/auth/',
   '/api/cron/',
+  '/api/public/',
   // Events Space: public page reachable via /events/<slug>. Each route here
   // enforces its own auth (session cookie OR matching ?slug=… query) — the
   // middleware just gets out of the way so Google Calendar can fetch the

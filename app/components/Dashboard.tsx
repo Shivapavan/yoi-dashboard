@@ -7,6 +7,7 @@ import SalesTrend from './tabs/SalesTrend'
 import TopItems from './tabs/TopItems'
 import ItemTrends from './tabs/ItemTrends'
 import Catering from './tabs/Catering'
+import TableReservations from './tabs/TableReservations'
 import Visitors from './tabs/Visitors'
 import EmpShdt from './tabs/EmpShdt'
 import Expenses from './tabs/Expenses'
@@ -44,8 +45,9 @@ export default function Dashboard() {
       <div className={tab === 'sales-trend'  ? '' : 'hidden'}><SalesTrend /></div>
       <div className={tab === 'top-items'    ? '' : 'hidden'}><TopItems /></div>
       <div className={tab === 'item-trends'  ? '' : 'hidden'}><ItemTrends /></div>
-      <div className={tab === 'catering'     ? '' : 'hidden'}><Catering /></div>
-      <div className={tab === 'events-space' ? '' : 'hidden'}><EventsSpace /></div>
+      <div className={tab === 'catering'           ? '' : 'hidden'}><Catering /></div>
+      <div className={tab === 'table-reservations' ? '' : 'hidden'}><TableReservations /></div>
+      <div className={tab === 'events-space'       ? '' : 'hidden'}><EventsSpace /></div>
       <div className={tab === 'containers'   ? '' : 'hidden'}><Containers /></div>
       <div className={tab === 'reviews'      ? '' : 'hidden'}><Reviews /></div>
       <div className={tab === 'visitors'     ? '' : 'hidden'}><Visitors /></div>
