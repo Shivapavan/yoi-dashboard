@@ -174,17 +174,17 @@ export default function ReservePage() {
       }} />
 
       {/* ── Left Hero Panel ── */}
-      <aside className="hidden lg:flex lg:w-[44%] xl:w-[42%] flex-col relative z-10 overflow-hidden px-10 xl:px-14 py-10"
+      <aside className="hidden lg:flex lg:w-[36%] xl:w-[34%] flex-col relative z-10 overflow-hidden px-8 py-8"
         style={{ borderRight: '1px solid rgba(251,146,60,0.12)' }}>
 
         {/* Logo */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/yum_logo.png" alt="Yum of India"
-          className="w-full object-contain mb-6"
-          style={{ maxHeight: '140px', filter: 'drop-shadow(0 0 18px rgba(249,115,22,0.4))' }} />
+          className="w-full object-contain mb-4"
+          style={{ maxHeight: '120px', filter: 'drop-shadow(0 0 18px rgba(249,115,22,0.4))' }} />
 
         {/* Location pill */}
-        <div className="flex items-center gap-2 mb-8">
+        <div className="flex items-center gap-2 mb-5">
           <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: ORANGE }} />
           <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: ORANGE }}>
             McKinney, Texas
@@ -192,19 +192,19 @@ export default function ReservePage() {
         </div>
 
         {/* Big headline */}
-        <div className="mb-8">
+        <div className="mb-5">
           <div className="font-black uppercase leading-none text-white"
-            style={{ fontSize: 'clamp(52px, 5.5vw, 76px)', letterSpacing: '-0.02em' }}>
+            style={{ fontSize: 'clamp(36px, 4vw, 58px)', letterSpacing: '-0.02em' }}>
             RESERVE
           </div>
           <div className="font-black uppercase leading-none"
-            style={{ fontSize: 'clamp(52px, 5.5vw, 76px)', letterSpacing: '-0.02em', color: ORANGE,
+            style={{ fontSize: 'clamp(36px, 4vw, 58px)', letterSpacing: '-0.02em', color: ORANGE,
               textShadow: `0 0 60px rgba(249,115,22,0.5)` }}>
             YOUR TABLE
           </div>
         </div>
 
-        <p className="text-sm leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.45)', maxWidth: '300px' }}>
+        <p className="text-xs leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.45)' }}>
           Pure · Authentic · Indian. Let our AI assistant secure your spot in seconds.
         </p>
 
