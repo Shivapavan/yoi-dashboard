@@ -177,7 +177,7 @@ export default function ReservePage() {
         {/* Logo */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/yum_logo.png" alt="Yum of India"
-          className="h-24 w-auto object-contain self-start mb-10"
+          className="h-36 w-auto object-contain self-start mb-10"
           style={{ filter: 'drop-shadow(0 0 18px rgba(249,115,22,0.35))' }} />
 
         {/* Location pill */}
