@@ -49,8 +49,12 @@ const CARD_BORDER = '1px solid rgba(251,146,60,0.18)'
 const ORANGE    = '#f97316'
 const ORANGE_DIM = 'rgba(249,115,22,0.12)'
 
+const WELCOME = "Welcome to Yum of India! 🙏 I'm here to help you reserve a table. May I start with your name?"
+
 export default function ReservePage() {
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'assistant', content: WELCOME },
+  ])
   const [input, setInput]       = useState('')
   const [busy, setBusy]         = useState(false)
   const [booked, setBooked]     = useState(false)
@@ -128,8 +132,6 @@ export default function ReservePage() {
 
   useEffect(() => {
     const trigger: Message = { role: 'user', content: 'Hello', hidden: true }
-    setMessages([trigger])
-    setBusy(true)
     fetch('/api/public/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -137,15 +139,16 @@ export default function ReservePage() {
     })
       .then(r => r.json())
       .then(data => {
-        const reply = data.reply || "Welcome to Yum of India! 🙏 I'm here to help you reserve a table. May I start with your name?"
-        setMessages([trigger, { role: 'assistant', content: reply }])
+        const reply = data.reply
+        if (reply && reply !== WELCOME) {
+          setMessages([trigger, { role: 'assistant', content: reply }])
+        } else {
+          setMessages(prev => [trigger, ...prev.filter(m => !m.hidden)])
+        }
         inputRef.current?.focus()
       })
       .catch(() => {
-        setMessages([trigger, {
-          role: 'assistant',
-          content: "Welcome to Yum of India! 🙏 I'm here to help you reserve a table. May I start with your name?",
-        }])
+        setMessages(prev => [trigger, ...prev.filter(m => !m.hidden)])
       })
       .finally(() => setBusy(false))
   // eslint-disable-next-line react-hooks/exhaustive-deps
