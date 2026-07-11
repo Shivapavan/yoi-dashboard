@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createBooking } from '@/lib/events'
-import { sendSms } from '@/lib/auth'
+
+async function sendSmsTextbelt(to: string, body: string): Promise<void> {
+  const key = process.env.TEXTBELT_API_KEY
+  if (!key) { console.error('[SMS] TEXTBELT_API_KEY not set'); return }
+  const digits = to.replace(/\D/g, '')
+  const phone = digits.length === 10 ? `+1${digits}` : `+${digits}`
+  const params = new URLSearchParams({ phone, message: body, key })
+  const res = await fetch('https://textbelt.com/text', { method: 'POST', body: params })
+  const data = await res.json() as { success: boolean; error?: string; quotaRemaining?: number }
+  if (!data.success) console.error('[SMS] Textbelt error:', data.error)
+  else console.log('[SMS] Sent. Quota remaining:', data.quotaRemaining)
+}
 
 const rateLimits = new Map<string, number[]>()
 const RATE_WINDOW_MS = 60 * 60 * 1000
@@ -89,8 +100,6 @@ export async function POST(req: NextRequest) {
     const dateFormatted = new Date(date + 'T12:00:00Z').toLocaleDateString('en-US', {
       weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
     })
-    const digits = phone.replace(/\D/g, '')
-    const toNumber = digits.length === 10 ? `+1${digits}` : `+${digits}`
     const smsBody = [
       `Hi ${name}! Your table at Yum of India is reserved 🎉`,
       `📅 ${dateFormatted}`,
@@ -99,7 +108,7 @@ export async function POST(req: NextRequest) {
       `We'll call to confirm. Questions? (469) 310-4969`,
       `1480 S Independence Pkwy, Suite 280, McKinney TX`,
     ].filter(Boolean).join('\n')
-    sendSms(toNumber, smsBody).catch((e: unknown) => {
+    sendSmsTextbelt(phone, smsBody).catch((e: unknown) => {
       console.error('[SMS confirmation failed]', e instanceof Error ? e.message : e)
     })
 
