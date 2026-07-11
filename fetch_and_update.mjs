@@ -63,16 +63,34 @@ function httpsGet(urlStr) {
   });
 }
 
+async function fetchMetricWithRetry(m, url, retries = 2) {
+  for (let i = 0; i <= retries; i++) {
+    const r = await httpsGet(url);
+    if (r.status === 200) {
+      const d = JSON.parse(r.body.toString());
+      const arr = d[m];
+      return arr && arr[0] ? (arr[0].total || 0) : 0;
+    }
+    if (r.status === 502 || r.status === 503 || r.status === 504) {
+      if (i < retries) {
+        console.error(`  ${m} got ${r.status}, retrying in 3s...`);
+        await new Promise(res => setTimeout(res, 3000));
+        continue;
+      }
+      console.error(`  ${m} got ${r.status} after retries, using 0`);
+      return 0;
+    }
+    throw new Error(`${m} HTTP ${r.status}`);
+  }
+  return 0;
+}
+
 async function fetchMetrics(start, end) {
   const metrics = ['gross-sales','net-sales','taxes','voids','cash-payments','credit-card-payments','discounts','open-tickets'];
   const results = {};
   await Promise.all(metrics.map(async m => {
     const url = `https://${BASE}/api/v1/dashboard/financial-overview/${m}?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`;
-    const r = await httpsGet(url);
-    if (r.status !== 200) throw new Error(`${m} HTTP ${r.status}`);
-    const d = JSON.parse(r.body.toString());
-    const arr = d[m];
-    results[m] = arr && arr[0] ? (arr[0].total || 0) : 0;
+    results[m] = await fetchMetricWithRetry(m, url);
   }));
   return {
     grossSales:          Math.round(results['gross-sales'] * 100) / 100,
