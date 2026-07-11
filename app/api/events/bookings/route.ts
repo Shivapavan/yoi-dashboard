@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
   if (!start || !end) {
     return NextResponse.json({ error: 'start and end (YYYY-MM-DD) are required' }, { status: 400 })
   }
-  const bookings = await listBookings(start, end)
+  const bookings = await listBookings(start, end, { excludeChatBot: true })
   return NextResponse.json({ bookings }, { headers: { 'Cache-Control': 'no-store' } })
 }
 

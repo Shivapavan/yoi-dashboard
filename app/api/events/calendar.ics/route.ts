@@ -83,7 +83,7 @@ export async function GET(req: NextRequest) {
   const endYear = today.getUTCFullYear() + 1
   const endStr  = `${endYear}-12-31`
 
-  const bookings = await listBookings(todayStr, endStr)
+  const bookings = await listBookings(todayStr, endStr, { excludeChatBot: true })
   const stamp = icsTimestamp(new Date())
 
   const events: string[] = []

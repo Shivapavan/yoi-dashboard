@@ -43,17 +43,38 @@ export async function ensureEventBookingsTable() {
   _ensured = true
 }
 
-export async function listBookings(startDate: string, endDate: string): Promise<EventBooking[]> {
+export async function listBookings(
+  startDate: string,
+  endDate: string,
+  opts: { chatBotOnly?: boolean; excludeChatBot?: boolean } = {},
+): Promise<EventBooking[]> {
   await ensureEventBookingsTable()
   const sql = getDb()
-  const rows = await sql`
-    SELECT id, to_char(date, 'YYYY-MM-DD') AS date,
-           name, party_size, start_time, phone, status, notes, handled_by,
-           created_at, updated_at
-    FROM event_bookings
-    WHERE date >= ${startDate}::date AND date <= ${endDate}::date
-    ORDER BY date ASC, COALESCE(start_time, '99:99') ASC, created_at ASC
-  `
+  const rows = opts.chatBotOnly
+    ? await sql`
+        SELECT id, to_char(date, 'YYYY-MM-DD') AS date,
+               name, party_size, start_time, phone, status, notes, handled_by,
+               created_at, updated_at
+        FROM event_bookings
+        WHERE date >= ${startDate}::date AND date <= ${endDate}::date
+          AND handled_by = 'chat-bot'
+        ORDER BY date ASC, COALESCE(start_time, '99:99') ASC, created_at ASC`
+    : opts.excludeChatBot
+    ? await sql`
+        SELECT id, to_char(date, 'YYYY-MM-DD') AS date,
+               name, party_size, start_time, phone, status, notes, handled_by,
+               created_at, updated_at
+        FROM event_bookings
+        WHERE date >= ${startDate}::date AND date <= ${endDate}::date
+          AND (handled_by IS NULL OR handled_by != 'chat-bot')
+        ORDER BY date ASC, COALESCE(start_time, '99:99') ASC, created_at ASC`
+    : await sql`
+        SELECT id, to_char(date, 'YYYY-MM-DD') AS date,
+               name, party_size, start_time, phone, status, notes, handled_by,
+               created_at, updated_at
+        FROM event_bookings
+        WHERE date >= ${startDate}::date AND date <= ${endDate}::date
+        ORDER BY date ASC, COALESCE(start_time, '99:99') ASC, created_at ASC`
   return rows as EventBooking[]
 }
 
