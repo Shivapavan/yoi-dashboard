@@ -52,11 +52,10 @@ export default function TableReservations() {
   const load = useCallback(async () => {
     setLoading(true); setError(null)
     try {
-      const r = await fetch(`/api/events/bookings?start=${start}&end=${end}`, { credentials: 'include', cache: 'no-store' })
+      const r = await fetch(`/api/events/bookings?start=${start}&end=${end}&chatBotOnly=true`, { credentials: 'include', cache: 'no-store' })
       if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `HTTP ${r.status}`)
       const j = await r.json()
-      const chatBot = ((j.bookings ?? []) as Booking[]).filter(b => b.handled_by === 'chat-bot')
-      setBookings(chatBot)
+      setBookings((j.bookings ?? []) as Booking[])
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to load')
     } finally {

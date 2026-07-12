@@ -29,7 +29,8 @@ export async function GET(req: NextRequest) {
   if (!start || !end) {
     return NextResponse.json({ error: 'start and end (YYYY-MM-DD) are required' }, { status: 400 })
   }
-  const bookings = await listBookings(start, end, { excludeChatBot: true })
+  const chatBotOnly = req.nextUrl.searchParams.get('chatBotOnly') === 'true'
+  const bookings = await listBookings(start, end, chatBotOnly ? { chatBotOnly: true } : { excludeChatBot: true })
   return NextResponse.json({ bookings }, { headers: { 'Cache-Control': 'no-store' } })
 }
 
