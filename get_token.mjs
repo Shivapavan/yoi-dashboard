@@ -27,14 +27,23 @@ const context = await browser.newContext({ ignoreHTTPSErrors: true });
 const page = await context.newPage();
 
 async function tryLogin() {
-  await page.goto('https://lh.shift4.com/sign-in', { waitUntil: 'load', timeout: 30000 });
-  await page.waitForSelector('input', { timeout: 10000 });
-  const emailInput = page.locator('input').first();
-  const passInput = page.locator('input[type="password"]');
+  try {
+    await page.goto('https://lh.shift4.com/sign-in', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  } catch (e) {
+    // domcontentloaded may still throw on SPA initial load; proceed if URL is correct
+    if (!page.url().includes('lh.shift4.com')) throw e;
+  }
+  // Wait for the email input to appear (SPA renders after JS loads)
+  await page.waitForSelector('input[type="email"]', { timeout: 15000 });
+  const emailInput = page.locator('input[type="email"]').first();
+  const passInput = page.locator('input[type="password"]').first();
   await emailInput.fill('yumofindiamckinney@gmail.com');
   await passInput.fill('yumofindia@2025');
   await page.getByRole('button', { name: 'Sign in' }).click();
-  await page.waitForURL('**/dashboard', { timeout: 20000 });
+  // Wait for redirect away from sign-in (dashboard URL varies)
+  await page.waitForURL(url => !url.toString().includes('/sign-in'), { timeout: 25000 });
+  // Give the SPA a moment to store the session token
+  await page.waitForTimeout(2000);
   const session = await page.evaluate(() => {
     const s = localStorage.getItem('ember_simple_auth-session');
     return JSON.parse(s)?.authenticated?.token || '';
