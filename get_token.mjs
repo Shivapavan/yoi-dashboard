@@ -5,7 +5,7 @@ import fs from 'fs';
 // This avoids Chromium sending non-CONNECT requests through the proxy, which it rejects
 const pacContent = `function FindProxyForURL(url, host) {
   if (url.substring(0, 5) === 'https') {
-    return "PROXY 127.0.0.1:44237";
+    return "PROXY 127.0.0.1:32807";
   }
   return "DIRECT";
 }`;
