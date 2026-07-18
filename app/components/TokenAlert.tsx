@@ -46,7 +46,14 @@ export default function TokenAlert() {
       if (d.ok) {
         setSaved(`Token saved! Expires: ${d.expiresAt}. Live data refreshes within ~2 minutes.`)
         setShowForm(false); setToken('')
-        setTimeout(() => { setStatus('ok'); setSaved('') }, 60000)
+        // Re-check the real status instead of assuming 'ok' — a freshly
+        // saved token can still be short-lived (e.g. near its own expiry
+        // when pasted), so it may legitimately still read expiring_soon.
+        fetch('/api/admin/token-status')
+          .then(statusRes => statusRes.json())
+          .then(sd => { setStatus(sd.status); setHoursLeft(sd.hoursLeft ?? null) })
+          .catch(() => {})
+        setTimeout(() => setSaved(''), 60000)
       } else {
         setSaveError(d.error || 'Failed to update')
       }
