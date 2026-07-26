@@ -10,7 +10,7 @@
  */
 import { chromium } from 'playwright'
 import { neon } from '@neondatabase/serverless'
-import { readFileSync, writeFileSync, mkdtempSync } from 'fs'
+import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'fs'
 import { tmpdir } from 'os'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -29,14 +29,16 @@ function loadEnv() {
 }
 loadEnv()
 
+// Returns { path, tempDir }. tempDir is non-null only when a scratch directory was
+// created for a CI-provided session (base64 env var) — callers must clean it up.
 function resolveStorageStatePath() {
   if (process.env.RESTCALL_SESSION_STATE) {
     const dir = mkdtempSync(join(tmpdir(), 'restcall-session-'))
     const path = join(dir, 'state.json')
     writeFileSync(path, Buffer.from(process.env.RESTCALL_SESSION_STATE, 'base64').toString('utf8'))
-    return path
+    return { path, tempDir: dir }
   }
-  return join(__dirname, '.session-state.json')
+  return { path: join(__dirname, '.session-state.json'), tempDir: null }
 }
 
 // Business day starts 4 AM Central — same rule as the Lighthouse pipeline (.claude/rules/data.md).
@@ -50,24 +52,44 @@ async function run() {
   const dbUrl = process.env.DATABASE_URL
   if (!dbUrl) throw new Error('DATABASE_URL is not set')
 
+  const { path: storageStatePath, tempDir } = resolveStorageStatePath()
+
   const browser = await chromium.launch({ headless: !headed })
-  const context = await browser.newContext({ storageState: resolveStorageStatePath(), acceptDownloads: true })
-  const page = await context.newPage()
+  let buffer
+  try {
+    const context = await browser.newContext({ storageState: storageStatePath, acceptDownloads: true })
+    const page = await context.newPage()
 
-  await page.goto('https://dash.restcall.ai/dashboard/analytics', { waitUntil: 'networkidle' })
+    try {
+      // domcontentloaded, not networkidle: the dashboard holds a persistent Convex
+      // WebSocket open, so networkidle's "zero connections for 500ms" never fires
+      // and every run would time out waiting for it.
+      await page.goto('https://dash.restcall.ai/dashboard/analytics', { waitUntil: 'domcontentloaded' })
 
-  if (headed) await page.pause() // Playwright Inspector: confirm/fix the selector below before it clicks.
+      if (headed) await page.pause() // Playwright Inspector: confirm/fix the selector below before it clicks.
 
-  const exportButton = page.getByRole('button', { name: /export/i }).first()
-  const downloadPromise = page.waitForEvent('download')
-  await exportButton.click()
-  const download = await downloadPromise
+      const exportButton = page.getByRole('button', { name: /export/i }).first()
+      await exportButton.waitFor({ state: 'visible', timeout: 15000 })
+      const downloadPromise = page.waitForEvent('download')
+      await exportButton.click()
+      const download = await downloadPromise
 
-  const filePath = await download.path()
-  if (!filePath) throw new Error('Download did not produce a file path')
-  const buffer = readFileSync(filePath)
-
-  await browser.close()
+      const filePath = await download.path()
+      if (!filePath) throw new Error('Download did not produce a file path')
+      buffer = readFileSync(filePath)
+    } catch (err) {
+      try {
+        await page.screenshot({ path: '/tmp/restcall-failure.png' })
+        console.error('Saved failure screenshot to /tmp/restcall-failure.png')
+      } catch (screenshotErr) {
+        console.error('Failed to capture failure screenshot (best-effort):', screenshotErr)
+      }
+      throw err
+    }
+  } finally {
+    await browser.close()
+    if (tempDir) rmSync(tempDir, { recursive: true, force: true })
+  }
 
   const metrics = parseRestcallWorkbook(buffer)
   const date = businessDateCentral()

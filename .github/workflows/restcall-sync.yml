@@ -20,3 +20,10 @@ jobs:
         env:
           RESTCALL_SESSION_STATE: ${{ secrets.RESTCALL_SESSION_STATE }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Upload failure screenshot
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: restcall-failure-screenshot
+          path: /tmp/restcall-failure.png
+          if-no-files-found: ignore
