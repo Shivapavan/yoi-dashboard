@@ -32,8 +32,9 @@ function weekMonday(dateStr: string): string {
 
 const EXCLUDED = new Set(['Randy', 'Samantha', 'Sindhu'])
 
-// Aggregate-only — kept out of the per-employee response so the public page
-// can show a grand total without exposing each employee's rate or pay.
+// Same rate table as app/components/tabs/EmpShdt.tsx (the admin Staff tab) —
+// kept in sync manually since this route serves the public read-only view.
+// The $/hr rate itself is never returned — only the computed dollar amount.
 const DEFAULT_HOURLY_RATE = 10
 const EMPLOYEE_RATES: Record<string, number> = { janu: 10.5 }
 function rateFor(employee: string): number {
@@ -85,13 +86,14 @@ export async function GET(req: NextRequest) {
   }
 
   const employees = Object.values(grouped)
-    .map((e) => ({ ...e, totalHours: Math.round(e.totalHours * 100) / 100 }))
+    .map((e) => {
+      const totalHours = Math.round(e.totalHours * 100) / 100
+      return { ...e, totalHours, pay: Math.round(totalHours * rateFor(e.employee) * 100) / 100 }
+    })
     .sort((a, b) => b.totalHours - a.totalHours)
 
   const totalHours = Math.round(employees.reduce((s, e) => s + e.totalHours, 0) * 100) / 100
-  const totalPay = Math.round(
-    employees.reduce((s, e) => s + e.totalHours * rateFor(e.employee), 0) * 100
-  ) / 100
+  const totalPay = Math.round(employees.reduce((s, e) => s + e.pay, 0) * 100) / 100
 
   return NextResponse.json(
     { startDate, endDate, employees, totalHours, totalPay },

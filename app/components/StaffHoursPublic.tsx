@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { SkeletonCards, SkeletonTable } from './Skeleton'
 
 interface Shift { date: string; start: string; end: string; hours: number }
-interface Employee { employee: string; totalHours: number; shifts: Shift[] }
+interface Employee { employee: string; totalHours: number; pay: number; shifts: Shift[] }
 interface Data { startDate: string; endDate: string; employees: Employee[]; totalHours: number; totalPay: number }
 
 function hm(h: number) {
@@ -126,6 +126,7 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
                     <th className="text-left px-5 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold">Employee</th>
                     <th className="text-center px-4 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold">Shifts</th>
                     <th className="text-right px-5 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold">Total Hours</th>
+                    <th className="text-right px-5 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold">Pay</th>
                     <th className="text-right px-5 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold"></th>
                   </tr>
                 </thead>
@@ -147,13 +148,14 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
                         <td className="px-5 py-3 font-semibold text-gray-800">{emp.employee}</td>
                         <td className="px-4 py-3 text-center text-gray-500">{emp.shifts.length}</td>
                         <td className="px-5 py-3 text-right font-bold text-yoi-primary">{hm(emp.totalHours)}</td>
+                        <td className="px-5 py-3 text-right font-bold text-amber-700">{money(emp.pay)}</td>
                         <td className="px-5 py-3 text-right text-gray-500 text-xs whitespace-nowrap">
                           {expanded === emp.employee ? '▲ Hide' : '▼ Details'}
                         </td>
                       </tr>
                       {expanded === emp.employee && (
                         <tr key={emp.employee + '-detail'} className="bg-gray-50 border-b border-gray-100">
-                          <td colSpan={4} className="px-5 py-2">
+                          <td colSpan={5} className="px-5 py-2">
                             <table className="w-full text-xs">
                               <thead>
                                 <tr className="text-gray-400">
