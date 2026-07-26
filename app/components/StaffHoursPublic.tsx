@@ -4,16 +4,13 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { SkeletonCards, SkeletonTable } from './Skeleton'
 
 interface Shift { date: string; start: string; end: string; hours: number }
-interface Employee { employee: string; totalHours: number; rate: number; pay: number; shifts: Shift[] }
-interface Data { startDate: string; endDate: string; employees: Employee[]; totalHours: number; totalPay: number }
+interface Employee { employee: string; totalHours: number; shifts: Shift[] }
+interface Data { startDate: string; endDate: string; employees: Employee[]; totalHours: number }
 
 function hm(h: number) {
   const hrs = Math.floor(h)
   const min = Math.round((h - hrs) * 60)
   return min > 0 ? `${hrs}h ${min}m` : `${hrs}h`
-}
-function money(n: number) {
-  return `$${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 }
 function addDays(s: string, n: number) {
   const d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n)
@@ -101,14 +98,10 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
 
       {!loading && data && (
         <>
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="grid grid-cols-2 gap-3 mb-4">
             <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-teal-600">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Hours</div>
               <div className="text-xl font-bold text-gray-900">{hm(data.totalHours)}</div>
-            </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-amber-600">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Pay</div>
-              <div className="text-xl font-bold text-gray-900">{money(data.totalPay)}</div>
             </div>
             <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-indigo-500">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Employees</div>
@@ -126,7 +119,6 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
                     <th className="text-left px-5 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold">Employee</th>
                     <th className="text-center px-4 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold">Shifts</th>
                     <th className="text-right px-5 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold">Total Hours</th>
-                    <th className="text-right px-5 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold">Pay</th>
                     <th className="text-right px-5 py-3 text-xs uppercase tracking-wide text-gray-500 font-semibold"></th>
                   </tr>
                 </thead>
@@ -148,17 +140,13 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
                         <td className="px-5 py-3 font-semibold text-gray-800">{emp.employee}</td>
                         <td className="px-4 py-3 text-center text-gray-500">{emp.shifts.length}</td>
                         <td className="px-5 py-3 text-right font-bold text-yoi-primary">{hm(emp.totalHours)}</td>
-                        <td className="px-5 py-3 text-right font-bold text-amber-700">
-                          {money(emp.pay)}
-                          <div className="text-[10px] text-gray-500 font-normal">@ ${emp.rate}/hr</div>
-                        </td>
                         <td className="px-5 py-3 text-right text-gray-500 text-xs whitespace-nowrap">
                           {expanded === emp.employee ? '▲ Hide' : '▼ Details'}
                         </td>
                       </tr>
                       {expanded === emp.employee && (
                         <tr key={emp.employee + '-detail'} className="bg-gray-50 border-b border-gray-100">
-                          <td colSpan={5} className="px-5 py-2">
+                          <td colSpan={4} className="px-5 py-2">
                             <table className="w-full text-xs">
                               <thead>
                                 <tr className="text-gray-400">

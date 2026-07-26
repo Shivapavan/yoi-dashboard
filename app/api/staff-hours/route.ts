@@ -30,14 +30,7 @@ function weekMonday(dateStr: string): string {
   return d.toISOString().split('T')[0]
 }
 
-// Same rate table as app/components/tabs/EmpShdt.tsx (the admin Staff tab) —
-// kept in sync manually since this route serves the public read-only view.
 const EXCLUDED = new Set(['Randy', 'Samantha', 'Sindhu'])
-const DEFAULT_HOURLY_RATE = 10
-const EMPLOYEE_RATES: Record<string, number> = { janu: 10.5 }
-function rateFor(employee: string): number {
-  return EMPLOYEE_RATES[employee.trim().toLowerCase()] ?? DEFAULT_HOURLY_RATE
-}
 
 export async function GET(req: NextRequest) {
   if (!authorized(req)) {
@@ -84,18 +77,13 @@ export async function GET(req: NextRequest) {
   }
 
   const employees = Object.values(grouped)
-    .map((e) => {
-      const totalHours = Math.round(e.totalHours * 100) / 100
-      const rate = rateFor(e.employee)
-      return { ...e, totalHours, rate, pay: Math.round(totalHours * rate * 100) / 100 }
-    })
+    .map((e) => ({ ...e, totalHours: Math.round(e.totalHours * 100) / 100 }))
     .sort((a, b) => b.totalHours - a.totalHours)
 
   const totalHours = Math.round(employees.reduce((s, e) => s + e.totalHours, 0) * 100) / 100
-  const totalPay = Math.round(employees.reduce((s, e) => s + e.pay, 0) * 100) / 100
 
   return NextResponse.json(
-    { startDate, endDate, employees, totalHours, totalPay },
+    { startDate, endDate, employees, totalHours },
     { headers: { 'Cache-Control': 'no-store' } }
   )
 }
