@@ -20,6 +20,11 @@ const PUBLIC_PATHS = [
   '/events/',
   '/api/events/bookings',
   '/api/events/calendar.ics',
+  // Staff Hours: public page reachable via /staff-hours/<slug>, same pattern
+  // as Events Space above — the route enforces its own auth (session cookie
+  // OR matching ?slug=… query).
+  '/staff-hours/',
+  '/api/staff-hours',
 ]
 
 function getSecret() {
