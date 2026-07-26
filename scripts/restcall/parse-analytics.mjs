@@ -42,7 +42,7 @@ function parseTabularSheet(aoa, columns) {
 }
 
 export function parseRestcallWorkbook(buffer) {
-  const wb = XLSX.read(buffer, { type: 'buffer' })
+  const wb = XLSX.read(buffer, { type: 'buffer', cellDates: true })
 
   const { scalars: summary } = parseStackedKeyValueSheet(sheetAoa(wb, 'Summary'))
   const { scalars: financials } = parseStackedKeyValueSheet(sheetAoa(wb, 'Financials'))

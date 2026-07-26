@@ -138,3 +138,11 @@ test('parses comparison deltas keyed by metric', () => {
   const result = parseRestcallWorkbook(buildSampleWorkbook())
   assert.equal(result.comparison['Revenue'].previous, 318.02)
 })
+
+test('parses daily revenue business date as a YYYY-MM-DD string', () => {
+  const result = parseRestcallWorkbook(buildSampleWorkbook())
+  assert.equal(result.dailyRevenue[0].businessDate, '2026-07-25')
+  assert.equal(result.dailyRevenue[0].revenue, 57.16)
+  assert.equal(result.dailyRevenue[0].orders, 3)
+  assert.equal(result.dailyRevenue[0].averageTicket, 19.05333333333333)
+})
