@@ -3,6 +3,7 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { fetchLiveDayMetrics, fetchLiveCardBreakdown, fetchActivitySummaryData, centralTzOffset, fetchVoidDetail } from '@/lib/lighthouse'
 import { getDailyData } from '@/lib/daily-data'
+import { getRestcallRevenue } from '@/lib/restcall-data'
 
 // Historical end-of-day data never changes after the business day closes,
 // so the CDN can hold it for an hour with stale-while-revalidate.
@@ -14,6 +15,10 @@ export async function GET(req: NextRequest) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return NextResponse.json({ error: 'Invalid date format' }, { status: 400 })
 
   const data = JSON.parse(readFileSync(join(process.cwd(), 'data/dashboard.json'), 'utf8'))
+  // RestCall (AI-phone-order revenue via Stripe Terminal) is a separate channel
+  // Lighthouse never sees — additive, never merged into metrics.grossSales itself,
+  // so historical 14-day averages stay apples-to-apples with pre-RestCall days.
+  const restcallRevenue = await getRestcallRevenue(date).catch(() => 0)
 
   // Use server-computed business day (4 AM CDT boundary) instead of stale dashboard.json
   // businessDay so live data shows even when the scraper hasn't run today yet.
@@ -128,6 +133,7 @@ export async function GET(req: NextRequest) {
         voidDetails: stored.voidDetails ?? [],
         cashDetails: stored.cashDetails ?? [],
         orderTypes: stored.orderTypes ?? [],
+        restcallRevenue,
       }, { headers: { 'Cache-Control': HISTORICAL_CACHE } })
     }
 
@@ -184,6 +190,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({
           date, metrics, processingDetail, recommendedDate,
           earliestDate, businessDay: data.businessDay, live: true, cashRefund, voidDetails, cashDetails, orderTypes,
+          restcallRevenue,
         })
       }
     }
@@ -277,7 +284,7 @@ export async function GET(req: NextRequest) {
     {
       date, metrics, processingDetail, recommendedDate,
       earliestDate, businessDay: data.businessDay, live: isToday, cashRefund, voidDetails, cashDetails, orderTypes,
-      averages,
+      averages, restcallRevenue,
     },
     { headers: { 'Cache-Control': cacheControl } },
   )

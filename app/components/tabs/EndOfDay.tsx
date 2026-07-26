@@ -104,6 +104,7 @@ export default function EndOfDay() {
   const [cashDetails, setCashDetails]   = useState<{label:string;amount:number}[]>([])
   const [orderTypes, setOrderTypes]     = useState<{type:string;count:number;amount:number}[]>([])
   const [averages, setAverages]         = useState<EndOfDayMetrics | null>(null)
+  const [restcallRevenue, setRestcallRevenue] = useState(0)
   const [openTicketsList, setOpenTicketsList]       = useState<{guid:string;orderName:string;orderTypeName:string;customerName:string|null;employeeName:string;createdAt:string;grandTotal:number}[]>([])
   const [openTicketsLoading, setOpenTicketsLoading] = useState(false)
   const [onlineOrders, setOnlineOrders]         = useState<OnlineOrder[]>([])
@@ -122,6 +123,7 @@ export default function EndOfDay() {
     setVoidDetails([])
     setCashDetails([])
     setOrderTypes([])
+    setRestcallRevenue(0)
     try {
       const r = await fetch(`/api/end-of-day?date=${d}`)
       const res = await r.json()
@@ -144,6 +146,7 @@ export default function EndOfDay() {
       setCashDetails(res.cashDetails ?? [])
       setOrderTypes(res.orderTypes ?? [])
       setAverages(res.averages ?? null)
+      setRestcallRevenue(res.restcallRevenue ?? 0)
       setIsLive(!!res.live)
       setLastUpdated(new Date())
     } catch (e: any) {
@@ -214,6 +217,7 @@ export default function EndOfDay() {
   const grossBreakdown = grossSurcharge > 0.01
     ? `${fmt(metrics.netSales)} Net + ${fmt(metrics.taxes)} Tax + ${fmt(grossSurcharge)} Surcharge`
     : `${fmt(metrics.netSales)} Net + ${fmt(metrics.taxes)} Tax`
+  const combinedGrossSales = metrics.grossSales + restcallRevenue
   const grossDelta = (averages && averages.grossSales > 0.01)
     ? ((metrics.grossSales - averages.grossSales) / averages.grossSales) * 100
     : null
@@ -300,10 +304,15 @@ export default function EndOfDay() {
               Gross Sales — {date === today ? 'Today' : date}
             </p>
             <p className="text-4xl sm:text-5xl font-extrabold mt-1 leading-none" style={{ color: '#1E1B4B' }}>
-              {fmt(metrics.grossSales)}
+              {fmt(combinedGrossSales)}
             </p>
             {metrics.grossSales > 0 && (
               <p className="text-xs mt-2 font-mono" style={{ color: '#94A3B8' }}>= {grossBreakdown}</p>
+            )}
+            {restcallRevenue > 0.01 && (
+              <p className="text-xs mt-1 font-mono" style={{ color: '#94A3B8' }}>
+                {fmt(metrics.grossSales)} from Lighthouse + {fmt(restcallRevenue)} from RestCall
+              </p>
             )}
           </div>
           {grossDelta !== null && (
