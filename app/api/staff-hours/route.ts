@@ -32,6 +32,14 @@ function weekMonday(dateStr: string): string {
 
 const EXCLUDED = new Set(['Randy', 'Samantha', 'Sindhu'])
 
+// Aggregate-only — kept out of the per-employee response so the public page
+// can show a grand total without exposing each employee's rate or pay.
+const DEFAULT_HOURLY_RATE = 10
+const EMPLOYEE_RATES: Record<string, number> = { janu: 10.5 }
+function rateFor(employee: string): number {
+  return EMPLOYEE_RATES[employee.trim().toLowerCase()] ?? DEFAULT_HOURLY_RATE
+}
+
 export async function GET(req: NextRequest) {
   if (!authorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -81,9 +89,12 @@ export async function GET(req: NextRequest) {
     .sort((a, b) => b.totalHours - a.totalHours)
 
   const totalHours = Math.round(employees.reduce((s, e) => s + e.totalHours, 0) * 100) / 100
+  const totalPay = Math.round(
+    employees.reduce((s, e) => s + e.totalHours * rateFor(e.employee), 0) * 100
+  ) / 100
 
   return NextResponse.json(
-    { startDate, endDate, employees, totalHours },
+    { startDate, endDate, employees, totalHours, totalPay },
     { headers: { 'Cache-Control': 'no-store' } }
   )
 }

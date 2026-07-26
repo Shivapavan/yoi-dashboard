@@ -5,12 +5,15 @@ import { SkeletonCards, SkeletonTable } from './Skeleton'
 
 interface Shift { date: string; start: string; end: string; hours: number }
 interface Employee { employee: string; totalHours: number; shifts: Shift[] }
-interface Data { startDate: string; endDate: string; employees: Employee[]; totalHours: number }
+interface Data { startDate: string; endDate: string; employees: Employee[]; totalHours: number; totalPay: number }
 
 function hm(h: number) {
   const hrs = Math.floor(h)
   const min = Math.round((h - hrs) * 60)
   return min > 0 ? `${hrs}h ${min}m` : `${hrs}h`
+}
+function money(n: number) {
+  return `$${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 }
 function addDays(s: string, n: number) {
   const d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n)
@@ -98,10 +101,14 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
 
       {!loading && data && (
         <>
-          <div className="grid grid-cols-2 gap-3 mb-4">
+          <div className="grid grid-cols-3 gap-3 mb-4">
             <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-teal-600">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Hours</div>
               <div className="text-xl font-bold text-gray-900">{hm(data.totalHours)}</div>
+            </div>
+            <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-amber-600">
+              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Amount</div>
+              <div className="text-xl font-bold text-gray-900">{money(data.totalPay)}</div>
             </div>
             <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-indigo-500">
               <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Employees</div>
