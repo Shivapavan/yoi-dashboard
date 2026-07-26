@@ -66,12 +66,27 @@ async function run() {
       // and every run would time out waiting for it.
       await page.goto('https://dash.restcall.ai/dashboard/analytics', { waitUntil: 'domcontentloaded' })
 
-      if (headed) await page.pause() // Playwright Inspector: confirm/fix the selector below before it clicks.
+      if (headed) await page.pause() // Playwright Inspector: confirm/fix the selectors below before it clicks.
 
+      // A one-off "new build has landed" toast can appear and overlap the export
+      // menu — dismiss it if present so it can't intercept clicks. Best-effort:
+      // it doesn't always show up, so a missing toast is not an error.
+      const laterButton = page.getByRole('button', { name: /^later$/i })
+      if (await laterButton.isVisible({ timeout: 3000 }).catch(() => false)) {
+        await laterButton.click()
+      }
+
+      // Clicking "Export" only opens a menu of format options (PDF report / Excel
+      // workbook / ZIP transaction statement) — it doesn't download anything by
+      // itself. The actual file comes from picking "Excel workbook" inside it.
       const exportButton = page.getByRole('button', { name: /export/i }).first()
       await exportButton.waitFor({ state: 'visible', timeout: 15000 })
-      const downloadPromise = page.waitForEvent('download')
       await exportButton.click()
+
+      const excelOption = page.getByText('Excel workbook', { exact: false }).first()
+      await excelOption.waitFor({ state: 'visible', timeout: 10000 })
+      const downloadPromise = page.waitForEvent('download')
+      await excelOption.click()
       const download = await downloadPromise
 
       const filePath = await download.path()
