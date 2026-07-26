@@ -79,6 +79,9 @@ const EMPTY: EndOfDayMetrics = {
   cashPayments: 0, creditCardPayments: 0, discounts: 0, openTickets: 0,
 }
 
+// RestCall has no equivalent of Voids or Open Tickets, so those two are never combined.
+const EMPTY_RESTCALL = { revenue: 0, netSales: 0, taxes: 0, discounts: 0, cashPayments: 0, creditCardPayments: 0 }
+
 function centralToday(): string {
   const shifted = new Date(Date.now() - 4 * 60 * 60 * 1000)
   return shifted.toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })
@@ -104,7 +107,7 @@ export default function EndOfDay() {
   const [cashDetails, setCashDetails]   = useState<{label:string;amount:number}[]>([])
   const [orderTypes, setOrderTypes]     = useState<{type:string;count:number;amount:number}[]>([])
   const [averages, setAverages]         = useState<EndOfDayMetrics | null>(null)
-  const [restcallRevenue, setRestcallRevenue] = useState(0)
+  const [restcall, setRestcall]         = useState(EMPTY_RESTCALL)
   const [openTicketsList, setOpenTicketsList]       = useState<{guid:string;orderName:string;orderTypeName:string;customerName:string|null;employeeName:string;createdAt:string;grandTotal:number}[]>([])
   const [openTicketsLoading, setOpenTicketsLoading] = useState(false)
   const [onlineOrders, setOnlineOrders]         = useState<OnlineOrder[]>([])
@@ -123,7 +126,7 @@ export default function EndOfDay() {
     setVoidDetails([])
     setCashDetails([])
     setOrderTypes([])
-    setRestcallRevenue(0)
+    setRestcall(EMPTY_RESTCALL)
     try {
       const r = await fetch(`/api/end-of-day?date=${d}`)
       const res = await r.json()
@@ -146,7 +149,7 @@ export default function EndOfDay() {
       setCashDetails(res.cashDetails ?? [])
       setOrderTypes(res.orderTypes ?? [])
       setAverages(res.averages ?? null)
-      setRestcallRevenue(res.restcallRevenue ?? 0)
+      setRestcall(res.restcall ?? EMPTY_RESTCALL)
       setIsLive(!!res.live)
       setLastUpdated(new Date())
     } catch (e: any) {
@@ -217,7 +220,7 @@ export default function EndOfDay() {
   const grossBreakdown = grossSurcharge > 0.01
     ? `${fmt(metrics.netSales)} Net + ${fmt(metrics.taxes)} Tax + ${fmt(grossSurcharge)} Surcharge`
     : `${fmt(metrics.netSales)} Net + ${fmt(metrics.taxes)} Tax`
-  const combinedGrossSales = metrics.grossSales + restcallRevenue
+  const combinedGrossSales = metrics.grossSales + restcall.revenue
   const grossDelta = (averages && averages.grossSales > 0.01)
     ? ((metrics.grossSales - averages.grossSales) / averages.grossSales) * 100
     : null
@@ -309,9 +312,9 @@ export default function EndOfDay() {
             {metrics.grossSales > 0 && (
               <p className="text-xs mt-2 font-mono" style={{ color: '#94A3B8' }}>= {grossBreakdown}</p>
             )}
-            {restcallRevenue > 0.01 && (
+            {restcall.revenue > 0.01 && (
               <p className="text-xs mt-1 font-mono" style={{ color: '#94A3B8' }}>
-                {fmt(metrics.grossSales)} from Lighthouse + {fmt(restcallRevenue)} from RestCall
+                {fmt(metrics.grossSales)} from Lighthouse + {fmt(restcall.revenue)} from RestCall
               </p>
             )}
           </div>
@@ -334,6 +337,20 @@ export default function EndOfDay() {
           const value = (key === 'openTickets' && date === today)
             ? openTicketsList.reduce((s, t) => s + t.grandTotal, 0)
             : metrics[key]
+
+          // Voids and Open Tickets have no RestCall equivalent — combined value
+          // equals the Lighthouse-only value for those two.
+          const restcallAmount = ({
+            netSales: restcall.netSales,
+            taxes: restcall.taxes,
+            discounts: restcall.discounts,
+            cashPayments: restcall.cashPayments,
+            creditCardPayments: restcall.creditCardPayments,
+          } as Record<string, number>)[key] ?? 0
+          const displayValue = value + restcallAmount
+          const sourceBreakdown = restcallAmount > 0.01
+            ? `${fmt(value)} from Lighthouse + ${fmt(restcallAmount)} from RestCall`
+            : undefined
 
           let breakdown: string | undefined
           if (key === 'netSales') {
@@ -363,8 +380,8 @@ export default function EndOfDay() {
 
           return (
             <MetricCard
-              key={key} label={label} value={value} borderColor={color}
-              formula={formula} breakdown={breakdown}
+              key={key} label={label} value={displayValue} borderColor={color}
+              formula={formula} breakdown={breakdown} sourceBreakdown={sourceBreakdown}
               deltaPct={deltaPct} inverse={inverse}
               note={key === 'cashPayments' && cashRefund > 0
                 ? `incl. −$${cashRefund.toFixed(2)} cash refund`

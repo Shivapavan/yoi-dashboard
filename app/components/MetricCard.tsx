@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { computeDelta } from '@/lib/utils'
 
 interface MetricCardProps {
   label: string
@@ -9,23 +10,28 @@ interface MetricCardProps {
   note?: string
   formula?: string
   breakdown?: string
-  deltaPct?: number | null
+  avg?: number | null
   inverse?: boolean
+  deltaPct?: number | null
+  sourceBreakdown?: string
 }
 
+const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+
 export default function MetricCard({
-  label, value, borderColor, note, formula, breakdown, deltaPct, inverse,
+  label, value, borderColor, note, formula, breakdown, avg, inverse, sourceBreakdown,
 }: MetricCardProps) {
   const [showTooltip, setShowTooltip] = useState(false)
-  const formatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+  const formatted = currency.format(value)
 
-  const showDelta = typeof deltaPct === 'number' && isFinite(deltaPct)
-  const isUp = (deltaPct ?? 0) >= 0
+  const delta = computeDelta(value, avg)
+  const showDelta = delta !== null
+  const isUp = (delta?.diff ?? 0) >= 0
   const isGood = inverse ? !isUp : isUp
   const arrow = isUp ? '▲' : '▼'
-  const deltaText = isGood
-    ? `${arrow} ${Math.abs(deltaPct!).toFixed(1)}%`
-    : `${arrow} ${Math.abs(deltaPct!).toFixed(1)}%`
+  const deltaText = delta?.useAbs
+    ? `${isUp ? '+' : '−'}${currency.format(Math.abs(delta.diff))} vs avg`
+    : `${arrow} ${Math.abs(delta?.pct ?? 0).toFixed(1)}%`
 
   return (
     <div
@@ -70,6 +76,7 @@ export default function MetricCard({
       )}
 
       {breakdown && <p className="text-xs mt-2 font-mono" style={{ color: '#94A3B8' }}>{breakdown}</p>}
+      {sourceBreakdown && <p className="text-xs mt-1 font-mono" style={{ color: '#94A3B8' }}>{sourceBreakdown}</p>}
       {note && <p className="text-xs mt-1" style={{ color: '#94A3B8' }}>{note}</p>}
 
       {formula && showTooltip && (
