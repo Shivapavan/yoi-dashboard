@@ -13,6 +13,27 @@ import { dirname, join } from 'path'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const SESSION_PATH = join(__dirname, '.session-state.json')
 
+const LOGIN_TIMEOUT_MS = 5 * 60 * 1000
+const POLL_INTERVAL_MS = 2000
+
+// RestCall's Clerk-based login shows a sign-in overlay without ever changing
+// the URL away from /dashboard/analytics, so waiting for a URL change never
+// detects a real login — it resolves instantly, before you've logged in at
+// all. Instead, poll for the actual Clerk session cookie (__session / a
+// __session_<instance> variant), which only appears after a real login.
+async function waitForAuthenticatedSession(context, timeoutMs) {
+  const start = Date.now()
+  while (Date.now() - start < timeoutMs) {
+    const cookies = await context.cookies()
+    if (cookies.some((c) => c.name.startsWith('__session'))) return
+    await new Promise((r) => setTimeout(r, POLL_INTERVAL_MS))
+  }
+  throw new Error(
+    `Timed out after ${Math.round(timeoutMs / 60000)} minutes waiting for login ` +
+    `(no __session cookie appeared). Log in fully — email, password, and the emailed OTP — then re-run this script.`
+  )
+}
+
 const browser = await chromium.launch({ headless: false })
 const context = await browser.newContext()
 const page = await context.newPage()
@@ -20,10 +41,17 @@ const page = await context.newPage()
 await page.goto('https://dash.restcall.ai/dashboard/analytics')
 
 console.log('\nA browser window is open. Log in by hand (email + password + the OTP')
-console.log('emailed to you). This script will detect the dashboard and save your')
-console.log('session automatically once you land on it.\n')
+console.log('emailed to you). This script polls for the real Clerk session cookie —')
+console.log('it will only save once you have actually finished logging in.\n')
 
-await page.waitForURL('**/dashboard/analytics', { timeout: 5 * 60 * 1000 })
+try {
+  await waitForAuthenticatedSession(context, LOGIN_TIMEOUT_MS)
+} catch (err) {
+  await browser.close()
+  console.error(`\n${err.message}\n`)
+  process.exit(1)
+}
+
 // Give the page a moment to finish its authenticated requests before snapshotting storage.
 await page.waitForTimeout(2000)
 
