@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { fetchEmployeeShifts, centralTzOffset } from '@/lib/lighthouse'
+import { getPaidAmounts, setPaidAmount } from '@/lib/staff-payments'
 
 // The middleware bypasses /api/staff-hours entirely (the public payroll page
 // needs it), so this route implements its own access check: either a valid
 // main-app session OR the correct ?slug=… param matching STAFF_HOURS_PUBLIC_SLUG.
-// Same pattern as /api/events/bookings.
+// Same pattern as /api/events/bookings. Marking something "Paid" is reachable
+// from this same public link by design — there's no separate admin gate for it.
 function getStaffHoursPublicSlug(): string | null {
   const s = process.env.STAFF_HOURS_PUBLIC_SLUG?.trim()
   return s ? s : null
@@ -30,6 +32,18 @@ function weekMonday(dateStr: string): string {
   return d.toISOString().split('T')[0]
 }
 
+// Real pay cycle is semi-monthly (1st–15th, 16th–end of month), not calendar weeks.
+function semiMonthPeriod(dateStr: string): { start: string; end: string } {
+  const [y, m] = dateStr.split('-').map(Number)
+  const monthPrefix = dateStr.slice(0, 7)
+  const day = Number(dateStr.slice(8, 10))
+  if (day <= 15) {
+    return { start: `${monthPrefix}-01`, end: `${monthPrefix}-15` }
+  }
+  const lastDay = new Date(y, m, 0).getDate() // day 0 of next month = last day of this month
+  return { start: `${monthPrefix}-16`, end: `${monthPrefix}-${String(lastDay).padStart(2, '0')}` }
+}
+
 const EXCLUDED = new Set(['Randy', 'Samantha', 'Sindhu'])
 
 // Same rate table as app/components/tabs/EmpShdt.tsx (the admin Staff tab) —
@@ -50,22 +64,34 @@ export async function GET(req: NextRequest) {
   if (param && !/^\d{4}-\d{2}-\d{2}$/.test(param)) {
     return NextResponse.json({ error: 'Invalid param format' }, { status: 400 })
   }
+  const view = req.nextUrl.searchParams.get('view') === 'semimonthly' ? 'semimonthly' : 'weekly'
 
   const today = new Date(Date.now() - 4 * 60 * 60 * 1000)
     .toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })
 
-  const startDate = weekMonday(param || today)
-  const endDate = addDays(startDate, 6)
+  let startDate: string
+  let endDate: string
+  if (view === 'semimonthly') {
+    const period = semiMonthPeriod(param || today)
+    startDate = period.start
+    endDate = period.end
+  } else {
+    startDate = weekMonday(param || today)
+    endDate = addDays(startDate, 6)
+  }
   const effectiveEnd = endDate > today ? today : endDate
 
   const startOffset = centralTzOffset(startDate)
   const businessEndDate = addDays(effectiveEnd, 1)
   const businessEndOffset = centralTzOffset(businessEndDate)
 
-  const shifts = await fetchEmployeeShifts(
-    `${startDate}T04:00:00${startOffset}`,
-    `${businessEndDate}T03:59:59${businessEndOffset}`
-  )
+  const [shifts, paidAmounts] = await Promise.all([
+    fetchEmployeeShifts(
+      `${startDate}T04:00:00${startOffset}`,
+      `${businessEndDate}T03:59:59${businessEndOffset}`
+    ),
+    getPaidAmounts(startDate, endDate).catch((): Record<string, number> => ({})),
+  ])
 
   const grouped: Record<string, {
     employee: string
@@ -88,15 +114,44 @@ export async function GET(req: NextRequest) {
   const employees = Object.values(grouped)
     .map((e) => {
       const totalHours = Math.round(e.totalHours * 100) / 100
-      return { ...e, totalHours, pay: Math.round(totalHours * rateFor(e.employee) * 100) / 100 }
+      const pay = Math.round(totalHours * rateFor(e.employee) * 100) / 100
+      const paid = Math.round((paidAmounts[e.employee] ?? 0) * 100) / 100
+      const balance = Math.round((pay - paid) * 100) / 100
+      return { ...e, totalHours, pay, paid, balance }
     })
     .sort((a, b) => b.totalHours - a.totalHours)
 
   const totalHours = Math.round(employees.reduce((s, e) => s + e.totalHours, 0) * 100) / 100
   const totalPay = Math.round(employees.reduce((s, e) => s + e.pay, 0) * 100) / 100
+  const totalPaid = Math.round(employees.reduce((s, e) => s + e.paid, 0) * 100) / 100
+  const totalBalance = Math.round((totalPay - totalPaid) * 100) / 100
 
   return NextResponse.json(
-    { startDate, endDate, employees, totalHours, totalPay },
+    { startDate, endDate, view, employees, totalHours, totalPay, totalPaid, totalBalance },
     { headers: { 'Cache-Control': 'no-store' } }
   )
+}
+
+export async function POST(req: NextRequest) {
+  if (!authorized(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  let body: any
+  try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+
+  const { employee, periodStart, periodEnd, paidAmount } = body ?? {}
+  if (typeof employee !== 'string' || !employee.trim()) {
+    return NextResponse.json({ error: 'employee is required' }, { status: 400 })
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(periodStart) || !/^\d{4}-\d{2}-\d{2}$/.test(periodEnd)) {
+    return NextResponse.json({ error: 'periodStart and periodEnd (YYYY-MM-DD) are required' }, { status: 400 })
+  }
+  const amount = Number(paidAmount)
+  if (!Number.isFinite(amount) || amount < 0) {
+    return NextResponse.json({ error: 'paidAmount must be a non-negative number' }, { status: 400 })
+  }
+
+  await setPaidAmount(employee, periodStart, periodEnd, amount)
+  return NextResponse.json({ ok: true }, { headers: { 'Cache-Control': 'no-store' } })
 }
