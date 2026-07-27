@@ -25,10 +25,10 @@ function addDays(dateStr: string, n: number): string {
   return d.toISOString().split('T')[0]
 }
 
-function weekMonday(dateStr: string): string {
+function weekSunday(dateStr: string): string {
   const d = new Date(dateStr + 'T12:00:00')
   const day = d.getDay()
-  d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day))
+  d.setDate(d.getDate() - day)
   return d.toISOString().split('T')[0]
 }
 
@@ -76,7 +76,7 @@ export async function GET(req: NextRequest) {
     startDate = period.start
     endDate = period.end
   } else {
-    startDate = weekMonday(param || today)
+    startDate = weekSunday(param || today)
     endDate = addDays(startDate, 6)
   }
   const effectiveEnd = endDate > today ? today : endDate

@@ -25,10 +25,10 @@ function addDays(s: string, n: number) {
 function fmtDate(s: string) {
   return new Date(s + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
-function weekMonday(s: string) {
+function weekSunday(s: string) {
   const d = new Date(s + 'T12:00:00')
   const day = d.getDay()
-  d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day))
+  d.setDate(d.getDate() - day)
   return d.toISOString().split('T')[0]
 }
 function centralToday() {
@@ -36,11 +36,11 @@ function centralToday() {
     .toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })
 }
 
-// Generate all Mondays from Jun 1 2026 (first payroll week this page covers) to the current week.
+// Generate all Sundays from Jun 1 2026 (first payroll week this page covers) to the current week.
 function weekOptions(): Array<{ value: string; label: string }> {
   const options: Array<{ value: string; label: string }> = []
-  let cur = weekMonday('2026-06-01')
-  const last = weekMonday(centralToday())
+  let cur = weekSunday('2026-06-01')
+  const last = weekSunday(centralToday())
   while (cur <= last) {
     const end = addDays(cur, 6)
     options.push({ value: cur, label: `${fmtDate(cur)} – ${fmtDate(end)}` })
@@ -75,7 +75,7 @@ type PeriodType = 'weekly' | 'semimonthly'
 
 export default function StaffHoursPublic({ slug }: { slug: string }) {
   const [periodType, setPeriodType] = useState<PeriodType>('weekly')
-  const [weekStart, setWeekStart] = useState(() => weekMonday(centralToday()))
+  const [weekStart, setWeekStart] = useState(() => weekSunday(centralToday()))
   const [semiMonthStart, setSemiMonthStart] = useState(() => semiMonthStartFor(centralToday()))
   const [data, setData] = useState<Data | null>(null)
   const [loading, setLoading] = useState(true)
@@ -120,7 +120,7 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
   }
 
   const today = centralToday()
-  const todayWeekMon = weekMonday(today)
+  const todayWeekMon = weekSunday(today)
   const todaySemiStart = semiMonthStartFor(today)
   const weekOpts = weekOptions()
   const semiOpts = semiMonthOptions()
