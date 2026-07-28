@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { SkeletonCards, SkeletonTable } from './Skeleton'
 
 interface Shift { date: string; start: string; end: string; hours: number }
-interface Employee { employee: string; totalHours: number; pay: number; paid: number; balance: number; shifts: Shift[] }
+interface Employee { employee: string; totalHours: number; pay: number; paid: number; balance: number; locked: boolean; shifts: Shift[] }
 interface Data {
   startDate: string; endDate: string; employees: Employee[]
   totalHours: number; totalPay: number; totalPaid: number; totalBalance: number
@@ -81,7 +81,6 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [expanded, setExpanded] = useState<string | null>(null)
-  const [paidDrafts, setPaidDrafts] = useState<Record<string, string>>({})
   const [savingEmployee, setSavingEmployee] = useState<string | null>(null)
 
   const periodParam = periodType === 'weekly' ? weekStart : semiMonthStart
@@ -93,21 +92,20 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
       const d = await r.json()
       if (d.error) throw new Error(d.error)
       setData(d)
-      setPaidDrafts({})
     } catch (e: any) { setError(e.message) }
     finally { setLoading(false) }
   }, [periodParam, periodType, slug])
 
   useEffect(() => { fetchData() }, [fetchData])
 
-  const savePaid = async (employee: string, amount: number) => {
+  const setPayment = async (employee: string, paidAmount: number, locked: boolean) => {
     if (!data) return
     setSavingEmployee(employee)
     try {
       const r = await fetch(`/api/staff-hours?slug=${encodeURIComponent(slug)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ employee, periodStart: data.startDate, periodEnd: data.endDate, paidAmount: amount }),
+        body: JSON.stringify({ employee, periodStart: data.startDate, periodEnd: data.endDate, paidAmount, locked }),
       })
       const d = await r.json()
       if (d.error) throw new Error(d.error)
@@ -118,6 +116,8 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
       setSavingEmployee(null)
     }
   }
+  const markPaid = (employee: string, pay: number) => setPayment(employee, pay, true)
+  const unlockPaid = (employee: string) => setPayment(employee, 0, false)
 
   const today = centralToday()
   const todayWeekMon = weekSunday(today)
@@ -230,8 +230,6 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
                 </thead>
                 <tbody>
                   {data.employees.map((emp) => {
-                    const draft = paidDrafts[emp.employee]
-                    const paidValue = draft !== undefined ? draft : String(emp.paid ?? 0)
                     return (
                       <React.Fragment key={emp.employee}>
                         <tr className="border-b border-gray-50 hover:bg-gray-50">
@@ -243,19 +241,30 @@ export default function StaffHoursPublic({ slug }: { slug: string }) {
                           <td className="px-5 py-3 text-right font-bold text-yoi-primary">{hm(emp.totalHours)}</td>
                           <td className="px-5 py-3 text-right font-bold text-amber-700">{money(emp.pay)}</td>
                           <td className="px-5 py-3 text-right">
-                            <input
-                              type="number" step="0.01" min="0"
-                              value={paidValue}
-                              disabled={savingEmployee === emp.employee}
-                              onChange={(e) => setPaidDrafts((cur) => ({ ...cur, [emp.employee]: e.target.value }))}
-                              onBlur={(e) => {
-                                const n = Number(e.target.value)
-                                if (Number.isFinite(n) && n >= 0 && n !== emp.paid) savePaid(emp.employee, n)
-                              }}
-                              className="w-24 text-right px-2 py-1 rounded border border-gray-200 text-sm font-semibold text-green-700 focus:outline-none focus:ring-2 focus:ring-teal-300"
-                            />
+                            {emp.locked ? (
+                              <span className="font-semibold text-green-700">{money(emp.paid)}</span>
+                            ) : (
+                              <button
+                                onClick={() => markPaid(emp.employee, emp.pay)}
+                                disabled={savingEmployee === emp.employee}
+                                className="px-3 py-1 rounded border border-yoi-primary text-yoi-primary text-xs font-semibold hover:bg-teal-50 disabled:opacity-50"
+                              >
+                                Mark Paid
+                              </button>
+                            )}
                           </td>
-                          <td className={`px-5 py-3 text-right font-bold ${emp.balance > 0.01 ? 'text-red-600' : 'text-gray-500'}`}>{money(emp.balance)}</td>
+                          <td className={`px-5 py-3 text-right font-bold ${!emp.locked && emp.balance > 0.01 ? 'text-red-600' : 'text-gray-500'}`}>
+                            {money(emp.balance)}
+                            {emp.locked && (
+                              <button
+                                onClick={() => unlockPaid(emp.employee)}
+                                disabled={savingEmployee === emp.employee}
+                                className="ml-2 text-[11px] font-normal text-gray-400 underline hover:text-gray-600 disabled:opacity-50"
+                              >
+                                unlock
+                              </button>
+                            )}
+                          </td>
                           <td className="px-5 py-3 text-right text-gray-500 text-xs whitespace-nowrap cursor-pointer"
                             onClick={() => setExpanded(expanded === emp.employee ? null : emp.employee)}>
                             {expanded === emp.employee ? '▲ Hide' : '▼ Details'}

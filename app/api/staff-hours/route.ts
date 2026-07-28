@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { fetchEmployeeShifts, centralTzOffset } from '@/lib/lighthouse'
-import { getPaidAmounts, setPaidAmount } from '@/lib/staff-payments'
+import { getPayments, setPayment, type PaymentRecord } from '@/lib/staff-payments'
 
 // The middleware bypasses /api/staff-hours entirely (the public payroll page
 // needs it), so this route implements its own access check: either a valid
@@ -85,12 +85,12 @@ export async function GET(req: NextRequest) {
   const businessEndDate = addDays(effectiveEnd, 1)
   const businessEndOffset = centralTzOffset(businessEndDate)
 
-  const [shifts, paidAmounts] = await Promise.all([
+  const [shifts, payments] = await Promise.all([
     fetchEmployeeShifts(
       `${startDate}T04:00:00${startOffset}`,
       `${businessEndDate}T03:59:59${businessEndOffset}`
     ),
-    getPaidAmounts(startDate, endDate).catch((): Record<string, number> => ({})),
+    getPayments(startDate, endDate).catch((): Record<string, PaymentRecord> => ({})),
   ])
 
   const grouped: Record<string, {
@@ -115,9 +115,11 @@ export async function GET(req: NextRequest) {
     .map((e) => {
       const totalHours = Math.round(e.totalHours * 100) / 100
       const pay = Math.round(totalHours * rateFor(e.employee) * 100) / 100
-      const paid = Math.round((paidAmounts[e.employee] ?? 0) * 100) / 100
-      const balance = Math.round((pay - paid) * 100) / 100
-      return { ...e, totalHours, pay, paid, balance }
+      const record = payments[e.employee]
+      const locked = record?.locked ?? false
+      const paid = Math.round((record?.paidAmount ?? 0) * 100) / 100
+      const balance = locked ? 0 : Math.round((pay - paid) * 100) / 100
+      return { ...e, totalHours, pay, paid, balance, locked }
     })
     .sort((a, b) => b.totalHours - a.totalHours)
 
@@ -140,7 +142,7 @@ export async function POST(req: NextRequest) {
   let body: any
   try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
 
-  const { employee, periodStart, periodEnd, paidAmount } = body ?? {}
+  const { employee, periodStart, periodEnd, paidAmount, locked } = body ?? {}
   if (typeof employee !== 'string' || !employee.trim()) {
     return NextResponse.json({ error: 'employee is required' }, { status: 400 })
   }
@@ -151,7 +153,10 @@ export async function POST(req: NextRequest) {
   if (!Number.isFinite(amount) || amount < 0) {
     return NextResponse.json({ error: 'paidAmount must be a non-negative number' }, { status: 400 })
   }
+  if (typeof locked !== 'boolean') {
+    return NextResponse.json({ error: 'locked (boolean) is required' }, { status: 400 })
+  }
 
-  await setPaidAmount(employee, periodStart, periodEnd, amount)
+  await setPayment(employee, periodStart, periodEnd, amount, locked)
   return NextResponse.json({ ok: true }, { headers: { 'Cache-Control': 'no-store' } })
 }
