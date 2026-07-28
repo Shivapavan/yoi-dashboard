@@ -1,7 +1,7 @@
 import type { IgProfile, IgPost } from '@/lib/scraper/types'
 
 export const IG_ACCOUNTS = [
-  '_bharatbhavan_', 'athidhi.aalayam', 'spicerackfrisco', 'marina_indian',
+  '_bharatbhavanfrisco_', 'athidhi.aalayam', 'spicerackfrisco', 'marina_indian',
   'ulavacharu_frisco', 'themangoyard', 'rayalaseemaruchulu_usa_frisco',
   'spicyvihaarfrisco', 'desichowrastha', 'nh7dhaba', 'yumofindia_mckinney',
   'tantraindianbistro', 'bhoomifoodtruck', 'babai_bandi',
@@ -11,7 +11,7 @@ export const IG_ACCOUNTS = [
 ]
 
 export const DISPLAY_NAMES: Record<string, string> = {
-  '_bharatbhavan_': 'Bharat Bhavan',
+  '_bharatbhavanfrisco_': 'Bharat Bhavan',
   'athidhi.aalayam': 'Athidhi Aalayam',
   'spicerackfrisco': 'Spice Rack',
   'marina_indian': 'Marina Indian',

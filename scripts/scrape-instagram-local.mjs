@@ -28,7 +28,7 @@ const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/6
 const POST_LIMIT = 30
 
 const IG_ACCOUNTS = [
-  '_bharatbhavan_', 'athidhi.aalayam', 'spicerackfrisco', 'marina_indian',
+  '_bharatbhavanfrisco_', 'athidhi.aalayam', 'spicerackfrisco', 'marina_indian',
   'ulavacharu_frisco', 'themangoyard', 'rayalaseemaruchulu_usa_frisco',
   'spicyvihaarfrisco', 'desichowrastha', 'nh7dhaba', 'yumofindia_mckinney',
   'tantraindianbistro', 'bhoomifoodtruck', 'babai_bandi',
@@ -36,10 +36,11 @@ const IG_ACCOUNTS = [
   'desi.district', 'dumngrill_melissa', 'dumngrill_frisco', 'jataraindiankitchen',
   '_nagskitchen_', 'premaskitchen', 'aaha_kitchen_celina', 'saibhavancarrollton',
   'salemrrbiryani', 'marketives', 'kumbhakarna.mckinney',
+  'paradise.frisco', 'desivillage_frisco',
 ]
 
 const DISPLAY_NAMES = {
-  '_bharatbhavan_': 'Bharat Bhavan', 'athidhi.aalayam': 'Athidhi Aalayam',
+  '_bharatbhavanfrisco_': 'Bharat Bhavan', 'athidhi.aalayam': 'Athidhi Aalayam',
   'spicerackfrisco': 'Spice Rack', 'marina_indian': 'Marina Indian',
   'ulavacharu_frisco': 'Ulavacharu', 'themangoyard': 'The Mango Yard',
   'rayalaseemaruchulu_usa_frisco': 'Rayalaseema Ruchulu', 'spicyvihaarfrisco': 'Spicy Vihaar',
@@ -54,6 +55,8 @@ const DISPLAY_NAMES = {
   'aaha_kitchen_celina': 'Aaha Kitchen', 'saibhavancarrollton': 'Sai Bhavan',
   'salemrrbiryani': 'Salem RR Biryani', 'marketives': 'Marketives',
   'kumbhakarna.mckinney': 'Kumbhakarna Indian Cuisine',
+  'paradise.frisco': 'Paradise Frisco',
+  'desivillage_frisco': 'Desi Village Frisco',
 }
 
 const TOPICS = {
