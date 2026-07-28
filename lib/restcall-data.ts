@@ -59,3 +59,44 @@ export async function getRestcallBreakdown(date: string): Promise<RestcallBreakd
     creditCardPayments,
   }
 }
+
+function breakdownFromMetrics(metrics: any): RestcallBreakdown {
+  const financials = metrics?.financials ?? {}
+  const channels: Array<{ dimension?: string; value?: string; revenue?: number }> = metrics?.channels ?? []
+  const paymentRows = channels.filter((c) => c.dimension === 'Payment')
+  const cashPayments = paymentRows
+    .filter((c) => c.value === 'Cash')
+    .reduce((s, c) => s + (c.revenue ?? 0), 0)
+  const creditCardPayments = paymentRows
+    .filter((c) => c.value !== 'Cash')
+    .reduce((s, c) => s + (c.revenue ?? 0), 0)
+
+  return {
+    revenue: typeof metrics?.summary?.revenue === 'number' ? metrics.summary.revenue : 0,
+    netSales: typeof financials.netItemSales === 'number' ? financials.netItemSales : 0,
+    taxes: typeof financials.taxes === 'number' ? financials.taxes : 0,
+    discounts: (financials.discounts ?? 0) + (financials.cashDiscounts ?? 0),
+    cashPayments,
+    creditCardPayments,
+  }
+}
+
+// Bulk version of getRestcallBreakdown for date-range views (Sales Trend's
+// daily/weekly/monthly charts) — one query instead of one per day.
+export async function getRestcallBreakdownRange(
+  startDate: string,
+  endDate: string
+): Promise<Record<string, RestcallBreakdown>> {
+  await ensureRestcallDataTable()
+  const sql = getDb()
+  const rows = await sql`
+    SELECT date, metrics FROM restcall_daily_data
+    WHERE date >= ${startDate} AND date <= ${endDate}
+  `
+  const result: Record<string, RestcallBreakdown> = {}
+  for (const row of rows as any[]) {
+    const dateStr = row.date instanceof Date ? row.date.toISOString().split('T')[0] : String(row.date)
+    result[dateStr] = breakdownFromMetrics(row.metrics)
+  }
+  return result
+}

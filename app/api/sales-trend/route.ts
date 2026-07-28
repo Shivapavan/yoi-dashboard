@@ -3,6 +3,7 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { centralTzOffset, fetchActivitySummaryData, fetchLiveDayMetrics } from '@/lib/lighthouse'
 import { fetchCateringMonthTotal } from '@/lib/google'
+import { getRestcallBreakdownRange } from '@/lib/restcall-data'
 
 function round2(v: number) { return Math.round(v * 100) / 100 }
 
@@ -22,6 +23,26 @@ function addDays(dateStr: string, n: number): string {
   const d = new Date(dateStr + 'T12:00:00')
   d.setDate(d.getDate() + n)
   return d.toISOString().split('T')[0]
+}
+
+// RestCall (AI-phone-order revenue) is a separate, non-overlapping channel from
+// Lighthouse — add it on top of each day's Lighthouse-derived totals so the
+// trend chart and summary cards show combined sales, same as the End-of-Day tab.
+async function addRestcallToSlots(
+  slots: Array<{ date: string; grossSales: number; netSales: number; cashPayments: number }>,
+  startDate: string,
+  endDate: string,
+  today: string
+) {
+  const restcallMap = await getRestcallBreakdownRange(startDate, endDate)
+  for (const slot of slots) {
+    if (slot.date > today) continue
+    const rc = restcallMap[slot.date]
+    if (!rc) continue
+    slot.grossSales = round2(slot.grossSales + rc.revenue)
+    slot.netSales = round2(slot.netSales + rc.netSales)
+    slot.cashPayments = round2(slot.cashPayments + rc.cashPayments)
+  }
 }
 
 export async function GET(req: NextRequest) {
@@ -85,6 +106,8 @@ export async function GET(req: NextRequest) {
       }))
     }
 
+    await addRestcallToSlots(dailySlots, firstDay, lastDay, today)
+
     // Only show days up to today (no future zeros on chart)
     const trend = dailySlots.filter(s => s.date <= today)
 
@@ -142,6 +165,8 @@ export async function GET(req: NextRequest) {
       }))
     }
 
+    await addRestcallToSlots(slots, mon, sun, today)
+
     if (!lite) {
       const startOffset = centralTzOffset(mon)
       const endOffset   = centralTzOffset(sun)
@@ -198,6 +223,8 @@ export async function GET(req: NextRequest) {
         } catch { /* keep stored value */ }
       }))
     }
+
+    await addRestcallToSlots(slots, firstDay, lastDay, today)
 
     if (!lite) {
       const startOffset = centralTzOffset(firstDay)
