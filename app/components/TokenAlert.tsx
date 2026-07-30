@@ -29,9 +29,10 @@ export default function TokenAlert() {
       .catch(() => {})
   }, [])
 
-  if (!isAdmin || !status || status === 'ok') return null
+  if (!isAdmin || !status) return null
 
   const isExpired = status === 'expired' || status === 'missing'
+  const isOk = status === 'ok'
 
   const handleUpdate = async () => {
     if (!token.startsWith('eyJ')) { setSaveError('Paste the full x-access-token value'); return }
@@ -62,12 +63,14 @@ export default function TokenAlert() {
   }
 
   return (
-    <div className={`px-4 py-2 text-sm ${isExpired ? 'bg-red-600' : 'bg-amber-500'} text-white`}>
+    <div className={`px-4 py-2 text-sm ${isExpired ? 'bg-red-600' : isOk ? 'bg-yoi-primary' : 'bg-amber-500'} text-white`}>
       <div className="flex items-center justify-between flex-wrap gap-2">
         <span className="font-semibold">
           {isExpired
             ? '⚠️ Lighthouse token expired — live data unavailable'
-            : `⏳ Lighthouse token expires in ${hoursLeft}h`}
+            : isOk
+              ? `✅ Lighthouse token OK (${hoursLeft}h left) — update anytime`
+              : `⏳ Lighthouse token expires in ${hoursLeft}h`}
         </span>
         <button
           onClick={() => setShowForm(!showForm)}
@@ -97,7 +100,7 @@ export default function TokenAlert() {
             <button
               onClick={handleUpdate}
               disabled={saving || !token}
-              className="bg-white text-red-700 font-semibold px-3 py-1 rounded text-xs disabled:opacity-50 whitespace-nowrap"
+              className={`bg-white font-semibold px-3 py-1 rounded text-xs disabled:opacity-50 whitespace-nowrap ${isExpired ? 'text-red-700' : isOk ? 'text-yoi-primary' : 'text-amber-700'}`}
             >
               {saving ? 'Saving…' : 'Save & Deploy'}
             </button>
