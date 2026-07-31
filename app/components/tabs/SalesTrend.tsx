@@ -149,19 +149,9 @@ function RevenueTable({ title, rows, accentColor }: { title: string; rows: Reven
 }
 
 export default function SalesTrend() {
-  type DDPayout = { weekStart: string; weekEnd: string; amount: number; type: 'projected' | 'finalized' }
-  type DDEarnings = {
-    weekStart: string; weekEnd: string; grossSales: number
-    marketplace: number; dashpass: number; pickup: number
-    orderVolume: number; avgTicket: number
-  }
-
   const [view, setView] = useState<View>('daily')
   const [weekStart, setWeekStart] = useState(() => weekMonday(todayStr()))
   const [month, setMonth] = useState(thisMonthStr)
-  const [ddPayouts, setDdPayouts] = useState<DDPayout[]>([])
-  const [ddEarnings, setDdEarnings] = useState<DDEarnings[]>([])
-  const [ddWeek, setDdWeek] = useState('')
   const [dailyMonth, setDailyMonth] = useState(thisMonthStr)
   const [trend, setTrend] = useState<any[]>([])
   const [activityData, setActivityData] = useState<ActivityData | null>(null)
@@ -172,19 +162,6 @@ export default function SalesTrend() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  useEffect(() => {
-    fetch('/api/doordash-payouts')
-      .then(r => r.json())
-      .then(d => {
-        if (d.payouts?.length) {
-          setDdPayouts(d.payouts)
-          setDdWeek(d.payouts[0].weekStart)
-        }
-        if (d.earningsSummaries?.length) setDdEarnings(d.earningsSummaries)
-      })
-      .catch(() => {})
-  }, [])
 
   const fetchData = useCallback((immediate = false) => {
     if (debounceRef.current) clearTimeout(debounceRef.current)
@@ -520,137 +497,6 @@ export default function SalesTrend() {
         </div>
       )}
 
-      {/* DoorDash Payouts + Earnings breakdown — weekly and monthly views */}
-      {(view === 'weekly' || view === 'monthly') && (ddPayouts.length > 0 || ddEarnings.length > 0) && (() => {
-        const breakdownGrid = (rows: Array<[string, string]>) => (
-          <div className="px-5 pb-4 pt-4 grid grid-cols-3 sm:grid-cols-6 gap-2 border-t" style={{ borderColor: '#E4E7F3' }}>
-            {rows.map(([label, val]) => (
-              <div key={label}>
-                <div className="text-[10px] uppercase tracking-wide" style={{ color: '#94A3B8' }}>{label}</div>
-                <div className="text-sm font-bold" style={{ color: '#1E1B4B' }}>{val}</div>
-              </div>
-            ))}
-          </div>
-        )
-
-        if (view === 'weekly') {
-          if (ddPayouts.length === 0) return null
-          const selected = ddPayouts.find(p => p.weekStart === ddWeek) ?? ddPayouts[0]
-          const selectedEarnings = ddEarnings.find(e => e.weekStart === (selected?.weekStart ?? ddWeek))
-          const totalAll = ddPayouts.reduce((s, p) => s + p.amount, 0)
-          return (
-            <div
-              className="mt-6 rounded-xl overflow-hidden"
-              style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
-            >
-              <div
-                className="px-5 py-4 flex items-center justify-between flex-wrap gap-3"
-                style={{ borderLeft: '4px solid #EF4444', borderBottom: '1px solid #E4E7F3' }}
-              >
-                <div>
-                  <h4 className="font-semibold" style={{ color: '#1E1B4B' }}>🚗 DoorDash Payout</h4>
-                  <p className="text-xs mt-0.5" style={{ color: '#94A3B8' }}>Auto-synced from email · Total {ddPayouts.length} weeks: {fmt(totalAll)}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <NavBtn
-                    onClick={() => {
-                      const idx = ddPayouts.findIndex(p => p.weekStart === ddWeek)
-                      if (idx < ddPayouts.length - 1) setDdWeek(ddPayouts[idx + 1].weekStart)
-                    }}
-                    disabled={ddPayouts.findIndex(p => p.weekStart === ddWeek) >= ddPayouts.length - 1}
-                  >‹</NavBtn>
-                  <select
-                    value={ddWeek}
-                    onChange={e => setDdWeek(e.target.value)}
-                    className="px-3 py-1 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-red-400 cursor-pointer"
-                    style={selectStyle}
-                  >
-                    {ddPayouts.map(p => (
-                      <option key={p.weekStart} value={p.weekStart}>
-                        {fmtShortDate(p.weekStart)} – {fmtShortDate(p.weekEnd)}
-                      </option>
-                    ))}
-                  </select>
-                  <NavBtn
-                    onClick={() => {
-                      const idx = ddPayouts.findIndex(p => p.weekStart === ddWeek)
-                      if (idx > 0) setDdWeek(ddPayouts[idx - 1].weekStart)
-                    }}
-                    disabled={ddPayouts.findIndex(p => p.weekStart === ddWeek) <= 0}
-                  >›</NavBtn>
-                </div>
-              </div>
-              {selected && (
-                <div className="px-5 py-4 flex items-center justify-between">
-                  <div>
-                    <div className="text-xs uppercase tracking-wide mb-1" style={{ color: '#94A3B8' }}>
-                      {fmtShortDate(selected.weekStart)} – {fmtShortDate(selected.weekEnd)}
-                    </div>
-                    <div className="text-2xl font-bold" style={{ color: '#1E1B4B' }}>{fmt(selected.amount)}</div>
-                  </div>
-                  <span
-                    className="px-3 py-1 rounded-full text-sm font-semibold"
-                    style={
-                      selected.type === 'finalized'
-                        ? { backgroundColor: 'rgba(16,185,129,0.1)', color: '#059669' }
-                        : { backgroundColor: 'rgba(245,158,11,0.1)', color: '#D97706' }
-                    }
-                  >
-                    {selected.type === 'finalized' ? '✓ Finalized' : '⏳ Projected'}
-                  </span>
-                </div>
-              )}
-              {selectedEarnings && breakdownGrid([
-                ['Gross Sales', fmt(selectedEarnings.grossSales)],
-                ['Marketplace', fmt(selectedEarnings.marketplace)],
-                ['DashPass', fmt(selectedEarnings.dashpass)],
-                ['Pickup', fmt(selectedEarnings.pickup)],
-                ['Orders', String(selectedEarnings.orderVolume)],
-                ['Avg Ticket', fmt(selectedEarnings.avgTicket)],
-              ])}
-            </div>
-          )
-        }
-
-        // Monthly: aggregate all weeks whose weekStart falls in the selected month
-        const monthPayouts = ddPayouts.filter(p => p.weekStart.slice(0, 7) === month)
-        const monthEarnings = ddEarnings.filter(e => e.weekStart.slice(0, 7) === month)
-        if (monthPayouts.length === 0 && monthEarnings.length === 0) return null
-
-        const monthTotal = monthPayouts.reduce((s, p) => s + p.amount, 0)
-        const mGross    = monthEarnings.reduce((s, e) => s + e.grossSales, 0)
-        const mMarket   = monthEarnings.reduce((s, e) => s + e.marketplace, 0)
-        const mDashpass = monthEarnings.reduce((s, e) => s + e.dashpass, 0)
-        const mPickup   = monthEarnings.reduce((s, e) => s + e.pickup, 0)
-        const mVolume   = monthEarnings.reduce((s, e) => s + e.orderVolume, 0)
-        const mAvgTicket = mVolume > 0 ? mGross / mVolume : 0
-
-        return (
-          <div
-            className="mt-6 rounded-xl overflow-hidden"
-            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E4E7F3', boxShadow: '0 1px 4px rgba(79,70,229,0.06)' }}
-          >
-            <div className="px-5 py-4" style={{ borderLeft: '4px solid #EF4444', borderBottom: '1px solid #E4E7F3' }}>
-              <h4 className="font-semibold" style={{ color: '#1E1B4B' }}>🚗 DoorDash Payout — {fmtMonth(month)}</h4>
-              <p className="text-xs mt-0.5" style={{ color: '#94A3B8' }}>
-                Auto-synced from email · {monthPayouts.length} week{monthPayouts.length === 1 ? '' : 's'}
-              </p>
-            </div>
-            <div className="px-5 py-4">
-              <div className="text-xs uppercase tracking-wide mb-1" style={{ color: '#94A3B8' }}>Total Payout</div>
-              <div className="text-2xl font-bold" style={{ color: '#1E1B4B' }}>{fmt(monthTotal)}</div>
-            </div>
-            {monthEarnings.length > 0 && breakdownGrid([
-              ['Gross Sales', fmt(mGross)],
-              ['Marketplace', fmt(mMarket)],
-              ['DashPass', fmt(mDashpass)],
-              ['Pickup', fmt(mPickup)],
-              ['Orders', String(mVolume)],
-              ['Avg Ticket', fmt(mAvgTicket)],
-            ])}
-          </div>
-        )
-      })()}
     </div>
   )
 }
