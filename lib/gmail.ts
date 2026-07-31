@@ -185,6 +185,101 @@ export async function fetchDoorDashPayouts(): Promise<DoorDashPayout[]> {
   return [...byWeek.values()].sort((a, b) => b.weekStart.localeCompare(a.weekStart))
 }
 
+export interface DoorDashEarningsSummary {
+  weekStart:    string  // YYYY-MM-DD
+  weekEnd:      string  // YYYY-MM-DD
+  grossSales:   number
+  marketplace:  number
+  dashpass:     number
+  pickup:       number
+  orderVolume:  number
+  avgTicket:    number
+  receivedAt:   string  // ISO date of email
+}
+
+const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+// DoorDash's weekly "Earnings Summary" email — a richer breakdown (Gross Sales split
+// by Marketplace/DashPass/Pickup, order volume, avg ticket) than the flat payout-amount
+// confirmation email fetchDoorDashPayouts() parses. No year appears in the email body's
+// "Mon Jul 20 - Sun Jul 26" range, so the year is inferred from the email's own Date
+// header, anchored to weekEnd (closest to send time) — handles the Dec→Jan boundary.
+export async function fetchDoorDashEarningsSummaries(): Promise<DoorDashEarningsSummary[]> {
+  const auth = await getValidGmailClient()
+  if (!auth) return []
+
+  const gmail = google.gmail({ version: 'v1', auth })
+
+  const listRes = await gmail.users.messages.list({
+    userId: 'me',
+    q: 'from:doordash.com "Earnings Summary"',
+    maxResults: 30,
+  })
+
+  const messages = listRes.data.messages || []
+  const summaries: DoorDashEarningsSummary[] = []
+
+  for (const msg of messages) {
+    try {
+      const fullMsg = await gmail.users.messages.get({ userId: 'me', id: msg.id!, format: 'full' })
+
+      const headers = fullMsg.data.payload?.headers || []
+      const dateHeader = headers.find(h => h.name === 'Date')?.value || ''
+      const emailDate = new Date(dateHeader)
+      if (isNaN(emailDate.getTime())) continue
+
+      const body = extractBodyText(fullMsg.data.payload)
+      const norm = body.replace(/\s+/g, ' ')
+      if (!/Earnings Summary/i.test(norm)) continue
+
+      const rangeMatch = norm.match(/\b\w{3}\s+(\w{3})\s+(\d{1,2})\s*-\s*\w{3}\s+(\w{3})\s+(\d{1,2})\b/)
+      const grossMatch = norm.match(/Gross Sales\D*\$([0-9,]+\.\d{2})/i)
+      if (!rangeMatch || !grossMatch) continue
+
+      const marketMatch   = norm.match(/Marketplace\D*\$([0-9,]+\.\d{2})/i)
+      const dashpassMatch = norm.match(/DashPass\D*\$([0-9,]+\.\d{2})/i)
+      const pickupMatch   = norm.match(/Pickup\D*\$([0-9,]+\.\d{2})/i)
+      const volumeMatch   = norm.match(/Total Order Volume\D*(\d+)/i)
+      const avgMatch      = norm.match(/Average Ticket Size\D*\$([0-9,]+\.\d{2})/i)
+
+      const m1 = MONTH_ABBR.indexOf(rangeMatch[1]) + 1
+      const d1 = parseInt(rangeMatch[2])
+      const m2 = MONTH_ABBR.indexOf(rangeMatch[3]) + 1
+      const d2 = parseInt(rangeMatch[4])
+      if (m1 < 1 || m2 < 1) continue
+
+      const y2 = emailDate.getFullYear()
+      const y1 = m2 < m1 ? y2 - 1 : y2
+      const pad = (n: number) => String(n).padStart(2, '0')
+
+      const num = (m: RegExpMatchArray | null) => m ? parseFloat(m[1].replace(/,/g, '')) : 0
+
+      summaries.push({
+        weekStart:   `${y1}-${pad(m1)}-${pad(d1)}`,
+        weekEnd:     `${y2}-${pad(m2)}-${pad(d2)}`,
+        grossSales:  num(grossMatch),
+        marketplace: num(marketMatch),
+        dashpass:    num(dashpassMatch),
+        pickup:      num(pickupMatch),
+        orderVolume: volumeMatch ? parseInt(volumeMatch[1]) : 0,
+        avgTicket:   num(avgMatch),
+        receivedAt:  emailDate.toISOString(),
+      })
+    } catch { /* skip malformed emails */ }
+  }
+
+  // Deduplicate: keep most recently received email per week
+  const byWeek = new Map<string, DoorDashEarningsSummary>()
+  for (const s of summaries) {
+    const existing = byWeek.get(s.weekStart)
+    if (!existing || new Date(s.receivedAt) > new Date(existing.receivedAt)) {
+      byWeek.set(s.weekStart, s)
+    }
+  }
+
+  return [...byWeek.values()].sort((a, b) => b.weekStart.localeCompare(a.weekStart))
+}
+
 export interface OrderItem {
   name: string
   qty: number
