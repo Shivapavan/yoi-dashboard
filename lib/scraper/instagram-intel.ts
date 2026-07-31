@@ -5,7 +5,7 @@ export const IG_ACCOUNTS = [
   'ulavacharu_frisco', 'themangoyard', 'rayalaseemaruchulu_usa_frisco',
   'spicyvihaarfrisco', 'desichowrastha', 'nh7dhaba', 'yumofindia_mckinney',
   'tantraindianbistro', 'bhoomifoodtruck', 'babai_bandi',
-  'hyderabadwala23', 'hyderabadhouseprosper', 'golconda_xpress_food_truck',
+  'hyderabadwala23', 'hyderabadhouse_prosper', 'golconda_xpress_food_truck',
   'desi.district', 'dumngrill_melissa', 'jataraindiankitchen',
   '_nagskitchen_', 'premaskitchen', 'aaha_kitchen_celina', 'saibhavancarrollton',
 ]
@@ -26,7 +26,7 @@ export const DISPLAY_NAMES: Record<string, string> = {
   'bhoomifoodtruck': 'Bhoomi Food Truck',
   'babai_bandi': 'Babai Bandi',
   'hyderabadwala23': 'Hyderabad Wala',
-  'hyderabadhouseprosper': 'Hyderabad House Prosper',
+  'hyderabadhouse_prosper': 'Hyderabad House Prosper',
   'golconda_xpress_food_truck': 'Golconda Xpress',
   'desi.district': 'Desi District',
   'dumngrill_melissa': 'Dum N Grill',

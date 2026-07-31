@@ -17,7 +17,7 @@ const COMPETITOR_ACCOUNTS = [
   'premaskitchen',
   'aaha_kitchen_celina',
   'saibhavancarrollton',
-  'hyderabadhouseprosper',
+  'hyderabadhouse_prosper',
   'golconda_xpress_food_truck',
   'babai_bandi',
   'bharat_bhavan_allen',

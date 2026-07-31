@@ -24,7 +24,7 @@ const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/6
 
 const COMPETITOR_ACCOUNTS = [
   'yumofindia_mckinney', 'jataraindiankitchen', '_nagskitchen_', 'premaskitchen',
-  'aaha_kitchen_celina', 'saibhavancarrollton', 'hyderabadhouseprosper',
+  'aaha_kitchen_celina', 'saibhavancarrollton', 'hyderabadhouse_prosper',
   'golconda_xpress_food_truck', 'babai_bandi', 'bharat_bhavan_allen',
   'desi_district_frisco', 'desistreet_frisco',
 ]
