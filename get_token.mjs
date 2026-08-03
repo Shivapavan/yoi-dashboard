@@ -13,7 +13,7 @@ fs.writeFileSync('/tmp/chromium_proxy.pac', pacContent);
 
 const browser = await chromium.launch({
   headless: true,
-  executablePath: '/opt/pw-browsers/chromium-1228/chrome-linux64/chrome',
+  executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
   args: [
     '--no-sandbox',
     '--disable-setuid-sandbox',
