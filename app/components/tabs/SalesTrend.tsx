@@ -46,10 +46,10 @@ function addMonths(monthStr: string, n: number): string {
   const d = new Date(y, m - 1 + n, 1)
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 }
-function weekMonday(dateStr: string): string {
+function weekSunday(dateStr: string): string {
   const d = new Date(dateStr + 'T12:00:00')
   const day = d.getDay()
-  d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day))
+  d.setDate(d.getDate() - day)
   return d.toISOString().split('T')[0]
 }
 function todayStr() {
@@ -60,8 +60,8 @@ function thisMonthStr() { return todayStr().slice(0, 7) }
 
 function weekOptions(): Array<{ value: string; label: string }> {
   const options: Array<{ value: string; label: string }> = []
-  let cur = '2025-08-04'
-  const last = weekMonday(todayStr())
+  let cur = weekSunday('2025-08-04')
+  const last = weekSunday(todayStr())
   while (cur <= last) {
     const end = addDays(cur, 6)
     options.push({ value: cur, label: `${fmtShortDate(cur)} – ${fmtShortDate(end)}` })
@@ -150,7 +150,7 @@ function RevenueTable({ title, rows, accentColor }: { title: string; rows: Reven
 
 export default function SalesTrend() {
   const [view, setView] = useState<View>('daily')
-  const [weekStart, setWeekStart] = useState(() => weekMonday(todayStr()))
+  const [weekStart, setWeekStart] = useState(() => weekSunday(todayStr()))
   const [month, setMonth] = useState(thisMonthStr)
   const [dailyMonth, setDailyMonth] = useState(thisMonthStr)
   const [trend, setTrend] = useState<any[]>([])
@@ -259,8 +259,8 @@ export default function SalesTrend() {
       : `${best.label} (${fmtMonthShort(month)})`
     : null
 
-  const todayMonday  = weekMonday(todayStr())
-  const canNextWeek  = weekStart < todayMonday
+  const todayWeekStart = weekSunday(todayStr())
+  const canNextWeek  = weekStart < todayWeekStart
   const canNextMonth = month < thisMonthStr()
 
   const tooltipTitle = (label: string) => {

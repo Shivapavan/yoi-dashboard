@@ -5,6 +5,73 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 // ─── smart notes renderer ─────────────────────────────────────────────────────
 // Renders plain text, tab-separated tables, and pasted images.
 
+function renderTableBlock(lines: string[]): React.ReactNode {
+  const rows = lines.filter(l => l.trim()).map(l => l.split(/\t| {2,}/).map(c => c.trim()))
+  if (!rows.length) return null
+  const cols = Math.max(...rows.map(r => r.length))
+  const [header, ...body] = rows
+  return (
+    <div className="overflow-x-auto mt-1">
+      <table className="text-xs border-collapse w-full">
+        <thead>
+          <tr>
+            {Array.from({ length: cols }, (_, ci) => (
+              <th key={ci} className="border border-gray-200 px-2 py-1 bg-gray-100 text-left font-semibold text-gray-700 whitespace-nowrap">
+                {header[ci] ?? ''}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {body.map((row, ri) => (
+            <tr key={ri} className={ri % 2 === 0 ? '' : 'bg-gray-50'}>
+              {Array.from({ length: cols }, (_, ci) => (
+                <td key={ci} className="border border-gray-200 px-2 py-1 text-gray-600 whitespace-nowrap">
+                  {row[ci] ?? ''}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function isTableLine(l: string): boolean {
+  return l.includes('\t') || /\S {2,}\S/.test(l)
+}
+
+function parseTextSegment(text: string): React.ReactNode {
+  const lines = text.split('\n')
+  const firstTableIdx = lines.findIndex(l => l.trim() && isTableLine(l))
+
+  // No table-like lines found — plain text
+  if (firstTableIdx === -1) {
+    return <div className="text-xs text-gray-600 whitespace-pre-wrap">{text.trim()}</div>
+  }
+
+  // Need at least 2 table-like lines to render as table
+  const tableLinesInBlock = lines.slice(firstTableIdx).filter(l => l.trim() && isTableLine(l))
+  if (tableLinesInBlock.length < 2) {
+    return <div className="text-xs text-gray-600 whitespace-pre-wrap">{text.trim()}</div>
+  }
+
+  // Split into: description (before table) + table rows
+  const descLines = lines.slice(0, firstTableIdx)
+  const description = descLines.join('\n').trim()
+  const tableLines = lines.slice(firstTableIdx)
+
+  return (
+    <>
+      {description && (
+        <div className="text-xs text-gray-600 mb-1">{description}</div>
+      )}
+      {renderTableBlock(tableLines)}
+    </>
+  )
+}
+
 function NotesRenderer({ notes }: { notes: string | null }) {
   if (!notes) return null
 
@@ -31,45 +98,7 @@ function NotesRenderer({ notes }: { notes: string | null }) {
         }
         const text = seg.content.trim()
         if (!text) return null
-        const lines = text.split('\n')
-        // Detect table: lines with real tabs OR 2+ consecutive spaces (space-aligned columns)
-        const tableLines = lines.filter(l => l.includes('\t') || /\S {2,}\S/.test(l))
-        if (tableLines.length >= 2) {
-          // Render as table — first row is the header
-          // Split on tabs OR 2+ spaces
-          const rows = lines.filter(l => l.trim()).map(l => l.split(/\t| {2,}/).map(c => c.trim()))
-          const [header, ...body] = rows
-          const cols = Math.max(...rows.map(r => r.length))
-          return (
-            <div key={i} className="overflow-x-auto">
-              <table className="text-xs border-collapse w-full">
-                <thead>
-                  <tr>
-                    {Array.from({ length: cols }, (_, ci) => (
-                      <th key={ci} className="border border-gray-200 px-2 py-1 bg-gray-100 text-left font-semibold text-gray-700 whitespace-nowrap">
-                        {header[ci] ?? ''}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {body.map((row, ri) => (
-                    <tr key={ri} className={ri % 2 === 0 ? '' : 'bg-gray-50'}>
-                      {Array.from({ length: cols }, (_, ci) => (
-                        <td key={ci} className="border border-gray-200 px-2 py-1 text-gray-600 whitespace-nowrap">
-                          {row[ci] ?? ''}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )
-        }
-        return (
-          <div key={i} className="text-xs text-gray-600 whitespace-pre-wrap">{text}</div>
-        )
+        return <div key={i}>{parseTextSegment(text)}</div>
       })}
     </div>
   )
@@ -612,10 +641,10 @@ function MonthGrid({
                   </span>
 
                   {/* Status dots — one per distinct status, count shown when > 1 */}
-                  <span className="mt-0.5 flex gap-1 items-center justify-center">
+                  <span className="mt-1 flex gap-0.5 items-center justify-center flex-wrap">
                     {dayDots(bks).map((d, i) => (
                       <span key={i} className="flex items-center gap-0.5">
-                        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${d.color}`} />
+                        <span className={`w-2 h-2 rounded-full flex-shrink-0 ${d.color}`} />
                         {d.count > 1 && (
                           <span className="text-[9px] font-bold leading-none text-gray-500">{d.count}</span>
                         )}

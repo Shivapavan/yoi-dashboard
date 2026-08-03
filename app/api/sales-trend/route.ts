@@ -12,10 +12,10 @@ function round2(v: number) { return Math.round(v * 100) / 100 }
 // live API. (Observed partial scrapes: $16–$52 on otherwise $1k+ days.)
 const MIN_VALID_DAY_GROSS = 100
 
-function weekMonday(dateStr: string): string {
+function weekSunday(dateStr: string): string {
   const d = new Date(dateStr + 'T12:00:00')
   const day = d.getDay()
-  d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day))
+  d.setDate(d.getDate() - day)
   return d.toISOString().split('T')[0]
 }
 
@@ -129,12 +129,12 @@ export async function GET(req: NextRequest) {
 
   // ── WEEKLY ─────────────────────────────────────────────────────────────────
   if (view === 'weekly') {
-    const mon = weekMonday(weekParam || weekMonday(today))
-    const sun = addDays(mon, 6)
-    const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    const sun = weekSunday(weekParam || weekSunday(today))
+    const sat = addDays(sun, 6)
+    const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
     const slots = Array.from({ length: 7 }, (_, i) => ({
-      date: addDays(mon, i),
+      date: addDays(sun, i),
       label: DAY_NAMES[i],
       grossSales: 0,
       netSales: 0,
@@ -165,18 +165,18 @@ export async function GET(req: NextRequest) {
       }))
     }
 
-    await addRestcallToSlots(slots, mon, sun, today)
+    await addRestcallToSlots(slots, sun, sat, today)
 
     if (!lite) {
-      const startOffset = centralTzOffset(mon)
-      const endOffset   = centralTzOffset(sun)
+      const startOffset = centralTzOffset(sun)
+      const endOffset   = centralTzOffset(sat)
       const activityData = await fetchActivitySummaryData(
-        `${mon}T04:00:00${startOffset}`,
-        `${sun}T23:59:00${endOffset}`
+        `${sun}T04:00:00${startOffset}`,
+        `${sat}T23:59:00${endOffset}`
       )
-      return NextResponse.json({ view, weekStart: mon, weekEnd: sun, trend: slots, activityData: activityData ?? null })
+      return NextResponse.json({ view, weekStart: sun, weekEnd: sat, trend: slots, activityData: activityData ?? null })
     }
-    return NextResponse.json({ view, weekStart: mon, weekEnd: sun, trend: slots, activityData: null })
+    return NextResponse.json({ view, weekStart: sun, weekEnd: sat, trend: slots, activityData: null })
   }
 
   // ── MONTHLY ────────────────────────────────────────────────────────────────
