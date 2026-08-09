@@ -25,6 +25,10 @@ const PUBLIC_PATHS = [
   // OR matching ?slug=… query).
   '/staff-hours/',
   '/api/staff-hours',
+  // SEO content webhook: authenticated via Bearer token (BLOG_WEBHOOK_SECRET)
+  // instead of the session cookie — called by the sibling seo-content-saas
+  // app's cron pipeline, not a logged-in browser.
+  '/api/webhooks/seo-content',
 ]
 
 function getSecret() {
