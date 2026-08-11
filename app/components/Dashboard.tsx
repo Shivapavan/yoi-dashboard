@@ -16,6 +16,7 @@ import Reviews from './tabs/Reviews'
 import Activity from './tabs/Activity'
 import MenuEditor from './tabs/MenuEditor'
 import EventsSpace from './tabs/EventsSpace'
+import Blog from './tabs/Blog'
 import Instagram from './tabs/Instagram'
 import TikTok from './tabs/TikTok'
 import LocalIntel from './tabs/LocalIntel'
@@ -48,6 +49,7 @@ export default function Dashboard() {
       <div className={tab === 'catering'           ? '' : 'hidden'}><Catering /></div>
       <div className={tab === 'table-reservations' ? '' : 'hidden'}><TableReservations /></div>
       <div className={tab === 'events-space'       ? '' : 'hidden'}><EventsSpace /></div>
+      <div className={tab === 'blog' ? '' : 'hidden'}><Blog /></div>
       <div className={tab === 'containers'   ? '' : 'hidden'}><Containers /></div>
       <div className={tab === 'reviews'      ? '' : 'hidden'}><Reviews /></div>
       <div className={tab === 'visitors'     ? '' : 'hidden'}><Visitors /></div>
