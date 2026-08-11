@@ -9,6 +9,14 @@ import { getRestcallBreakdown } from '@/lib/restcall-data'
 // so the CDN can hold it for an hour with stale-while-revalidate.
 const HISTORICAL_CACHE = 'public, s-maxage=3600, stale-while-revalidate=600'
 
+// A real open day grosses well over this. Stored gross below it means a
+// failed/partial scrape (e.g. an expired Lighthouse token) — re-pull from
+// the live API instead of serving the bad stored value. Same threshold as
+// app/api/sales-trend/route.ts's MIN_VALID_DAY_GROSS; this route previously
+// only re-fetched when stored gross was exactly 0, which missed partial
+// scrapes like a stray $4.30 total.
+const MIN_VALID_DAY_GROSS = 100
+
 export async function GET(req: NextRequest) {
   const date = req.nextUrl.searchParams.get('date')
   if (!date) return NextResponse.json({ error: 'date param required (YYYY-MM-DD)' }, { status: 400 })
@@ -115,7 +123,7 @@ export async function GET(req: NextRequest) {
     const isThinProcessing = (pd: any) =>
       !!pd && Array.isArray(pd.rows) && pd.rows.length > 1 &&
       pd.rows.filter((r: any) => r.label !== 'Total Sales' && r.amount != null).length === 0
-    if (stored && stored.grossSales > 0 && !isThinProcessing(stored.processingDetail)) {
+    if (stored && stored.grossSales >= MIN_VALID_DAY_GROSS && !isThinProcessing(stored.processingDetail)) {
       return NextResponse.json({
         date,
         metrics: {
@@ -145,7 +153,7 @@ export async function GET(req: NextRequest) {
     // If not in history but within last 7 days, fetch live from Lighthouse API.
     // financial-overview GET only works for today; activity-summary POST works for any date.
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-    if ((!day || day.grossSales === 0) && date >= sevenDaysAgo) {
+    if ((!day || day.grossSales < MIN_VALID_DAY_GROSS) && date >= sevenDaysAgo) {
       const [y2, m2, d2] = date.split('-').map(Number)
       const nextDateStr = new Date(Date.UTC(y2, m2 - 1, d2 + 1)).toISOString().split('T')[0]
       const startStr = `${date}T04:00:00${centralTzOffset(date)}`
