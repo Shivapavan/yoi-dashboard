@@ -33,6 +33,8 @@ const PUBLIC_PATHS = [
   // index route (/blog) and slug sub-paths (/blog/<slug>) must be covered —
   // startsWith('/blog/') alone misses the bare index path.
   '/blog',
+  // Sitemap: publicly accessible for search engine crawlers
+  '/sitemap.xml',
 ]
 
 function getSecret() {
