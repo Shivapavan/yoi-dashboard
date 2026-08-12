@@ -29,6 +29,10 @@ const PUBLIC_PATHS = [
   // instead of the session cookie — called by the sibling seo-content-saas
   // app's cron pipeline, not a logged-in browser.
   '/api/webhooks/seo-content',
+  // Public blog: crawlable by design, no session needed. Both the exact
+  // index route (/blog) and slug sub-paths (/blog/<slug>) must be covered —
+  // startsWith('/blog/') alone misses the bare index path.
+  '/blog',
 ]
 
 function getSecret() {
