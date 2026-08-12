@@ -12,7 +12,6 @@ const BASE_TABS: { id: Tab; label: string }[] = [
   { id: 'catering',            label: 'Catering' },
   { id: 'table-reservations', label: '🍽️ Table Reservations' },
   { id: 'events-space',       label: 'Events Space' },
-  { id: 'blog',         label: 'Blog' },
   { id: 'containers',   label: 'Containers' },
   { id: 'reviews',      label: 'Reviews' },
   { id: 'visitors',     label: 'Visitors' },
@@ -26,6 +25,7 @@ const BASE_TABS: { id: Tab; label: string }[] = [
 const MENU_TAB: { id: Tab; label: string } = { id: 'menu-editor', label: 'Menu' }
 const ADMIN_ONLY_TABS: { id: Tab; label: string }[] = [
   { id: 'activity', label: 'Activity' },
+  { id: 'blog', label: 'Blog' },
 ]
 const SCRAPER_TAB: { id: Tab; label: string } = { id: 'scraper', label: '🕷 Scraper' }
 

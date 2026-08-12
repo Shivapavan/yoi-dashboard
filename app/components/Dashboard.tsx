@@ -49,7 +49,6 @@ export default function Dashboard() {
       <div className={tab === 'catering'           ? '' : 'hidden'}><Catering /></div>
       <div className={tab === 'table-reservations' ? '' : 'hidden'}><TableReservations /></div>
       <div className={tab === 'events-space'       ? '' : 'hidden'}><EventsSpace /></div>
-      <div className={tab === 'blog' ? '' : 'hidden'}><Blog /></div>
       <div className={tab === 'containers'   ? '' : 'hidden'}><Containers /></div>
       <div className={tab === 'reviews'      ? '' : 'hidden'}><Reviews /></div>
       <div className={tab === 'visitors'     ? '' : 'hidden'}><Visitors /></div>
@@ -57,6 +56,7 @@ export default function Dashboard() {
       <div className={tab === 'expenses'     ? '' : 'hidden'}><Expenses /></div>
       {canEditMenu && <div className={tab === 'menu-editor' ? '' : 'hidden'}><MenuEditor /></div>}
       {isAdmin && <div className={tab === 'activity' ? '' : 'hidden'}><Activity /></div>}
+      {isAdmin && <div className={tab === 'blog' ? '' : 'hidden'}><Blog /></div>}
       <div className={tab === 'instagram'    ? '' : 'hidden'}><Instagram /></div>
       <div className={tab === 'tiktok'       ? '' : 'hidden'}><TikTok /></div>
       <div className={tab === 'local-intel'  ? '' : 'hidden'}><LocalIntel /></div>

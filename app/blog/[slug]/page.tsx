@@ -4,6 +4,15 @@ import { getPublishedPostBySlug } from '@/lib/blog'
 
 export const dynamic = 'force-dynamic'
 
+// SEO-generated article bodies conventionally start with `# <Title>` as their
+// first line, duplicating the page-level <h1> below. Strip a leading H1 (a
+// single `# ` at the very start of the string) so there's only one <h1> per
+// page. Only matches a leading H1 — `##` subheadings anywhere are untouched,
+// and bodies that don't start with an H1 pass through unchanged.
+function stripLeadingH1(markdown: string): string {
+  return markdown.replace(/^\s*#\s+.+\n+/, '')
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const post = await getPublishedPostBySlug(slug)
@@ -23,7 +32,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <main className="mx-auto max-w-3xl px-4 py-8">
         <article className="rounded-lg border border-gray-200 bg-white p-6">
           <h1>{post.title}</h1>
-          <ReactMarkdown>{post.body}</ReactMarkdown>
+          <ReactMarkdown>{stripLeadingH1(post.body)}</ReactMarkdown>
         </article>
       </main>
     </div>

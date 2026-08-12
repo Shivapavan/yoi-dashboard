@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { listPublishedPosts } from '@/lib/blog'
 
+export const dynamic = 'force-dynamic'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await listPublishedPosts()
   const base = 'https://yoi-dashboard.vercel.app'
