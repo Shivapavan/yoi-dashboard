@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-11 10:15 AM CDT",
-  "businessDay": "2026-08-11",
+  "lastUpdated": "2026-08-12 10:07 AM CDT",
+  "businessDay": "2026-08-12",
   "businessDayWindow": "2026-08-08 04:00AM – 2026-08-09 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -9651,6 +9651,30 @@
     },
     {
       "date": "2026-08-11",
+      "grossSales": 611.13,
+      "netSales": 564.56,
+      "taxes": 46.57,
+      "discounts": 0.04,
+      "voids": 0,
+      "cashPayments": 1.05,
+      "creditCard": 8.62,
+      "openTickets": 611.13,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "total": 8.62,
+        "visa": 0,
+        "mastercard": 8.62,
+        "amex": 0,
+        "discover": 0,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0
+      }
+    },
+    {
+      "date": "2026-08-12",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -101678,6 +101702,76 @@
           "revenue": 1.99
         }
       ]
+    },
+    {
+      "date": "2026-08-11",
+      "items": [
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 8,
+          "revenue": 167.92
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 4,
+          "revenue": 79.96
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 4,
+          "revenue": 51.96
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "PachiMirchi Veg Keema Pulav",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Vijayawada Veg Biryani",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Samosa Chat",
+          "qty": 4,
+          "revenue": 39.96
+        },
+        {
+          "name": "Ghee Karam Masala Dosa",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 5,
+          "revenue": 24.95
+        },
+        {
+          "name": "Hyderabad Mutton Biryani",
+          "qty": 1,
+          "revenue": 20.99
+        },
+        {
+          "name": "Dal Tadka",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Chocolate Moose",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 4,
+          "revenue": 3.96
+        }
+      ]
     }
   ],
   "disputes": [
@@ -101702,7 +101796,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-08-11T15:15:38.822Z",
+  "disputesScannedAt": "2026-08-12T15:07:17.969Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
