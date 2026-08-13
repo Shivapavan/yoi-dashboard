@@ -81,6 +81,8 @@ function LoginForm() {
               <label className="block text-sm font-medium mb-1" style={{ color: '#64748B' }}>Email Address</label>
               <input
                 type="text"
+                name="email"
+                id="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
@@ -95,6 +97,8 @@ function LoginForm() {
               <div className="relative">
                 <input
                   type={showPw ? 'text' : 'password'}
+                  name="password"
+                  id="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
