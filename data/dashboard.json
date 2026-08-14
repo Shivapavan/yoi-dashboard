@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-08-12 10:07 AM CDT",
-  "businessDay": "2026-08-12",
-  "businessDayWindow": "2026-08-08 04:00AM – 2026-08-09 03:59AM CDT",
+  "lastUpdated": "2026-08-14 10:13 AM CDT",
+  "businessDay": "2026-08-14",
+  "businessDayWindow": "2026-08-08 04:00AM \u2013 2026-08-09 03:59AM CDT",
   "eod": {
     "grossSales": 0,
     "netSales": 0,
@@ -9675,6 +9675,44 @@
     },
     {
       "date": "2026-08-12",
+      "grossSales": 0,
+      "netSales": 0,
+      "taxes": 0,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-08-13",
+      "grossSales": 987.21,
+      "netSales": 911.97,
+      "taxes": 75.24,
+      "discounts": 9.29,
+      "voids": 16.23,
+      "cashPayments": 5.7,
+      "creditCard": 249.03,
+      "openTickets": 1003.44,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "total": 389.11,
+        "visa": 254.48,
+        "mastercard": 87.05,
+        "amex": 0,
+        "discover": 47.58,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0
+      }
+    },
+    {
+      "date": "2026-08-14",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -101772,6 +101810,206 @@
           "revenue": 3.96
         }
       ]
+    },
+    {
+      "date": "2026-08-13",
+      "items": [
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 7,
+          "revenue": 133.93
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 4,
+          "revenue": 79.96
+        },
+        {
+          "name": "Chicken Biryani Family Pack",
+          "qty": 1,
+          "revenue": 48.99
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "PachiMirchi Veg Keema Pulav",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Apollo Fish",
+          "qty": 2,
+          "revenue": 37.98
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "qty": 2,
+          "revenue": 32.47
+        },
+        {
+          "name": "Ghee Karam Masala Dosa",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 6,
+          "revenue": 24.94
+        },
+        {
+          "name": "Plain Dosa",
+          "qty": 2,
+          "revenue": 23.98
+        },
+        {
+          "name": "Ghee Roast Goat Fry",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Taj Mahal 24 oz",
+          "qty": 2,
+          "revenue": 17.98
+        },
+        {
+          "name": "Chettinad Non-Veg Curry",
+          "qty": 1,
+          "revenue": 17.48
+        },
+        {
+          "name": "Karivepaku Chicken",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Karivepaku Wings",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Lemon Coriander Chicken",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Andhra Non-Veg Curry",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Egg Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Gobi Manchurian (Dry/Wet)",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Hyderabad Chicken  Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Kaju(Cashew) Paneer Curry",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Karimnagar Chicken Wings",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Butter naan",
+          "qty": 4,
+          "revenue": 15.46
+        },
+        {
+          "name": "Baby Corn Manchurian",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Fried Rice",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 3,
+          "revenue": 13.47
+        },
+        {
+          "name": "Gulab Jamun (4 pcs)",
+          "qty": 2,
+          "revenue": 11.98
+        },
+        {
+          "name": "Idly",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Dahi Puri",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Papdi Chat",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Samosa Chat",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Veg Corn Soup",
+          "qty": 1,
+          "revenue": 6.49
+        },
+        {
+          "name": "Coke (Normal,Diet,Zero)",
+          "qty": 2,
+          "revenue": 5.98
+        },
+        {
+          "name": "Paan",
+          "qty": 2,
+          "revenue": 5.98
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 2,
+          "revenue": 3.98
+        },
+        {
+          "name": "Tandoori Roti",
+          "qty": 1,
+          "revenue": 3.49
+        }
+      ]
     }
   ],
   "disputes": [
@@ -101796,7 +102034,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-08-12T15:07:17.969Z",
+  "disputesScannedAt": "2026-08-14T15:13:03.077Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
