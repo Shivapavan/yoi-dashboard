@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-08-18 10:06 AM CDT",
-  "businessDay": "2026-08-18",
-  "businessDayWindow": "2026-08-08 04:00AM – 2026-08-09 03:59AM CDT",
+  "lastUpdated": "2026-08-19 10:12 AM CDT",
+  "businessDay": "2026-08-19",
+  "businessDayWindow": "2026-08-19 04:00AM – 2026-08-20 03:59AM CDT",
   "eod": {
     "grossSales": 0,
     "netSales": 0,
@@ -10,31 +10,31 @@
     "cashPayments": 0,
     "creditCardPayments": 0,
     "discounts": 0,
-    "openTickets": 21.63
+    "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-08-14 batch (settled 2026-08-15)",
+    "windowLabel": "2026-08-18 batch (settled 2026-08-19)",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 2915.77,
+        "amount": 33.52,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 1837.81
+        "amount": 24.87
       },
       {
         "label": "Mastercard",
-        "amount": 638.54
+        "amount": 0
       },
       {
         "label": "Amex",
-        "amount": 439.42
+        "amount": 0
       },
       {
         "label": "Discover",
-        "amount": 0
+        "amount": 8.65
       },
       {
         "label": "Debit",
@@ -9789,6 +9789,58 @@
     },
     {
       "date": "2026-08-18",
+      "grossSales": 489.96,
+      "netSales": 452.6,
+      "taxes": 37.36,
+      "discounts": 0.04,
+      "voids": 15.92,
+      "cashPayments": 30.8,
+      "creditCard": 8.65,
+      "openTickets": 505.88,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "windowLabel": "2026-08-18 batch (settled 2026-08-19)",
+        "rows": [
+          {
+            "label": "Total Sales",
+            "amount": 33.52,
+            "bold": true
+          },
+          {
+            "label": "Visa",
+            "amount": 24.87
+          },
+          {
+            "label": "Mastercard",
+            "amount": 0
+          },
+          {
+            "label": "Amex",
+            "amount": 0
+          },
+          {
+            "label": "Discover",
+            "amount": 8.65
+          },
+          {
+            "label": "Debit",
+            "amount": 0
+          },
+          {
+            "label": "EBT",
+            "amount": 0
+          },
+          {
+            "label": "Returns",
+            "amount": 0
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-08-19",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -9796,10 +9848,10 @@
       "voids": 0,
       "cashPayments": 0,
       "creditCard": 0,
-      "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "openTickets": 0
     }
   ],
   "itemsByDay": [
@@ -103841,6 +103893,101 @@
           "revenue": 1.25
         }
       ]
+    },
+    {
+      "date": "2026-08-18",
+      "items": [
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 6,
+          "revenue": 125.94
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 4,
+          "revenue": 79.96
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 3,
+          "revenue": 41.97
+        },
+        {
+          "name": "PachiMirchi Veg Keema Pulav",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Schewazan Noodles",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Kadai Methi Paneer",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Veg Kadai Masala",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Medu Vada(3 Pcs)",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "Onion Kulcha",
+          "qty": 2,
+          "revenue": 8.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 2,
+          "revenue": 8.48
+        },
+        {
+          "name": "Idly",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Butter naan",
+          "qty": 2,
+          "revenue": 6.98
+        },
+        {
+          "name": "Tandoori Roti",
+          "qty": 2,
+          "revenue": 6.98
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "Parata(1)",
+          "qty": 1,
+          "revenue": 2.49
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -103865,7 +104012,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-08-18T15:06:03.573Z",
+  "disputesScannedAt": "2026-08-19 10:12 AM CDT",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
