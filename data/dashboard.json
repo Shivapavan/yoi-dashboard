@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-08-25 10:05 AM CDT",
-  "businessDay": "2026-08-25",
-  "businessDayWindow": "2026-08-24 04:00AM – 2026-08-25 03:59AM CDT",
+  "lastUpdated": "2026-08-26 10:08 AM CDT",
+  "businessDay": "2026-08-26",
+  "businessDayWindow": "2026-08-26 04:00AM – 2026-08-27 03:59AM CDT",
   "eod": {
     "grossSales": 0,
     "netSales": 0,
@@ -13,7 +13,7 @@
     "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-08-23 batch (settled 2026-08-24)",
+    "windowLabel": "2026-08-25 batch (settled 2026-08-26)",
     "rows": [
       {
         "label": "Total Sales",
@@ -10049,6 +10049,58 @@
     },
     {
       "date": "2026-08-25",
+      "grossSales": 711.85,
+      "netSales": 657.6,
+      "taxes": 54.25,
+      "discounts": 0.04,
+      "voids": 0,
+      "cashPayments": 1.05,
+      "creditCard": 363.55,
+      "openTickets": 711.85,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "windowLabel": "2026-08-25 batch (settled 2026-08-26)",
+        "rows": [
+          {
+            "label": "Total Sales",
+            "amount": 0,
+            "bold": true
+          },
+          {
+            "label": "Visa",
+            "amount": 0
+          },
+          {
+            "label": "Mastercard",
+            "amount": 0
+          },
+          {
+            "label": "Amex",
+            "amount": 0
+          },
+          {
+            "label": "Discover",
+            "amount": 0
+          },
+          {
+            "label": "Debit",
+            "amount": 0
+          },
+          {
+            "label": "EBT",
+            "amount": 0
+          },
+          {
+            "label": "Returns",
+            "amount": 0
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-08-26",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -10056,10 +10108,10 @@
       "voids": 0,
       "cashPayments": 0,
       "creditCard": 0,
-      "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "openTickets": 0
     }
   ],
   "itemsByDay": [
@@ -106666,6 +106718,206 @@
           "revenue": 1.98
         }
       ]
+    },
+    {
+      "date": "2026-08-25",
+      "items": [
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 4,
+          "revenue": 83.96
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 4,
+          "revenue": 73.96
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Honey Cake",
+          "qty": 5,
+          "revenue": 21.95
+        },
+        {
+          "name": "Ghee Roast Goat Fry Pulav",
+          "qty": 1,
+          "revenue": 20.99
+        },
+        {
+          "name": "Parata With Paya",
+          "qty": 1,
+          "revenue": 18.99
+        },
+        {
+          "name": "Samosa Chat",
+          "qty": 2,
+          "revenue": 17.98
+        },
+        {
+          "name": "Chicken Kottu Parata",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Gongura Paneer Biryani",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Malai Kofta",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Ghee Roast Garlic Mushroom",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Pachi Mirchi Panner Pulav",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Palak Paneer",
+          "qty": 1,
+          "revenue": 15.48
+        },
+        {
+          "name": "Burnt Garlic Rice",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Chole Bhature",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Pachimirchi Veg Pulav",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Veg Kadai Masala",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Egg Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 3,
+          "revenue": 11.97
+        },
+        {
+          "name": "Tandoori Roti",
+          "qty": 3,
+          "revenue": 10.47
+        },
+        {
+          "name": "Idly Sambar",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "Plain Dosa",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "2 Idly 1 Bonda ( Combo)",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Chikoo Milkshake",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Omlette",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Paneer Puff",
+          "qty": 2,
+          "revenue": 7.98
+        },
+        {
+          "name": "Kesar Badam Milk (Chilled)",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Onion Pakora",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Plain Punugulu",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Stuffed Mirchi Bajji (3 pcs)",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Mothichoor Laddu(4 Pcs)",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 3,
+          "revenue": 5.97
+        },
+        {
+          "name": "Onion Samosa (4pcs)",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Egg Puff",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "Butter naan",
+          "qty": 1,
+          "revenue": 3.49
+        },
+        {
+          "name": "Irani Chai",
+          "qty": 1,
+          "revenue": 2.25
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -106690,7 +106942,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-08-25T15:05:35.712Z",
+  "disputesScannedAt": "2026-08-26 10:08 AM CDT",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
