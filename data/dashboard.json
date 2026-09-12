@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-10 10:06 AM CDT",
-  "businessDay": "2026-09-10",
+  "lastUpdated": "2026-09-11 10:05 AM CDT",
+  "businessDay": "2026-09-11",
   "businessDayWindow": "2026-09-07 04:00AM – 2026-09-08 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -10571,6 +10571,30 @@
     },
     {
       "date": "2026-09-10",
+      "grossSales": 557.04,
+      "netSales": 514.58,
+      "taxes": 42.46,
+      "discounts": 0.05,
+      "voids": 0,
+      "cashPayments": 1.3,
+      "creditCard": 331.79,
+      "openTickets": 557.04,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "total": 331.79,
+        "visa": 65.42,
+        "mastercard": 248.09,
+        "amex": 18.28,
+        "discover": 0,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0
+      }
+    },
+    {
+      "date": "2026-09-11",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -113598,6 +113622,141 @@
           "revenue": 1.99
         }
       ]
+    },
+    {
+      "date": "2026-09-10",
+      "items": [
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 4,
+          "revenue": 79.96
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Ghee Roast Goat Fry Pulav",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Virgin Mojito",
+          "qty": 5,
+          "revenue": 34.95
+        },
+        {
+          "name": "Fried Rice",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Yum Grand Mixed Platter ( Non Veg And Paneer)",
+          "qty": 1,
+          "revenue": 27.99
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Apollo Fish",
+          "qty": 1,
+          "revenue": 18.99
+        },
+        {
+          "name": "Tandoori Chicken(half)",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Kadai Methi Paneer",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Dragon Chicken",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Veg Curry Combo",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 4,
+          "revenue": 13.96
+        },
+        {
+          "name": "Plain Benne Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Ghee Podi Idly",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "Open Food",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 2,
+          "revenue": 8.48
+        },
+        {
+          "name": "Classic Mojito",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Mango Lassi",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Veg Corn Soup",
+          "qty": 1,
+          "revenue": 6.49
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 2,
+          "revenue": 4.51
+        },
+        {
+          "name": "Irani Chai Small",
+          "qty": 1,
+          "revenue": 1.25
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -113622,7 +113781,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-09-10T15:06:12.875Z",
+  "disputesScannedAt": "2026-09-11T15:05:53.287Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
