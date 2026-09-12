@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-08 10:05 AM CDT",
-  "businessDay": "2026-09-08",
+  "lastUpdated": "2026-09-09 10:06 AM CDT",
+  "businessDay": "2026-09-09",
   "businessDayWindow": "2026-09-07 04:00AM – 2026-09-08 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -10533,6 +10533,30 @@
     },
     {
       "date": "2026-09-08",
+      "grossSales": 802.51,
+      "netSales": 741.38,
+      "taxes": 61.13,
+      "discounts": 9.15,
+      "voids": 0,
+      "cashPayments": 10.4,
+      "creditCard": 256.95,
+      "openTickets": 802.51,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "total": 280.3,
+        "visa": 141.28,
+        "mastercard": 76.36,
+        "amex": 56.19,
+        "discover": 6.47,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0
+      }
+    },
+    {
+      "date": "2026-09-09",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -113200,6 +113224,136 @@
           "revenue": 0.99
         }
       ]
+    },
+    {
+      "date": "2026-09-08",
+      "items": [
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 8,
+          "revenue": 160.92
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 6,
+          "revenue": 98.92
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 4,
+          "revenue": 83.96
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 4,
+          "revenue": 83.96
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 4,
+          "revenue": 79.96
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 2,
+          "revenue": 32.47
+        },
+        {
+          "name": "Hyderabad Chicken  Biryani",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Samosa Chat",
+          "qty": 3,
+          "revenue": 24.97
+        },
+        {
+          "name": "Ghee Roast Goat Fry",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Gongura Non-Veg Curry",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Chole Bhature",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 3,
+          "revenue": 13.47
+        },
+        {
+          "name": "Filter Coffee",
+          "qty": 3,
+          "revenue": 11.97
+        },
+        {
+          "name": "Coke (Normal,Diet,Zero)",
+          "qty": 4,
+          "revenue": 11.96
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 1,
+          "revenue": 10.99
+        },
+        {
+          "name": "Kesar Badam Milk (Chilled)",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Butter naan",
+          "qty": 2,
+          "revenue": 5.98
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 7,
+          "revenue": 4.15
+        },
+        {
+          "name": "Egg Puff",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "SoftDrinks( Thumsup,Fanta,Limca)",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 2,
+          "revenue": 3.98
+        },
+        {
+          "name": "Coca-Cola",
+          "qty": 1,
+          "revenue": 2.99
+        },
+        {
+          "name": "Open Food",
+          "qty": 1,
+          "revenue": 2.99
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 2,
+          "revenue": 1.98
+        }
+      ]
     }
   ],
   "disputes": [
@@ -113224,7 +113378,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-09-08T15:05:59.114Z",
+  "disputesScannedAt": "2026-09-09T15:06:26.088Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
