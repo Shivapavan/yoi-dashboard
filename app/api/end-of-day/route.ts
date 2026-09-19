@@ -134,7 +134,7 @@ export async function GET(req: NextRequest) {
           discounts: stored.discounts,
           cashPayments: stored.cashPayments,
           creditCardPayments: stored.creditCardPayments,
-          openTickets: stored.openTickets,
+          openTickets: 0, // always 0 for historical — open tickets is only live-day data
         },
         processingDetail: stored.processingDetail ?? null,
         recommendedDate, earliestDate,
@@ -212,7 +212,7 @@ export async function GET(req: NextRequest) {
         grossSales: grossDay, netSales: day.netSales, taxes: day.taxes,
         voids: day.voids, cashPayments: day.cashPayments,
         creditCardPayments: day.creditCard, discounts: day.discounts,
-        openTickets: day.openTickets,
+        openTickets: 0, // always 0 for historical — open tickets is only live-day data
       }
 
       if (day.cardBreakdown) {
