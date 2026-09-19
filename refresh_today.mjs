@@ -374,7 +374,7 @@ async function main() {
       yesterdayEntry.voids = ydVoids;
       yesterdayEntry.cashPayments = ydCash;
       yesterdayEntry.creditCard = ydTotalCredit;
-      yesterdayEntry.openTickets = ydMetrics.openTickets;
+      yesterdayEntry.openTickets = 0; // completed day — no open tickets
       yesterdayEntry.doordash  = ydDD;
       yesterdayEntry.stOnline  = ydSTO;
       yesterdayEntry.uberEats  = ydUber;
