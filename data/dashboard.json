@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-19 10:04 AM CDT",
+  "lastUpdated": "2026-09-19 10:21 AM CDT",
   "businessDay": "2026-09-19",
   "businessDayWindow": "2026-09-18 04:00AM – 2026-09-19 03:59AM CDT",
   "eod": {
@@ -10841,12 +10841,12 @@
       "netSales": 2988.31,
       "taxes": 246.55,
       "discounts": 0,
-      "voids": 0,
+      "voids": 149.86,
       "cashPayments": 26.6,
-      "creditCard": 2659.83,
-      "doordash": 0,
+      "creditCard": 3208.26,
+      "doordash": 143.3,
       "stOnline": 0,
-      "uberEats": 0,
+      "uberEats": 367.26,
       "openTickets": 3234.86,
       "cardBreakdown": {
         "total": 2659.83,
@@ -10857,7 +10857,8 @@
         "debit": 0,
         "ebt": 0,
         "returns": 0
-      }
+      },
+      "grubhub": 37.87
     },
     {
       "date": "2026-09-19",
@@ -10868,7 +10869,7 @@
       "voids": 0,
       "cashPayments": 0,
       "creditCard": 0,
-      "openTickets": 0,
+      "openTickets": 28.12,
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0
@@ -116888,6 +116889,16 @@
           "revenue": 3.49
         }
       ]
+    },
+    {
+      "date": "2026-09-19",
+      "items": [
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 2,
+          "revenue": 25.98
+        }
+      ]
     }
   ],
   "disputes": [
@@ -116912,7 +116923,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-09-19T15:04:24.549Z",
+  "disputesScannedAt": "2026-09-19T15:21:51.704Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
@@ -116920,5 +116931,5 @@
   "voids": 0,
   "cashPayments": 0,
   "creditCard": 0,
-  "openTickets": 0
+  "openTickets": 28.12
 }
