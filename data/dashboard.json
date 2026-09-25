@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-09-22 10:05 AM CDT",
-  "businessDay": "2026-09-22",
-  "businessDayWindow": "2026-09-18 04:00AM – 2026-09-19 03:59AM CDT",
+  "lastUpdated": "2026-09-23 10:04 AM CDT",
+  "businessDay": "2026-09-23",
+  "businessDayWindow": "2026-09-23 04:00AM – 2026-09-24 03:59AM CDT",
   "eod": {
     "grossSales": 0,
     "netSales": 0,
@@ -13,20 +13,20 @@
     "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-09-17 batch (settled 2026-09-18)",
+    "windowLabel": "2026-09-22 batch (settled 2026-09-23)",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 67.85,
+        "amount": 0,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 60.28
+        "amount": 0
       },
       {
         "label": "Mastercard",
-        "amount": 7.57
+        "amount": 0
       },
       {
         "label": "Amex",
@@ -10914,6 +10914,58 @@
     },
     {
       "date": "2026-09-22",
+      "grossSales": 686.08,
+      "netSales": 633.79,
+      "taxes": 52.29,
+      "discounts": 0.04,
+      "voids": 0,
+      "cashPayments": 1.05,
+      "creditCard": 341.62,
+      "openTickets": 686.08,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "windowLabel": "2026-09-22 batch (settled 2026-09-23)",
+        "rows": [
+          {
+            "label": "Total Sales",
+            "amount": 0,
+            "bold": true
+          },
+          {
+            "label": "Visa",
+            "amount": 0
+          },
+          {
+            "label": "Mastercard",
+            "amount": 0
+          },
+          {
+            "label": "Amex",
+            "amount": 0
+          },
+          {
+            "label": "Discover",
+            "amount": 0
+          },
+          {
+            "label": "Debit",
+            "amount": 0
+          },
+          {
+            "label": "EBT",
+            "amount": 0
+          },
+          {
+            "label": "Returns",
+            "amount": 0
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-09-23",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -10921,10 +10973,10 @@
       "voids": 0,
       "cashPayments": 0,
       "creditCard": 0,
-      "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "openTickets": 0
     }
   ],
   "itemsByDay": [
@@ -118161,6 +118213,171 @@
           "revenue": 1.25
         }
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "items": [
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 4,
+          "revenue": 75.96
+        },
+        {
+          "name": "Ghee Karam Masala Dosa",
+          "qty": 4,
+          "revenue": 63.96
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 4,
+          "revenue": 51.96
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 3,
+          "revenue": 40.97
+        },
+        {
+          "name": "Chicken Tikka Kebab",
+          "qty": 2,
+          "revenue": 32.98
+        },
+        {
+          "name": "Chicken 65(Dry)",
+          "qty": 2,
+          "revenue": 29.98
+        },
+        {
+          "name": "Apollo Fish",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Pani Puri (6 Pcs)",
+          "qty": 2,
+          "revenue": 17.98
+        },
+        {
+          "name": "Papdi Chat",
+          "qty": 2,
+          "revenue": 17.98
+        },
+        {
+          "name": "Karivepaku Non-Veg Curry",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Veg Kadai Masala",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Egg Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Ghee Roast Garlic Paneer",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Gobi Manchurian (Dry/Wet)",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Hyderabad Chicken  Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Pachi Mirchi Panner Pulav",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Noodles",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Paneer Dosa",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "YOI Special Dosa",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Egg Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Macallan 12yr(45ml)",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Guntur Karam Dosa",
+          "qty": 1,
+          "revenue": 11.99
+        },
+        {
+          "name": "Lemon Soda (Sweet & Salt)",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 2,
+          "revenue": 6.98
+        },
+        {
+          "name": "Veg Corn Soup",
+          "qty": 1,
+          "revenue": 6.49
+        },
+        {
+          "name": "Chicken Nuggets",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Butter naan",
+          "qty": 2,
+          "revenue": 5.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 5,
+          "revenue": 4.85
+        },
+        {
+          "name": "Filter Coffee",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 2,
+          "revenue": 1.98
+        }
+      ]
     }
   ],
   "disputes": [
@@ -118185,7 +118402,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-09-22T15:05:16.193Z",
+  "disputesScannedAt": "2026-09-23 10:04 AM CDT",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
