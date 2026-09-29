@@ -457,12 +457,32 @@ export default function EndOfDay() {
                 })}
               </tbody>
               <tfoot>
-                <tr style={{ backgroundColor: '#F5F6FD', borderTop: '1px solid #E4E7F3' }}>
-                  <td colSpan={5} className="px-6 py-2 font-bold" style={{ color: '#1E1B4B' }}>Total Open</td>
-                  <td className="px-6 py-2 text-right font-bold" style={{ color: '#0D9488' }}>
-                    {fmt(openTicketsList.reduce((s, t) => s + t.grandTotal, 0))}
-                  </td>
-                </tr>
+                {(() => {
+                  const activeTickets = openTicketsList.filter(t => Math.floor((Date.now() - new Date(t.createdAt).getTime()) / 3600000) < 6)
+                  const staleTickets  = openTicketsList.filter(t => Math.floor((Date.now() - new Date(t.createdAt).getTime()) / 3600000) >= 6)
+                  const activeTotal   = activeTickets.reduce((s, t) => s + t.grandTotal, 0)
+                  const staleTotal    = staleTickets.reduce((s, t) => s + t.grandTotal, 0)
+                  return <>
+                    {staleTotal > 0 && (
+                      <tr style={{ backgroundColor: 'rgba(220,38,38,0.04)', borderTop: '1px solid #E4E7F3' }}>
+                        <td colSpan={5} className="px-6 py-1.5 text-sm font-medium" style={{ color: '#DC2626' }}>
+                          Stale tickets (&ge;6h) — void in POS
+                        </td>
+                        <td className="px-6 py-1.5 text-right text-sm font-medium" style={{ color: '#DC2626' }}>
+                          {fmt(staleTotal)}
+                        </td>
+                      </tr>
+                    )}
+                    <tr style={{ backgroundColor: '#F5F6FD', borderTop: staleTotal > 0 ? '1px solid rgba(220,38,38,0.2)' : '1px solid #E4E7F3' }}>
+                      <td colSpan={5} className="px-6 py-2 font-bold" style={{ color: '#1E1B4B' }}>
+                        {staleTotal > 0 ? 'Active Open Tickets' : 'Total Open'}
+                      </td>
+                      <td className="px-6 py-2 text-right font-bold" style={{ color: '#0D9488' }}>
+                        {fmt(staleTotal > 0 ? activeTotal : activeTotal + staleTotal)}
+                      </td>
+                    </tr>
+                  </>
+                })()}
               </tfoot>
             </table>
           )}
