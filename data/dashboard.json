@@ -11524,7 +11524,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "cardBreakdown": null
+      "cardBreakdown": null,
+      "restcall": 695.07
     },
     {
       "date": "2026-09-26",
@@ -11539,7 +11540,8 @@
       "voids": 12.95,
       "cashPayments": 47.45,
       "creditCard": 2838.93,
-      "openTickets": 3500.34
+      "openTickets": 3500.34,
+      "restcall": 145.96
     },
     {
       "date": "2026-09-27",
@@ -11554,7 +11556,8 @@
       "voids": 0,
       "cashPayments": 137,
       "creditCard": 1563.6,
-      "openTickets": 1999.62
+      "openTickets": 1999.62,
+      "restcall": 219.61
     },
     {
       "date": "2026-09-28",
@@ -11569,7 +11572,8 @@
       "voids": 0,
       "cashPayments": 2.6,
       "creditCard": 28.82,
-      "openTickets": 341.91
+      "openTickets": 341.91,
+      "restcall": 352.25
     },
     {
       "date": "2026-09-29",
