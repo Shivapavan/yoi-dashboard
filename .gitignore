@@ -6,3 +6,4 @@ node_modules/
 .superpowers/
 .vercel
 scripts/restcall/.session-state.json
+*.tsbuildinfo
