@@ -35,7 +35,9 @@ export async function GET(req: NextRequest) {
   const jsonDay = (data.history as any[]).find((h: any) => h.date === date)
   const restcall = (restcallDb.revenue > 0 || !jsonDay?.restcall)
     ? restcallDb
-    : { ...restcallDb, revenue: jsonDay.restcall }
+    // JSON fallback only stores gross revenue — treat net ≈ gross for this channel
+    // (phone orders don't carry POS-level discounts/voids), same logic as sales-trend.
+    : { ...restcallDb, revenue: jsonDay.restcall, netSales: jsonDay.restcall }
 
   // Use server-computed business day (4 AM CDT boundary) instead of stale dashboard.json
   // businessDay so live data shows even when the scraper hasn't run today yet.
