@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-25 10:06 AM CDT",
-  "businessDay": "2026-09-25",
+  "lastUpdated": "9/29/2026 11:19 AM CDT",
+  "businessDay": "2026-09-29",
   "businessDayWindow": "2026-09-24 04:00AM – 2026-09-25 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -63,7 +63,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-02",
@@ -77,7 +78,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-03",
@@ -91,7 +93,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-04",
@@ -105,7 +108,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-05",
@@ -119,7 +123,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-06",
@@ -133,7 +138,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-07",
@@ -147,7 +153,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-08",
@@ -161,7 +168,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-09",
@@ -175,7 +183,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-10",
@@ -189,7 +198,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-11",
@@ -203,7 +213,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-12",
@@ -217,7 +228,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-13",
@@ -231,7 +243,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-14",
@@ -245,7 +258,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-15",
@@ -259,7 +273,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-16",
@@ -273,7 +288,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-17",
@@ -287,7 +303,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-18",
@@ -301,7 +318,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-19",
@@ -315,7 +333,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-20",
@@ -329,7 +348,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-21",
@@ -343,7 +363,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-22",
@@ -357,7 +378,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-23",
@@ -371,7 +393,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-24",
@@ -385,7 +408,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-25",
@@ -399,7 +423,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-26",
@@ -413,7 +438,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-27",
@@ -427,7 +453,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-28",
@@ -441,7 +468,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-29",
@@ -455,7 +483,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-30",
@@ -469,7 +498,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-01-31",
@@ -483,7 +513,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-01",
@@ -497,7 +528,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-02",
@@ -511,7 +543,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-03",
@@ -525,7 +558,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-04",
@@ -539,7 +573,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-05",
@@ -553,7 +588,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-06",
@@ -567,7 +603,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-07",
@@ -581,7 +618,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-08",
@@ -595,7 +633,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-09",
@@ -609,7 +648,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-10",
@@ -623,7 +663,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-11",
@@ -637,7 +678,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-12",
@@ -651,7 +693,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-13",
@@ -665,7 +708,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-14",
@@ -679,7 +723,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-15",
@@ -693,7 +738,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-16",
@@ -707,7 +753,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-17",
@@ -721,7 +768,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-18",
@@ -735,7 +783,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-19",
@@ -749,7 +798,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-20",
@@ -763,7 +813,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-21",
@@ -777,7 +828,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-22",
@@ -791,7 +843,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-23",
@@ -805,7 +858,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-24",
@@ -819,7 +873,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-25",
@@ -833,7 +888,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-26",
@@ -847,7 +903,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-27",
@@ -861,7 +918,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-02-28",
@@ -875,7 +933,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-01",
@@ -889,7 +948,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-02",
@@ -903,7 +963,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-03",
@@ -917,7 +978,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-04",
@@ -931,7 +993,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-05",
@@ -945,7 +1008,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-06",
@@ -959,7 +1023,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-07",
@@ -973,7 +1038,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-08",
@@ -987,7 +1053,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-09",
@@ -1001,7 +1068,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-10",
@@ -1015,7 +1083,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-11",
@@ -1029,7 +1098,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-12",
@@ -1043,7 +1113,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-13",
@@ -1057,7 +1128,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-14",
@@ -1071,7 +1143,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-15",
@@ -1085,7 +1158,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-16",
@@ -1099,7 +1173,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-17",
@@ -1113,7 +1188,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-18",
@@ -1127,7 +1203,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-19",
@@ -1141,7 +1218,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-20",
@@ -1155,7 +1233,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-21",
@@ -1169,7 +1248,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-22",
@@ -1183,7 +1263,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-23",
@@ -1197,7 +1278,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-24",
@@ -1211,7 +1293,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-25",
@@ -1225,7 +1308,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-26",
@@ -1239,7 +1323,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-27",
@@ -1253,7 +1338,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-28",
@@ -1267,7 +1353,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-29",
@@ -1281,7 +1368,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-30",
@@ -1295,7 +1383,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-03-31",
@@ -1309,7 +1398,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-01",
@@ -1323,7 +1413,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-02",
@@ -1337,7 +1428,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-03",
@@ -1351,7 +1443,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-04",
@@ -1365,7 +1458,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-05",
@@ -1379,7 +1473,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-06",
@@ -1393,7 +1488,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-07",
@@ -1407,7 +1503,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-08",
@@ -1421,7 +1518,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-09",
@@ -1435,7 +1533,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-10",
@@ -1449,7 +1548,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-11",
@@ -1463,7 +1563,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-12",
@@ -1477,7 +1578,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-13",
@@ -1491,7 +1593,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-14",
@@ -1505,7 +1608,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-15",
@@ -1519,7 +1623,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-16",
@@ -1533,7 +1638,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-17",
@@ -1547,7 +1653,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-18",
@@ -1561,7 +1668,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-19",
@@ -1575,7 +1683,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-20",
@@ -1589,7 +1698,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-21",
@@ -1603,7 +1713,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-22",
@@ -1617,7 +1728,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-23",
@@ -1631,7 +1743,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-24",
@@ -1645,7 +1758,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-25",
@@ -1659,7 +1773,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-26",
@@ -1673,7 +1788,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-27",
@@ -1687,7 +1803,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-28",
@@ -1701,7 +1818,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-29",
@@ -1715,7 +1833,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-04-30",
@@ -1729,7 +1848,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-01",
@@ -1743,7 +1863,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-02",
@@ -1757,7 +1878,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-03",
@@ -1771,7 +1893,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-04",
@@ -1785,7 +1908,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-05",
@@ -1799,7 +1923,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-06",
@@ -1813,7 +1938,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-07",
@@ -1827,7 +1953,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-08",
@@ -1841,7 +1968,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-09",
@@ -1855,7 +1983,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-10",
@@ -1869,7 +1998,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-11",
@@ -1883,7 +2013,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-12",
@@ -1897,7 +2028,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-13",
@@ -1911,7 +2043,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-14",
@@ -1925,7 +2058,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-15",
@@ -1939,7 +2073,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-16",
@@ -1953,7 +2088,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-17",
@@ -1967,7 +2103,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-18",
@@ -1981,7 +2118,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-19",
@@ -1995,7 +2133,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-20",
@@ -2009,7 +2148,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-21",
@@ -2023,7 +2163,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-22",
@@ -2037,7 +2178,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-23",
@@ -2051,7 +2193,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-24",
@@ -2065,7 +2208,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-25",
@@ -2079,7 +2223,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-26",
@@ -2093,7 +2238,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-27",
@@ -2107,7 +2253,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-28",
@@ -2121,7 +2268,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-29",
@@ -2135,7 +2283,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-30",
@@ -2149,7 +2298,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-05-31",
@@ -2163,7 +2313,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-01",
@@ -2177,7 +2328,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-02",
@@ -2191,7 +2343,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-03",
@@ -2205,7 +2358,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-04",
@@ -2219,7 +2373,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-05",
@@ -2233,7 +2388,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-06",
@@ -2247,7 +2403,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-07",
@@ -2261,7 +2418,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-08",
@@ -2275,7 +2433,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-09",
@@ -2289,7 +2448,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-10",
@@ -2303,7 +2463,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-11",
@@ -2317,7 +2478,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-12",
@@ -2331,7 +2493,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-13",
@@ -2345,7 +2508,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-14",
@@ -2359,7 +2523,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-15",
@@ -2373,7 +2538,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-16",
@@ -2387,7 +2553,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-17",
@@ -2401,7 +2568,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-18",
@@ -2415,7 +2583,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-19",
@@ -2429,7 +2598,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-20",
@@ -2443,7 +2613,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-21",
@@ -2457,7 +2628,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-22",
@@ -2471,7 +2643,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-23",
@@ -2485,7 +2658,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-24",
@@ -2499,7 +2673,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-25",
@@ -2513,7 +2688,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-26",
@@ -2527,7 +2703,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-27",
@@ -2541,7 +2718,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-28",
@@ -2555,7 +2733,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-29",
@@ -2569,7 +2748,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-06-30",
@@ -2583,7 +2763,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-01",
@@ -2597,7 +2778,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-02",
@@ -2611,7 +2793,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-03",
@@ -2625,7 +2808,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-04",
@@ -2639,7 +2823,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-05",
@@ -2653,7 +2838,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-06",
@@ -2667,7 +2853,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-07",
@@ -2681,7 +2868,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-08",
@@ -2695,7 +2883,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-09",
@@ -2709,7 +2898,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-10",
@@ -2723,7 +2913,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-11",
@@ -2737,7 +2928,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-12",
@@ -2751,7 +2943,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-13",
@@ -2765,7 +2958,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-14",
@@ -2779,7 +2973,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-15",
@@ -2793,7 +2988,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-16",
@@ -2807,7 +3003,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-17",
@@ -2821,7 +3018,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-18",
@@ -2835,7 +3033,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-19",
@@ -2849,7 +3048,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-20",
@@ -2863,7 +3063,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-21",
@@ -2877,7 +3078,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-22",
@@ -2891,7 +3093,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-23",
@@ -2905,7 +3108,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-24",
@@ -2919,7 +3123,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-25",
@@ -2933,7 +3138,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-26",
@@ -2947,7 +3153,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-27",
@@ -2961,7 +3168,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-28",
@@ -2975,7 +3183,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-29",
@@ -2989,7 +3198,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-30",
@@ -3003,7 +3213,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-07-31",
@@ -3017,7 +3228,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-01",
@@ -3031,7 +3243,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-02",
@@ -3045,7 +3258,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-03",
@@ -3059,7 +3273,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-04",
@@ -3073,7 +3288,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-05",
@@ -3087,7 +3303,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-06",
@@ -3101,7 +3318,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-07",
@@ -3115,7 +3333,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-08",
@@ -3129,7 +3348,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-09",
@@ -3143,7 +3363,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-10",
@@ -3157,7 +3378,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-11",
@@ -3171,7 +3393,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-12",
@@ -3185,7 +3408,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 501.56
+      "openTickets": 501.56,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-13",
@@ -3199,7 +3423,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 120.06
+      "openTickets": 120.06,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-14",
@@ -3213,7 +3438,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-15",
@@ -3227,7 +3453,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-16",
@@ -3241,7 +3468,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-17",
@@ -3255,7 +3483,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-18",
@@ -3269,7 +3498,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-19",
@@ -3283,7 +3513,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-20",
@@ -3297,7 +3528,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 35.15
+      "openTickets": 35.15,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-21",
@@ -3311,7 +3543,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-22",
@@ -3325,7 +3558,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-23",
@@ -3339,7 +3573,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-24",
@@ -3353,7 +3588,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 120.05
+      "openTickets": 120.05,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-25",
@@ -3367,7 +3603,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 308.53
+      "openTickets": 308.53,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-26",
@@ -3381,7 +3618,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 128.62
+      "openTickets": 128.62,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-27",
@@ -3395,7 +3633,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 353.44
+      "openTickets": 353.44,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-28",
@@ -3409,7 +3648,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 363.19
+      "openTickets": 363.19,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-29",
@@ -3423,7 +3663,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1944.14
+      "openTickets": 1944.14,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-30",
@@ -3437,7 +3678,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2470.3
+      "openTickets": 2470.3,
+      "cardBreakdown": null
     },
     {
       "date": "2025-08-31",
@@ -3451,7 +3693,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2653.74
+      "openTickets": 2653.74,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-01",
@@ -3465,7 +3708,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2249.6
+      "openTickets": 2249.6,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-02",
@@ -3479,7 +3723,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 524.37
+      "openTickets": 524.37,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-03",
@@ -3493,7 +3738,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 622.26
+      "openTickets": 622.26,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-04",
@@ -3507,7 +3753,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 842.62
+      "openTickets": 842.62,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-05",
@@ -3521,7 +3768,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1996.75
+      "openTickets": 1996.75,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-06",
@@ -3535,7 +3783,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2056.48
+      "openTickets": 2056.48,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-07",
@@ -3549,7 +3798,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1991.06
+      "openTickets": 1991.06,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-08",
@@ -3563,7 +3813,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 414.38
+      "openTickets": 414.38,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-09",
@@ -3577,7 +3828,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 743.76
+      "openTickets": 743.76,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-10",
@@ -3591,7 +3843,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1263.34
+      "openTickets": 1263.34,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-11",
@@ -3605,7 +3858,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 873.8
+      "openTickets": 873.8,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-12",
@@ -3619,7 +3873,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 4204.36
+      "openTickets": 4204.36,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-13",
@@ -3633,7 +3888,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2754.37
+      "openTickets": 2754.37,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-14",
@@ -3647,7 +3903,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2401.75
+      "openTickets": 2401.75,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-15",
@@ -3661,7 +3918,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 782.57
+      "openTickets": 782.57,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-16",
@@ -3675,7 +3933,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1078.03
+      "openTickets": 1078.03,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-17",
@@ -3689,7 +3948,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 717.12
+      "openTickets": 717.12,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-18",
@@ -3703,7 +3963,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 810.89
+      "openTickets": 810.89,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-19",
@@ -3717,7 +3978,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3570.3
+      "openTickets": 3570.3,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-20",
@@ -3731,7 +3993,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2295.95
+      "openTickets": 2295.95,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-21",
@@ -3745,7 +4008,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2418.9
+      "openTickets": 2418.9,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-22",
@@ -3759,7 +4023,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 928.45
+      "openTickets": 928.45,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-23",
@@ -3773,7 +4038,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1045.05
+      "openTickets": 1045.05,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-24",
@@ -3787,7 +4053,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 859.16
+      "openTickets": 859.16,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-25",
@@ -3801,7 +4068,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1240.53
+      "openTickets": 1240.53,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-26",
@@ -3815,7 +4083,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2728.09
+      "openTickets": 2728.09,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-27",
@@ -3829,7 +4098,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2375.15
+      "openTickets": 2375.15,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-28",
@@ -3843,7 +4113,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1933.8
+      "openTickets": 1933.8,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-29",
@@ -3857,7 +4128,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 894.91
+      "openTickets": 894.91,
+      "cardBreakdown": null
     },
     {
       "date": "2025-09-30",
@@ -3871,7 +4143,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 753.95
+      "openTickets": 753.95,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-01",
@@ -3885,7 +4158,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1186.12
+      "openTickets": 1186.12,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-02",
@@ -3899,7 +4173,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1608.87
+      "openTickets": 1608.87,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-03",
@@ -3913,7 +4188,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3103.92
+      "openTickets": 3103.92,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-04",
@@ -3927,7 +4203,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 4112.33
+      "openTickets": 4112.33,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-05",
@@ -3941,7 +4218,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1675.2
+      "openTickets": 1675.2,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-06",
@@ -3955,7 +4233,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 659.39
+      "openTickets": 659.39,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-07",
@@ -3969,7 +4248,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1672.33
+      "openTickets": 1672.33,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-08",
@@ -3983,7 +4263,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1231.67
+      "openTickets": 1231.67,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-09",
@@ -3997,7 +4278,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1452.44
+      "openTickets": 1452.44,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-10",
@@ -4011,7 +4293,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3690.08
+      "openTickets": 3690.08,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-11",
@@ -4025,7 +4308,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2358.68
+      "openTickets": 2358.68,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-12",
@@ -4039,7 +4323,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2728.47
+      "openTickets": 2728.47,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-13",
@@ -4053,7 +4338,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1282.22
+      "openTickets": 1282.22,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-14",
@@ -4067,7 +4353,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1602.32
+      "openTickets": 1602.32,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-15",
@@ -4081,7 +4368,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1442.59
+      "openTickets": 1442.59,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-16",
@@ -4095,7 +4383,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1150.86
+      "openTickets": 1150.86,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-17",
@@ -4109,7 +4398,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 4247.1
+      "openTickets": 4247.1,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-18",
@@ -4123,7 +4413,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3587.41
+      "openTickets": 3587.41,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-19",
@@ -4137,7 +4428,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2360.58
+      "openTickets": 2360.58,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-20",
@@ -4151,7 +4443,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1601.9
+      "openTickets": 1601.9,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-21",
@@ -4165,7 +4458,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1723.08
+      "openTickets": 1723.08,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-22",
@@ -4179,7 +4473,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3045.11
+      "openTickets": 3045.11,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-23",
@@ -4193,7 +4488,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1820.37
+      "openTickets": 1820.37,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-24",
@@ -4207,7 +4503,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 4265.09
+      "openTickets": 4265.09,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-25",
@@ -4221,7 +4518,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3390.49
+      "openTickets": 3390.49,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-26",
@@ -4235,7 +4533,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2689.95
+      "openTickets": 2689.95,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-27",
@@ -4249,7 +4548,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 824.71
+      "openTickets": 824.71,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-28",
@@ -4263,7 +4563,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1022.62
+      "openTickets": 1022.62,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-29",
@@ -4277,7 +4578,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1550.14
+      "openTickets": 1550.14,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-30",
@@ -4291,7 +4593,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1576.02
+      "openTickets": 1576.02,
+      "cardBreakdown": null
     },
     {
       "date": "2025-10-31",
@@ -4305,7 +4608,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 4002.98
+      "openTickets": 4002.98,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-01",
@@ -4319,7 +4623,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1833.57
+      "openTickets": 1833.57,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-03",
@@ -4333,7 +4638,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 872.74
+      "openTickets": 872.74,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-04",
@@ -4347,7 +4653,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 972.27
+      "openTickets": 972.27,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-05",
@@ -4361,7 +4668,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 762.49
+      "openTickets": 762.49,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-06",
@@ -4375,7 +4683,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1261.47
+      "openTickets": 1261.47,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-07",
@@ -4389,7 +4698,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3584.56
+      "openTickets": 3584.56,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-08",
@@ -4403,7 +4713,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3749.13
+      "openTickets": 3749.13,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-09",
@@ -4417,7 +4728,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2671.95
+      "openTickets": 2671.95,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-10",
@@ -4431,7 +4743,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1506.5
+      "openTickets": 1506.5,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-11",
@@ -4445,7 +4758,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 807.83
+      "openTickets": 807.83,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-12",
@@ -4459,7 +4773,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1092.72
+      "openTickets": 1092.72,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-13",
@@ -4473,7 +4788,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1444.69
+      "openTickets": 1444.69,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-14",
@@ -4487,7 +4803,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3978.72
+      "openTickets": 3978.72,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-15",
@@ -4501,7 +4818,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3310.03
+      "openTickets": 3310.03,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-16",
@@ -4515,7 +4833,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2086.47
+      "openTickets": 2086.47,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-17",
@@ -4529,7 +4848,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 791.74
+      "openTickets": 791.74,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-18",
@@ -4543,7 +4863,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 896.27
+      "openTickets": 896.27,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-19",
@@ -4557,7 +4878,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1869.56
+      "openTickets": 1869.56,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-20",
@@ -4571,7 +4893,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1736.7
+      "openTickets": 1736.7,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-21",
@@ -4585,7 +4908,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 4374.31
+      "openTickets": 4374.31,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-22",
@@ -4599,7 +4923,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3109.92
+      "openTickets": 3109.92,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-23",
@@ -4613,7 +4938,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3036.88
+      "openTickets": 3036.88,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-24",
@@ -4627,7 +4953,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1528.11
+      "openTickets": 1528.11,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-25",
@@ -4641,7 +4968,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1972.1
+      "openTickets": 1972.1,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-26",
@@ -4655,7 +4983,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 4085.71
+      "openTickets": 4085.71,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-27",
@@ -4669,7 +4998,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2060.37
+      "openTickets": 2060.37,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-28",
@@ -4683,7 +5013,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2996.03
+      "openTickets": 2996.03,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-29",
@@ -4697,7 +5028,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2804.76
+      "openTickets": 2804.76,
+      "cardBreakdown": null
     },
     {
       "date": "2025-11-30",
@@ -4711,7 +5043,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2522.93
+      "openTickets": 2522.93,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-01",
@@ -4725,7 +5058,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1373.96
+      "openTickets": 1373.96,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-02",
@@ -4739,7 +5073,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1140.96
+      "openTickets": 1140.96,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-03",
@@ -4753,7 +5088,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1327.1
+      "openTickets": 1327.1,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-04",
@@ -4767,7 +5103,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2466.09
+      "openTickets": 2466.09,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-05",
@@ -4781,7 +5118,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 4767.76
+      "openTickets": 4767.76,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-06",
@@ -4795,7 +5133,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2894.65
+      "openTickets": 2894.65,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-07",
@@ -4809,7 +5148,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2709.62
+      "openTickets": 2709.62,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-08",
@@ -4823,7 +5163,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1445.82
+      "openTickets": 1445.82,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-09",
@@ -4837,7 +5178,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1676.85
+      "openTickets": 1676.85,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-10",
@@ -4851,7 +5193,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1421.59
+      "openTickets": 1421.59,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-11",
@@ -4865,7 +5208,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1838.74
+      "openTickets": 1838.74,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-12",
@@ -4879,7 +5223,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 4210.82
+      "openTickets": 4210.82,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-13",
@@ -4893,7 +5238,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3297.55
+      "openTickets": 3297.55,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-14",
@@ -4907,7 +5253,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2272.63
+      "openTickets": 2272.63,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-15",
@@ -4921,7 +5268,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1190.26
+      "openTickets": 1190.26,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-16",
@@ -4935,7 +5283,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1739.49
+      "openTickets": 1739.49,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-17",
@@ -4949,7 +5298,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2095.87
+      "openTickets": 2095.87,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-18",
@@ -4963,7 +5313,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1218.47
+      "openTickets": 1218.47,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-19",
@@ -4977,7 +5328,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3968.7
+      "openTickets": 3968.7,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-20",
@@ -4991,7 +5343,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2712.44
+      "openTickets": 2712.44,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-21",
@@ -5005,7 +5358,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3035.17
+      "openTickets": 3035.17,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-22",
@@ -5019,7 +5373,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1442.96
+      "openTickets": 1442.96,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-23",
@@ -5033,7 +5388,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2066.33
+      "openTickets": 2066.33,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-24",
@@ -5047,7 +5403,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2912.75
+      "openTickets": 2912.75,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-25",
@@ -5061,7 +5418,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3627.08
+      "openTickets": 3627.08,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-26",
@@ -5075,7 +5433,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2681.98
+      "openTickets": 2681.98,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-27",
@@ -5089,7 +5448,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3142.36
+      "openTickets": 3142.36,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-28",
@@ -5103,7 +5463,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2244.96
+      "openTickets": 2244.96,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-29",
@@ -5117,7 +5478,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3339.4
+      "openTickets": 3339.4,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-30",
@@ -5131,7 +5493,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3564.59
+      "openTickets": 3564.59,
+      "cardBreakdown": null
     },
     {
       "date": "2025-12-31",
@@ -5145,7 +5508,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2667.9
+      "openTickets": 2667.9,
+      "cardBreakdown": null
     },
     {
       "date": "2026-01-29",
@@ -5159,7 +5523,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 18.39,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-01-30",
@@ -5173,7 +5538,8 @@
       "doordash": 169.87,
       "stOnline": 50.85,
       "uberEats": 43.28,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-01-31",
@@ -5187,7 +5553,8 @@
       "doordash": 173.1,
       "stOnline": 170.9,
       "uberEats": 67.05,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-01",
@@ -5201,7 +5568,8 @@
       "doordash": 114.8,
       "stOnline": 0,
       "uberEats": 38.94,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-02",
@@ -5215,7 +5583,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 98.76,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-03",
@@ -5229,7 +5598,8 @@
       "doordash": 25.96,
       "stOnline": 17.31,
       "uberEats": 43.27,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-04",
@@ -5243,7 +5613,8 @@
       "doordash": 0,
       "stOnline": 80.04,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-05",
@@ -5257,7 +5628,8 @@
       "doordash": 37.87,
       "stOnline": 0,
       "uberEats": 64.91,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-06",
@@ -5271,7 +5643,8 @@
       "doordash": 120.76,
       "stOnline": 97.34,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-07",
@@ -5285,7 +5658,8 @@
       "doordash": 60.88,
       "stOnline": 7.53,
       "uberEats": 42.2,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-08",
@@ -5299,7 +5673,8 @@
       "doordash": 75.73,
       "stOnline": 17.29,
       "uberEats": 59.5,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-09",
@@ -5313,7 +5688,8 @@
       "doordash": 66.76,
       "stOnline": 0,
       "uberEats": 58.95,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-10",
@@ -5327,7 +5703,8 @@
       "doordash": 18.39,
       "stOnline": 16.23,
       "uberEats": 20.56,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-11",
@@ -5341,7 +5718,8 @@
       "doordash": 57.86,
       "stOnline": 6.5,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-12",
@@ -5355,7 +5733,8 @@
       "doordash": 82.22,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-13",
@@ -5369,7 +5748,8 @@
       "doordash": 64.89,
       "stOnline": 129.77,
       "uberEats": 36.86,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-14",
@@ -5383,7 +5763,8 @@
       "doordash": 65.76,
       "stOnline": 39.48,
       "uberEats": 99.5,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-15",
@@ -5397,7 +5778,8 @@
       "doordash": 0,
       "stOnline": 54.08,
       "uberEats": 35.7,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-16",
@@ -5411,7 +5793,8 @@
       "doordash": 68.35,
       "stOnline": 0,
       "uberEats": 43.81,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-17",
@@ -5425,7 +5808,8 @@
       "doordash": 63.82,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-18",
@@ -5439,7 +5823,8 @@
       "doordash": 0,
       "stOnline": 48.68,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-19",
@@ -5453,7 +5838,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-20",
@@ -5467,7 +5853,8 @@
       "doordash": 62.75,
       "stOnline": 10,
       "uberEats": 58.42,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-21",
@@ -5481,7 +5868,8 @@
       "doordash": 0,
       "stOnline": 28.11,
       "uberEats": 38.95,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-22",
@@ -5495,7 +5883,8 @@
       "doordash": 0,
       "stOnline": 3.46,
       "uberEats": 38.95,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-23",
@@ -5509,7 +5898,8 @@
       "doordash": 20.56,
       "stOnline": 3.59,
       "uberEats": 19.47,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-24",
@@ -5523,7 +5913,8 @@
       "doordash": 63.82,
       "stOnline": 8.5,
       "uberEats": 100.69,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-25",
@@ -5537,7 +5928,8 @@
       "doordash": 0,
       "stOnline": 10.98,
       "uberEats": 20.56,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-26",
@@ -5551,7 +5943,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-27",
@@ -5565,7 +5958,8 @@
       "doordash": 200.14,
       "stOnline": 183.34,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-02-28",
@@ -5579,7 +5973,8 @@
       "doordash": 38.95,
       "stOnline": 4.67,
       "uberEats": 17.31,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-01",
@@ -5593,7 +5988,8 @@
       "doordash": 33.54,
       "stOnline": 17.31,
       "uberEats": 45.44,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-02",
@@ -5607,7 +6003,8 @@
       "doordash": 51.93,
       "stOnline": 0,
       "uberEats": 37.86,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-03",
@@ -5621,7 +6018,8 @@
       "doordash": 23.79,
       "stOnline": 0,
       "uberEats": 9.73,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-04",
@@ -5635,7 +6033,8 @@
       "doordash": 23.79,
       "stOnline": 74.06,
       "uberEats": 40.85,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-05",
@@ -5649,7 +6048,8 @@
       "doordash": 0,
       "stOnline": 70.32,
       "uberEats": 20.56,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-06",
@@ -5663,7 +6063,8 @@
       "doordash": 20.56,
       "stOnline": 14.06,
       "uberEats": 22.71,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-07",
@@ -5677,7 +6078,8 @@
       "doordash": 85.47,
       "stOnline": 5,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-08",
@@ -5691,7 +6093,8 @@
       "doordash": 170.83,
       "stOnline": 0,
       "uberEats": 41.11,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-09",
@@ -5705,7 +6108,8 @@
       "doordash": 44.67,
       "stOnline": 21.09,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-10",
@@ -5719,7 +6123,8 @@
       "doordash": 20.56,
       "stOnline": 0,
       "uberEats": 7.57,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-11",
@@ -5733,7 +6138,8 @@
       "doordash": 77.07,
       "stOnline": 6.49,
       "uberEats": 17.3,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-12",
@@ -5747,7 +6153,8 @@
       "doordash": 18.04,
       "stOnline": 106.54,
       "uberEats": 61.65,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-13",
@@ -5761,7 +6168,8 @@
       "doordash": 121.86,
       "stOnline": 197.92,
       "uberEats": 98.46,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-14",
@@ -5775,7 +6183,8 @@
       "doordash": 73.96,
       "stOnline": 46.51,
       "uberEats": 107.62,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-15",
@@ -5789,7 +6198,8 @@
       "doordash": 0,
       "stOnline": 68.69,
       "uberEats": 38.95,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-16",
@@ -5803,7 +6213,8 @@
       "doordash": 97.25,
       "stOnline": 7.01,
       "uberEats": 36.78,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-17",
@@ -5817,7 +6228,8 @@
       "doordash": 20.56,
       "stOnline": 7.74,
       "uberEats": 54.28,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-18",
@@ -5831,7 +6243,8 @@
       "doordash": 90.68,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-19",
@@ -5845,7 +6258,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 69.23,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-20",
@@ -5859,7 +6273,8 @@
       "doordash": 131.98,
       "stOnline": 0,
       "uberEats": 22.72,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-21",
@@ -5873,7 +6288,8 @@
       "doordash": 75.36,
       "stOnline": 22.17,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-22",
@@ -5887,7 +6303,8 @@
       "doordash": 96.93,
       "stOnline": 133.08,
       "uberEats": 64.43,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-23",
@@ -5901,7 +6318,8 @@
       "doordash": 199.26,
       "stOnline": 0,
       "uberEats": 71.39,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-24",
@@ -5915,7 +6333,8 @@
       "doordash": 92.09,
       "stOnline": 0,
       "uberEats": 126.03,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-25",
@@ -5929,7 +6348,8 @@
       "doordash": 131.17,
       "stOnline": 17.3,
       "uberEats": 38.95,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-26",
@@ -5943,7 +6363,8 @@
       "doordash": 61.8,
       "stOnline": 0,
       "uberEats": 89.79,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-27",
@@ -5957,7 +6378,8 @@
       "doordash": 319.9,
       "stOnline": 0,
       "uberEats": 115.29,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-28",
@@ -5971,7 +6393,8 @@
       "doordash": 23.34,
       "stOnline": 0,
       "uberEats": 42.17,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-29",
@@ -5985,7 +6408,8 @@
       "doordash": 53.95,
       "stOnline": 111.94,
       "uberEats": 175.03,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-30",
@@ -5999,7 +6423,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 130.99,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-03-31",
@@ -6013,7 +6438,8 @@
       "doordash": 103.5,
       "stOnline": 0,
       "uberEats": 20.56,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-01",
@@ -6027,7 +6453,8 @@
       "doordash": 38.95,
       "stOnline": 0,
       "uberEats": 157.15,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-02",
@@ -6041,7 +6468,8 @@
       "doordash": 163.19,
       "stOnline": 107.07,
       "uberEats": 184.98,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-03",
@@ -6055,7 +6483,8 @@
       "doordash": 55.61,
       "stOnline": 0,
       "uberEats": 205.29,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-04",
@@ -6069,7 +6498,8 @@
       "doordash": 113.77,
       "stOnline": 36.23,
       "uberEats": 174.15,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-05",
@@ -6083,7 +6513,8 @@
       "doordash": 295.89,
       "stOnline": 0,
       "uberEats": 20.56,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-06",
@@ -6097,7 +6528,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 119.01,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-07",
@@ -6111,7 +6543,8 @@
       "doordash": 90.47,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-08",
@@ -6125,7 +6558,8 @@
       "doordash": 55.16,
       "stOnline": 0,
       "uberEats": 202.3,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-09",
@@ -6139,7 +6573,8 @@
       "doordash": 0,
       "stOnline": 41.1,
       "uberEats": 0,
-      "openTickets": 1
+      "openTickets": 1,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-10",
@@ -6153,7 +6588,8 @@
       "doordash": 287.41,
       "stOnline": 143.87,
       "uberEats": 142.01,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-11",
@@ -6167,7 +6603,8 @@
       "doordash": 162.62,
       "stOnline": 193.63,
       "uberEats": 62.73,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-12",
@@ -6181,7 +6618,8 @@
       "doordash": 103.8,
       "stOnline": 127.66,
       "uberEats": 81.15,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-13",
@@ -6195,7 +6633,8 @@
       "doordash": 54.42,
       "stOnline": 0,
       "uberEats": 117.39,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-14",
@@ -6209,7 +6648,8 @@
       "doordash": 0,
       "stOnline": 1.3,
       "uberEats": 142.79,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-15",
@@ -6223,7 +6663,8 @@
       "doordash": 38.41,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-16",
@@ -6237,7 +6678,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 101.66,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-17",
@@ -6251,7 +6693,8 @@
       "doordash": 251.25,
       "stOnline": 28.12,
       "uberEats": 47.05,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-18",
@@ -6265,7 +6708,8 @@
       "doordash": 65.55,
       "stOnline": 0,
       "uberEats": 115.51,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-19",
@@ -6279,7 +6723,8 @@
       "doordash": 231.84,
       "stOnline": 53.01,
       "uberEats": 124.72,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-20",
@@ -6293,7 +6738,8 @@
       "doordash": 21.63,
       "stOnline": 38.94,
       "uberEats": 67.05,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-21",
@@ -6307,7 +6753,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 20.56,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-22",
@@ -6321,7 +6768,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 130.14,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-23",
@@ -6335,7 +6783,8 @@
       "doordash": 76.23,
       "stOnline": 0,
       "uberEats": 182.26,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-04-24",
@@ -6710,7 +7159,8 @@
       "voids": 0,
       "cashPayments": 0,
       "creditCard": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-05-08",
@@ -6991,7 +7441,8 @@
       "openTickets": 3307.87,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-05-17",
@@ -7005,7 +7456,8 @@
       "openTickets": 2825.14,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-05-18",
@@ -7683,7 +8135,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-06-24",
@@ -8009,7 +8462,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 0
+      "openTickets": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-07-01",
@@ -9067,7 +9521,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 904.88
+      "openTickets": 904.88,
+      "cardBreakdown": null
     },
     {
       "date": "2026-07-22",
@@ -9081,7 +9536,8 @@
       "openTickets": 1235.62,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-07-23",
@@ -9167,7 +9623,8 @@
       "openTickets": 3164.78,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-07-27",
@@ -9285,7 +9742,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2080.16
+      "openTickets": 2080.16,
+      "cardBreakdown": null
     },
     {
       "date": "2026-07-30",
@@ -9399,7 +9857,8 @@
       "openTickets": 4117.76,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-08-03",
@@ -9685,7 +10144,8 @@
       "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-08-13",
@@ -9747,7 +10207,8 @@
       "openTickets": 3435.41,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-08-16",
@@ -9761,7 +10222,8 @@
       "openTickets": 1924.21,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-08-17",
@@ -9851,7 +10313,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 2247.72
+      "openTickets": 2247.72,
+      "cardBreakdown": null
     },
     {
       "date": "2026-08-20",
@@ -9969,7 +10432,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 3832.22
+      "openTickets": 3832.22,
+      "cardBreakdown": null
     },
     {
       "date": "2026-08-23",
@@ -10391,7 +10855,8 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
-      "openTickets": 1287.3
+      "openTickets": 1287.3,
+      "cardBreakdown": null
     },
     {
       "date": "2026-09-03",
@@ -10453,7 +10918,8 @@
       "openTickets": 4377.27,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-09-06",
@@ -10567,7 +11033,8 @@
       "openTickets": 891.96,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-09-10",
@@ -10629,7 +11096,8 @@
       "openTickets": 2534.07,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "cardBreakdown": null
     },
     {
       "date": "2026-09-13",
@@ -10872,7 +11340,8 @@
       "openTickets": 0,
       "doordash": 71.4,
       "stOnline": 23.79,
-      "uberEats": 330.94
+      "uberEats": 330.94,
+      "cardBreakdown": null
     },
     {
       "date": "2026-09-20",
@@ -10910,7 +11379,8 @@
       "openTickets": 0,
       "doordash": 31.91,
       "stOnline": 91.41,
-      "uberEats": 395.96
+      "uberEats": 395.96,
+      "cardBreakdown": null
     },
     {
       "date": "2026-09-22",
@@ -11043,6 +11513,70 @@
     },
     {
       "date": "2026-09-25",
+      "grossSales": 5318.93,
+      "netSales": 4913.52,
+      "taxes": 405.41,
+      "discounts": 10.13,
+      "voids": 0,
+      "cashPayments": 95.65,
+      "creditCard": 4190.08,
+      "openTickets": 5318.93,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": null
+    },
+    {
+      "date": "2026-09-26",
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": null,
+      "grossSales": 3446.4,
+      "netSales": 3183.7,
+      "taxes": 262.7,
+      "discounts": 19.28,
+      "voids": 12.95,
+      "cashPayments": 47.45,
+      "creditCard": 2838.93,
+      "openTickets": 3500.34
+    },
+    {
+      "date": "2026-09-27",
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": null,
+      "grossSales": 1999.62,
+      "netSales": 1847.26,
+      "taxes": 152.36,
+      "discounts": 5.17,
+      "voids": 0,
+      "cashPayments": 137,
+      "creditCard": 1563.6,
+      "openTickets": 1999.62
+    },
+    {
+      "date": "2026-09-28",
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": null,
+      "grossSales": 341.91,
+      "netSales": 315.86,
+      "taxes": 26.05,
+      "discounts": 0.1,
+      "voids": 0,
+      "cashPayments": 2.6,
+      "creditCard": 28.82,
+      "openTickets": 341.91
+    },
+    {
+      "date": "2026-09-29",
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": null,
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -11050,10 +11584,7 @@
       "voids": 0,
       "cashPayments": 0,
       "creditCard": 0,
-      "openTickets": 0,
-      "doordash": 0,
-      "stOnline": 0,
-      "uberEats": 0
+      "openTickets": 0
     }
   ],
   "itemsByDay": [
@@ -118935,6 +119466,1726 @@
           "revenue": 2.97
         }
       ]
+    },
+    {
+      "date": "2026-09-25",
+      "items": [
+        {
+          "name": "Apollo Fish",
+          "qty": 12,
+          "revenue": 216.88
+        },
+        {
+          "name": "Karivepaku Chicken",
+          "qty": 12,
+          "revenue": 191.88
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 10,
+          "revenue": 185.9
+        },
+        {
+          "name": "Crispy Corn Masala",
+          "qty": 12,
+          "revenue": 179.88
+        },
+        {
+          "name": "Open Beverage",
+          "qty": 4,
+          "revenue": 128.96
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 6,
+          "revenue": 117.94
+        },
+        {
+          "name": "Open Food B",
+          "qty": 1,
+          "revenue": 110
+        },
+        {
+          "name": "Hyderabad Mutton Biryani",
+          "qty": 5,
+          "revenue": 100.95
+        },
+        {
+          "name": "Boiled Peanut Masala",
+          "qty": 8,
+          "revenue": 99.92
+        },
+        {
+          "name": "Hyderabad Chicken  Biryani",
+          "qty": 5,
+          "revenue": 80.95
+        },
+        {
+          "name": "Thalapakattu Mutton Biryani",
+          "qty": 4,
+          "revenue": 79.96
+        },
+        {
+          "name": "Ghee Roast Garlic Mushroom",
+          "qty": 5,
+          "revenue": 79.95
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 6,
+          "revenue": 77.94
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 4,
+          "revenue": 75.96
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 28,
+          "revenue": 72.55
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "qty": 4,
+          "revenue": 66.43
+        },
+        {
+          "name": "Gobi Manchurian (Dry/Wet)",
+          "qty": 4,
+          "revenue": 64.96
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 4,
+          "revenue": 64.94
+        },
+        {
+          "name": "Kadai Methi Paneer",
+          "qty": 4,
+          "revenue": 64.45
+        },
+        {
+          "name": "Chicken Majestic",
+          "qty": 4,
+          "revenue": 63.96
+        },
+        {
+          "name": "Karivepaku Gobi",
+          "qty": 4,
+          "revenue": 63.96
+        },
+        {
+          "name": "Noodles",
+          "qty": 4,
+          "revenue": 60.96
+        },
+        {
+          "name": "Open Food",
+          "qty": 6,
+          "revenue": 58.45
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 15,
+          "revenue": 57.85
+        },
+        {
+          "name": "Mutton Sukka Varuval",
+          "qty": 3,
+          "revenue": 56.97
+        },
+        {
+          "name": "Glenlevit(45ml)",
+          "qty": 6,
+          "revenue": 53.94
+        },
+        {
+          "name": "Chilli Paneer",
+          "qty": 3,
+          "revenue": 50.97
+        },
+        {
+          "name": "Paneer Manchurian (Dry/Gravy)",
+          "qty": 3,
+          "revenue": 50.97
+        },
+        {
+          "name": "Tandoori Pomphret Fish",
+          "qty": 3,
+          "revenue": 50.97
+        },
+        {
+          "name": "Paan",
+          "qty": 17,
+          "revenue": 50.83
+        },
+        {
+          "name": "Chilli Chicken (Dry/Semi Wet)",
+          "qty": 3,
+          "revenue": 47.97
+        },
+        {
+          "name": "Jalapeno Chicken",
+          "qty": 3,
+          "revenue": 47.97
+        },
+        {
+          "name": "Madhurai Chicken Pakoda",
+          "qty": 3,
+          "revenue": 47.97
+        },
+        {
+          "name": "Fried Rice",
+          "qty": 3,
+          "revenue": 46.97
+        },
+        {
+          "name": "Dal Tadka",
+          "qty": 3,
+          "revenue": 45.97
+        },
+        {
+          "name": "Burnt Garlic Rice",
+          "qty": 3,
+          "revenue": 44.97
+        },
+        {
+          "name": "Gobi 65",
+          "qty": 3,
+          "revenue": 44.97
+        },
+        {
+          "name": "Omlette",
+          "qty": 5,
+          "revenue": 44.95
+        },
+        {
+          "name": "Fry Peanut Masala",
+          "qty": 4,
+          "revenue": 43.96
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 3,
+          "revenue": 40.97
+        },
+        {
+          "name": "Ghee Roast Non-Veg Curry",
+          "qty": 2,
+          "revenue": 36.98
+        },
+        {
+          "name": "Chilli Prawn",
+          "qty": 2,
+          "revenue": 35.98
+        },
+        {
+          "name": "Chicken Hot & Sour Soup",
+          "qty": 5,
+          "revenue": 34.95
+        },
+        {
+          "name": "Chicken 555 Biryani",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Pachi Mirchi Panner Pulav",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Paneer Tikka kebab",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 7,
+          "revenue": 33.43
+        },
+        {
+          "name": "Chettinad Non-Veg Curry",
+          "qty": 2,
+          "revenue": 32.96
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 2,
+          "revenue": 32.96
+        },
+        {
+          "name": "Malai Kofta",
+          "qty": 2,
+          "revenue": 32.47
+        },
+        {
+          "name": "Chicken 555(Semi Wet)",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Lemon Coriander Chicken",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Thalapakatu Jack Fruit Biryani",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Parata With Curry",
+          "qty": 2,
+          "revenue": 30.98
+        },
+        {
+          "name": "Egg Fried Rice",
+          "qty": 2,
+          "revenue": 30.97
+        },
+        {
+          "name": "Honey Cake",
+          "qty": 7,
+          "revenue": 30.73
+        },
+        {
+          "name": "Boneless Chicken Kabeb Platter",
+          "qty": 1,
+          "revenue": 29.99
+        },
+        {
+          "name": "Hyderabadi Chicken 65 (Wet)",
+          "qty": 2,
+          "revenue": 29.98
+        },
+        {
+          "name": "Mushroom 65",
+          "qty": 2,
+          "revenue": 29.98
+        },
+        {
+          "name": "Butter naan",
+          "qty": 7,
+          "revenue": 23.93
+        },
+        {
+          "name": "Corona 12oz",
+          "qty": 5,
+          "revenue": 22.45
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 1,
+          "revenue": 20.99
+        },
+        {
+          "name": "Ghee Roast Goat Fry Pulav",
+          "qty": 1,
+          "revenue": 20.99
+        },
+        {
+          "name": "Ulavacharu Mutton Biryani",
+          "qty": 1,
+          "revenue": 20.99
+        },
+        {
+          "name": "Virgin Mojito",
+          "qty": 3,
+          "revenue": 20.97
+        },
+        {
+          "name": "Ghee Roast Goat Fry",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Paneer Biryani",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Kaju(Cashew) Paneer Curry",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Prawn Varuval",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Chicken 65 Pulav",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chicken Kottu Parata",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chicken Tikka Kebab",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Fish 65",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Hariyali Chicken Tikka Kebab",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Madhurai Non-Veg Curry",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Tawa Fish  ( Tilapia)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Burnt Garlic Noodles",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Dragon Chicken",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Egg Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Ghee Roast Garlic Paneer",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Guntur Chicken Appetizer",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Kaju Paneer Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Karimnagar Chicken Wings",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "PachiMirchi Veg Keema Pulav",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Paneer Tikka Masala",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Regular Veg Thaali",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Authentic Mushroom Curry",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Baby Corn Pepper Onion",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Chicken 65(Dry)",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Chicken Pepper Fry",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Dosa With Chicken Curry",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Gobi Biryani",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Mushroom Dum Biryani",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Mushroom Tikka Masala",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Paneer 65",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Veg Kheema Biryani",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Veg Kheema Pulav",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Veg Manchuria",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Benne Masala Dosa",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Schewazan Noodles",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Ghee Podi Chitti Punugulu",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Lemon Soda (Sweet & Salt)",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Mango Lassi",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Onion Pakora",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Egg Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Poori With Curry (2 Pcs)",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Veg Corn Soup",
+          "qty": 2,
+          "revenue": 12.98
+        },
+        {
+          "name": "Curd Rice",
+          "qty": 1,
+          "revenue": 11.99
+        },
+        {
+          "name": "Onion Dosa",
+          "qty": 1,
+          "revenue": 11.99
+        },
+        {
+          "name": "Mirchi Bajji (3 pcs)",
+          "qty": 2,
+          "revenue": 11.98
+        },
+        {
+          "name": "SoftDrinks( Thumsup,Fanta,Limca)",
+          "qty": 3,
+          "revenue": 11.07
+        },
+        {
+          "name": "Ghee Podi Idly",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "Bengali Mixed Sweets(4 Pcs)",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Sambar Rice",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Strawberry Mojito",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Filter Coffee",
+          "qty": 2,
+          "revenue": 7.98
+        },
+        {
+          "name": "Michelob Ultra (12 oz) Can",
+          "qty": 2,
+          "revenue": 7.98
+        },
+        {
+          "name": "Icecream Togo",
+          "qty": 2,
+          "revenue": 7.8
+        },
+        {
+          "name": "Irani Chai",
+          "qty": 3,
+          "revenue": 7.75
+        },
+        {
+          "name": "Fanta (Orange)",
+          "qty": 2,
+          "revenue": 7.38
+        },
+        {
+          "name": "Plain Punugulu",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Samosa Chat",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Bud Light (20 oz)",
+          "qty": 1,
+          "revenue": 6.49
+        },
+        {
+          "name": "Gajar Halwa",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Saffron Mango Delight",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Black Forest Cake",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 2,
+          "revenue": 3.98
+        },
+        {
+          "name": "Kothimeer naan",
+          "qty": 1,
+          "revenue": 3.49
+        },
+        {
+          "name": "Parata(1)",
+          "qty": 1,
+          "revenue": 3.49
+        },
+        {
+          "name": "Coke (Normal,Diet,Zero)",
+          "qty": 1,
+          "revenue": 2.99
+        },
+        {
+          "name": "Water Bottle",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
+    },
+    {
+      "date": "2026-09-26",
+      "items": [
+        {
+          "name": "Open Food",
+          "qty": 5,
+          "revenue": 105.95
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 8,
+          "revenue": 103.92
+        },
+        {
+          "name": "Crispy Corn Masala",
+          "qty": 6,
+          "revenue": 89.94
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 5,
+          "revenue": 84.95
+        },
+        {
+          "name": "Glenlevit(45ml)",
+          "qty": 6,
+          "revenue": 83.94
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 6,
+          "revenue": 81.94
+        },
+        {
+          "name": "Kadai Methi Paneer",
+          "qty": 5,
+          "revenue": 80.93
+        },
+        {
+          "name": "Thalapakattu Mutton Biryani",
+          "qty": 4,
+          "revenue": 79.96
+        },
+        {
+          "name": "Jalapeno Chicken",
+          "qty": 5,
+          "revenue": 79.95
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 4,
+          "revenue": 64.94
+        },
+        {
+          "name": "Hyderabad Chicken  Biryani",
+          "qty": 4,
+          "revenue": 63.96
+        },
+        {
+          "name": "Karivepaku Chicken",
+          "qty": 4,
+          "revenue": 63.96
+        },
+        {
+          "name": "Yum Dhakshin Veg Thali",
+          "qty": 3,
+          "revenue": 59.97
+        },
+        {
+          "name": "Ghee Roast Non-Veg Curry",
+          "qty": 3,
+          "revenue": 59.46
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 16,
+          "revenue": 56.84
+        },
+        {
+          "name": "Idly",
+          "qty": 7,
+          "revenue": 55.93
+        },
+        {
+          "name": "Apollo Fish",
+          "qty": 3,
+          "revenue": 53.97
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 3,
+          "revenue": 52.97
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 40,
+          "revenue": 52.27
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 3,
+          "revenue": 50.97
+        },
+        {
+          "name": "Samosa Chat",
+          "qty": 5,
+          "revenue": 42.95
+        },
+        {
+          "name": "Ghee Roast Goat Fry Biryani",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Plain Dosa",
+          "qty": 4,
+          "revenue": 39.96
+        },
+        {
+          "name": "Lemon Soda (Sweet & Salt)",
+          "qty": 5,
+          "revenue": 34.95
+        },
+        {
+          "name": "Chicken Lollipops",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Karivepaku Wings",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 2,
+          "revenue": 32.47
+        },
+        {
+          "name": "Andhra Non-Veg Curry",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Chicken Majestic",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Ghee Karam Masala Dosa",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Karimnagar Chicken Wings",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Madhurai Chicken Pakoda",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Mixed Non Veg Noodles",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Sweet & Hot Wings",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Burnt Garlic Rice",
+          "qty": 2,
+          "revenue": 30.98
+        },
+        {
+          "name": "Open Food H",
+          "qty": 1,
+          "revenue": 29.99
+        },
+        {
+          "name": "Baby Corn Pepper Onion",
+          "qty": 2,
+          "revenue": 29.98
+        },
+        {
+          "name": "Chicken Pepper Fry",
+          "qty": 2,
+          "revenue": 29.98
+        },
+        {
+          "name": "Gobi 65",
+          "qty": 2,
+          "revenue": 29.98
+        },
+        {
+          "name": "Veg Kheema Biryani",
+          "qty": 2,
+          "revenue": 29.98
+        },
+        {
+          "name": "Paan",
+          "qty": 10,
+          "revenue": 29.9
+        },
+        {
+          "name": "Chole Bhature",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Honey Cake",
+          "qty": 6,
+          "revenue": 26.34
+        },
+        {
+          "name": "Gulab Jamun (4 pcs)",
+          "qty": 4,
+          "revenue": 23.96
+        },
+        {
+          "name": "Butter naan",
+          "qty": 7,
+          "revenue": 22.43
+        },
+        {
+          "name": "Parata(1)",
+          "qty": 9,
+          "revenue": 22.41
+        },
+        {
+          "name": "Dahi Puri",
+          "qty": 3,
+          "revenue": 20.97
+        },
+        {
+          "name": "Papdi Chat",
+          "qty": 3,
+          "revenue": 20.97
+        },
+        {
+          "name": "Ghee Roast Goat Fry",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Chilli Prawn",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Kaju(Cashew) Paneer Curry",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Paneer Tikka Masala",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Taj Mahal 24 oz",
+          "qty": 2,
+          "revenue": 17.98
+        },
+        {
+          "name": "Rose Milk",
+          "qty": 3,
+          "revenue": 17.97
+        },
+        {
+          "name": "Corona 12oz",
+          "qty": 4,
+          "revenue": 17.96
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 9,
+          "revenue": 17.91
+        },
+        {
+          "name": "Fish 65",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Gongura Chicken Biryani",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Madhurai Non-Veg Curry",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Mushroom Manchuria",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Paneer Tikka kebab",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Tandoori Chicken(half)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Tandoori Pomphret Fish",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chettinad Non-Veg Curry",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Malai Kofta",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Chicken 555(Semi Wet)",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Chicken Tikka Kebab",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Chilli Chicken (Dry/Semi Wet)",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Ghee Roast Garlic Mushroom",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Ghee Roast Garlic Paneer",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Gobi Manchurian (Dry/Wet)",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Guntur Chicken Appetizer",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Kaju Paneer Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "PachiMirchi Veg Keema Pulav",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Palak Paneer",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Palnadu Naatu Kodi Vepudu",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Thalapakatu Jack Fruit Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Filter Coffee",
+          "qty": 4,
+          "revenue": 15.96
+        },
+        {
+          "name": "Veg Kadai Masala",
+          "qty": 1,
+          "revenue": 15.48
+        },
+        {
+          "name": "Chicken 65(Dry)",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Dal Makkini",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Dal Tadka",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Dosa With Chicken Curry",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Hyderabadi Chicken 65 (Wet)",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Kadai Non-Veg Curry",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Noodles",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Schewazan Noodles",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Veg Kheema Pulav",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Benne Karam Dosa",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Parata With Veg Salna",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Rava Masala Dosa",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Egg Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Poori With Curry (2 Pcs)",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Rava Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Veg Hot & Sour Soup",
+          "qty": 2,
+          "revenue": 12.98
+        },
+        {
+          "name": "Icecream Togo",
+          "qty": 3,
+          "revenue": 11.7
+        },
+        {
+          "name": "Bullet naan",
+          "qty": 3,
+          "revenue": 11.47
+        },
+        {
+          "name": "Fry Peanut Masala",
+          "qty": 1,
+          "revenue": 10.99
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 11,
+          "revenue": 10.89
+        },
+        {
+          "name": "Tandoori Roti",
+          "qty": 3,
+          "revenue": 10.47
+        },
+        {
+          "name": "Cheese Dosa Kids",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Cream Bun",
+          "qty": 2,
+          "revenue": 8.98
+        },
+        {
+          "name": "Chapathi(2 Pcs)",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Chicken Corn Soup",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Maggi",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Instant Coffee",
+          "qty": 2,
+          "revenue": 6.98
+        },
+        {
+          "name": "Coke (Normal,Diet,Zero)",
+          "qty": 2,
+          "revenue": 5.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Onion Samosa (4pcs)",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Saffron Mango Delight",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Butter Scotch Cake",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "Irani Chai",
+          "qty": 1,
+          "revenue": 3.25
+        },
+        {
+          "name": "Pepsi",
+          "qty": 1,
+          "revenue": 2.99
+        },
+        {
+          "name": "Water Bottle",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
+    },
+    {
+      "date": "2026-09-27",
+      "items": [
+        {
+          "name": "Yum Dhakshin Non Veg Thali",
+          "qty": 7,
+          "revenue": 153.93
+        },
+        {
+          "name": "Apollo Fish",
+          "qty": 4,
+          "revenue": 72.96
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 5,
+          "revenue": 64.95
+        },
+        {
+          "name": "Hyderabad Mutton Biryani",
+          "qty": 3,
+          "revenue": 59.97
+        },
+        {
+          "name": "Thalapakattu Mutton Biryani",
+          "qty": 3,
+          "revenue": 59.97
+        },
+        {
+          "name": "Breakfast  Combo",
+          "qty": 5,
+          "revenue": 49.95
+        },
+        {
+          "name": "Kaju Paneer Biryani",
+          "qty": 3,
+          "revenue": 47.97
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Paneer Tikka kebab",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Tandoori Pomphret Fish",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Ghee Roast Non-Veg Curry",
+          "qty": 2,
+          "revenue": 32.98
+        },
+        {
+          "name": "Hyderabad Chicken  Biryani",
+          "qty": 2,
+          "revenue": 32.98
+        },
+        {
+          "name": "PachiMirchi Veg Keema Pulav",
+          "qty": 2,
+          "revenue": 32.98
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 2,
+          "revenue": 32.96
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "qty": 2,
+          "revenue": 32.47
+        },
+        {
+          "name": "Chicken Majestic",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Chilli Chicken (Dry/Semi Wet)",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Ghee Karam Masala Dosa",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Karimnagar Chicken Wings",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Noodles",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Thalapakatu Jack Fruit Biryani",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Fried Rice",
+          "qty": 2,
+          "revenue": 29.98
+        },
+        {
+          "name": "Plain Dosa",
+          "qty": 3,
+          "revenue": 29.97
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 19,
+          "revenue": 26.82
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Plain Benne Dosa",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Ghee Roast Goat Fry Pulav",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Parata With Curry",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Ghee Podi Idly",
+          "qty": 2,
+          "revenue": 18.98
+        },
+        {
+          "name": "Kaju(Cashew) Paneer Curry",
+          "qty": 1,
+          "revenue": 18.48
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 5,
+          "revenue": 17.45
+        },
+        {
+          "name": "Chicken 555 Biryani",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chicken Lollipops",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chilli Paneer",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Malai Chicken Kebab",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Paneer Manchurian (Dry/Gravy)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Tandoori Chicken(half)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Tawa Fish  ( Tilapia)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Chettinad Non-Veg Curry",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Dragon Chicken",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Ghee Roast Garlic Mushroom",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Karivepaku Chicken",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Madhurai Chicken Pakoda",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Paneer Tikka Masala",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Chicken 65(Dry)",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Dal Tadka",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Egg Pulav",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Poori With Curry (2 Pcs)",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Veg Manchuria",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Navratan Korma",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Parata With Veg Salna",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Fresh Watermelon Juice",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Papdi Chat",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Blue Berry Mojito With Alcohol",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Egg Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Onion Dosa",
+          "qty": 1,
+          "revenue": 11.99
+        },
+        {
+          "name": "Mirchi Bajji (3 pcs)",
+          "qty": 2,
+          "revenue": 11.98
+        },
+        {
+          "name": "Black Forest Cake",
+          "qty": 3,
+          "revenue": 11.97
+        },
+        {
+          "name": "Idly Sambar",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "Medu Vada(3 Pcs)",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "French Fries",
+          "qty": 2,
+          "revenue": 9.98
+        },
+        {
+          "name": "Masala Chai",
+          "qty": 5,
+          "revenue": 9.95
+        },
+        {
+          "name": "Bullet naan",
+          "qty": 2,
+          "revenue": 8.98
+        },
+        {
+          "name": "Honey Cake",
+          "qty": 2,
+          "revenue": 8.78
+        },
+        {
+          "name": "Mango Falooda",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Butter Scotch Cake",
+          "qty": 2,
+          "revenue": 7.98
+        },
+        {
+          "name": "Filter Coffee",
+          "qty": 2,
+          "revenue": 7.98
+        },
+        {
+          "name": "SoftDrinks( Thumsup,Fanta,Limca)",
+          "qty": 2,
+          "revenue": 7.38
+        },
+        {
+          "name": "Lemon Soda (Sweet & Salt)",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Mysorepak",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Mango Ice Cream",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 6,
+          "revenue": 5.94
+        },
+        {
+          "name": "Veg Curry 8-oz",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Open Food",
+          "qty": 1,
+          "revenue": 4.49
+        },
+        {
+          "name": "Pepsi",
+          "qty": 1,
+          "revenue": 2.99
+        },
+        {
+          "name": "Irani Chai Small",
+          "qty": 2,
+          "revenue": 2.5
+        },
+        {
+          "name": "Parata(1)",
+          "qty": 1,
+          "revenue": 2.49
+        },
+        {
+          "name": "Irani Chai",
+          "qty": 1,
+          "revenue": 2.25
+        }
+      ]
+    },
+    {
+      "date": "2026-09-28",
+      "items": [
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 5,
+          "revenue": 104.95
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 4,
+          "revenue": 83.96
+        },
+        {
+          "name": "Paneer Biryani",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Ghee Podi Idly",
+          "qty": 2,
+          "revenue": 17.98
+        },
+        {
+          "name": "Samosa Chat",
+          "qty": 2,
+          "revenue": 17.98
+        },
+        {
+          "name": "Lemon Coriander Chicken",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Gobi Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Chole Bhature",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Chicken Hot & Sour Soup",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Icecream Togo",
+          "qty": 2,
+          "revenue": 7.8
+        },
+        {
+          "name": "Cream Bun",
+          "qty": 1,
+          "revenue": 4.49
+        },
+        {
+          "name": "Irani Chai Small",
+          "qty": 2,
+          "revenue": 2.5
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 1,
+          "revenue": 0.35
+        }
+      ]
     }
   ],
   "disputes": [
@@ -118959,7 +121210,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-09-25T15:06:01.553Z",
+  "disputesScannedAt": "2026-09-29T16:16:15.258Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
