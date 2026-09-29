@@ -37,13 +37,15 @@ async function addRestcallToSlots(
   today: string,
   jsonHistory?: any[]
 ) {
-  const restcallMap = await getRestcallBreakdownRange(startDate, endDate)
-  // Build a fallback map from dashboard.json restcall fields in case Postgres returns empty.
+  // .catch ensures a Postgres error doesn't crash the whole route before the JSON fallback runs.
+  const restcallMap = await getRestcallBreakdownRange(startDate, endDate).catch(() => ({} as Record<string, never>))
+  // Build a fallback map from dashboard.json restcall fields in case Postgres returns empty or zero.
   const jsonFallback = new Map((jsonHistory ?? []).filter(h => h.restcall > 0).map(h => [h.date, h.restcall as number]))
   for (const slot of slots) {
     if (slot.date > today) continue
     const rc = restcallMap[slot.date]
-    const revenue = rc?.revenue ?? (jsonFallback.get(slot.date) ?? 0)
+    // Use explicit > 0 check so a Postgres row with revenue=0 still falls back to the JSON value.
+    const revenue = (rc?.revenue && rc.revenue > 0) ? rc.revenue : (jsonFallback.get(slot.date) ?? 0)
     if (revenue <= 0) continue
     slot.grossSales = round2(slot.grossSales + revenue)
     slot.netSales = round2(slot.netSales + (rc?.netSales ?? 0))
