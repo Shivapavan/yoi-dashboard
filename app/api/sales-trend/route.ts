@@ -5,6 +5,8 @@ import { centralTzOffset, fetchActivitySummaryData, fetchLiveDayMetrics } from '
 import { fetchCateringMonthTotal } from '@/lib/google'
 import { getRestcallBreakdownRange } from '@/lib/restcall-data'
 
+export const dynamic = 'force-dynamic'
+
 function round2(v: number) { return Math.round(v * 100) / 100 }
 
 // A real open day always grosses well above this. A stored value below it means

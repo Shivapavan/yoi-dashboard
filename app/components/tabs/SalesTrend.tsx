@@ -175,14 +175,14 @@ export default function SalesTrend() {
       if (view === 'monthly') url += `&month=${month}`
 
       try {
-        const r1 = await fetch(url + '&lite=true')
+        const r1 = await fetch(url + '&lite=true', { cache: 'no-store' })
         const d1 = await r1.json()
         if (d1.error) throw new Error(d1.error)
         setTrend(d1.trend ?? [])
         if (d1.periodLabel) setDailyPeriodLabel(d1.periodLabel)
         setLoading(false)
 
-        const r2 = await fetch(url)
+        const r2 = await fetch(url, { cache: 'no-store' })
         const d2 = await r2.json()
         if (!d2.error) {
           if (d2.trend) setTrend(d2.trend)
