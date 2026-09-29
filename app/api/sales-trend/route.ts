@@ -32,16 +32,20 @@ async function addRestcallToSlots(
   slots: Array<{ date: string; grossSales: number; netSales: number; cashPayments: number }>,
   startDate: string,
   endDate: string,
-  today: string
+  today: string,
+  jsonHistory?: any[]
 ) {
   const restcallMap = await getRestcallBreakdownRange(startDate, endDate)
+  // Build a fallback map from dashboard.json restcall fields in case Postgres returns empty.
+  const jsonFallback = new Map((jsonHistory ?? []).filter(h => h.restcall > 0).map(h => [h.date, h.restcall as number]))
   for (const slot of slots) {
     if (slot.date > today) continue
     const rc = restcallMap[slot.date]
-    if (!rc) continue
-    slot.grossSales = round2(slot.grossSales + rc.revenue)
-    slot.netSales = round2(slot.netSales + rc.netSales)
-    slot.cashPayments = round2(slot.cashPayments + rc.cashPayments)
+    const revenue = rc?.revenue ?? (jsonFallback.get(slot.date) ?? 0)
+    if (revenue <= 0) continue
+    slot.grossSales = round2(slot.grossSales + revenue)
+    slot.netSales = round2(slot.netSales + (rc?.netSales ?? 0))
+    slot.cashPayments = round2(slot.cashPayments + (rc?.cashPayments ?? 0))
   }
 }
 
@@ -106,7 +110,7 @@ export async function GET(req: NextRequest) {
       }))
     }
 
-    await addRestcallToSlots(dailySlots, firstDay, lastDay, today)
+    await addRestcallToSlots(dailySlots, firstDay, lastDay, today, data.history)
 
     // Only show days up to today (no future zeros on chart)
     const trend = dailySlots.filter(s => s.date <= today)
@@ -165,7 +169,7 @@ export async function GET(req: NextRequest) {
       }))
     }
 
-    await addRestcallToSlots(slots, sun, sat, today)
+    await addRestcallToSlots(slots, sun, sat, today, data.history)
 
     if (!lite) {
       const startOffset = centralTzOffset(sun)
@@ -224,7 +228,7 @@ export async function GET(req: NextRequest) {
       }))
     }
 
-    await addRestcallToSlots(slots, firstDay, lastDay, today)
+    await addRestcallToSlots(slots, firstDay, lastDay, today, data.history)
 
     if (!lite) {
       const startOffset = centralTzOffset(firstDay)
