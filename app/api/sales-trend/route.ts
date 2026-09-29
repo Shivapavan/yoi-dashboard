@@ -50,9 +50,10 @@ async function addRestcallToSlots(
     const usingPostgres = rcRevenue > 0
     slot.grossSales = round2(slot.grossSales + revenue)
     // When Postgres has data, use its netSales (captures fees/deductions from the workbook).
-    // When falling back to JSON (gross-only field), treat net = gross — RestCall phone orders
-    // don't carry the same POS-level discounts/voids, so gross ≈ net for this channel.
-    slot.netSales = round2(slot.netSales + (usingPostgres ? (rc?.netSales ?? 0) : revenue))
+    // When falling back to JSON (gross-only field), back out Texas 8.25% tax so net is
+    // correctly lower than gross (same approximation used by the end-of-day route).
+    const jsonNetSales = round2(revenue / 1.0825)
+    slot.netSales = round2(slot.netSales + (usingPostgres ? (rc?.netSales ?? 0) : jsonNetSales))
     slot.cashPayments = round2(slot.cashPayments + (rc?.cashPayments ?? 0))
   }
 }

@@ -33,11 +33,15 @@ export async function GET(req: NextRequest) {
   // If Postgres returned 0 (e.g. connection error), fall back to the value stored in
   // dashboard.json so historical days with known RestCall revenue still display correctly.
   const jsonDay = (data.history as any[]).find((h: any) => h.date === date)
-  const restcall = (restcallDb.revenue > 0 || !jsonDay?.restcall)
-    ? restcallDb
-    // JSON fallback only stores gross revenue — treat net ≈ gross for this channel
-    // (phone orders don't carry POS-level discounts/voids), same logic as sales-trend.
-    : { ...restcallDb, revenue: jsonDay.restcall, netSales: jsonDay.restcall }
+  const restcall = (() => {
+    if (restcallDb.revenue > 0 || !jsonDay?.restcall) return restcallDb
+    // JSON fallback only stores gross revenue — estimate Texas 8.25% tax so the
+    // Taxes card reflects the RestCall portion instead of showing $0.
+    const rev = jsonDay.restcall as number
+    const taxes   = Math.round(rev / 1.0825 * 0.0825 * 100) / 100
+    const netSales = Math.round((rev - taxes) * 100) / 100
+    return { ...restcallDb, revenue: rev, netSales, taxes }
+  })()
 
   // Use server-computed business day (4 AM CDT boundary) instead of stale dashboard.json
   // businessDay so live data shows even when the scraper hasn't run today yet.
