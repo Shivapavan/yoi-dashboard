@@ -118,14 +118,24 @@ async function run() {
       updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `
-  await sql`
-    INSERT INTO restcall_daily_data (date, metrics, scraped_at, updated_at)
-    VALUES (${date}, ${JSON.stringify(metrics)}, NOW(), NOW())
-    ON CONFLICT (date) DO UPDATE
-      SET metrics = EXCLUDED.metrics, updated_at = NOW()
-  `
-
-  console.log(`Stored RestCall analytics for ${date}: revenue=${metrics.summary.revenue}, orders=${metrics.summary.orders}`)
+  // Only write to Postgres when the captured revenue is positive — early-morning runs
+  // (01–03 UTC) calculate business date = previous day but the RestCall page has already
+  // rolled to the new day, showing revenue=0. Writing that zero overwrites the valid
+  // evening value, so we skip zero-revenue captures entirely.
+  // Also never downgrade an existing row: only update when the new value is higher.
+  if (metrics.summary.revenue > 0) {
+    await sql`
+      INSERT INTO restcall_daily_data (date, metrics, scraped_at, updated_at)
+      VALUES (${date}, ${JSON.stringify(metrics)}, NOW(), NOW())
+      ON CONFLICT (date) DO UPDATE
+        SET metrics = EXCLUDED.metrics, updated_at = NOW()
+        WHERE (EXCLUDED.metrics->'summary'->>'revenue')::numeric
+            > (restcall_daily_data.metrics->'summary'->>'revenue')::numeric
+    `
+    console.log(`Stored RestCall analytics for ${date}: revenue=${metrics.summary.revenue}, orders=${metrics.summary.orders}`)
+  } else {
+    console.log(`Skipped zero-revenue capture for ${date} (page has rolled to next day)`)
+  }
 }
 
 run().catch(err => {
