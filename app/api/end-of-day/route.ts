@@ -27,9 +27,15 @@ export async function GET(req: NextRequest) {
   // channel Lighthouse never sees — additive, never merged into `metrics` itself,
   // so historical 14-day averages stay apples-to-apples with pre-RestCall days.
   // No RestCall equivalent exists for Voids or Open Tickets.
-  const restcall = await getRestcallBreakdown(date).catch(() => ({
+  const restcallDb = await getRestcallBreakdown(date).catch(() => ({
     revenue: 0, netSales: 0, taxes: 0, discounts: 0, cashPayments: 0, creditCardPayments: 0,
   }))
+  // If Postgres returned 0 (e.g. connection error), fall back to the value stored in
+  // dashboard.json so historical days with known RestCall revenue still display correctly.
+  const jsonDay = (data.history as any[]).find((h: any) => h.date === date)
+  const restcall = (restcallDb.revenue > 0 || !jsonDay?.restcall)
+    ? restcallDb
+    : { ...restcallDb, revenue: jsonDay.restcall }
 
   // Use server-computed business day (4 AM CDT boundary) instead of stale dashboard.json
   // businessDay so live data shows even when the scraper hasn't run today yet.
