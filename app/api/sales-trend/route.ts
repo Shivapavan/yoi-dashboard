@@ -44,11 +44,15 @@ async function addRestcallToSlots(
   for (const slot of slots) {
     if (slot.date > today) continue
     const rc = restcallMap[slot.date]
-    // Use explicit > 0 check so a Postgres row with revenue=0 still falls back to the JSON value.
-    const revenue = (rc?.revenue && rc.revenue > 0) ? rc.revenue : (jsonFallback.get(slot.date) ?? 0)
+    const rcRevenue = (rc?.revenue && rc.revenue > 0) ? rc.revenue : 0
+    const revenue = rcRevenue > 0 ? rcRevenue : (jsonFallback.get(slot.date) ?? 0)
     if (revenue <= 0) continue
+    const usingPostgres = rcRevenue > 0
     slot.grossSales = round2(slot.grossSales + revenue)
-    slot.netSales = round2(slot.netSales + (rc?.netSales ?? 0))
+    // When Postgres has data, use its netSales (captures fees/deductions from the workbook).
+    // When falling back to JSON (gross-only field), treat net = gross — RestCall phone orders
+    // don't carry the same POS-level discounts/voids, so gross ≈ net for this channel.
+    slot.netSales = round2(slot.netSales + (usingPostgres ? (rc?.netSales ?? 0) : revenue))
     slot.cashPayments = round2(slot.cashPayments + (rc?.cashPayments ?? 0))
   }
 }
