@@ -533,7 +533,14 @@ export async function fetchLiveDisputes(knownDisputes: any[]) {
 
   try {
     const now = new Date()
-    const start = new Date(now); start.setDate(start.getDate() - 120); start.setHours(5, 0, 0, 0)
+    const cutoff = new Date(now); cutoff.setDate(cutoff.getDate() - 90)
+    // Drop disputes older than 90 days before even verifying — avoids showing resolved/old disputes.
+    const recentDisputes = knownDisputes.filter((d: any) => {
+      if (!d.date) return true
+      return new Date(d.date) >= cutoff
+    })
+
+    const start = new Date(now); start.setDate(start.getDate() - 90); start.setHours(5, 0, 0, 0)
     const end = new Date(now); end.setDate(end.getDate() + 1); end.setHours(4, 59, 59, 999)
 
     // Use Jan 1 of current year as the portal start date to match the
@@ -547,7 +554,7 @@ export async function fetchLiveDisputes(knownDisputes: any[]) {
         ? `https://lh.shift4.com/transactions/master-transactions/${tranId}?end=${endStr}&eventStatus=%5B%22NOTIFICATION_OF_DISPUTE%22%5D&start=${startStr}`
         : `https://lh.shift4.com/transactions/master-transactions?end=${endStr}&eventStatus=%5B%22NOTIFICATION_OF_DISPUTE%22%5D&start=${startStr}`
 
-    const verified = await Promise.all(knownDisputes.map(async (d: any) => {
+    const verified = await Promise.all(recentDisputes.map(async (d: any) => {
       try {
         const res = await fetch(
           `${BASE}/api/v2/internet-payments/transactions?limit=5&offset=0&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}&searchTerm=${d.txnId}&sortBy=date&sortDir=DESC`,
@@ -556,7 +563,8 @@ export async function fetchLiveDisputes(knownDisputes: any[]) {
         if (!res.ok) return { ...d, link: lhUrl() }
         const data = await res.json()
         const txns = data.transactions || []
-        if (txns.length === 0) return { ...d, link: lhUrl() }
+        // Not found in 90-day window → dispute is resolved or too old, drop it.
+        if (txns.length === 0) return null
         const txn = txns[0]
         if (txn?.eventStatus !== 'NOTIFICATION_OF_DISPUTE') return null
         // Search every string field for a TRAN-prefixed Lighthouse ID —
