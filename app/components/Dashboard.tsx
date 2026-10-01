@@ -21,6 +21,7 @@ import Instagram from './tabs/Instagram'
 import TikTok from './tabs/TikTok'
 import LocalIntel from './tabs/LocalIntel'
 import Scraper from './tabs/Scraper'
+import Schedule from './tabs/Schedule'
 
 export default function Dashboard() {
   const [tab, setTab] = useState<Tab>('end-of-day')
@@ -61,6 +62,7 @@ export default function Dashboard() {
       <div className={tab === 'tiktok'       ? '' : 'hidden'}><TikTok /></div>
       <div className={tab === 'local-intel'  ? '' : 'hidden'}><LocalIntel /></div>
       <div className={tab === 'scraper'      ? '' : 'hidden'}><Scraper /></div>
+      <div className={tab === 'schedule'     ? '' : 'hidden'}><Schedule /></div>
     </div>
   )
 }
