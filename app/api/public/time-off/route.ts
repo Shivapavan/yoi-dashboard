@@ -4,7 +4,7 @@ import { sendEmail } from '@/lib/gmail'
 import { sendSms } from '@/lib/auth'
 
 const ALERT_EMAIL = 'yumofindiamckinney@gmail.com'
-const ALERT_PHONES = ['+19032709884', '+18482195090']
+const ALERT_PHONES = ['+19032709884', '+18482195090', '+14049180968']
 
 export async function POST(req: NextRequest) {
   try {
