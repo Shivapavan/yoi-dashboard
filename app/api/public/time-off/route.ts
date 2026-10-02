@@ -49,12 +49,16 @@ export async function POST(req: NextRequest) {
     ])
 
     const emailSent = emailOk.status === 'fulfilled' && emailOk.value === true
-    const smsSent   = smsResults.some(r => r.status === 'fulfilled')
+    const smsSent   = smsResults.some(r => r.status === 'fulfilled' && r.value === true)
+
+    const smsLog = smsResults.map((r, i) =>
+      r.status === 'fulfilled' ? `${ALERT_PHONES[i]}:${r.value}` : `${ALERT_PHONES[i]}:ERR(${r.reason})`
+    ).join(' ')
 
     if (!emailSent && !smsSent) {
-      console.error('[time-off] Both email and SMS failed for', person.name, date)
+      console.error('[time-off] Both email and SMS failed for', person.name, date, '| sms:', smsLog)
     } else {
-      console.log(`[time-off] ${person.name} ${date} — email:${emailSent} sms:${smsSent}`)
+      console.log(`[time-off] ${person.name} ${date} — email:${emailSent} sms:${smsSent} | ${smsLog}`)
     }
 
     return NextResponse.json({ ok: true })
