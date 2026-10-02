@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "9/29/2026 11:19 AM CDT",
-  "businessDay": "2026-09-29",
+  "lastUpdated": "2026-10-02 10:15 CDT",
+  "businessDay": "2026-10-02",
   "businessDayWindow": "2026-09-24 04:00AM – 2026-09-25 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -11597,6 +11597,34 @@
       "cashPayments": 0,
       "creditCard": 0,
       "openTickets": 0
+    },
+    {
+      "date": "2026-10-01",
+      "grossSales": 692.69,
+      "netSales": 642.59,
+      "taxes": 50.1,
+      "discounts": 6.49,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 18.38,
+      "openTickets": 692.69,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-10-02",
+      "grossSales": 0,
+      "netSales": 0,
+      "taxes": 0,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
     }
   ],
   "itemsByDay": [
@@ -121198,6 +121226,116 @@
           "revenue": 0.35
         }
       ]
+    },
+    {
+      "date": "2026-10-01",
+      "items": [
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 5,
+          "revenue": 101.95
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 4,
+          "revenue": 83.96
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 4,
+          "revenue": 83.96
+        },
+        {
+          "name": "Veg Kheema Biryani",
+          "qty": 4,
+          "revenue": 79.96
+        },
+        {
+          "name": "Ghee Roast Goat Fry Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 2,
+          "revenue": 34.47
+        },
+        {
+          "name": "Fish Biryani(SeaBass)",
+          "qty": 1,
+          "revenue": 18.99
+        },
+        {
+          "name": "Non Veg Curry Combo",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Paneer Tikka Masala",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Ghee Roast Non-Veg Curry",
+          "qty": 1,
+          "revenue": 17.48
+        },
+        {
+          "name": "Andhra Non-Veg Curry",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chole Bhature",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Paneer Manchurian (Dry/Gravy)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Dragon Chicken",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 3,
+          "revenue": 13.47
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 2,
+          "revenue": 9.98
+        },
+        {
+          "name": "Pani Puri (6 Pcs)",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Butter naan",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "SoftDrinks( Thumsup,Fanta,Limca)",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -121222,7 +121360,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-09-29T16:16:15.258Z",
+  "disputesScannedAt": "2026-10-02 10:15 CDT",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
