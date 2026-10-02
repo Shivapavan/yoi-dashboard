@@ -56,10 +56,33 @@ export async function getValidGmailClient() {
   return auth
 }
 
-// Send an email via the connected Gmail account.
-// Used for alerts (review notifications, billing, etc.) instead of SMS — avoids the
-// US A2P 10DLC carrier-block issue that affects regular long-code Twilio sends.
+// Send via Gmail App Password (SMTP) — simpler than OAuth, no token management.
+async function sendEmailSmtp(to: string[], subject: string, body: string): Promise<boolean> {
+  const user = process.env.GMAIL_APP_USER
+  const pass = process.env.GMAIL_APP_PASS
+  if (!user || !pass) return false
+  try {
+    const nodemailer = await import('nodemailer')
+    const transporter = nodemailer.default.createTransport({
+      service: 'gmail',
+      auth: { user, pass },
+    })
+    await transporter.sendMail({ from: user, to: to.join(', '), subject, text: body })
+    return true
+  } catch (err) {
+    console.error('[sendEmailSmtp] failed:', err)
+    return false
+  }
+}
+
+// Send an email — tries App Password SMTP first, falls back to OAuth if configured.
 export async function sendEmail(to: string[], subject: string, body: string): Promise<boolean> {
+  // Try App Password SMTP first (simpler, no token expiry)
+  if (process.env.GMAIL_APP_USER && process.env.GMAIL_APP_PASS) {
+    return sendEmailSmtp(to, subject, body)
+  }
+
+  // Fall back to OAuth
   const auth = await getValidGmailClient()
   if (!auth) return false
   try {
