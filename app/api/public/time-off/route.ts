@@ -1,10 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findStaffByToken, saveTimeOffRequest } from '@/lib/schedule'
 import { sendEmail } from '@/lib/gmail'
-import { sendSms } from '@/lib/auth'
 
 const ALERT_EMAIL = 'yumofindiamckinney@gmail.com'
 const ALERT_PHONES = ['+19032709884', '+18482195090', '+14049180968']
+
+async function sendSmsTextbelt(to: string, body: string): Promise<boolean> {
+  const key = process.env.TEXTBELT_API_KEY
+  if (!key) { console.error('[time-off SMS] TEXTBELT_API_KEY not set'); return false }
+  const digits = to.replace(/\D/g, '')
+  const phone = digits.length === 10 ? `+1${digits}` : `+${digits}`
+  try {
+    const res = await fetch('https://textbelt.com/text', {
+      method: 'POST',
+      body: new URLSearchParams({ phone, message: body, key }),
+    })
+    const data = await res.json() as { success: boolean; error?: string; quotaRemaining?: number }
+    if (!data.success) console.error('[time-off SMS] Textbelt error:', data.error, '| to:', phone)
+    else console.log('[time-off SMS] Sent to', phone, '— quota remaining:', data.quotaRemaining)
+    return data.success
+  } catch (err) {
+    console.error('[time-off SMS] fetch failed:', err)
+    return false
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -45,20 +64,16 @@ export async function POST(req: NextRequest) {
     // Send email + SMS in parallel; both are best-effort (never fail the request)
     const [emailOk, ...smsResults] = await Promise.allSettled([
       sendEmail([ALERT_EMAIL], `⏰ Time-off request: ${person.name} – ${displayDate}`, emailBody),
-      ...ALERT_PHONES.map(phone => sendSms(phone, smsText)),
+      ...ALERT_PHONES.map(phone => sendSmsTextbelt(phone, smsText)),
     ])
 
     const emailSent = emailOk.status === 'fulfilled' && emailOk.value === true
     const smsSent   = smsResults.some(r => r.status === 'fulfilled' && r.value === true)
 
-    const smsLog = smsResults.map((r, i) =>
-      r.status === 'fulfilled' ? `${ALERT_PHONES[i]}:${r.value}` : `${ALERT_PHONES[i]}:ERR(${r.reason})`
-    ).join(' ')
-
     if (!emailSent && !smsSent) {
-      console.error('[time-off] Both email and SMS failed for', person.name, date, '| sms:', smsLog)
+      console.error('[time-off] Both email and SMS failed for', person.name, date)
     } else {
-      console.log(`[time-off] ${person.name} ${date} — email:${emailSent} sms:${smsSent} | ${smsLog}`)
+      console.log(`[time-off] ${person.name} ${date} — email:${emailSent} sms:${smsSent}`)
     }
 
     return NextResponse.json({ ok: true })
