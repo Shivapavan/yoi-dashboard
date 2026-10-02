@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findStaffByToken, saveTimeOffRequest } from '@/lib/schedule'
 import { sendEmail } from '@/lib/gmail'
+import { sendSms } from '@/lib/auth'
 
-const ALERT_TO = 'yumofindiamckinney@gmail.com'
+const ALERT_EMAIL = 'yumofindiamckinney@gmail.com'
+const ALERT_PHONES = ['+19032709884', '+18482195090']
 
 export async function POST(req: NextRequest) {
   try {
@@ -38,11 +40,22 @@ export async function POST(req: NextRequest) {
       `Submitted: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })} CDT`,
     ].join('\n')
 
-    await sendEmail(
-      [ALERT_TO],
-      `⏰ Time-off request: ${person.name} – ${displayDate}`,
-      emailBody,
-    )
+    const smsText = `⏰ Time-off request: ${person.name} needs ${displayDate} off.${reason?.trim() ? ` Reason: ${reason.trim()}` : ''}`
+
+    // Send email + SMS in parallel; both are best-effort (never fail the request)
+    const [emailOk, ...smsResults] = await Promise.allSettled([
+      sendEmail([ALERT_EMAIL], `⏰ Time-off request: ${person.name} – ${displayDate}`, emailBody),
+      ...ALERT_PHONES.map(phone => sendSms(phone, smsText)),
+    ])
+
+    const emailSent = emailOk.status === 'fulfilled' && emailOk.value === true
+    const smsSent   = smsResults.some(r => r.status === 'fulfilled')
+
+    if (!emailSent && !smsSent) {
+      console.error('[time-off] Both email and SMS failed for', person.name, date)
+    } else {
+      console.log(`[time-off] ${person.name} ${date} — email:${emailSent} sms:${smsSent}`)
+    }
 
     return NextResponse.json({ ok: true })
   } catch (err) {
