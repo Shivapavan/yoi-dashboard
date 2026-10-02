@@ -59,7 +59,7 @@ export default async function MySchedulePage({ params }: Props) {
           <img src="/yum_logo.png" alt="Yum of India" className="h-10 w-auto" />
           <div>
             <p className="text-teal-100 text-xs uppercase tracking-widest">Yum of India</p>
-            <h1 className="text-white font-bold text-lg leading-tight">Your Schedule</h1>
+            <h1 className="text-white font-bold text-lg leading-tight">{person.name}</h1>
           </div>
         </div>
       </div>
