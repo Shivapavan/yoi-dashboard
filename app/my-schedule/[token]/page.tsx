@@ -3,6 +3,21 @@ import type { Metadata } from 'next'
 import { findStaffByToken, DAYS, type ShiftValue } from '@/lib/schedule'
 import TimeOffForm from './TimeOffForm'
 
+function getWeekDates(): Record<string, string> {
+  const now = new Date()
+  const dow = now.getDay()
+  const daysFromMon = dow === 0 ? 6 : dow - 1
+  const monday = new Date(now)
+  monday.setDate(now.getDate() - daysFromMon)
+  const result: Record<string, string> = {}
+  DAYS.forEach((day, i) => {
+    const d = new Date(monday)
+    d.setDate(monday.getDate() + i)
+    result[day] = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  })
+  return result
+}
+
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
@@ -32,6 +47,8 @@ export default async function MySchedulePage({ params }: Props) {
   const { token } = await params
   const person = await findStaffByToken(token)
   if (!person) notFound()
+
+  const weekDates = getWeekDates()
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F0F2FA' }}>
@@ -74,9 +91,10 @@ export default async function MySchedulePage({ params }: Props) {
                   boxShadow: isOff || isUnset ? 'none' : '0 1px 4px rgba(79,70,229,0.08)',
                 }}
               >
-                <span className="text-sm font-semibold w-10 shrink-0" style={{ color: isOff || isUnset ? '#9CA3AF' : '#4F46E5' }}>
-                  {day}
-                </span>
+                <div className="shrink-0 w-16">
+                  <div className="text-sm font-semibold" style={{ color: isOff || isUnset ? '#9CA3AF' : '#4F46E5' }}>{day}</div>
+                  <div className="text-xs mt-0.5" style={{ color: '#94A3B8' }}>{weekDates[day]}</div>
+                </div>
                 <div className="flex-1 text-right">
                   <ShiftBlock value={shift} />
                 </div>

@@ -4,6 +4,21 @@ import { useState, useEffect, useRef } from 'react'
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const
 
+function getWeekDates(): Record<string, string> {
+  const now = new Date()
+  const dow = now.getDay() // 0=Sun … 6=Sat
+  const daysFromMon = dow === 0 ? 6 : dow - 1
+  const monday = new Date(now)
+  monday.setDate(now.getDate() - daysFromMon)
+  const result: Record<string, string> = {}
+  DAYS.forEach((day, i) => {
+    const d = new Date(monday)
+    d.setDate(monday.getDate() + i)
+    result[day] = `${d.getMonth() + 1}/${d.getDate()}`
+  })
+  return result
+}
+
 type ShiftValue = string | string[] | null
 
 interface StaffRow {
@@ -61,6 +76,7 @@ export default function Schedule() {
   const [uploadState, setUploadState] = useState<UploadState>('idle')
   const [errorMsg, setErrorMsg]     = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
+  const weekDates = getWeekDates()
 
   useEffect(() => {
     fetch('/api/admin/schedule')
@@ -230,8 +246,9 @@ export default function Schedule() {
                     Staff
                   </th>
                   {DAYS.map(d => (
-                    <th key={d} className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-center" style={{ color: '#64748B' }}>
-                      {d}
+                    <th key={d} className="px-3 py-3 text-center" style={{ color: '#64748B' }}>
+                      <div className="text-xs font-semibold uppercase tracking-wider">{d}</div>
+                      <div className="text-xs font-normal mt-0.5" style={{ color: '#94A3B8' }}>{weekDates[d]}</div>
                     </th>
                   ))}
                 </tr>
