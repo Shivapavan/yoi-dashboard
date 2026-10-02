@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { findByToken, DAYS, type ShiftValue } from '@/lib/schedule'
+import { findStaffByToken, DAYS, type ShiftValue } from '@/lib/schedule'
+import TimeOffForm from './TimeOffForm'
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -29,7 +30,7 @@ function ShiftBlock({ value }: { value: ShiftValue }) {
 
 export default async function MySchedulePage({ params }: Props) {
   const { token } = await params
-  const person = findByToken(token)
+  const person = await findStaffByToken(token)
   if (!person) notFound()
 
   return (
@@ -57,7 +58,7 @@ export default async function MySchedulePage({ params }: Props) {
         </div>
 
         {/* Weekly schedule cards */}
-        <div className="grid grid-cols-1 gap-3 pb-8">
+        <div className="grid grid-cols-1 gap-3 mb-6">
           {DAYS.map(day => {
             const shift = person.schedule[day] ?? null
             const isOff = shift === 'Off'
@@ -84,6 +85,9 @@ export default async function MySchedulePage({ params }: Props) {
           })}
         </div>
       </div>
+
+      {/* Time-off request */}
+      <TimeOffForm token={token} employeeName={person.name} />
     </div>
   )
 }
