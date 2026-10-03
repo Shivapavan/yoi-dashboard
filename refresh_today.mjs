@@ -311,15 +311,21 @@ async function main() {
   dashData.disputesScannedAt = new Date().toISOString();
 
   // Apply activity-summary corrections to today's metrics (voids + delivery channels)
-  const todayVoids   = todayActivity?.voids       ?? metrics.voids;
-  const todayCash    = todayActivity?.cash         ?? metrics.cashPayments;
-  const todayCredit  = todayActivity?.directCredit ?? metrics.creditCardPayments;
-  const todayDD      = todayActivity?.doordash     ?? 0;
-  const todayUber    = todayActivity?.uberEats     ?? 0;
-  const todaySTO     = todayActivity?.stOnline     ?? 0;
-  const todayGrubhub = todayActivity?.grubhub      ?? 0;
-  // "creditCard" in history = all non-cash card charges (direct + delivery channels)
-  const todayTotalCredit = +(todayCredit + todayDD + todayUber + todaySTO + todayGrubhub).toFixed(2);
+  const todayVoids   = todayActivity?.voids ?? metrics.voids;
+  // For cash: prefer activity-summary when non-null; financial-overview is the fallback
+  const todayCash    = (todayActivity != null) ? (todayActivity.cash ?? metrics.cashPayments) : metrics.cashPayments;
+  const todayDD      = todayActivity?.doordash ?? 0;
+  const todayUber    = todayActivity?.uberEats ?? 0;
+  const todaySTO     = todayActivity?.stOnline ?? 0;
+  const todayGrubhub = todayActivity?.grubhub  ?? 0;
+  // "creditCard" = all non-cash card charges. Activity-summary gives the channel breakdown;
+  // use financial-overview total as the floor so we never show less than what was processed.
+  const todayCreditFromActivity = todayActivity != null
+    ? +((todayActivity.directCredit ?? 0) + todayDD + todayUber + todaySTO + todayGrubhub).toFixed(2)
+    : null;
+  const todayTotalCredit = (todayCreditFromActivity !== null && todayCreditFromActivity >= metrics.creditCardPayments)
+    ? todayCreditFromActivity
+    : metrics.creditCardPayments;
 
   // Update today's summary fields
   dashData.grossSales = metrics.grossSales;
@@ -352,14 +358,18 @@ async function main() {
   if (todayGrubhub > 0) todayEntry.grubhub = todayGrubhub;
 
   // Apply activity-summary corrections to yesterday's metrics
-  const ydVoids   = ydActivity?.voids       ?? ydMetrics.voids;
-  const ydCash    = ydActivity?.cash         ?? ydMetrics.cashPayments;
-  const ydCredit  = ydActivity?.directCredit ?? ydMetrics.creditCardPayments;
-  const ydDD      = ydActivity?.doordash     ?? 0;
-  const ydUber    = ydActivity?.uberEats     ?? 0;
-  const ydSTO     = ydActivity?.stOnline     ?? 0;
-  const ydGrubhub = ydActivity?.grubhub      ?? 0;
-  const ydTotalCredit = +(ydCredit + ydDD + ydUber + ydSTO + ydGrubhub).toFixed(2);
+  const ydVoids   = ydActivity?.voids ?? ydMetrics.voids;
+  const ydCash    = (ydActivity != null) ? (ydActivity.cash ?? ydMetrics.cashPayments) : ydMetrics.cashPayments;
+  const ydDD      = ydActivity?.doordash ?? 0;
+  const ydUber    = ydActivity?.uberEats ?? 0;
+  const ydSTO     = ydActivity?.stOnline ?? 0;
+  const ydGrubhub = ydActivity?.grubhub  ?? 0;
+  const ydCreditFromActivity = ydActivity != null
+    ? +((ydActivity.directCredit ?? 0) + ydDD + ydUber + ydSTO + ydGrubhub).toFixed(2)
+    : null;
+  const ydTotalCredit = (ydCreditFromActivity !== null && ydCreditFromActivity >= ydMetrics.creditCardPayments)
+    ? ydCreditFromActivity
+    : ydMetrics.creditCardPayments;
 
   // Update yesterday's history entry
   const yesterdayEntry = dashData.history.find(h => h.date === YESTERDAY);
