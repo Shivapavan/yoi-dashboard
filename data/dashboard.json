@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-08 11:45 AM CDT",
-  "businessDay": "2026-10-08",
+  "lastUpdated": "10/9/2026 11:55 AM CDT",
+  "businessDay": "2026-10-09",
   "businessDayWindow": "2026-09-24 04:00AM – 2026-09-25 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -11695,6 +11695,21 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 30.29
+    },
+    {
+      "date": "2026-10-09",
+      "grossSales": 58.41,
+      "netSales": 53.96,
+      "taxes": 4.45,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 138.46,
+      "doordash": 0,
+      "uberEats": 0,
+      "stOnline": 0,
+      "cardBreakdown": null
     }
   ],
   "itemsByDay": [
@@ -122671,6 +122686,31 @@
           "revenue": 27.98
         }
       ]
+    },
+    {
+      "date": "2026-10-09",
+      "items": [
+        {
+          "name": "Masala Dosa",
+          "qty": 4,
+          "revenue": 55.96
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Butter naan",
+          "qty": 1,
+          "revenue": 3.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -122695,7 +122735,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-10-08T16:45:28.254Z",
+  "disputesScannedAt": "2026-10-09T16:55:51.691Z",
   "grossSales": 30.29,
   "netSales": 27.98,
   "taxes": 2.31,
