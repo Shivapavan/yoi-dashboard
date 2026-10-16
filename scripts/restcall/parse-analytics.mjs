@@ -59,10 +59,24 @@ export function parseRestcallWorkbook(buffer) {
   const categories = parseTabularSheet(sheetAoa(wb, 'Categories'), ['category', 'qtySold', 'revenue', 'revenueShare'])
   const topSellers = parseTabularSheet(sheetAoa(wb, 'Top Sellers'), ['rank', 'item', 'qtySold', 'revenue', 'avgRevenuePerUnit'])
 
+  // RestCall's Summary "Revenue" cell sometimes comes back 0/blank even when
+  // orders exist (seen since late Sep 2026). Fall back through the other revenue
+  // sources so a real day is never recorded as $0 (which the sync then skips).
+  const num = v => (typeof v === 'number' && Number.isFinite(v) ? v : 0)
+  const sum = (rows, key) => rows.reduce((t, r) => t + num(r[key]), 0)
+  const revenueCandidates = [
+    num(summary['Revenue']),
+    num(financials['Revenue']),
+    sum(dailyRevenue, 'revenue'),
+    sum(channels.filter(c => c.dimension === 'Payment'), 'revenue'),
+    num(financials['Net item sales']) + num(financials['Taxes']),
+  ]
+  const revenue = Math.round((revenueCandidates.find(v => v > 0) ?? 0) * 100) / 100
+
   return {
     summary: {
       selectedRange: summary['Selected range'] ?? null,
-      revenue: summary['Revenue'] ?? 0,
+      revenue,
       orders: summary['Orders'] ?? 0,
       averageTicket: summary['Average ticket'] ?? 0,
       cancellationRate: summary['Cancellation rate'] ?? 0,

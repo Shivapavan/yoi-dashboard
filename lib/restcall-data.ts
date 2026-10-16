@@ -38,26 +38,22 @@ export async function getRestcallBreakdown(date: string): Promise<RestcallBreakd
   const sql = getDb()
   const rows = await sql`SELECT metrics FROM restcall_daily_data WHERE date = ${date}`
   if (rows.length === 0) return EMPTY_BREAKDOWN
+  return breakdownFromMetrics(rows[0].metrics)
+}
 
-  const metrics = rows[0].metrics as any
+// Summary "Revenue" can be 0 in RestCall's export even when the day has sales —
+// fall back to Financials revenue, then payment-channel totals, then net + tax.
+function revenueFromMetrics(metrics: any): number {
+  const n = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : 0)
   const financials = metrics?.financials ?? {}
-  const channels: Array<{ dimension?: string; value?: string; revenue?: number }> = metrics?.channels ?? []
-  const paymentRows = channels.filter((c) => c.dimension === 'Payment')
-  const cashPayments = paymentRows
-    .filter((c) => c.value === 'Cash')
-    .reduce((s, c) => s + (c.revenue ?? 0), 0)
-  const creditCardPayments = paymentRows
-    .filter((c) => c.value !== 'Cash')
-    .reduce((s, c) => s + (c.revenue ?? 0), 0)
-
-  return {
-    revenue: typeof metrics?.summary?.revenue === 'number' ? metrics.summary.revenue : 0,
-    netSales: typeof financials.netItemSales === 'number' ? financials.netItemSales : 0,
-    taxes: typeof financials.taxes === 'number' ? financials.taxes : 0,
-    discounts: (financials.discounts ?? 0) + (financials.cashDiscounts ?? 0),
-    cashPayments,
-    creditCardPayments,
-  }
+  const channels: Array<{ dimension?: string; revenue?: number }> = metrics?.channels ?? []
+  const candidates = [
+    n(metrics?.summary?.revenue),
+    n(financials.revenue),
+    channels.filter((c) => c.dimension === 'Payment').reduce((s, c) => s + n(c.revenue), 0),
+    n(financials.netItemSales) + n(financials.taxes),
+  ]
+  return Math.round((candidates.find((v) => v > 0) ?? 0) * 100) / 100
 }
 
 function breakdownFromMetrics(metrics: any): RestcallBreakdown {
@@ -72,7 +68,7 @@ function breakdownFromMetrics(metrics: any): RestcallBreakdown {
     .reduce((s, c) => s + (c.revenue ?? 0), 0)
 
   return {
-    revenue: typeof metrics?.summary?.revenue === 'number' ? metrics.summary.revenue : 0,
+    revenue: revenueFromMetrics(metrics),
     netSales: typeof financials.netItemSales === 'number' ? financials.netItemSales : 0,
     taxes: typeof financials.taxes === 'number' ? financials.taxes : 0,
     discounts: (financials.discounts ?? 0) + (financials.cashDiscounts ?? 0),
