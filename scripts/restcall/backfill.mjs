@@ -4,14 +4,16 @@
  * a time (From = To = that day), exporting, parsing, and upserting into
  * restcall_daily_data — same table/shape the scheduled sync writes to.
  *
- * Reuses the local session from bootstrap-session.mjs (does not work in CI —
- * this is a local, run-when-needed tool, not part of the scheduled job).
+ * Session: uses RESTCALL_SESSION_STATE (base64, same secret as the scheduled
+ * sync) when set — so it runs from the "RestCall Backfill" GitHub Action —
+ * otherwise the local session from bootstrap-session.mjs.
  *
  * Usage: node scripts/restcall/backfill.mjs 2026-06-27 2026-07-25
  */
 import { chromium } from 'playwright'
 import { neon } from '@neondatabase/serverless'
-import { readFileSync } from 'fs'
+import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'fs'
+import { tmpdir } from 'os'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { parseRestcallWorkbook } from './parse-analytics.mjs'
@@ -90,13 +92,19 @@ async function run() {
   for (let d = fromArg; d <= toArg; d = addDays(d, 1)) dates.push(d)
   console.log(`Backfilling ${dates.length} day(s): ${fromArg} .. ${toArg}`)
 
+  let storageState = join(__dirname, '.session-state.json')
+  let tempDir = null
+  if (process.env.RESTCALL_SESSION_STATE) {
+    tempDir = mkdtempSync(join(tmpdir(), 'restcall-session-'))
+    storageState = join(tempDir, 'state.json')
+    writeFileSync(storageState, Buffer.from(process.env.RESTCALL_SESSION_STATE, 'base64').toString('utf8'))
+  }
+
   const browser = await chromium.launch({ headless: true })
-  const context = await browser.newContext({
-    storageState: join(__dirname, '.session-state.json'),
-    acceptDownloads: true,
-  })
+  const context = await browser.newContext({ storageState, acceptDownloads: true })
   const page = await context.newPage()
 
+  let failures = 0
   for (const date of dates) {
     try {
       const buffer = await exportDay(page, date)
@@ -109,12 +117,16 @@ async function run() {
       `
       console.log(`  ${date}: revenue=${metrics.summary.revenue}, orders=${metrics.summary.orders}`)
     } catch (err) {
+      failures++
       console.error(`  ${date}: FAILED — ${err.message}`)
+      await page.screenshot({ path: `/tmp/restcall-backfill-${date}.png` }).catch(() => {})
     }
   }
 
   await browser.close()
-  console.log('Backfill complete.')
+  if (tempDir) rmSync(tempDir, { recursive: true, force: true })
+  console.log(`Backfill complete. ${dates.length - failures}/${dates.length} day(s) stored.`)
+  if (failures === dates.length) process.exit(1)
 }
 
 run().catch((err) => {

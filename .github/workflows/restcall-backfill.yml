@@ -1,0 +1,33 @@
+name: RestCall Backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: 'From date (YYYY-MM-DD, inclusive)'
+        required: true
+      to:
+        description: 'To date (YYYY-MM-DD, inclusive)'
+        required: true
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/restcall/backfill.mjs "${{ inputs.from }}" "${{ inputs.to }}"
+        env:
+          RESTCALL_SESSION_STATE: ${{ secrets.RESTCALL_SESSION_STATE }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Upload failure screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: restcall-backfill-screenshots
+          path: /tmp/restcall-backfill-*.png
+          if-no-files-found: ignore
