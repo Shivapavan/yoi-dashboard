@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "10/16/2026 10:17 AM CDT",
-  "businessDay": "2026-10-16",
-  "businessDayWindow": "2026-09-24 04:00AM – 2026-09-25 03:59AM CDT",
+  "lastUpdated": "2026-10-20 10:07 AM CDT",
+  "businessDay": "2026-10-20",
+  "businessDayWindow": "2026-09-24 04:00AM \u2013 2026-09-25 03:59AM CDT",
   "eod": {
     "grossSales": 0,
     "netSales": 0,
@@ -11871,6 +11871,34 @@
         "ebt": 0,
         "returns": -90.73
       }
+    },
+    {
+      "date": "2026-10-19",
+      "grossSales": 378.42,
+      "netSales": 349.59,
+      "taxes": 28.83,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 67.45,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-10-20",
+      "grossSales": 0,
+      "netSales": 0,
+      "taxes": 0,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
     }
   ],
   "itemsByDay": [
@@ -124052,6 +124080,91 @@
           "revenue": 9.99
         }
       ]
+    },
+    {
+      "date": "2026-10-19",
+      "items": [
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 8,
+          "revenue": 103.92
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Ghee Karam Masala Dosa",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Fried Rice",
+          "qty": 2,
+          "revenue": 30.98
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "qty": 1,
+          "revenue": 17.48
+        },
+        {
+          "name": "Malai Kofta",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Kottu Parota Veg",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 2,
+          "revenue": 9.98
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 2,
+          "revenue": 8.98
+        },
+        {
+          "name": "Ghee Podi Chitti Punugulu",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Onion Pakora",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Veg Manchow Soup",
+          "qty": 1,
+          "revenue": 6.49
+        },
+        {
+          "name": "Onion Samosa (4pcs)",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Honey Cake",
+          "qty": 1,
+          "revenue": 4.39
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -124076,13 +124189,13 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-10-16T15:17:54.408Z",
-  "grossSales": 30.29,
-  "netSales": 27.98,
-  "taxes": 2.31,
+  "disputesScannedAt": "2026-10-20T15:07:44.937Z",
+  "grossSales": 0,
+  "netSales": 0,
+  "taxes": 0,
   "discounts": 0,
   "voids": 0,
   "cashPayments": 0,
-  "creditCard": 30.29,
-  "openTickets": 30.29
+  "creditCard": 0,
+  "openTickets": 0
 }
