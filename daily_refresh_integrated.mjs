@@ -23,7 +23,7 @@ async function getToken() {
 
   const browser = await chromium.launch({
     headless: true,
-    executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
+    executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome',
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
