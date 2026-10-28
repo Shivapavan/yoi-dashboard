@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-27 10:13 CDT",
-  "businessDay": "2026-10-27",
+  "lastUpdated": "2026-10-28 10:18 AM CDT",
+  "businessDay": "2026-10-28",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -12037,6 +12037,20 @@
     },
     {
       "date": "2026-10-27",
+      "grossSales": 564.51,
+      "netSales": 521.49,
+      "taxes": 43.02,
+      "discounts": 0,
+      "voids": 6.99,
+      "cashPayments": 35.15,
+      "creditCard": 111.29,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-10-28",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -125754,6 +125768,126 @@
           "revenue": 1.25
         }
       ]
+    },
+    {
+      "date": "2026-10-27",
+      "items": [
+        {
+          "name": "Mysore Masala Dosa",
+          "qty": 6,
+          "revenue": 77.94
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 5,
+          "revenue": 64.95
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Plain Dosa",
+          "qty": 4,
+          "revenue": 39.96
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 2,
+          "revenue": 32.47
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 1,
+          "revenue": 20.99
+        },
+        {
+          "name": "Vijayawada Veg Biryani",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Mushroom Tikka Masala",
+          "qty": 1,
+          "revenue": 17.48
+        },
+        {
+          "name": "Gongura Paneer Biryani",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Hyderabad Chicken  Biryani",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Madhurai Non-Veg Curry",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Veg Kadai Masala",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Chilli Mushroom",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Gobi 65",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Regular Cheese Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 2,
+          "revenue": 9.98
+        },
+        {
+          "name": "Honey Cake",
+          "qty": 2,
+          "revenue": 8.78
+        },
+        {
+          "name": "Dahi Puri",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Veg Manchow Soup",
+          "qty": 1,
+          "revenue": 6.49
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 2,
+          "revenue": 2.11
+        }
+      ]
     }
   ],
   "disputes": [
@@ -125778,7 +125912,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-10-27 10:13 CDT",
+  "disputesScannedAt": "2026-10-28T15:18:38.184Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
