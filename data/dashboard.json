@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-28 10:18 AM CDT",
-  "businessDay": "2026-10-28",
+  "lastUpdated": "2026-10-29 10:31 AM CDT",
+  "businessDay": "2026-10-29",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -12051,6 +12051,20 @@
     },
     {
       "date": "2026-10-28",
+      "grossSales": 726.12,
+      "netSales": 670.78,
+      "taxes": 55.34,
+      "discounts": 10,
+      "voids": 19.99,
+      "cashPayments": 0,
+      "creditCard": 305.97,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-10-29",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -125888,6 +125902,216 @@
           "revenue": 2.11
         }
       ]
+    },
+    {
+      "date": "2026-10-28",
+      "items": [
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 4,
+          "revenue": 51.96
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 2,
+          "revenue": 32.98
+        },
+        {
+          "name": "Ghee Karam Masala Dosa",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Mysore Masala Dosa",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Ghee Roast Goat Fry Pulav",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Apollo Fish",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Hyderabadi Chicken 65 (Wet)",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Prawns Biryani",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Noodles",
+          "qty": 1,
+          "revenue": 17.48
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "qty": 1,
+          "revenue": 17.48
+        },
+        {
+          "name": "Burnt Garlic Noodles",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chicken Lollipops",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Dal Makkini",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Palak Paneer",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Parata With Paya",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Kadai Methi Paneer",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Gongura Non-Veg Curry",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Regular Veg Thaali",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 4,
+          "revenue": 15.96
+        },
+        {
+          "name": "Chettinad Non-Veg Curry",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Chicken 65(Dry)",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Chilli Gobi",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 3,
+          "revenue": 14.97
+        },
+        {
+          "name": "Lemon Soda (Sweet & Salt)",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Butter naan",
+          "qty": 3,
+          "revenue": 10.97
+        },
+        {
+          "name": "Parata(1)",
+          "qty": 3,
+          "revenue": 10.47
+        },
+        {
+          "name": "Papdi Chat",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Stuffed Mirchi Bajji (3 pcs)",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Ghee Podi Chitti Punugulu",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Mothichoor Laddu(4 Pcs)",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Chicken Corn Soup",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Chicken Manchow Soup",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Mango Moose (8 Oz)",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 6,
+          "revenue": 6.89
+        },
+        {
+          "name": "Veg Corn Soup",
+          "qty": 1,
+          "revenue": 6.49
+        },
+        {
+          "name": "Rose Ice Cream",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Honey Cake",
+          "qty": 1,
+          "revenue": 4.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -125912,7 +126136,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-10-28T15:18:38.184Z",
+  "disputesScannedAt": "2026-10-29T15:31:00.327Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
