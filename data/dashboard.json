@@ -1,36 +1,36 @@
 {
-  "lastUpdated": "2026-11-01 10:08 AM CDT",
-  "businessDay": "2026-11-01",
+  "lastUpdated": "11/2/2026 9:24 AM CDT",
+  "businessDay": "2026-11-02",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 0,
     "netSales": 0,
     "taxes": 0,
+    "discounts": 0,
     "voids": 0,
     "cashPayments": 0,
     "creditCardPayments": 0,
-    "discounts": 0,
     "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-10-27 12:00AM – 11:59PM CDT",
+    "windowLabel": "2026-11-01 12:00AM – 11:59PM CDT",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 176.94,
+        "amount": 622.81,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 20.79
+        "amount": 211.69
       },
       {
         "label": "Mastercard",
-        "amount": 156.15
+        "amount": 353.89
       },
       {
         "label": "Amex",
-        "amount": 0
+        "amount": 57.23
       },
       {
         "label": "Discover",
@@ -12117,6 +12117,30 @@
     },
     {
       "date": "2026-11-01",
+      "grossSales": 1585.65,
+      "netSales": 1464.82,
+      "taxes": 120.83,
+      "discounts": 20,
+      "voids": 0,
+      "cashPayments": 21.3,
+      "creditCard": 987.7,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "openTickets": 1585.65,
+      "cardBreakdown": {
+        "totalSales": 622.81,
+        "visa": 211.69,
+        "mastercard": 353.89,
+        "amex": 57.23,
+        "discover": 0,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0
+      }
+    },
+    {
+      "date": "2026-11-02",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -12124,10 +12148,11 @@
       "voids": 0,
       "cashPayments": 0,
       "creditCard": 0,
-      "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "openTickets": 0,
+      "cardBreakdown": null
     }
   ],
   "itemsByDay": [
@@ -127108,7 +127133,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-01T15:08:22.792Z",
+  "disputesScannedAt": "2026-11-02T15:24:16.844Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
