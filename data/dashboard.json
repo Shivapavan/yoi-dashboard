@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "11/2/2026 9:24 AM CDT",
-  "businessDay": "2026-11-02",
+  "lastUpdated": "2026-11-03T15:09:40.049Z",
+  "businessDay": "2026-11-03",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -12151,6 +12151,21 @@
       "doordash": 0,
       "stOnline": 0,
       "uberEats": 0,
+      "openTickets": 0,
+      "cardBreakdown": null
+    },
+    {
+      "date": "2026-11-03",
+      "grossSales": 0,
+      "netSales": 0,
+      "taxes": 0,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "doordash": 0,
+      "uberEats": 0,
+      "stOnline": 0,
       "openTickets": 0,
       "cardBreakdown": null
     }
@@ -127133,7 +127148,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-02T15:24:16.844Z",
+  "disputesScannedAt": "2026-11-03T15:09:40.049Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
