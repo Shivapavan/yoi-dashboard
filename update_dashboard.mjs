@@ -1,186 +1,131 @@
 import { readFileSync, writeFileSync } from 'fs';
-import XLSX from 'xlsx';
+import { createRequire } from 'module';
 
-const round2 = n => Math.round(n * 100) / 100;
+const require = createRequire(import.meta.url);
+const XLSX = require('xlsx');
 
-// ── Data collected from API calls ───────────────────────────────────────────
+const r2 = v => Math.round((v || 0) * 100) / 100;
+const higher = (stored, live) => (live > stored ? live : stored);
 
-// Today (2026-08-15) metrics — early morning, restaurant not open yet
-const todayMetrics = {
-  grossSales: 0,
-  netSales: 0,
-  taxes: 0,
-  discounts: 0,
-  voids: 0,
-  cashPayments: 0,
-  creditCard: 0,
-  openTickets: 21.63,
+const DASHBOARD_PATH = './data/dashboard.json';
+const dashboard = JSON.parse(readFileSync(DASHBOARD_PATH, 'utf8'));
+
+const metricsData = {
+  '2026-11-02': {
+    grossSales: 469.86, netSales: 434.06, taxes: 35.80, discounts: 13.00,
+    voids: 0, cashPayments: 0, creditCard: 102.61, openTickets: 469.86,
+    doordash: 0, stOnline: 0, uberEats: 0,
+  },
+  '2026-11-03': {
+    grossSales: 857.95, netSales: 792.56, taxes: 65.39, discounts: 0.56,
+    voids: 0, cashPayments: 14.90, creditCard: 399.27, openTickets: 857.95,
+    doordash: 0, stOnline: 0, uberEats: 0,
+  },
+  '2026-11-04': {
+    grossSales: 0, netSales: 0, taxes: 0, discounts: 0,
+    voids: 0, cashPayments: 0, creditCard: 0, openTickets: 0,
+    doordash: 0, stOnline: 0, uberEats: 0,
+  },
 };
 
-// Yesterday (2026-08-14) backfill — scraped 0 but API shows real data
-const yesterdayMetrics = {
-  grossSales: 3679.74,
-  netSales: 3399.31,
-  taxes: 280.43,
-  discounts: 6.30,
-  voids: 0,
-  cashPayments: 46.70,
-  creditCard: 2898.46,
-  openTickets: 3679.74,
+const cardBreakdownNov3 = {
+  totalSales: 486.88, visa: 294.69, mastercard: 87.61,
+  amex: 92.26, discover: 12.32, debit: 0, ebt: 0, returns: 0,
 };
 
-// Card breakdown settling today (2026-08-15) = yesterday's (2026-08-14) sales
-// Batches: [17.31 Visa] + [1820.50 Visa, 638.54 MC, 439.42 Amex]
-const yesterdayCardBreakdown = {
-  total: round2(17.31 + 2898.46),
-  visa: round2(17.31 + 1820.50),
-  mastercard: round2(638.54),
-  amex: round2(439.42),
-  discover: 0,
-  debit: 0,
-  ebt: 0,
-  returns: 0,
-};
-
-// ── Parse top items XLS ──────────────────────────────────────────────────────
-
-function parseItems(filePath) {
-  const wb = XLSX.readFile(filePath);
-  const ws = wb.Sheets[wb.SheetNames[0]];
-  const rows = XLSX.utils.sheet_to_json(ws, { header: 1 });
-  // Col indices: 0=Item, 4=Qty, 9=GrossSales
-  return rows
-    .slice(1)
-    .filter(r => {
-      const name = String(r[0] || '');
-      const qty = Number(r[4] || 0);
-      const revenue = Number(r[9] || 0);
-      return name && !name.startsWith('Total') && qty > 0 && revenue > 0;
-    })
-    .map(r => ({
-      name: String(r[0]).trim(),
-      qty: Number(r[4]),
-      revenue: round2(Number(r[9])),
-    }))
-    .sort((a, b) => b.revenue - a.revenue);
-}
-
-const todayItems = parseItems('/tmp/items_today.xls');
-const yesterdayItems = parseItems('/tmp/items_yesterday.xls');
-
-console.log(`Today items: ${todayItems.length}`);
-console.log(`Yesterday items: ${yesterdayItems.length}`);
-
-// ── Update dashboard.json ────────────────────────────────────────────────────
-
-const dashPath = '/home/user/yoi-dashboard/data/dashboard.json';
-const dash = JSON.parse(readFileSync(dashPath, 'utf8'));
-
-// Helper: upsert history entry
-function upsertHistory(date, updates) {
-  let entry = dash.history.find(h => h.date === date);
-  if (!entry) {
-    entry = {
-      date,
-      grossSales: 0, netSales: 0, taxes: 0, discounts: 0, voids: 0,
-      cashPayments: 0, creditCard: 0, openTickets: 0,
-      doordash: 0, stOnline: 0, uberEats: 0,
-    };
-    dash.history.push(entry);
-    dash.history.sort((a, b) => a.date.localeCompare(b.date));
-  }
-  for (const [k, v] of Object.entries(updates)) {
-    // Never reduce a good stored value for dollar metrics
-    if (typeof v === 'number' && typeof entry[k] === 'number' && k !== 'openTickets') {
-      entry[k] = Math.max(entry[k], v);
-    } else {
-      entry[k] = v;
+function parseItems(date) {
+  try {
+    const workbook = XLSX.readFile('/tmp/items_' + date + '.xls');
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    let headerIdx = -1;
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i]?.some(c => /^item$/i.test(String(c || '')))) { headerIdx = i; break; }
     }
+    if (headerIdx === -1) return [];
+    const headers = rows[headerIdx].map(h => String(h || '').trim());
+    const nameIdx = headers.findIndex(h => /^item$/i.test(h));
+    const qtyIdx = headers.findIndex(h => /^qty$/i.test(h));
+    const revIdx = (() => {
+      const g = headers.findIndex(h => /gross\s*sales/i.test(h));
+      return g !== -1 ? g : headers.findIndex(h => /^(net\s*sales|sales|revenue|amount|total)$/i.test(h));
+    })();
+    const items = [];
+    for (let i = headerIdx + 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (!row?.[nameIdx]) continue;
+      const name = String(row[nameIdx]).trim();
+      const qty = parseFloat(row[qtyIdx]) || 0;
+      const rev = parseFloat(row[revIdx]) || 0;
+      if (!name || name.toLowerCase().startsWith('total') || qty === 0 || rev === 0) continue;
+      items.push({ name, qty, revenue: r2(rev) });
+    }
+    items.sort((a, b) => b.revenue - a.revenue);
+    return items;
+  } catch (e) {
+    console.error('Warning: Could not parse items for ' + date + ':', e.message);
+    return [];
   }
 }
 
-// Helper: upsert itemsByDay entry
-function upsertItems(date, items) {
-  let entry = (dash.itemsByDay || []).find(i => i.date === date);
-  if (!entry) {
-    if (!dash.itemsByDay) dash.itemsByDay = [];
-    entry = { date, items: [] };
-    dash.itemsByDay.push(entry);
-    dash.itemsByDay.sort((a, b) => a.date.localeCompare(b.date));
+function updateHistory(date, liveMetrics, cardBreakdown) {
+  const existing = dashboard.history.find(e => e.date === date);
+  if (existing) {
+    if (liveMetrics.grossSales > (existing.grossSales || 0)) {
+      console.log('Updating ' + date + ': stored=' + existing.grossSales + ', live=' + liveMetrics.grossSales);
+      existing.grossSales = r2(higher(existing.grossSales || 0, liveMetrics.grossSales));
+      existing.netSales = r2(higher(existing.netSales || 0, liveMetrics.netSales));
+      existing.taxes = r2(higher(existing.taxes || 0, liveMetrics.taxes));
+      existing.discounts = r2(liveMetrics.discounts);
+      existing.voids = r2(liveMetrics.voids);
+      existing.cashPayments = r2(liveMetrics.cashPayments);
+      existing.creditCard = r2(liveMetrics.creditCard);
+      existing.openTickets = r2(liveMetrics.openTickets);
+      existing.doordash = existing.doordash || 0;
+      existing.stOnline = existing.stOnline || 0;
+      existing.uberEats = existing.uberEats || 0;
+    } else {
+      console.log('Keeping ' + date + ': stored=' + existing.grossSales);
+    }
+    if (cardBreakdown) { existing.cardBreakdown = cardBreakdown; console.log('Updated cardBreakdown for ' + date); }
+  } else {
+    console.log('Adding new entry for ' + date);
+    const entry = { date };
+    for (const [k, v] of Object.entries(liveMetrics)) entry[k] = r2(v);
+    if (cardBreakdown) entry.cardBreakdown = cardBreakdown;
+    const idx = dashboard.history.findIndex(e => e.date > date);
+    idx === -1 ? dashboard.history.push(entry) : dashboard.history.splice(idx, 0, entry);
   }
-  entry.items = items;
 }
 
-// ── Apply updates ────────────────────────────────────────────────────────────
+function updateItemsByDay(date, items) {
+  if (!items?.length) { console.log('No items for ' + date); return; }
+  if (!dashboard.itemsByDay) dashboard.itemsByDay = [];
+  const existing = dashboard.itemsByDay.find(e => e.date === date);
+  if (existing) {
+    console.log('Updating itemsByDay ' + date + ': ' + items.length + ' items');
+    existing.items = items;
+  } else {
+    console.log('Adding itemsByDay ' + date + ': ' + items.length + ' items');
+    const idx = dashboard.itemsByDay.findIndex(e => e.date > date);
+    idx === -1 ? dashboard.itemsByDay.push({ date, items }) : dashboard.itemsByDay.splice(idx, 0, { date, items });
+  }
+}
 
-// Today (2026-08-15) — early morning data (all zeros except openTickets)
-upsertHistory('2026-08-15', {
-  ...todayMetrics,
-  doordash: 0, stOnline: 0, uberEats: 0,
-});
+const items02 = parseItems('2026-11-02');
+const items03 = parseItems('2026-11-03');
+console.log('Items: Nov2=' + items02.length + ', Nov3=' + items03.length);
 
-// Today's top items
-upsertItems('2026-08-15', todayItems);
+updateHistory('2026-11-02', metricsData['2026-11-02'], null);
+updateHistory('2026-11-03', metricsData['2026-11-03'], cardBreakdownNov3);
+updateHistory('2026-11-04', metricsData['2026-11-04'], null);
+updateItemsByDay('2026-11-02', items02);
+updateItemsByDay('2026-11-03', items03);
 
-// Yesterday (2026-08-14) — backfill from API
-upsertHistory('2026-08-14', {
-  ...yesterdayMetrics,
-  doordash: 0, stOnline: 0, uberEats: 0,
-  cardBreakdown: yesterdayCardBreakdown,
-});
+const now = new Date().toISOString();
+dashboard.businessDay = '2026-11-04';
+dashboard.lastUpdated = now;
+dashboard.disputesScannedAt = now;
 
-// Yesterday's top items
-upsertItems('2026-08-14', yesterdayItems);
-
-// Update top-level EOD fields (today's data)
-dash.businessDay = '2026-08-15';
-dash.lastUpdated = '2026-08-15 9:13 AM CDT';
-dash.grossSales = todayMetrics.grossSales;
-dash.netSales = todayMetrics.netSales;
-dash.taxes = todayMetrics.taxes;
-dash.discounts = todayMetrics.discounts;
-dash.voids = todayMetrics.voids;
-dash.cashPayments = todayMetrics.cashPayments;
-dash.creditCard = todayMetrics.creditCard;
-dash.openTickets = todayMetrics.openTickets;
-
-// Update disputesScannedAt
-dash.disputesScannedAt = new Date().toISOString();
-
-// Update eod object
-dash.eod = {
-  grossSales: todayMetrics.grossSales,
-  netSales: todayMetrics.netSales,
-  taxes: todayMetrics.taxes,
-  voids: todayMetrics.voids,
-  cashPayments: todayMetrics.cashPayments,
-  creditCardPayments: todayMetrics.creditCard,
-  discounts: todayMetrics.discounts,
-  openTickets: todayMetrics.openTickets,
-};
-
-// Update processingDetail with yesterday's card breakdown
-dash.processingDetail = {
-  windowLabel: '2026-08-14 batch (settled 2026-08-15)',
-  rows: [
-    { label: 'Total Sales', amount: yesterdayCardBreakdown.total, bold: true },
-    { label: 'Visa', amount: yesterdayCardBreakdown.visa },
-    { label: 'Mastercard', amount: yesterdayCardBreakdown.mastercard },
-    { label: 'Amex', amount: yesterdayCardBreakdown.amex },
-    { label: 'Discover', amount: yesterdayCardBreakdown.discover },
-    { label: 'Debit', amount: yesterdayCardBreakdown.debit },
-    { label: 'EBT', amount: yesterdayCardBreakdown.ebt },
-    { label: 'Returns', amount: yesterdayCardBreakdown.returns },
-  ],
-};
-
-// ── Write ────────────────────────────────────────────────────────────────────
-
-writeFileSync(dashPath, JSON.stringify(dash, null, 2));
-console.log('dashboard.json updated successfully.');
-console.log(`  businessDay: ${dash.businessDay}`);
-console.log(`  openTickets: ${dash.openTickets}`);
-console.log(`  Yesterday gross: ${dash.history.find(h=>h.date==='2026-08-14')?.grossSales}`);
-console.log(`  Yesterday cardBreakdown total: ${dash.history.find(h=>h.date==='2026-08-14')?.cardBreakdown?.total}`);
-console.log(`  Today items: ${dash.itemsByDay?.find(i=>i.date==='2026-08-15')?.items?.length}`);
-console.log(`  Yesterday items: ${dash.itemsByDay?.find(i=>i.date==='2026-08-14')?.items?.length}`);
+writeFileSync(DASHBOARD_PATH, JSON.stringify(dashboard, null, 2));
+console.log('Done! businessDay=' + dashboard.businessDay + ', history=' + dashboard.history.length + ', items=' + dashboard.itemsByDay?.length);
