@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-11-09 10:09 AM CDT",
-  "businessDay": "2026-11-09",
+  "lastUpdated": "2026-11-10 10:09 AM CDT",
+  "businessDay": "2026-11-10",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -12271,6 +12271,20 @@
     },
     {
       "date": "2026-11-09",
+      "grossSales": 438.62,
+      "netSales": 405.2,
+      "taxes": 33.42,
+      "discounts": 10,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-11-10",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -129108,6 +129122,96 @@
           "revenue": 2.99
         }
       ]
+    },
+    {
+      "date": "2026-11-09",
+      "items": [
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 4,
+          "revenue": 83.96
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Thalapakattu Mutton Biryani",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 3,
+          "revenue": 41.97
+        },
+        {
+          "name": "Mysore Masala Dosa",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 4,
+          "revenue": 19.96
+        },
+        {
+          "name": "Chilli Paneer",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Ghee Roast Non-Veg Curry",
+          "qty": 1,
+          "revenue": 17.48
+        },
+        {
+          "name": "Gobi Manchurian (Dry/Wet)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Noodles",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Veg Curry Combo",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "YOI Special Dosa",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Chikoo Milkshake",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Bullet naan",
+          "qty": 1,
+          "revenue": 4.49
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 1,
+          "revenue": 4.49
+        },
+        {
+          "name": "Butter naan",
+          "qty": 1,
+          "revenue": 3.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -129132,7 +129236,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-09T15:09:23.807Z",
+  "disputesScannedAt": "2026-11-10T15:09:03.683Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
