@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-11-10 10:09 AM CDT",
-  "businessDay": "2026-11-10",
+  "lastUpdated": "2026-11-11 9:12 AM CST",
+  "businessDay": "2026-11-11",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -13,24 +13,24 @@
     "openTickets": 0
   },
   "processingDetail": {
-    "windowLabel": "2026-11-05 12:00AM – 11:59PM CDT",
+    "windowLabel": "2026-11-10 Batch",
     "rows": [
       {
         "label": "Total Sales",
-        "amount": 337.49,
+        "amount": 96.65,
         "bold": true
       },
       {
         "label": "Visa",
-        "amount": 278.8
+        "amount": 96.65
       },
       {
         "label": "Mastercard",
-        "amount": 38.8
+        "amount": 0
       },
       {
         "label": "Amex",
-        "amount": 19.89
+        "amount": 0
       },
       {
         "label": "Discover",
@@ -12285,6 +12285,30 @@
     },
     {
       "date": "2026-11-10",
+      "grossSales": 0,
+      "netSales": 0,
+      "taxes": 0,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "visa": 96.65,
+        "mastercard": 0,
+        "amex": 0,
+        "discover": 0,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0,
+        "total": 96.65
+      }
+    },
+    {
+      "date": "2026-11-11",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -129236,7 +129260,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-10T15:09:03.683Z",
+  "disputesScannedAt": "2026-11-11T15:12:18.634Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
