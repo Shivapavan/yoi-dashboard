@@ -1,16 +1,16 @@
 {
-  "lastUpdated": "2026-11-11 9:12 AM CST",
-  "businessDay": "2026-11-11",
+  "lastUpdated": "11/12/2026, 9:14 AM CST",
+  "businessDay": "2026-11-12",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
-    "grossSales": 0,
-    "netSales": 0,
-    "taxes": 0,
-    "discounts": 0,
+    "grossSales": 594.38,
+    "netSales": 549.08,
+    "taxes": 45.3,
+    "discounts": 10,
     "voids": 0,
     "cashPayments": 0,
     "creditCardPayments": 0,
-    "openTickets": 0
+    "openTickets": 594.38
   },
   "processingDetail": {
     "windowLabel": "2026-11-10 Batch",
@@ -12309,6 +12309,20 @@
     },
     {
       "date": "2026-11-11",
+      "grossSales": 594.38,
+      "netSales": 549.08,
+      "taxes": 45.3,
+      "discounts": 10,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 594.38,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-11-12",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -12316,10 +12330,10 @@
       "voids": 0,
       "cashPayments": 0,
       "creditCard": 0,
-      "openTickets": 0,
       "doordash": 0,
       "stOnline": 0,
-      "uberEats": 0
+      "uberEats": 0,
+      "openTickets": 0
     }
   ],
   "itemsByDay": [
@@ -129236,6 +129250,126 @@
           "revenue": 3.99
         }
       ]
+    },
+    {
+      "date": "2026-11-11",
+      "items": [
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 4,
+          "revenue": 83.96
+        },
+        {
+          "name": "Vijayawada Veg Biryani",
+          "qty": 3,
+          "revenue": 54.97
+        },
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "PachiMirchi Veg Keema Pulav",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Ghee Karam Masala Dosa",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Onion Dosa",
+          "qty": 2,
+          "revenue": 23.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 4,
+          "revenue": 19.96
+        },
+        {
+          "name": "Gongura Non-Veg Curry",
+          "qty": 1,
+          "revenue": 18.48
+        },
+        {
+          "name": "Baby Corn Manchurian",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chicken 555(Semi Wet)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chicken 65(Dry)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Masala Non-Veg Curry",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Veg Kadai Masala",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Chilli Chicken (Dry/Semi Wet)",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Chicken Corn Soup",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Kesar Badam Milk (Chilled)",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Mango Lassi",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Mothichoor Laddu(4 Pcs)",
+          "qty": 1,
+          "revenue": 7.99
+        },
+        {
+          "name": "Parata(1)",
+          "qty": 2,
+          "revenue": 6.98
+        },
+        {
+          "name": "Gulab Jamun (4 pcs)",
+          "qty": 1,
+          "revenue": 5.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -129260,7 +129394,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-11T15:12:18.634Z",
+  "disputesScannedAt": "2026-11-12T15:14:07.692Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
