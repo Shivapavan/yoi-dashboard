@@ -1,60 +1,52 @@
-import { chromium } from 'playwright';
+import pkg from '../node_modules/playwright/index.js';
+const { chromium } = pkg;
 
-async function tryGetToken() {
-  const browser = await chromium.launch({ headless: true, ignoreHTTPSErrors: true });
-  const context = await browser.newContext({ ignoreHTTPSErrors: true });
-  const page = await context.newPage();
+const browser = await chromium.launch({
+  headless: true,
+  executablePath: '/opt/pw-browsers/chromium',
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    `--proxy-server=${process.env.HTTPS_PROXY || 'http://127.0.0.1:34821'}`,
+    `--ignore-certificate-errors-spki-list`,
+  ],
+  proxy: { server: process.env.HTTPS_PROXY || 'http://127.0.0.1:34821' },
+});
 
+try {
+  const page = await browser.newPage();
+  await page.goto('https://lh.shift4.com/sign-in', { waitUntil: 'domcontentloaded', timeout: 45000 });
+
+  const emailInput = page.locator('input').first();
+  const passInput = page.locator('input[type="password"]');
+  await emailInput.fill(process.env.LH_EMAIL);
+  await passInput.fill(process.env.LH_PASS);
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  // Wait for navigation away from sign-in
   try {
-    await page.goto('https://lh.shift4.com/sign-in', { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.waitForURL((url) => !url.includes('/sign-in'), { timeout: 25000 });
+  } catch {
+    await page.waitForTimeout(5000);
+  }
 
-    // Wait for inputs to be visible
-    await page.waitForSelector('input', { timeout: 15000 });
+  // Read token from localStorage
+  const token = await page.evaluate(() => {
+    const s = localStorage.getItem('ember_simple_auth-session');
+    if (!s) return '';
+    return JSON.parse(s)?.authenticated?.token || '';
+  });
 
-    const emailInput = page.locator('input[type="email"], input[type="text"]').first();
-    const passInput = page.locator('input[type="password"]');
+  await browser.close();
 
-    await emailInput.fill('yumofindiamckinney@gmail.com');
-    await passInput.fill('yumofindia@2025');
-    await page.getByRole('button', { name: /sign.?in/i }).click();
-
-    // Wait for redirect to dashboard or for token to appear
-    await page.waitForURL('**/dashboard', { timeout: 30000 });
-
-    const session = await page.evaluate(() => {
-      const s = localStorage.getItem('ember_simple_auth-session');
-      return JSON.parse(s)?.authenticated?.token || '';
-    });
-
-    await browser.close();
-
-    if (!session) {
-      process.stderr.write('ERROR: No token found in localStorage\n');
-      process.exit(1);
-    }
-
-    console.log(session);
-  } catch (err) {
-    // Try to grab token from network requests if page redirect approach failed
-    try {
-      const token = await page.evaluate(() => {
-        const s = localStorage.getItem('ember_simple_auth-session');
-        return JSON.parse(s)?.authenticated?.token || '';
-      });
-      await browser.close();
-      if (token) {
-        console.log(token);
-        return;
-      }
-    } catch (_) { /* ignore */ }
-
-    await browser.close();
-    process.stderr.write(`ERROR: ${err.message}\n`);
+  if (!token) {
+    process.stderr.write('ERROR: No token found in localStorage\n');
     process.exit(1);
   }
-}
 
-tryGetToken().catch(err => {
-  process.stderr.write(`FATAL: ${err.message}\n`);
+  process.stdout.write(token + '\n');
+} catch (err) {
+  process.stderr.write('ERROR: ' + err.message + '\n');
+  await browser.close().catch(() => {});
   process.exit(1);
-});
+}
