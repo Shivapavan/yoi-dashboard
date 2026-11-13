@@ -13,9 +13,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // --- Step 1: Get JWT token via headless Playwright ---
 async function getToken() {
+  const proxyPort = (process.env.HTTPS_PROXY || 'http://127.0.0.1:38997').split(':').pop().replace(/\/$/, '');
   const pacContent = `function FindProxyForURL(url, host) {
   if (url.substring(0, 5) === 'https') {
-    return "PROXY 127.0.0.1:32807";
+    return "PROXY 127.0.0.1:${proxyPort}";
   }
   return "DIRECT";
 }`;
