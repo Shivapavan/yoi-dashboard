@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-11-13 11:06 AM CDT",
-  "businessDay": "2026-11-13",
+  "lastUpdated": "2026-11-14 10:10 AM CDT",
+  "businessDay": "2026-11-14",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 594.38,
@@ -12337,6 +12337,20 @@
     },
     {
       "date": "2026-11-13",
+      "grossSales": 938.41,
+      "netSales": 866.88,
+      "taxes": 71.53,
+      "discounts": 10,
+      "voids": 77.95,
+      "cashPayments": 0,
+      "creditCard": 402.41,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-11-14",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -129574,6 +129588,236 @@
           "revenue": 0.99
         }
       ]
+    },
+    {
+      "date": "2026-11-13",
+      "items": [
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 5,
+          "revenue": 84.44
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 6,
+          "revenue": 77.94
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 3,
+          "revenue": 62.97
+        },
+        {
+          "name": "Mysore Masala Dosa",
+          "qty": 4,
+          "revenue": 51.96
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "PachiMirchi Veg Keema Pulav",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Veg Kheema Biryani",
+          "qty": 2,
+          "revenue": 39.98
+        },
+        {
+          "name": "Crispy Corn Masala",
+          "qty": 2,
+          "revenue": 29.98
+        },
+        {
+          "name": "Ghee Roast Goat Fry Pulav",
+          "qty": 1,
+          "revenue": 20.99
+        },
+        {
+          "name": "Mutton Sukka Varuval",
+          "qty": 1,
+          "revenue": 18.99
+        },
+        {
+          "name": "Pamphret Fish Fry",
+          "qty": 1,
+          "revenue": 18.99
+        },
+        {
+          "name": "Apollo Fish",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Thalapakattu Jackfruit Biryani Combo",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Chilli Paneer",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Karivepaku Non-Veg Curry",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Chettinad Non-Veg Curry",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "qty": 1,
+          "revenue": 16.48
+        },
+        {
+          "name": "Burnt Garlic Noodles",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Ghee Roast Garlic Paneer",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Hyderabad Chicken  Biryani",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Karivepaku Chicken",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Karivepaku Gobi",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Regular Veg Thaali",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Baby Corn Pepper Onion",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Nimbu Masala Soda",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Onion Pakora",
+          "qty": 2,
+          "revenue": 13.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Boiled Peanut Masala",
+          "qty": 1,
+          "revenue": 11.99
+        },
+        {
+          "name": "Medu Vada(3 Pcs)",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "Fresh Watermelon Juice",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Mango Lassi",
+          "qty": 1,
+          "revenue": 8.99
+        },
+        {
+          "name": "Rumali Roti",
+          "qty": 2,
+          "revenue": 8.98
+        },
+        {
+          "name": "Paan",
+          "qty": 3,
+          "revenue": 8.97
+        },
+        {
+          "name": "Butter naan",
+          "qty": 2,
+          "revenue": 7.98
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 2,
+          "revenue": 7.98
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 6,
+          "revenue": 7.84
+        },
+        {
+          "name": "Pani Puri (6 Pcs)",
+          "qty": 1,
+          "revenue": 6.99
+        },
+        {
+          "name": "Irani Chai Small",
+          "qty": 5,
+          "revenue": 6.25
+        },
+        {
+          "name": "Mirchi Bajji (3 pcs)",
+          "qty": 1,
+          "revenue": 5.99
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Bullet naan",
+          "qty": 1,
+          "revenue": 3.49
+        },
+        {
+          "name": "Parata(1)",
+          "qty": 1,
+          "revenue": 3.49
+        },
+        {
+          "name": "Pepsi",
+          "qty": 1,
+          "revenue": 2.99
+        },
+        {
+          "name": "Water Bottle",
+          "qty": 1,
+          "revenue": 0.99
+        }
+      ]
     }
   ],
   "disputes": [
@@ -129598,7 +129842,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-13T16:06:06.673Z",
+  "disputesScannedAt": "2026-11-14T15:10:14.969Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
