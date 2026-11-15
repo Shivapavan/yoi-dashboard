@@ -12,6 +12,7 @@ fs.writeFileSync('/tmp/chromium_proxy.pac', pacContent);
 
 // Try both chromium paths
 const execPaths = [
+  '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome',
   '/opt/pw-browsers/chromium-1228/chrome-linux64/chrome',
   '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
 ];
