@@ -109,6 +109,16 @@ async function run() {
     try {
       const buffer = await exportDay(page, date)
       const metrics = parseRestcallWorkbook(buffer)
+      if (process.env.RESTCALL_DIAG) {
+        const XLSX = await import('../../node_modules/xlsx/xlsx.mjs')
+        const wb = XLSX.read(buffer, { type: 'buffer', cellDates: true })
+        const aoa = n => wb.Sheets[n] ? XLSX.utils.sheet_to_json(wb.Sheets[n], { header: 1, defval: null }) : null
+        console.log(`DIAG ${date} sheets=${JSON.stringify(wb.SheetNames)}`)
+        for (const n of ['Summary', 'Daily Revenue', 'Hourly Volume', 'Comparison', 'Outcomes']) console.log(`DIAG ${date} ${n}=${JSON.stringify(aoa(n))}`)
+        console.log(`DIAG ${date} channels=${JSON.stringify(metrics.channels)}`)
+        await page.screenshot({ path: `/tmp/restcall-backfill-${date}.png`, fullPage: true }).catch(() => {})
+        continue
+      }
       await sql`
         INSERT INTO restcall_daily_data (date, metrics, scraped_at, updated_at)
         VALUES (${date}, ${JSON.stringify(metrics)}, NOW(), NOW())

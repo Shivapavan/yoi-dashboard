@@ -24,6 +24,7 @@ jobs:
         env:
           RESTCALL_SESSION_STATE: ${{ secrets.RESTCALL_SESSION_STATE }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RESTCALL_DIAG: '1'
       - name: Upload failure screenshots
         if: always()
         uses: actions/upload-artifact@v4
