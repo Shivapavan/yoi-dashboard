@@ -1,0 +1,40 @@
+name: Export Daily Data
+
+# Exports stored daily sales rows, encrypted to a caller-supplied RSA public key
+# (the repo is public, so plaintext must never reach the log).
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: 'From date (YYYY-MM-DD, inclusive)'
+        required: true
+      to:
+        description: 'To date (YYYY-MM-DD, inclusive)'
+        required: true
+      pubkey:
+        description: 'RSA public key (PEM, base64-encoded) to encrypt the export to'
+        required: true
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-save @neondatabase/serverless
+      - name: Export and encrypt
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PUBKEY_B64: ${{ inputs.pubkey }}
+        run: |
+          set -euo pipefail
+          node scripts/export-daily.mjs "${{ inputs.from }}" "${{ inputs.to }}" | gzip -9 > /tmp/export.json.gz
+          echo "$PUBKEY_B64" | base64 -d > /tmp/pub.pem
+          openssl rand -out /tmp/k.bin 32
+          openssl pkeyutl -encrypt -pubin -inkey /tmp/pub.pem -in /tmp/k.bin -out /tmp/k.enc
+          openssl enc -aes-256-cbc -pbkdf2 -salt -pass file:/tmp/k.bin -in /tmp/export.json.gz -out /tmp/export.enc
+          echo "KEY $(base64 -w0 /tmp/k.enc)"
+          base64 -w 4000 /tmp/export.enc | sed 's/^/DATA /'
+          rm -f /tmp/k.bin /tmp/export.json.gz
