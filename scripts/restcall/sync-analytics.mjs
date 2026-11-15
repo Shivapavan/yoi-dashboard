@@ -107,7 +107,10 @@ async function run() {
   }
 
   const metrics = parseRestcallWorkbook(buffer)
-  const date = businessDateCentral()
+  // Store under the business date RestCall itself reports for the export, so a
+  // run near the 4 AM rollover can't file one day's sales under another date.
+  const exportedDates = metrics.summary.businessDates ?? []
+  const date = exportedDates.length === 1 ? exportedDates[0] : businessDateCentral()
 
   const sql = neon(dbUrl)
   await sql`

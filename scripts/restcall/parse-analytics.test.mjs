@@ -146,3 +146,28 @@ test('parses daily revenue business date as a YYYY-MM-DD string', () => {
   assert.equal(result.dailyRevenue[0].orders, 3)
   assert.equal(result.dailyRevenue[0].averageTicket, 19.05333333333333)
 })
+
+test('parses Nov 2026 summary labels (Sales after refunds / Paid orders) and range text', () => {
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([
+    ['Yum of India Analytics'],
+    ['Custom range | Nov 13, 2026, 4:00 AM CST to Nov 14, 2026, 3:59 AM CST'],
+    ['Generated Nov 14, 2026, 9:44 PM CST | America/Chicago'],
+    ['Payment types', 'All payment types'],
+    ['Metric', 'Value'],
+    ['Selected range', 'Custom range'],
+    ['Sales after refunds', 2650.41],
+    ['Paid orders', 86],
+    ['Refunds', 0],
+    ['Not yet paid', 0],
+  ]), 'Summary')
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([
+    ['Business date', 'Revenue', 'Orders', 'Average ticket'],
+    [new Date('2026-11-13T12:00:00Z'), 2650.41, 86, 30.82],
+  ]), 'Daily Revenue')
+  const result = parseRestcallWorkbook(XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' }))
+  assert.equal(result.summary.revenue, 2650.41)
+  assert.equal(result.summary.orders, 86)
+  assert.equal(result.summary.rangeText, 'Custom range | Nov 13, 2026, 4:00 AM CST to Nov 14, 2026, 3:59 AM CST')
+  assert.deepEqual(result.summary.businessDates, ['2026-11-13'])
+})

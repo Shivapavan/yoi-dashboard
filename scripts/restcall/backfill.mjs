@@ -37,6 +37,19 @@ function addDays(dateStr, n) {
   return d.toISOString().split('T')[0]
 }
 
+// RestCall sometimes ignores the Custom Range (e.g. on the first export after
+// login) and exports "Today" instead. Confirm the workbook really covers `date`
+// before storing it — the Daily Revenue sheet's business date is authoritative;
+// the Summary's range line is the fallback for days with no sales.
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+export function exportCoversDate(metrics, date) {
+  const dates = metrics.summary.businessDates ?? []
+  if (dates.length) return dates.every(d => d === date)
+  const [y, m, d] = date.split('-').map(Number)
+  const text = metrics.summary.rangeText ?? ''
+  return text.startsWith('Custom range') && text.includes(`${MONTHS[m - 1]} ${d}, ${y}, 4:00 AM`)
+}
+
 async function exportDay(page, date) {
   // Reload fresh each time: after a custom range is applied once, the range
   // button's label changes (loses the word "Since"), so a text-based selector
@@ -107,8 +120,14 @@ async function run() {
   let failures = 0
   for (const date of dates) {
     try {
-      const buffer = await exportDay(page, date)
-      const metrics = parseRestcallWorkbook(buffer)
+      let metrics = null
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        const candidate = parseRestcallWorkbook(await exportDay(page, date))
+        if (exportCoversDate(candidate, date)) { metrics = candidate; break }
+        console.warn(`  ${date}: export covered "${candidate.summary.rangeText}" (attempt ${attempt}) — retrying`)
+        await page.waitForTimeout(2000 * attempt)
+      }
+      if (!metrics) throw new Error('RestCall kept exporting the wrong date range; nothing stored')
       await sql`
         INSERT INTO restcall_daily_data (date, metrics, scraped_at, updated_at)
         VALUES (${date}, ${JSON.stringify(metrics)}, NOW(), NOW())

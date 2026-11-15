@@ -44,7 +44,12 @@ function parseTabularSheet(aoa, columns) {
 export function parseRestcallWorkbook(buffer) {
   const wb = XLSX.read(buffer, { type: 'buffer', cellDates: true })
 
-  const { scalars: summary } = parseStackedKeyValueSheet(sheetAoa(wb, 'Summary'))
+  const summaryAoa = sheetAoa(wb, 'Summary')
+  const { scalars: summary } = parseStackedKeyValueSheet(summaryAoa)
+  // Second row describes the exported window, e.g.
+  // "Custom range | Nov 13, 2026, 4:00 AM CST to Nov 14, 2026, 3:59 AM CST".
+  // Used to verify the export really covers the day we asked for.
+  const rangeText = summaryAoa[1]?.[0] != null ? String(summaryAoa[1][0]).trim() : null
   const { scalars: financials } = parseStackedKeyValueSheet(sheetAoa(wb, 'Financials'))
   const { scalars: aiScalars, countTables: aiBreakdowns } = parseStackedKeyValueSheet(sheetAoa(wb, 'AI Summary'))
 
@@ -64,7 +69,10 @@ export function parseRestcallWorkbook(buffer) {
   // sources so a real day is never recorded as $0 (which the sync then skips).
   const num = v => (typeof v === 'number' && Number.isFinite(v) ? v : 0)
   const sum = (rows, key) => rows.reduce((t, r) => t + num(r[key]), 0)
+  // RestCall renamed Summary rows in Nov 2026: "Revenue" -> "Sales after refunds",
+  // "Orders" -> "Paid orders". Accept both so old and new exports parse.
   const revenueCandidates = [
+    num(summary['Sales after refunds']),
     num(summary['Revenue']),
     num(financials['Revenue']),
     sum(dailyRevenue, 'revenue'),
@@ -72,12 +80,18 @@ export function parseRestcallWorkbook(buffer) {
     num(financials['Net item sales']) + num(financials['Taxes']),
   ]
   const revenue = Math.round((revenueCandidates.find(v => v > 0) ?? 0) * 100) / 100
+  const orders = num(summary['Paid orders']) || num(summary['Orders']) || sum(dailyRevenue, 'orders')
+  const businessDates = dailyRevenue.map(r => r.businessDate).filter(Boolean)
 
   return {
     summary: {
       selectedRange: summary['Selected range'] ?? null,
+      rangeText,
+      businessDates,
       revenue,
-      orders: summary['Orders'] ?? 0,
+      orders,
+      refunds: num(summary['Refunds']),
+      notYetPaid: num(summary['Not yet paid']),
       averageTicket: summary['Average ticket'] ?? 0,
       cancellationRate: summary['Cancellation rate'] ?? 0,
       countedSales: summary['Counted sales'] ?? 0,
