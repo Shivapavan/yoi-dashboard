@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "11/15/2026 09:09 AM CST",
-  "businessDay": "2026-11-15",
+  "lastUpdated": "2026-11-16 10:09 AM CDT",
+  "businessDay": "2026-11-16",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 594.38,
@@ -12375,6 +12375,20 @@
     },
     {
       "date": "2026-11-15",
+      "grossSales": 252.33,
+      "netSales": 233.11,
+      "taxes": 19.22,
+      "discounts": 4.5,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 9.5,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-11-16",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -130012,6 +130026,61 @@
           "revenue": 1.98
         }
       ]
+    },
+    {
+      "date": "2026-11-15",
+      "items": [
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 4,
+          "revenue": 51.96
+        },
+        {
+          "name": "Chicken 65 Biryani",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Mysore Masala Dosa",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Chicken Lollipops",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Karivepaku Gobi",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 3,
+          "revenue": 14.97
+        },
+        {
+          "name": "Veg Curry Combo",
+          "qty": 1,
+          "revenue": 13.99
+        },
+        {
+          "name": "Honey Cake",
+          "qty": 2,
+          "revenue": 8.78
+        }
+      ]
     }
   ],
   "disputes": [
@@ -130036,7 +130105,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "11/15/2026 09:09 AM CST",
+  "disputesScannedAt": "2026-11-16T15:09:04.333Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
