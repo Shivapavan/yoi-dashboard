@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-11-17 10:07 AM CDT",
-  "businessDay": "2026-11-17",
+  "lastUpdated": "2026-11-18 10:08 AM CDT",
+  "businessDay": "2026-11-18",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 594.38,
@@ -12403,6 +12403,20 @@
     },
     {
       "date": "2026-11-17",
+      "grossSales": 392.63,
+      "netSales": 362.72,
+      "taxes": 29.91,
+      "discounts": 8.5,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 392.63,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-11-18",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -130200,6 +130214,106 @@
           "revenue": 3.99
         }
       ]
+    },
+    {
+      "date": "2026-11-17",
+      "items": [
+        {
+          "name": "Pachimirchi Kodi Pulav",
+          "qty": 3,
+          "revenue": 59.97
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 4,
+          "revenue": 51.96
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Mysore Masala Dosa",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Ghee Roast Goat Fry",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Pachi Mirchi Panner Pulav",
+          "qty": 1,
+          "revenue": 18.99
+        },
+        {
+          "name": "Kaju(Cashew) Paneer Curry",
+          "qty": 1,
+          "revenue": 18.48
+        },
+        {
+          "name": "Chicken 65 Pulav",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Paneer Tikka Masala",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Gobi Manchurian (Dry/Wet)",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Ghee Roast Garlic Mushroom",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Mushroom Dum Biryani",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Veg Manchow Soup",
+          "qty": 1,
+          "revenue": 8.49
+        },
+        {
+          "name": "Butter naan",
+          "qty": 2,
+          "revenue": 7.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 1,
+          "revenue": 4.99
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 1,
+          "revenue": 4.49
+        },
+        {
+          "name": "Parata(1)",
+          "qty": 1,
+          "revenue": 3.49
+        },
+        {
+          "name": "Plain Naan",
+          "qty": 1,
+          "revenue": 3.49
+        }
+      ]
     }
   ],
   "disputes": [
@@ -130224,7 +130338,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-17T15:07:51.570Z",
+  "disputesScannedAt": "2026-11-18T15:08:52.693Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
