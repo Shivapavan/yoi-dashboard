@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-11-23 10:07 AM CDT",
-  "businessDay": "2026-11-23",
+  "lastUpdated": "11/24/2026 9:11 AM CST",
+  "businessDay": "2026-11-24",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 594.38,
@@ -12487,6 +12487,29 @@
     },
     {
       "date": "2026-11-23",
+      "grossSales": 487.15,
+      "netSales": 450.03,
+      "taxes": 37.12,
+      "discounts": 0,
+      "voids": 1.61,
+      "cashPayments": 0,
+      "creditCard": 26.6,
+      "openTickets": 488.76,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "visa": 44.56,
+        "mastercard": 69.18,
+        "amex": 0,
+        "discover": 0,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0
+      }
+    },
+    {
+      "date": "2026-11-24",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -130959,6 +130982,100 @@
           "revenue": 1.85
         }
       ]
+    },
+    {
+      "date": "2026-11-23",
+      "items": [
+        {
+          "name": "Veg Kheema Biryani",
+          "qty": 6,
+          "revenue": 119.94
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 4,
+          "revenue": 83.96
+        },
+        {
+          "name": "Kukatpally Chicken Pulav",
+          "qty": 2,
+          "revenue": 41.98
+        },
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "2 Idly 1 Vada (Combo)",
+          "qty": 2,
+          "revenue": 25.98
+        },
+        {
+          "name": "Onion Dosa",
+          "qty": 2,
+          "revenue": 23.98
+        },
+        {
+          "name": "Plain Dosa",
+          "qty": 2,
+          "revenue": 19.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 4,
+          "revenue": 19.96
+        },
+        {
+          "name": "Schewazan Fried Rice",
+          "qty": 1,
+          "revenue": 15.99
+        },
+        {
+          "name": "Regular Cheese Dosa",
+          "qty": 1,
+          "revenue": 12.99
+        },
+        {
+          "name": "Breakfast  Combo",
+          "qty": 1,
+          "revenue": 9.99
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 1,
+          "revenue": 4.49
+        },
+        {
+          "name": "Butter naan",
+          "qty": 1,
+          "revenue": 3.99
+        },
+        {
+          "name": "Irani Chai",
+          "qty": 1,
+          "revenue": 3.25
+        },
+        {
+          "name": "Masala Chai Small",
+          "qty": 1,
+          "revenue": 0.99
+        },
+        {
+          "name": "Service Charge For Dining",
+          "qty": 1,
+          "revenue": 0.6
+        }
+      ]
+    },
+    {
+      "date": "2026-11-24",
+      "items": []
     }
   ],
   "disputes": [
@@ -130983,7 +131100,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-23T15:07:44.109Z",
+  "disputesScannedAt": "2026-11-24T15:11:39.943Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
