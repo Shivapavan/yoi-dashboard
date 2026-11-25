@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "11/24/2026 9:11 AM CST",
-  "businessDay": "2026-11-24",
+  "lastUpdated": "11/25/2026 09:13 AM CST",
+  "businessDay": "2026-11-25",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 594.38,
@@ -12510,6 +12510,29 @@
     },
     {
       "date": "2026-11-24",
+      "grossSales": 448.94,
+      "netSales": 414.73,
+      "taxes": 34.21,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 448.94,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0,
+      "cardBreakdown": {
+        "visa": 0,
+        "mastercard": 0,
+        "amex": 0,
+        "discover": 0,
+        "debit": 0,
+        "ebt": 0,
+        "returns": 0
+      }
+    },
+    {
+      "date": "2026-11-25",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -131076,6 +131099,10 @@
     {
       "date": "2026-11-24",
       "items": []
+    },
+    {
+      "date": "2026-11-25",
+      "items": []
     }
   ],
   "disputes": [
@@ -131100,7 +131127,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-24T15:11:39.943Z",
+  "disputesScannedAt": "2026-11-25T15:13:11.083Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
