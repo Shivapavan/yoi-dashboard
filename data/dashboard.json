@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "11/26/2026 09:08 AM CST",
-  "businessDay": "2026-11-26",
+  "lastUpdated": "2026-11-27 10:08 AM CDT",
+  "businessDay": "2026-11-27",
   "businessDayWindow": "10/23 04:00AM – 10/22 03:59AM CDT",
   "eod": {
     "grossSales": 0,
@@ -12556,6 +12556,20 @@
     },
     {
       "date": "2026-11-26",
+      "grossSales": 317.37,
+      "netSales": 293.19,
+      "taxes": 24.18,
+      "discounts": 0,
+      "voids": 0,
+      "cashPayments": 0,
+      "creditCard": 0,
+      "openTickets": 0,
+      "doordash": 0,
+      "stOnline": 0,
+      "uberEats": 0
+    },
+    {
+      "date": "2026-11-27",
       "grossSales": 0,
       "netSales": 0,
       "taxes": 0,
@@ -131126,6 +131140,81 @@
     {
       "date": "2026-11-25",
       "items": []
+    },
+    {
+      "date": "2026-11-26",
+      "items": [
+        {
+          "name": "Chicken Butter Masala",
+          "qty": 2,
+          "revenue": 33.98
+        },
+        {
+          "name": "Kadai Methi Paneer",
+          "qty": 2,
+          "revenue": 31.98
+        },
+        {
+          "name": "Butter naan",
+          "qty": 8,
+          "revenue": 31.92
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 2,
+          "revenue": 27.98
+        },
+        {
+          "name": "Aloo Samosa",
+          "qty": 5,
+          "revenue": 24.95
+        },
+        {
+          "name": "Vijayawada Chicken Biryani Boneless",
+          "qty": 1,
+          "revenue": 20.99
+        },
+        {
+          "name": "Paneer Biryani",
+          "qty": 1,
+          "revenue": 19.99
+        },
+        {
+          "name": "Paneer Tikka Masala",
+          "qty": 1,
+          "revenue": 18.48
+        },
+        {
+          "name": "Chicken 555 Biryani",
+          "qty": 1,
+          "revenue": 17.99
+        },
+        {
+          "name": "Gobi 65",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Mixed Curry Combos",
+          "qty": 1,
+          "revenue": 16.99
+        },
+        {
+          "name": "Noodles",
+          "qty": 1,
+          "revenue": 14.99
+        },
+        {
+          "name": "Garlic naan",
+          "qty": 2,
+          "revenue": 8.98
+        },
+        {
+          "name": "Parata(1)",
+          "qty": 2,
+          "revenue": 6.98
+        }
+      ]
     }
   ],
   "disputes": [
@@ -131150,7 +131239,7 @@
       "link": "https://lh.shift4.com/transactions/master-transactions?transactionId=6453151632"
     }
   ],
-  "disputesScannedAt": "2026-11-26T15:08:59.763Z",
+  "disputesScannedAt": "2026-11-27T15:08:08.956Z",
   "grossSales": 0,
   "netSales": 0,
   "taxes": 0,
